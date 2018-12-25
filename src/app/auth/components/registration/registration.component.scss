@@ -1,0 +1,379 @@
+.main {
+    background: #f6fafc;
+}
+
+a.sign-logo {
+    /* position: absolute;
+    top: 43px; left: 50%;
+    margin-left: -35px; */
+    overflow: hidden;
+    display: block;
+    width: 47px; height: 47px;
+    line-height: 200px;
+    background: url(../../../../assets/images/logo.svg)no-repeat;
+    background-size: auto 47px;
+    margin: auto;
+}
+
+::-webkit-input-placeholder { color: #bdc6cb; }
+::-moz-placeholder          { color: #bdc6cb; }
+:-moz-placeholder           { color: #bdc6cb; }
+:-ms-input-placeholder      { color: #bdc6cb; }
+
+
+a {
+    text-decoration: none;
+    color: #D1C881;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+
+input[type=checkbox] { display: none }
+
+input[type=checkbox] + label {
+    color: #2b2e30;
+    font-size: 15px;
+    cursor: pointer;
+    position: relative;
+    border-radius: 3px;
+    display: inline-block;
+    padding: 5px 5px 5px 34px;
+}
+
+input[type=checkbox] + label span {
+    left: 5px;
+    top: 50%;
+    position: absolute;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    display: block;
+    background: #e7edf1;
+    border-radius: 4px;
+}
+
+input[type=checkbox]:checked + label {
+    color: #AEB7C6;
+}
+
+input[type=checkbox]:checked + label span {
+    background: #313448;
+}
+
+input[type=checkbox] + label span::after {
+    background: #D8C661;
+    width: 11px;
+    height: 11px;
+    left: 2.8px;
+    top: 2.2px;
+    flex-shrink: 0;
+    border-radius: 3px;
+    content: '';
+    display: block;
+    position: absolute;
+    background-size: 13px auto;
+    transform: scale(0);
+    transition: transform 300ms cubic-bezier(0.3, 0, 0, 1.5);
+}
+input[type=checkbox] + label .sup-lable::after{
+    left: 2.6px;
+    top: 2.4px;
+}
+
+input[type=checkbox]:checked + label span::after {
+    transform: scale(1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.sign {
+    background: #f6fafc;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+}
+
+.sign-narrow {
+    max-width: 394px;
+    margin: 0 auto;
+    padding: 155px 11px 30px 11px;
+    overflow: hidden;
+}
+
+.sign-container {
+    padding-bottom: 27px;
+    border-radius: 3px;
+    box-shadow: 0 10px 44px rgba(137, 145, 164, 0.13);
+    padding-top: 35px;
+}
+
+.sign-container h3 {
+    padding: 17px 0 35px 0;
+    border-bottom: 1px solid #fefefe0d;
+    text-align: center;
+    color: #2b2e30;
+    font-size: 20px;
+    line-height: 26px;
+    
+}
+
+.sign-container-input {
+    padding: 13px 22px 10.5px 28px;
+    border-bottom: 1px solid #fefefe0d;
+}
+
+.sign-container-input span {
+    display: block;
+    float: left;
+    width: 31.8%;
+    height: 36px;
+    line-height: 36px;
+    color: #A69F9A;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.sign-container-input input {
+    width: 68.2%;
+    height: 36px;
+    border: 0;
+    background-color: transparent;
+    color: #868d91;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.sign-container-checkbox {
+    padding: 22px 22px 19px 21px;
+}
+
+.sign-container-checkbox a.sign-container-fgtpss {
+    float: right;
+    margin-top: 4px;
+}
+
+.sign-container button {
+    width: calc(100% - 45px);
+    height: 55px;
+    margin: 0 22px 0 23px;
+    background: linear-gradient(180deg, #D1C881 0%, #D0B65D 100%), linear-gradient(359.95deg, #9E7C2D 0.26%, #D6C856 99.73%);
+    border-radius: 4px;
+    color: #1A1F2B;
+    font-size: 16px;
+    font-weight: 900;
+    transition: none;
+}
+
+.sign-container button:hover {
+    background: #D1C881;
+}
+.sign-container button:active {
+    background: #9E7C2D;
+}
+
+.sign-links {
+    padding: 38px 0 0 0;
+    text-align: center;
+    font-size: 15px;
+    line-height: 17px;
+}
+
+.sign-links a {
+    color: #D1C881;
+}
+.sign-links a:hover {
+    color: rgb(155, 132, 78);
+}
+.sign-links a:active {
+    color: #9E7C2D;
+}
+
+
+@media screen and (max-width: 370px) {
+    .sign-narrow {
+        padding: 128px 11px 30px 11px;
+    }
+    .sign-container h3 {
+        padding: 25px 0 26px 0;
+    }
+    .sign-container-input {
+        padding: 13px 12px 10.5px 17px;
+    }
+    .sign-container-input span {
+        width: 39%;
+    }
+    .sign-container-input input {
+        width: 61.0%;
+    }
+    .sign-container-checkbox {
+        padding: 22px 17px 19px 13px;
+        font-size: 15px;
+    }
+    .sign-container button {
+        width: calc(100% - 36px);
+        margin: 0 19px 0 19px;
+    }
+    .sign-links {
+        padding: 33px 0 0 0;
+    }
+}
+
+input[type=checkbox] + label,
+input[type=checkbox] + label span
+{
+    -webkit-transition: all 0.3s ease;
+	   -moz-transition: all 0.3s ease;
+	    -ms-transition: all 0.3s ease;
+	     -o-transition: all 0.3s ease;
+		    transition: all 0.3s ease;
+}
+
+// dark
+.main {
+    background:  #141720;
+}
+
+::-webkit-input-placeholder { color:  #595E64; }
+::-moz-placeholder          { color: #595E64; }
+:-moz-placeholder           { color: #595E64; }
+:-ms-input-placeholder      { color: #595E64; }
+
+ a {
+    color: #D1C881;
+}
+ a:hover {
+    color: rgb(155, 132, 78);
+}
+a:active {
+    color: #9E7C2D;
+}
+
+
+
+
+
+input[type=checkbox] + label {
+    color: #595E64;
+}
+
+input[type=checkbox] + label span {
+    background: #313448;
+}
+
+input[type=checkbox]:checked + label {
+    color: #595E64;
+}
+
+input[type=checkbox]:checked + label span:after {
+    background: #D8C661;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.sign {
+    background: url(../../../../assets/images/bacgr-logo.svg)no-repeat #141720;
+    background-position-x: 47%;
+    background-position-y: 41px;
+}
+
+.sign-container {
+    background: linear-gradient(180deg, #151922 0%, #1C202E 100%);
+    opacity: 0.9;
+    box-shadow: 0 10px 44px rgba(7, 14, 30, 0.26);
+}
+
+.sign-container h3 {
+    border-bottom: 1px solid #fefefe0d;
+    color: white;
+}
+
+.sign-container-input {
+    border-bottom: 1px solid #fefefe0d;
+}
+
+.sign-container-input span {
+    color: #A69F9A;
+}
+
+.sign-container-input input {
+    color: #A69F9A;
+}
+
+.sign-links a {
+    color: #D1C881;
+}
+button{
+    background: linear-gradient(180deg, #D1C881 0%, #D0B65D 100%), linear-gradient(359.95deg, #9E7C2D 0.26%, #D6C856 99.73%);
+box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
+}
+button:hover{
+     background: #D1C881; 
+}
+
+
+
+@media screen and (max-width: 370px) {
+    .sign-narrow {
+        padding: 128px 11px 30px 11px;
+    }
+    .sign-container h3 {
+        padding: 25px 0 26px 0;
+    }
+    .sign-container-input {
+        padding: 13px 12px 10.5px 17px;
+    }
+    .sign-container-input span {
+        width: 39%;
+    }
+    .sign-container-input input {
+        width: 61.0%;
+    }
+    .sign-container-checkbox {
+        padding: 22px 17px 19px 13px;
+        font-size: 15px;
+    }
+    .sign-container button {
+        width: calc(100% - 36px);
+        margin: 0 19px 0 19px;
+    }
+    .sign-links {
+        padding: 33px 0 0 0;
+    }
+}
+
+
+
+

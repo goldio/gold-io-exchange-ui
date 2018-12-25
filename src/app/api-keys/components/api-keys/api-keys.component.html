@@ -1,0 +1,48 @@
+<div class="history-narrow">
+    <div class="api-keys-title">
+        <h2><b>API Keys</b></h2>
+    </div>
+    <div class="api-keys-item api-keys-item-title">
+            <div class="column1">API</div>
+            <div class="column2">Secret code</div>
+            <div class="column3"></div>
+            
+    </div>
+    <div class="api-keys-item">
+            <div class="column1 table-text">JKSlfdsi352dvd5fm3ZXi</div>
+            <div class="column2 table-text">JKSlfdsi352dvd5fm3ZXi<button class="copy-btn ml-27"></button></div>
+            <div class="column3">
+                <button class="change-btn" (click)="settings = !settings"></button>
+                <button class="delete-btn ml-19"></button>
+                <div class="settings" [ngClass]="{
+                    'open': settings
+                }">
+                        <div class="sign-container-checkbox">
+                            <input type="checkbox" id="1" />
+                            <label for="1">
+                                <span></span>View account info
+                            </label>
+                        </div>
+                        <div class="sign-container-checkbox">
+                                <input type="checkbox" id="2" />
+                                <label for="2">
+                                    <span></span>Create & edit orders
+                                </label>
+                        </div>
+                        <div class="sign-container-checkbox">
+                                <input type="checkbox" id="3" />
+                                <label for="3">
+                                    <span></span>Withdraw funds
+                                </label>
+                        </div>
+                </div>
+            </div>
+    </div>
+    <div class="row">
+        <button class="main-btn">SAVE</button>
+        <button class="transparent-btn">GENERATE NET KEY</button>
+    </div>
+</div>
+
+
+

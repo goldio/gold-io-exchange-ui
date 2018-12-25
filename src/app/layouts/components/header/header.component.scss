@@ -1,0 +1,29 @@
+@media screen and (max-width: 700px) {
+    .exchanger-header-nav li{
+        margin: 0;
+        a{
+           width: max-content;
+           margin: 0
+        }
+    }
+    .swiper-slide{
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        width: calc(100vw - 60px);
+    }
+  }
+@media screen and (max-width: 600px) {
+    .swiper-slide{
+        width: calc(100vw - 26px);
+    }
+}
+@media screen and (max-width: 600px) {
+    .exchanger-header-nav li a{
+        font-size: 12px;
+    }
+}
+
+.profile2{
+    left: 7px;
+}

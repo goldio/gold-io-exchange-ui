@@ -1,0 +1,190 @@
+.fl-row{
+    display: flex;
+    flex-direction: row;
+}
+.btn-line{
+    display: flex;
+    flex-direction: row;
+    margin-left: 38px;
+    background: #ffffff09;
+    border-radius: 3px;
+    width: 200px;
+    height: 28px;
+    .login,.operations{
+        width: 200px;
+        height: 28px;
+        background: #ffffff09;
+        color: white;
+        border-radius: 3px;
+        text-transform: uppercase;
+        font-weight: 400;
+        font-size: 10px;
+        text-align: center;
+        letter-spacing: 0.5px;
+    }
+    .login:hover,.operations:hover{
+        border: 1px solid #D1C881;
+    }
+    .active{
+        border: 1px solid #D1C881;
+    }
+}
+.navigate-buttons{
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #ffffff09;
+    box-sizing: border-box;
+    padding-top: 30px;
+    .page-nav{
+        background: transparent;
+        color: white;
+    }
+    .page-numb{
+        width: 27px;
+        height: 27px;
+        border: 1px solid #ffffff33;
+        box-sizing: border-box;
+        border-radius: 3px;
+        background: transparent;
+        color: white;
+    }
+    .mr-14{
+        margin-right: 14px;
+    }
+    .mr-24{
+        margin-right: 24px;
+    }
+    .active{
+        border: 1px solid #DACD7D;
+    }
+}
+
+.login-history-item span{
+    font-size: 16px;
+    font-weight: 300;
+}
+.confirmation{
+    position: relative;
+    padding-left: 21px;
+    box-sizing: border-box;
+    div{
+        position: absolute;
+        top: 3px;
+        left: 0;
+    }
+}
+.login-history-item{
+    .amount-green{
+        color: #7FDB6F;
+    }
+    .amount-red{
+        color: #c24740;
+    }
+}
+.canceled{
+    span{
+        color: #2E3038;
+    }
+    .confirmation{
+       div{
+           margin-right: 10.36px;
+           width: 12.64px;
+           height: 12.64px;
+           background: url(../../../../assets/images/canceled.svg)no-repeat center;
+       }
+   }
+}
+.complete{
+   span{
+       color:  #686D7A;
+   }
+   .confirmation{
+       div{
+           margin-right: 9px;
+           width: 14px;
+           height: 10.45px;
+           background: url(../../../../assets/images/ok.svg)no-repeat center;
+       }
+   }
+   
+   
+}
+.expectation{
+    span{
+        color:  #F7E5B5;
+    }
+    .confirmation{
+        div{
+            margin-right: 9px;
+            width: 16.55px;
+            height: 20px;
+            top: -1px;
+            background: url(../../../../assets/images/round-arr.svg)no-repeat center;
+        }
+    }
+
+}
+
+@media screen and (max-width: 600px){
+    .login-history-item{
+        border-bottom: 1px solid #ffffff0c;
+    }
+    .login-history-item:last-child{
+        border-bottom:none;
+    }
+    .login-history-item span{
+        box-sizing: border-box;
+        padding-left: 50px;
+        position: relative;
+    }
+    .col1:before {
+        content: 'Time';
+    }
+    .col2:before {
+        content: 'IP';
+    }
+    .col3:before {
+        content: 'Agent';
+    }
+    .col4:before {
+        content: 'Activity';
+    }
+    .col5:before {
+        content: 'Coin';
+    }
+    .col6:before {
+        content: 'Date';
+    }
+    .col7:before {
+        content: 'Confirmations';
+    }
+    .col8:before {
+        content: 'Amount';
+    }
+    .history-table{
+        .login-history-item span{
+            box-sizing: border-box;
+            padding-left: 95px;
+            position: relative;
+        }
+        .col5 span{
+            padding-left: 0;
+            margin-bottom: 0;
+        }
+        .canceled .confirmation div,
+        .complete .confirmation div,
+        .expectation .confirmation div{
+            left: 95px;
+        }
+        .complete .confirmation div{
+            top: 4px;
+        }
+        .col7{
+            padding-left: 115px!important;
+        }
+    }
+
+}
+
+
+
