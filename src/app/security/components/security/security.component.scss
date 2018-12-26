@@ -1,0 +1,205 @@
+.notifications-item{
+    position: relative;
+}
+input[type=checkbox] { display: none }
+
+input[type=checkbox] + label {
+    color: #414a5e;
+    font-size: 15px;
+    cursor: pointer;
+    position: relative;
+    border-radius: 3px;
+    display: block;
+    margin-right: 2px;
+    padding: 5px 5px 5px 2px;
+}
+
+input[type=checkbox] + label span {
+    right: 0; top: 50%;
+    position: absolute;
+    transform: translateY(-50%);
+    width: 40.33px;
+    height: 22px;
+    background: #1B1E27;
+    border-radius: 100px;
+    display: block;
+    margin: 0;
+}
+
+input[type=checkbox] + label span::after {
+    width: 17.72px;
+    height: 17.72px;
+    background: #484D5A;
+    border-radius: 50%;
+    content: '';
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    /* transform: scale(0); */
+    transition: all ease 500ms;
+    /* transition: transform 300ms cubic-bezier(0.3, 0, 0, 1.5); */
+}
+
+input[type=checkbox]:checked + label span::after {
+    width: 17.72px;
+    height: 17.72px;
+    background: #D1C881;
+    box-shadow: 0px 0px 10px rgba(209, 200, 129, 0.3);
+    border-radius: 50%;
+    content: '';
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 20px;
+    transition: all ease 500ms;
+}
+
+.security-item em {
+    color: #686D7A;
+    font-size: 16px;
+}
+.security-item-hide{
+    display: flex;
+    flex-direction: row;
+}
+.security-item b {
+    font-size: 18px;
+}
+.security-item-hide{
+    margin-top: 30px;
+    .qr-code{
+        width: 102px;
+        height: 102px;
+        background: white;
+        margin-right: 20px;
+    }
+    .text1{
+        font-size: 16px;
+        color: #686D7A;
+        margin: 4px 0;
+    }
+    .text2{
+        font-size: 16px;
+        color: white;
+        margin-bottom: 16px;
+    }
+    .authenticator-code{
+        width: 199px;
+        height: 36px;
+        background: #ffffff09;
+        border-radius: 4px;
+        color: #686D7A;
+        padding: 8px 13px;
+        box-sizing: border-box;
+        outline: none;
+        border: none;
+    }
+}
+button{
+    width: 142px;
+    margin: 0;
+    margin-top: 29px;
+}
+.df-column{
+    display: flex;
+    flex-direction: column;
+}
+.mt-20{
+    margin-top: 20px;
+}
+.title{
+    font-size: 16px;
+    font-weight: 500;
+}
+.df-row{
+    display: flex;
+    flex-direction: row;
+}
+.mr-24{
+    margin-right: 24px;
+}
+.mt-11{
+margin-top: 11px;
+}
+.gold-text{
+    display: block;
+    color: #D1C881;
+    font-size: 12px;
+    font-weight: 900;
+    position: relative;
+    text-transform: uppercase;
+    margin-bottom: 13px;
+    margin-left: 22px;
+}
+.gold-text-img{
+    position: absolute;
+    background: url(../../../../assets/images/secutity-level.svg)no-repeat center/12px;
+    width: 12.5px;
+    height: 12.5px;
+    top: 4px;
+    left: -22px;
+
+}
+
+.pass-inp{
+    width: 171px;
+    height: 36px;
+    background: #ffffff09;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    padding: 10px 13px;
+    box-sizing: border-box;
+    color: white;
+}
+.mr-27{
+    margin-right: 27px;
+}
+
+@media screen and (max-width: 1060px){
+    .profile-right {
+        margin: 30px 0 30px 0;
+    }
+}
+@media screen and (max-width: 600px){
+    .profile-right {
+        margin: 25px 0 0px 0;
+        padding: 13px;
+        .profile-right-title{
+            padding: 0;
+            margin-bottom: 13px;
+        }
+        .profile-right-progress{
+            margin-bottom: 13px;
+        }
+        .gold-text-img{
+            height: 15.5px;
+            top: 2px;
+        }
+        span :first-child{
+            display: none;
+        }
+    }
+    .security-item{
+        padding: 13px 0;
+    }
+    .security-item-hide{
+        margin-top: 13px;
+    }
+    .df-row{
+        flex-direction: column;
+        input{
+            width: 100%;
+            margin-bottom: 13px;
+        }
+    }
+}
+@media screen and (max-width: 400px){
+    .main-btn{
+        width: 100%;
+    }
+}
+
+
+
