@@ -28,7 +28,7 @@ import { ActivityComponent } from './activity/components/activity/activity.compo
     ApiKeysComponent,
     ProfileComponent,
     SecurityComponent,
-    ActivityComponent
+    ActivityComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +37,7 @@ import { ActivityComponent } from './activity/components/activity/activity.compo
     ReactiveFormsModule,
     RouterModule.forRoot(
       [
-        { path: '', redirectTo: 'registration', pathMatch: 'full'},
+        { path: '', redirectTo: 'index', pathMatch: 'full'},
         { path: 'authorization', component: AuthorizationComponent , 
           data : { 
             noHeader: true, 

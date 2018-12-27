@@ -423,7 +423,6 @@ ul.content-orders-tabs li,
 .left-top-button {
   right: auto;
   left: 200px;
-  top: 19px;
 }
 
 ul.left-top-menu {
@@ -653,9 +652,11 @@ ul.left-top-menu {
 }
 
 .exchanger-header-nav li a:hover {
-  color: #fff;
+  color: #7A7368;
 }
-
+.exchanger-header-nav li a:active {
+  color: #494641;
+}
 .exchanger-header-nav li.exchanger-header-nav-active a {
   color: #414a5e;
   /* font-weight: 500; */
@@ -1178,9 +1179,6 @@ ul.left-top-menu {
 
 
 
-.exchanger-header-nav li a:hover {
-  color: #FFFFFF;
-}
 
 .exchanger-header-nav li.exchanger-header-nav-active a {
   color: #FFFFFF;
@@ -1273,9 +1271,6 @@ ul.left-top-menu {
 
 
 
-.balance-table-item {
-  /* border-bottom: 1px solid  #ffffff0c; */
-}
 
 .balance-table-item span:nth-child(1) {
   color: #757c8c;
@@ -2054,19 +2049,18 @@ ul.left-top-menu {
 }
 
 .transparent-btn:hover {
-  border: 1px solid #D1C881;
-  color: #D1C881;
+  border: 1px solid #FFFCE2;
 }
 
 .transparent-btn:active {
-  border: 1px solid #9E7C2D;
-  color: #9E7C2D;
+  border: 1px solid #5E5C50;
 }
 
 .main-btn {
   height: 48px;
   margin: 0 22px 0 23px;
-  background: linear-gradient(180deg, #D1C881 0%, #D0B65D 100%), linear-gradient(359.95deg, #9E7C2D 0.26%, #D6C856 99.73%);
+  background: linear-gradient(180deg, #D1C881 0%, #D0B65D 100%);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
   border-radius: 4px;
   color: #1A1F2B;
   font-size: 16px;
@@ -2075,11 +2069,13 @@ ul.left-top-menu {
 }
 
 .main-btn:hover {
-  background: #D1C881;
+    background: linear-gradient(180deg, #FBEE8E 0%, #D1C881 100%);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
 }
 
 .main-btn:active {
-  background: #9E7C2D;
+  background: linear-gradient(180deg, #817D58 0%, #D0B65D 100%);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
 }
 
 
@@ -2126,4 +2122,51 @@ ul.left-top-menu {
 
 .ml-19 {
   margin-left: 19px;
+}
+
+.double-btns{
+  width: 219px;
+  height: 36px;
+  background: #ffffff07;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 3px;
+  position: relative;
+  transition: all 0.3s ease;
+  .choose{
+    position: absolute;
+    width: 110px;
+    height: 36px;
+    border: 1px solid #D1C881;
+    box-sizing: border-box;
+    border-radius: 3px;
+    top: 0;
+    left: 0;
+    background: transparent;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+  button{
+    width: 109px;
+    height: 36px;
+    letter-spacing: 0.5px;
+    background: rgba(255, 255, 255, 0.03);
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  button:hover{
+    background: rgba(255, 255, 255, 0.05);
+  }
+  button:active{
+    background: rgba(255, 255, 255, 0.01);
+  }
+}
+.change-double-btn{
+  .choose{
+    left: 50%;
+    transition: all 0.3s ease;
+  }
 }

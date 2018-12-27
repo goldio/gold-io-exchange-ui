@@ -132,7 +132,7 @@ left: 45%;
         padding: 28px 0 9px 0;
     }
     .api-keys-item {
-        padding: 13px 14px 15px 0;
+        padding: 13px 12px 15px 0;
     }
     .api-keys-item-links {
         float: left;
@@ -308,5 +308,46 @@ input[type=checkbox] + label span,
 }
 
 @media screen and (max-width: 720px){
-    
+    .api-keys-title{
+        padding: 25px 0 15px 0;
+    }
+}
+@media screen and (max-width: 600px){
+    .api-keys-title{
+        padding: 0;
+    }
+    .api-keys-item-title{
+        display: none;
+    }
+    .api-keys-title{
+        border-bottom: 1px solid #ffffff0c;
+        padding-bottom: 13px;
+    }
+    .api-keys-item{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .column{
+        position: relative;
+        width: 100%!important;
+        box-sizing: border-box;
+        padding-left: 100px;
+        margin: 3px 0;
+    }
+    .column1::before{
+        content: 'API';
+        position: absolute;
+        left: 0;
+        color: white;
+    }
+    .column2::before{
+        content: 'Secret code';
+        position: absolute;
+        left: 0;
+        color: white;
+    }
+    .settings{
+        left: 55px;
+    }
+
 }

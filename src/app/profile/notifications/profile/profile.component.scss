@@ -1,0 +1,125 @@
+.fl-col{
+    display: flex;
+    flex-direction: column;
+    span{
+        display: block;
+        margin-bottom: 20px;
+    }
+}
+.fl-row{
+    display: flex;
+    flex-direction: row;
+}
+input{
+    height: 36px;
+    background: #ffffff09;
+    border-radius: 4px;
+    color: #686D7A;
+    border: none;
+    outline: none;
+    padding: 10px 13px;
+    box-sizing: border-box;
+}
+input::-webkit-input-placeholder { color: #686D7A; }
+input::-moz-placeholder          { color: #686D7A; }
+input:-moz-placeholder           { color: #686D7A; }
+input:-ms-input-placeholder      { color: #686D7A; }
+
+.w-171{
+    width: 171px;
+}
+.w-271{
+    width: 271px;
+}
+.mr-28{
+    margin-right: 28px;
+}
+.main-btn{
+    width: 142px;
+    margin: 0;
+    margin-top: 29px;
+}
+.transparent-btn{
+    width: 219px;
+    margin-top: 25px;
+}
+span{
+    display: block;
+}
+.gold-text{
+    display: flex;
+    color: #D1C881;
+    font-size: 12px;
+    font-weight: 400;
+    position: relative;
+    text-transform: uppercase;
+    margin-bottom: 13px;
+    margin-left: 22px;
+}
+.gold-text2{
+    display: block;
+    color: #D1C881;
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+.gold-text-img{
+    position: absolute;
+    background: url(../../../../assets/images/btk-limit.svg)no-repeat center/12px;
+    width: 12.5px;
+    height: 12.5px;
+    top: 4px;
+    left: -22px;
+}
+.profile-right-title{
+    margin-bottom: 17px;
+}
+.profile-right{
+    .mw-250{
+        max-width: 250px;
+        width: 100%;
+    }
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; 
+}
+
+
+@media screen and (max-width: 660px) {
+    .fl-row{
+        flex-direction: column;
+    }
+    .fl-col{
+        margin-bottom: 13px;
+        span{
+            margin-bottom: 13px;
+        }
+        input{
+            width: 100%;
+        }
+    }
+  }
+  @media screen and (max-width: 400px) {
+    .main-btn{
+        width: 100%;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .profile-right{
+        margin: 30px 0 13px 0;
+        padding: 13px;
+    }
+    .profile-right-title{
+        padding: 0;
+        margin-bottom: 13px;
+    }
+    .profile-right-progress{
+        margin-bottom: 13px;
+    }
+    .transparent-btn{
+        margin-top: 13px;
+    }
+  }
+  

@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
-
+  public chart: boolean = false;
+  public currencyBox: boolean = false;
+  public buyCell: boolean = false;
   constructor() { }
 
   ngOnInit() {
+   
   }
+ 
 
 }
