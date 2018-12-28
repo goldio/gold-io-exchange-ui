@@ -28,7 +28,8 @@
             ],
             "styles": [
               "src/style/main.scss",
-              "src/style/fonts.css"
+              "src/style/fonts.css",
+              "node_modules/jqwidgets-scripts/jqwidgets/styles/jqx.base.css"
             ],
             "scripts": []
           },

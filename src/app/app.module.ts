@@ -4,6 +4,8 @@ import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { jqxDateTimeInputComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
+
 import { AppComponent } from './app.component';
 import { AuthorizationComponent } from './auth/components/authorization/authorization.component';
 import { RegistrationComponent } from './auth/components/registration/registration.component';
@@ -29,6 +31,7 @@ import { ActivityComponent } from './activity/components/activity/activity.compo
     ProfileComponent,
     SecurityComponent,
     ActivityComponent,
+    jqxDateTimeInputComponent,
   ],
   imports: [
     BrowserModule,

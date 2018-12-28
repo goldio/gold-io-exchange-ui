@@ -25,9 +25,14 @@
                 <span>Last name</span>
                 <input class="w-171 mr-28" type="text" placeholder="Chan">
             </div>
+            
             <div class="fl-col">
                 <span>Birth date</span>
-                <input class="w-171" type="text" placeholder="30.03.1993">
+                <jqxDateTimeInput 
+                [width]="171" [height]="36"
+                (onValueChanged)="setUserBirthDate($event.args.date)">
+              </jqxDateTimeInput> 
+                <!-- <input class="w-171" type="text" placeholder="30.03.1993"> -->
             </div>
         </div>
         <div class="profile-item fl-row">
@@ -55,7 +60,7 @@
             </div>
         </div>
        <button class="main-btn">SAVE</button>
-        
+      
     </div>
 </div>
  
