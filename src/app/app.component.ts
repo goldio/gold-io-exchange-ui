@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+// import { StateService } from './common/services/state.service';
+import { Theme } from './common/enums/theme.enum';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +13,13 @@ export class AppComponent {
   public noSidebar = false;
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    // private themeService: StateService<Theme>
   ){
+    // this.themeService.currentState.subscribe(theme => {
+    //   console.log(theme);
+    // })
+
     this.router.events
     .subscribe(() => {
       this.noHeader = this.hasNoHeaderFlag(this.route.snapshot);

@@ -12,18 +12,12 @@
 }
 input{
     height: 36px;
-    background: #ffffff09;
     border-radius: 4px;
-    color: #fff;
     border: none;
     outline: none;
     padding: 10px 13px;
     box-sizing: border-box;
 }
-input::-webkit-input-placeholder { color: #686D7A; }
-input::-moz-placeholder          { color: #686D7A; }
-input:-moz-placeholder           { color: #686D7A; }
-input:-ms-input-placeholder      { color: #686D7A; }
 
 .w-171{
     width: 171px;
@@ -48,7 +42,6 @@ span{
 }
 .gold-text{
     display: flex;
-    color: #D1C881;
     font-size: 12px;
     font-weight: 400;
     position: relative;
@@ -58,14 +51,12 @@ span{
 }
 .gold-text2{
     display: block;
-    color: #D1C881;
     font-size: 12px;
     font-weight: 900;
     text-transform: uppercase;
 }
 .gold-text-img{
     position: absolute;
-    background: url(../../../../assets/images/btk-limit.svg)no-repeat center/12px;
     width: 12.5px;
     height: 12.5px;
     top: 4px;
@@ -203,8 +194,8 @@ input::-webkit-inner-spin-button {
   }
   
   /deep/.jqx-action-button{
-    border-color: #191C25!important;
-       background: #191C25!important; 
+    border-color: transparent!important;
+       background: transparent!important; 
     //   border-radius: 0 !important;
     border: none!important;
     border-left: none!important;

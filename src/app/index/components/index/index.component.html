@@ -1,1186 +1,1189 @@
-<div id="left" style="top: 60px;" [ngClass]="{
-    'visible': responciveTabs == 1
-}">
-
-    <div class="left-content-block">
-
-        <div class="left-content box-responcive visible1">
-
-        
+<section class="index">
+    <div id="left" style="top: 60px;" [ngClass]="{
+        'visible': responciveTabs == 1
+    }">
+    
+        <div class="left-content-block">
+    
+            <div class="left-content box-responcive visible1">
+    
             
-            <div class="left-content-balance">
-                <h4>Balance</h4> 
-                <div class="left-content-balance-item">
-                    <b>BTC</b>
-                    0.73500.00
-                    <button class="button-plus"></button>
-                    <button class="button-minus"></button>
-                </div>
-                <div class="left-content-balance-item">
-                    <b>ETH</b>
-                    0.89900.00
-                    <button class="button-plus"></button>
-                    <button class="button-minus"></button>
-                </div>
-            </div> 
-
-            <div class="pos-rel">
-                <div class="box visible">
-                    <div class="left-content-sell">
-                        <div class="double-btns" [ngClass]="{
-                            'change-double-btn' : buyCell
-                        }">
-                            <button class="" (click) = 'buyCell=!buyCell'>BUY</button>
-                            <button class="" (click) = 'buyCell=!buyCell'>SELL</button>
-                            <div class="choose"></div>
-                        </div>
-                        <div class="left-content-sell-input">
-                                Price
-                                <em>
-                                <input type="radio" class="radio" id="radio1" name="radio">
-                                <label  class="radio1" for="radio1">Market</label>
-                                <input type="radio" class="radio" id="radio2" name="radio" checked>
-                                <label for="radio2">Limit</label>
-                            </em>
-                                <b>BTC</b>
+                
+                <div class="left-content-balance">
+                    <h4>Balance</h4> 
+                    <div class="left-content-balance-item">
+                        <b>BTC</b>
+                        0.73500.00
+                        <button class="button-plus"></button>
+                        <button class="button-minus"></button>
+                    </div>
+                    <div class="left-content-balance-item">
+                        <b>ETH</b>
+                        0.89900.00
+                        <button class="button-plus"></button>
+                        <button class="button-minus"></button>
+                    </div>
+                </div> 
+    
+                <div class="pos-rel">
+                    <div class="box visible">
+                        <div class="left-content-sell">
+                            <div class="double-btns" [ngClass]="{
+                                'change-double-btn' : buyCell
+                            }">
+                                <button class="" (click) = 'buyCell=!buyCell'>BUY</button>
+                                <button class="" (click) = 'buyCell=!buyCell'>SELL</button>
+                                <div class="choose"></div>
+                            </div>
+                            <div class="left-content-sell-input">
+                                    Price
+                                    <em>
+                                    <input type="radio" class="radio" id="radio1" name="radio">
+                                    <label  class="radio1" for="radio1">Market</label>
+                                    <input type="radio" class="radio" id="radio2" name="radio" checked>
+                                    <label for="radio2">Limit</label>
+                                </em>
+                                    <b>BTC</b>
+                                    <input type="text" placeholder="1.00000000">
+                                </div>
+                            <div class="left-content-sell-input">
+                                Ammount
+                                <b>ETH</b>
                                 <input type="text" placeholder="1.00000000">
                             </div>
-                        <div class="left-content-sell-input">
-                            Ammount
-                            <b>ETH</b>
-                            <input type="text" placeholder="1.00000000">
-                        </div>
-                        <div class="left-content-sell-input percents">
+                            <div class="left-content-sell-input percents">
+                                
+                                    <div class="percent"><span>25%</span></div>
+                                    <div class="percent"><span>50%</span></div>
+                                    <div class="percent"><span>75%</span></div>
+                                    <div class="percent"><span>100%</span></div>
+                            </div>
                             
-                                <div class="percent"><span>25%</span></div>
-                                <div class="percent"><span>50%</span></div>
-                                <div class="percent"><span>75%</span></div>
-                                <div class="percent"><span>100%</span></div>
+                            <div class="left-content-sell-input">
+                                Total
+                                <b>USD</b>
+                                <input type="text" placeholder="1.00000000">
+                            </div>
+                            <button class="transparent-btn">PLACE BUY ORDER</button>
                         </div>
-                        
-                        <div class="left-content-sell-input">
-                            Total
-                            <b>USD</b>
-                            <input type="text" placeholder="1.00000000">
-                        </div>
-                        <button class="transparent-btn">PLACE BUY ORDER</button>
                     </div>
                 </div>
+    
+    
+                <div class="left-content-buttons">
+                        <button class="main-btn" routerLink="/authorization">SIGN IN</button>
+                        <button class="transparent-btn" routerLink="/registration" style="margin-top: 22px;">REGISTER</button>
+                    </div>
+    
+    
             </div>
-
-
-            <div class="left-content-buttons">
-                    <button class="main-btn" routerLink="/authorization">SIGN IN</button>
-                    <button class="transparent-btn" routerLink="/registration" style="margin-top: 22px;">REGISTER</button>
-                </div>
-
-
+    
+            
+    
         </div>
-
-        
-
+    
     </div>
-
-</div>
-
-<div id="content">
-
-
-
-
-
-    <div id="top">
-        <div class="top-currency" >
-            <span class="top-currency-btn" (click)="currencyBox = !currencyBox">
-                <img src="../../../../assets/images/eth.svg" alt="">
-                <div style="padding: 4px 6px 0 6px;">ETH / BTC</div>
-                <img src="../../../../assets/images/btc.svg" alt="">
-            </span>
-
-            <div class="top-currency-dropdown" [ngClass]="{
-            'tcd-open': currencyBox
-            }">
-                <div class="top-currency-dropdown-search">
-                    <input type="text" placeholder="Search">
-                    <button></button>
-                </div>
-                <div class="top-currency-dropdown-title">
-                    <span>Coin</span>
-                    <span>Name</span>
-                    <span>Price</span>
-                    <span>Volume</span>
-                    <span>Change</span>
-                </div>
-                <div class="top-currency-dropdown-item">
-                    <span><b>LTC</b></span>
-                    <span>Litecoin</span>
-                    <span>0.01005052</span>
-                    <span>2213.466</span>
-                    <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
-                </div>
-                <div class="top-currency-dropdown-item">
-                    <span><b>BTC</b></span>
-                    <span>Litecoin</span>
-                    <span>0.01005052</span>
-                    <span>2213.466</span>
-                    <span class="top-currency-red">+8.23%<img src="../../../../assets/images/red-arr.svg" alt=""></span>
-                </div>
-                <div class="top-currency-dropdown-item">
-                    <span><b>XNO</b></span>
-                    <span>Litecoin</span>
-                    <span>0.01005052</span>
-                    <span>2213.466</span>
-                    <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
-                </div>
-                <div class="top-currency-dropdown-item">
-                    <span><b>ETH</b></span>
-                    <span>Litecoin</span>
-                    <span>0.01005052</span>
-                    <span>2213.466</span>
-                    <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
-                </div>
-                <div class="top-currency-dropdown-item">
-                    <span><b>DASH</b></span>
-                    <span>Litecoin</span>
-                    <span>0.01005052</span>
-                    <span>2213.466</span>
-                    <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
-                </div>
-                <div class="top-currency-dropdown-item">
-                    <span><b>XRP</b></span>
-                    <span>Litecoin</span>
-                    <span>0.01005052</span>
-                    <span>2213.466</span>
-                    <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
-                </div>
-                <div class="top-currency-dropdown-item">
-                    <span><b>DOGE</b></span>
-                    <span>Litecoin</span>
-                    <span>0.01005052</span>
-                    <span>2213.466</span>
-                    <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
-                </div>
-                <div class="top-currency-dropdown-item">
-                    <span><b>FNR</b></span>
-                    <span>Litecoin</span>
-                    <span>0.01005052</span>
-                    <span>2213.466</span>
-                    <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
-                </div>
-                <div class="top-currency-dropdown-item">
-                    <span><b>DOGE</b></span>
-                    <span>Litecoin</span>
-                    <span>0.01005052</span>
-                    <span>2213.466</span>
-                    <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
-                </div>
-                <div class="top-currency-dropdown-item">
-                    <span><b>FNR</b></span>
-                    <span>Litecoin</span>
-                    <span>0.01005052</span>
-                    <span>2213.466</span>
-                    <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="top-last-price">
-            <div class="top-last-price-item">
-                <b style="text-transform: uppercase;">LAST PRICE</b> 0.034337
-                <span>$137.81</span>
-            </div>
-            <div class="top-last-price-item">
-                <b style="text-transform: uppercase;">24h change</b>0.001899 
-                <span>+5.85%</span>
-            </div>
-            <div class="top-last-price-item">
-                <b style="text-transform: uppercase;">24h high</b>0.037672
-                <em></em>
-            </div>
-            <div class="top-last-price-item">
-                <b style="text-transform: uppercase;">24h LOW</b> 0.032376
-                <em></em>
-            </div>
-            <div class="top-last-price-item">
-                <b style="text-transform: uppercase;">24h volume</b> 19992.65 BTC
-            </div>
-        </div>
-        <!--
-        <a href="" class="login">User login</a>
-        <a href="" class="register">Create new account</a>
-        -->
-    </div>
-    <ul class="reset responcive-tabs visible">
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-        
-                        <li class="current1" (click)="responciveTabs = 1"[ngClass]="{
-                            'active': responciveTabs == 1
-                        }">BALANCE</li>
-                        <li  (click)="responciveTabs = 2"[ngClass]="{
-                            'active': responciveTabs == 2
-                        }">ORDER BOOK</li>
-                        <li (click)="responciveTabs = 3"[ngClass]="{
-                            'active': responciveTabs == 3
-                        }">TRADE HISTORY</li>
-                        <li (click)="chart = true && responciveTabs = 4"[ngClass]="{
-                            'active': responciveTabs == 4
-                        }">PRICE CHART</li>
-                        <li (click)="responciveTabs = 6"[ngClass]="{
-                            'active': responciveTabs == 5
-                        }">OPEN ORDERS</li>
-        
+    
+    <div id="content">
+    
+    
+    
+    
+    
+        <div id="top">
+            <div class="top-currency" >
+                <span class="top-currency-btn" (click)="currencyBox = !currencyBox">
+                    <img src="../../../../assets/images/eth.svg" alt="">
+                    <div style="padding: 4px 6px 0 6px;">ETH / BTC</div>
+                    <img src="../../../../assets/images/btc.svg" alt="">
+                </span>
+    
+                <div class="top-currency-dropdown" [ngClass]="{
+                'tcd-open': currencyBox
+                }">
+                    <div class="top-currency-dropdown-search">
+                        <input type="text" placeholder="Search">
+                        <button></button>
+                    </div>
+                    <div class="top-currency-dropdown-title">
+                        <span>Coin</span>
+                        <span>Name</span>
+                        <span>Price</span>
+                        <span>Volume</span>
+                        <span>Change</span>
+                    </div>
+                    <div class="top-currency-dropdown-item">
+                        <span><b>LTC</b></span>
+                        <span>Litecoin</span>
+                        <span>0.01005052</span>
+                        <span>2213.466</span>
+                        <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
+                    </div>
+                    <div class="top-currency-dropdown-item">
+                        <span><b>BTC</b></span>
+                        <span>Litecoin</span>
+                        <span>0.01005052</span>
+                        <span>2213.466</span>
+                        <span class="top-currency-red">+8.23%<img src="../../../../assets/images/red-arr.svg" alt=""></span>
+                    </div>
+                    <div class="top-currency-dropdown-item">
+                        <span><b>XNO</b></span>
+                        <span>Litecoin</span>
+                        <span>0.01005052</span>
+                        <span>2213.466</span>
+                        <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
+                    </div>
+                    <div class="top-currency-dropdown-item">
+                        <span><b>ETH</b></span>
+                        <span>Litecoin</span>
+                        <span>0.01005052</span>
+                        <span>2213.466</span>
+                        <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
+                    </div>
+                    <div class="top-currency-dropdown-item">
+                        <span><b>DASH</b></span>
+                        <span>Litecoin</span>
+                        <span>0.01005052</span>
+                        <span>2213.466</span>
+                        <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
+                    </div>
+                    <div class="top-currency-dropdown-item">
+                        <span><b>XRP</b></span>
+                        <span>Litecoin</span>
+                        <span>0.01005052</span>
+                        <span>2213.466</span>
+                        <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
+                    </div>
+                    <div class="top-currency-dropdown-item">
+                        <span><b>DOGE</b></span>
+                        <span>Litecoin</span>
+                        <span>0.01005052</span>
+                        <span>2213.466</span>
+                        <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
+                    </div>
+                    <div class="top-currency-dropdown-item">
+                        <span><b>FNR</b></span>
+                        <span>Litecoin</span>
+                        <span>0.01005052</span>
+                        <span>2213.466</span>
+                        <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
+                    </div>
+                    <div class="top-currency-dropdown-item">
+                        <span><b>DOGE</b></span>
+                        <span>Litecoin</span>
+                        <span>0.01005052</span>
+                        <span>2213.466</span>
+                        <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
+                    </div>
+                    <div class="top-currency-dropdown-item">
+                        <span><b>FNR</b></span>
+                        <span>Litecoin</span>
+                        <span>0.01005052</span>
+                        <span>2213.466</span>
+                        <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
                     </div>
                 </div>
+    
             </div>
-    </ul>
-    <div class="gradients" style="position:absolute;left:-9999px;">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-        
-        <filter id="shadow" filterUnits="userSpaceOnUse" x="0" y="0" width="1200" height="400">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur"/>
-            <feOffset in="blur" dx="1" dy="1" result="offsetBlr" />
-            <feFlood flood-color="rgba(237, 114, 72, 0.2)"/>
-            <feComposite operator="in" in2="offsetBlr" result="colBlur"/>
-            <feMerge>
-            <feMergeNode in="colBlur"/>
-            <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-        </filter>
-        </defs>
+    
+            <div class="top-last-price">
+                <div class="top-last-price-item">
+                    <b style="text-transform: uppercase;">LAST PRICE</b> 0.034337
+                    <span>$137.81</span>
+                </div>
+                <div class="top-last-price-item">
+                    <b style="text-transform: uppercase;">24h change</b>0.001899 
+                    <span>+5.85%</span>
+                </div>
+                <div class="top-last-price-item">
+                    <b style="text-transform: uppercase;">24h high</b>0.037672
+                    <em></em>
+                </div>
+                <div class="top-last-price-item">
+                    <b style="text-transform: uppercase;">24h LOW</b> 0.032376
+                    <em></em>
+                </div>
+                <div class="top-last-price-item">
+                    <b style="text-transform: uppercase;">24h volume</b> 19992.65 BTC
+                </div>
+            </div>
+            <!--
+            <a href="" class="login">User login</a>
+            <a href="" class="register">Create new account</a>
+            -->
+        </div>
+        <ul class="reset responcive-tabs visible">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+            
+                            <li class="current1" (click)="responciveTabs = 1"[ngClass]="{
+                                'active': responciveTabs == 1
+                            }">BALANCE</li>
+                            <li  (click)="responciveTabs = 2"[ngClass]="{
+                                'active': responciveTabs == 2
+                            }">ORDER BOOK</li>
+                            <li (click)="responciveTabs = 3"[ngClass]="{
+                                'active': responciveTabs == 3
+                            }">TRADE HISTORY</li>
+                            <li (click)="chart = true && responciveTabs = 4"[ngClass]="{
+                                'active': responciveTabs == 4
+                            }">PRICE CHART</li>
+                            <li (click)="responciveTabs = 6"[ngClass]="{
+                                'active': responciveTabs == 5
+                            }">OPEN ORDERS</li>
+            
+                        </div>
+                    </div>
+                </div>
+        </ul>
+        <div class="gradients" style="position:absolute;left:-9999px;">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+            
+            <filter id="shadow" filterUnits="userSpaceOnUse" x="0" y="0" width="1200" height="400">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur"/>
+                <feOffset in="blur" dx="1" dy="1" result="offsetBlr" />
+                <feFlood flood-color="rgba(237, 114, 72, 0.2)"/>
+                <feComposite operator="in" in2="offsetBlr" result="colBlur"/>
+                <feMerge>
+                <feMergeNode in="colBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+            </filter>
+            </defs>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="200px" height="200px">
+            <defs> 
+                <linearGradient id="lgrad1" x1="50%" y1="0%" x2="50%" y2="100%" > 
+                    <stop offset="0%" style="stop-color:rgb(30,25,45);stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:rgb(30,25,45);stop-opacity:1" />
+                </linearGradient> 
+            </defs>
+            <rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad1)"/>
         </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" width="200px" height="200px">
-        <defs> 
-            <linearGradient id="lgrad1" x1="50%" y1="0%" x2="50%" y2="100%" > 
-                <stop offset="0%" style="stop-color:rgb(30,25,45);stop-opacity:1" />
-                <stop offset="100%" style="stop-color:rgb(30,25,45);stop-opacity:1" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="200px" height="200px">
+            <defs> 
+            <linearGradient id="lgrad2" x1="50%" y1="0%" x2="50%" y2="100%" > 
+                <stop offset="0%" style="stop-color:rgb(28,49,56);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:rgb(28,49,56);stop-opacity:1" />
             </linearGradient> 
-        </defs>
-        <rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad1)"/>
-    </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" width="200px" height="200px">
-        <defs> 
-        <linearGradient id="lgrad2" x1="50%" y1="0%" x2="50%" y2="100%" > 
-            <stop offset="0%" style="stop-color:rgb(28,49,56);stop-opacity:1" />
-            <stop offset="100%" style="stop-color:rgb(28,49,56);stop-opacity:1" />
-        </linearGradient> 
-        </defs>
-        <rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad2)"/>
-    </svg>
-    </div>
-
-
-
-
-
-
-    <div class="content-left box-responcive" [ngClass]="{
-        'visible': responciveTabs == 2
-    }">
-        <h2>ORDER BOOK</h2>
-        <span style="padding-left: 25px;">Price(BTC)</span>
-        <span>Amount(ETH)</span>
-        <span>Total(BTC)</span>
-        
-        <div class="content-left-info">
-                <div class="content-left-red">
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
+            </defs>
+            <rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad2)"/>
+        </svg>
+        </div>
+    
+    
+    
+    
+    
+    
+        <div class="content-left box-responcive" [ngClass]="{
+            'visible': responciveTabs == 2
+        }">
+            <h2>ORDER BOOK</h2>
+            <span style="padding-left: 25px;">Price(BTC)</span>
+            <span>Amount(ETH)</span>
+            <span>Total(BTC)</span>
+            
+            <div class="content-left-info">
+                    <div class="content-left-red">
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-red">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+    
                     </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
+                    <div class="content-left-sticky">
+                        <span class="content-left-sticky-green">0.034337 </span>
+                        <span class="content-left-sticky-text">$137.81</span>
                     </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
+                    <div class="content-left-red">
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+    
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                        <div class="content-left-red-item left-green">
+                            <span>0.0343<b>87</b></span>
+                            <span>0.113</span>
+                            <span>-</span>
+                            <em style="width: 2px;"></em>
+                        </div>
+                                                                                                                                                                                                                                                                                                                                                        
                     </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-red">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-
                 </div>
-                <div class="content-left-sticky">
-                    <span class="content-left-sticky-green">0.034337 </span>
-                    <span class="content-left-sticky-text">$137.81</span>
+        </div>
+    
+        <div class="content-right box-responcive"  [ngClass]="{
+            'visible': responciveTabs == 3
+        }">
+            <h2>TRADE HISTORY</h2>
+            <span>Price(BTC)</span>
+            <span>Amount(ETH)</span>
+            <span>UTC Time</span>
+            <div class="content-right-info">
+    
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
                 </div>
-                <div class="content-left-red">
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                    <div class="content-left-red-item left-green">
-                        <span>0.0343<b>87</b></span>
-                        <span>0.113</span>
-                        <span>-</span>
-                        <em style="width: 2px;"></em>
-                    </div>
-                                                                                                                                                                                                                                                                                                                                                    
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
                 </div>
-            </div>
-    </div>
-
-    <div class="content-right box-responcive"  [ngClass]="{
-        'visible': responciveTabs == 3
-    }">
-        <h2>TRADE HISTORY</h2>
-        <span>Price(BTC)</span>
-        <span>Amount(ETH)</span>
-        <span>UTC Time</span>
-        <div class="content-right-info">
-
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-
-
-
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-red">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
-            </div>
-            <div class="content-right-item">
-                <span class="history-green">0.034337</span>
-                <span>0.381</span>
-                <span>13:56:02</span>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+    
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+    
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+    
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+    
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+    
+    
+    
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+    
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+    
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+    
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+    
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-red">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
+                <div class="content-right-item">
+                    <span class="history-green">0.034337</span>
+                    <span>0.381</span>
+                    <span>13:56:02</span>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="content-center"  [ngClass]="{
-        'content-center-visible': responciveTabs == 4  || responciveTabs == 6
-    }">
-        <div class="content-center-chart box-responcive"  [ngClass]="{
-            'visible': responciveTabs == 4 
+    
+        <div class="content-center"  [ngClass]="{
+            'content-center-visible': responciveTabs == 4  || responciveTabs == 6
         }">
-
-            <ul class="reset content-center-tabs double-btns"  [ngClass]="{
-              'change-double-btn': chart
+            <div class="content-center-chart box-responcive"  [ngClass]="{
+                'visible': responciveTabs == 4 
             }">
-              <button (click)="chart = false">Price chart</button>
-              <button (click)="chart = true">Depth chart</button>
-              <div class="choose"></div>
-            </ul>
-
-            <div class="box price-box" [ngClass]="{
-                'visible': !chart
-              }">
-                <h2>PRICE CHART</h2>
-                <div class="chart-box" id="price-chart-box">
-                       <!-- TradingView Widget BEGIN -->
-                       <!-- <script type="text/javascript">
-                       new TradingView.widget({
-                         "autosize": true,
-                         "symbol": "COINBASE:BTCUSD",
-                         "interval": "D",
-                         "timezone": "Europe/London",
-                         "theme": "Dark",
-                         "style": "9",
-                         "locale": "en",
-                         "toolbar_bg": "rgba(9, 19, 41, 1)",
-                         "enable_publishing": false,
-                         "save_image": false,
-                         "hideideas": true
-                       });
-                       </script> -->
-                       <!-- TradingView Widget END -->
+    
+                <ul class="reset content-center-tabs double-btns"  [ngClass]="{
+                    'change-double-btn': chart
+                }">
+                    <button (click)="chart = false">Price chart</button>
+                    <button (click)="chart = true">Depth chart</button>
+                    <div class="choose"></div>
+                </ul>
+    
+                <div class="box price-box" [ngClass]="{
+                    'visible': !chart
+                    }">
+                    <h2>PRICE CHART</h2>
+                    <div class="chart-box" id="price-chart-box">
+                            <!-- TradingView Widget BEGIN -->
+                            <!-- <script type="text/javascript">
+                            new TradingView.widget({
+                                "autosize": true,
+                                "symbol": "COINBASE:BTCUSD",
+                                "interval": "D",
+                                "timezone": "Europe/London",
+                                "theme": "Dark",
+                                "style": "9",
+                                "locale": "en",
+                                "toolbar_bg": "rgba(9, 19, 41, 1)",
+                                "enable_publishing": false,
+                                "save_image": false,
+                                "hideideas": true
+                            });
+                            </script> -->
+                            <!-- TradingView Widget END -->
+                    </div>
                 </div>
+    
+                <div class="box depth-box" [ngClass]="{
+                    'visible': chart
+                    }">
+                    <h2>DEPTH CHART</h2>
+                    <div class="chart-box" id="depth-chart-box">
+                                <!-- TradingView Widget BEGIN -->
+                                <!-- <script type="text/javascript">
+                                new TradingView.widget({
+                                "autosize": true,
+                                "symbol": "KRAKEN:XRPUSD",
+                                "interval": "D",
+                                "timezone": "Europe/London",
+                                "theme": "Dark",
+                                "style": "9",
+                                "locale": "en",
+                                "toolbar_bg": "rgba(9, 19, 41, 1)",
+                                "enable_publishing": false,
+                                "save_image": false,
+                                "hideideas": true
+                                });
+                                </script> -->
+                                <!-- TradingView Widget END -->
+                    </div>
+    
+                    <div class="depth_chart_control">
+                        <button id="depth_plus" class="balances-plus">+</button>
+    
+                        <div class="depth_chart_header">
+                            <div class="mid_price_label">Mid Market Price</div>
+    
+                            <div id="depth_chart_mid_price" class="mid_price">
+                                0
+                            </div>
+                        </div>
+    
+                        <button id="depth_minus" class="balances-minus">-</button>
+                    </div>
+                </div>
+    
             </div>
-
-            <div class="box depth-box" [ngClass]="{
-                'visible': chart
-              }">
-                <h2>DEPTH CHART</h2>
-                <div class="chart-box" id="depth-chart-box">
-                         <!-- TradingView Widget BEGIN -->
-                         <!-- <script type="text/javascript">
-                         new TradingView.widget({
-                           "autosize": true,
-                           "symbol": "KRAKEN:XRPUSD",
-                           "interval": "D",
-                           "timezone": "Europe/London",
-                           "theme": "Dark",
-                           "style": "9",
-                           "locale": "en",
-                           "toolbar_bg": "rgba(9, 19, 41, 1)",
-                           "enable_publishing": false,
-                           "save_image": false,
-                           "hideideas": true
-                         });
-                         </script> -->
-                         <!-- TradingView Widget END -->
-                </div>
-
-                <div class="depth_chart_control">
-                    <button id="depth_plus" class="balances-plus">+</button>
-
-                    <div class="depth_chart_header">
-                        <div class="mid_price_label">Mid Market Price</div>
-
-                        <div id="depth_chart_mid_price" class="mid_price">
-                            0
+    
+            <div class="content-center-orders box-responcive block-orders" [ngClass]="{
+                'visible': responciveTabs == 6 
+            }">
+                <div class="box visible">
+                    <h2>OPEN ORDERS</h2>
+                    <div class="content-orders">
+                        <div class="content-orders-title">
+                            <span>Size</span>
+                            <span>Filled (BTC)</span>
+                            <span>Price (USD)</span>
+                            <span>Time</span>
+                            <span>Status</span>
+                        </div>
+                        <div class="content-orders-item">
+                            <span>3.840000000</span>
+                            <span>2.00</span>
+                            <span>5643.28</span>
+                            <span>12:28:42</span>
+                            <span><i>Ok</i></span>
+                        </div>
+                        <div class="content-orders-item">
+                            <span>3.840000000</span>
+                            <span>2.00</span>
+                            <span>5643.28</span>
+                            <span>12:28:42</span>
+                            <span><i>Ok</i></span>
+                        </div>
+                        <div class="content-orders-item">
+                            <span>3.840000000</span>
+                            <span>2.00</span>
+                            <span>5643.28</span>
+                            <span>12:28:42</span>
+                            <span><i>Ok</i></span>
+                        </div>
+                        <div class="content-orders-item">
+                            <span>3.840000000</span>
+                            <span>2.00</span>
+                            <span>5643.28</span>
+                            <span>12:28:42</span>
+                            <span><i>Ok</i></span>
+                        </div>
+                        <div class="content-orders-item">
+                            <span>3.840000000</span>
+                            <span>2.00</span>
+                            <span>5643.28</span>
+                            <span>12:28:42</span>
+                            <span><i>Ok</i></span>
+                        </div>
+                        <div class="content-orders-item">
+                            <span>3.840000000</span>
+                            <span>2.00</span>
+                            <span>5643.28</span>
+                            <span>12:28:42</span>
+                            <span><i>Ok</i></span>
+                        </div>
+                        <div class="content-orders-item">
+                            <span>3.840000000</span>
+                            <span>2.00</span>
+                            <span>5643.28</span>
+                            <span>12:28:42</span>
+                            <span><i>Ok</i></span>
+                        </div>
+                        <div class="content-orders-item">
+                            <span>3.840000000</span>
+                            <span>2.00</span>
+                            <span>5643.28</span>
+                            <span>12:28:42</span>
+                            <span><i>Ok</i></span>
+                        </div>
+                        <div class="content-orders-item">
+                            <span>3.840000000</span>
+                            <span>2.00</span>
+                            <span>5643.28</span>
+                            <span>12:28:42</span>
+                            <span><i>Ok</i></span>
+                        </div>
+                        <div class="content-orders-item">
+                            <span>3.840000000</span>
+                            <span>2.00</span>
+                            <span>5643.28</span>
+                            <span>12:28:42</span>
+                            <span><i>Ok</i></span>
+                        </div>
+                        <div class="content-orders-item">
+                            <span>3.840000000</span>
+                            <span>2.00</span>
+                            <span>5643.28</span>
+                            <span>12:28:42</span>
+                            <span><i>Ok</i></span>
+                        </div>
+                        <div class="content-orders-item">
+                            <span>3.840000000</span>
+                            <span>2.00</span>
+                            <span>5643.28</span>
+                            <span>12:28:42</span>
+                            <span><i>Ok</i></span>
+                        </div>
+                        <div class="content-orders-item">
+                            <span>3.840000000</span>
+                            <span>2.00</span>
+                            <span>5643.28</span>
+                            <span>12:28:42</span>
+                            <span><i>Ok</i></span>
+                        </div>
+                        <div class="content-orders-item">
+                            <span>3.840000000</span>
+                            <span>2.00</span>
+                            <span>5643.28</span>
+                            <span>12:28:42</span>
+                            <span><i>Ok</i></span>
+                        </div>
+                        <div class="content-orders-item">
+                            <span>3.840000000</span>
+                            <span>2.00</span>
+                            <span>5643.28</span>
+                            <span>12:28:42</span>
+                            <span><i>Ok</i></span>
+                        </div>
+                        <div class="content-orders-item">
+                            <span>3.840000000</span>
+                            <span>2.00</span>
+                            <span>5643.28</span>
+                            <span>12:28:42</span>
+                            <span><i>Ok</i></span>
+                        </div>
+                        <div class="content-orders-item">
+                            <span>3.840000000</span>
+                            <span>2.00</span>
+                            <span>5643.28</span>
+                            <span>12:28:42</span>
+                            <span><i>Ok</i></span>
+                        </div>
+                        <div class="content-orders-item">
+                            <span>3.840000000</span>
+                            <span>2.00</span>
+                            <span>5643.28</span>
+                            <span>12:28:42</span>
+                            <span><i>Ok</i></span>
                         </div>
                     </div>
-
-                    <button id="depth_minus" class="balances-minus">-</button>
                 </div>
+    
             </div>
-
         </div>
-
-        <div class="content-center-orders box-responcive block-orders" [ngClass]="{
-            'visible': responciveTabs == 6 
-        }">
-            <div class="box visible">
-                <h2>OPEN ORDERS</h2>
-                <div class="content-orders">
-                    <div class="content-orders-title">
-                        <span>Size</span>
-                        <span>Filled (BTC)</span>
-                        <span>Price (USD)</span>
-                        <span>Time</span>
-                        <span>Status</span>
-                    </div>
-                    <div class="content-orders-item">
-                        <span>3.840000000</span>
-                        <span>2.00</span>
-                        <span>5643.28</span>
-                        <span>12:28:42</span>
-                        <span><i>Ok</i></span>
-                    </div>
-                    <div class="content-orders-item">
-                        <span>3.840000000</span>
-                        <span>2.00</span>
-                        <span>5643.28</span>
-                        <span>12:28:42</span>
-                        <span><i>Ok</i></span>
-                    </div>
-                    <div class="content-orders-item">
-                        <span>3.840000000</span>
-                        <span>2.00</span>
-                        <span>5643.28</span>
-                        <span>12:28:42</span>
-                        <span><i>Ok</i></span>
-                    </div>
-                    <div class="content-orders-item">
-                        <span>3.840000000</span>
-                        <span>2.00</span>
-                        <span>5643.28</span>
-                        <span>12:28:42</span>
-                        <span><i>Ok</i></span>
-                    </div>
-                    <div class="content-orders-item">
-                        <span>3.840000000</span>
-                        <span>2.00</span>
-                        <span>5643.28</span>
-                        <span>12:28:42</span>
-                        <span><i>Ok</i></span>
-                    </div>
-                    <div class="content-orders-item">
-                        <span>3.840000000</span>
-                        <span>2.00</span>
-                        <span>5643.28</span>
-                        <span>12:28:42</span>
-                        <span><i>Ok</i></span>
-                    </div>
-                    <div class="content-orders-item">
-                        <span>3.840000000</span>
-                        <span>2.00</span>
-                        <span>5643.28</span>
-                        <span>12:28:42</span>
-                        <span><i>Ok</i></span>
-                    </div>
-                    <div class="content-orders-item">
-                        <span>3.840000000</span>
-                        <span>2.00</span>
-                        <span>5643.28</span>
-                        <span>12:28:42</span>
-                        <span><i>Ok</i></span>
-                    </div>
-                    <div class="content-orders-item">
-                        <span>3.840000000</span>
-                        <span>2.00</span>
-                        <span>5643.28</span>
-                        <span>12:28:42</span>
-                        <span><i>Ok</i></span>
-                    </div>
-                    <div class="content-orders-item">
-                        <span>3.840000000</span>
-                        <span>2.00</span>
-                        <span>5643.28</span>
-                        <span>12:28:42</span>
-                        <span><i>Ok</i></span>
-                    </div>
-                    <div class="content-orders-item">
-                        <span>3.840000000</span>
-                        <span>2.00</span>
-                        <span>5643.28</span>
-                        <span>12:28:42</span>
-                        <span><i>Ok</i></span>
-                    </div>
-                    <div class="content-orders-item">
-                        <span>3.840000000</span>
-                        <span>2.00</span>
-                        <span>5643.28</span>
-                        <span>12:28:42</span>
-                        <span><i>Ok</i></span>
-                    </div>
-                    <div class="content-orders-item">
-                        <span>3.840000000</span>
-                        <span>2.00</span>
-                        <span>5643.28</span>
-                        <span>12:28:42</span>
-                        <span><i>Ok</i></span>
-                    </div>
-                    <div class="content-orders-item">
-                        <span>3.840000000</span>
-                        <span>2.00</span>
-                        <span>5643.28</span>
-                        <span>12:28:42</span>
-                        <span><i>Ok</i></span>
-                    </div>
-                    <div class="content-orders-item">
-                        <span>3.840000000</span>
-                        <span>2.00</span>
-                        <span>5643.28</span>
-                        <span>12:28:42</span>
-                        <span><i>Ok</i></span>
-                    </div>
-                    <div class="content-orders-item">
-                        <span>3.840000000</span>
-                        <span>2.00</span>
-                        <span>5643.28</span>
-                        <span>12:28:42</span>
-                        <span><i>Ok</i></span>
-                    </div>
-                    <div class="content-orders-item">
-                        <span>3.840000000</span>
-                        <span>2.00</span>
-                        <span>5643.28</span>
-                        <span>12:28:42</span>
-                        <span><i>Ok</i></span>
-                    </div>
-                    <div class="content-orders-item">
-                        <span>3.840000000</span>
-                        <span>2.00</span>
-                        <span>5643.28</span>
-                        <span>12:28:42</span>
-                        <span><i>Ok</i></span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+    
     </div>
+</section>
 
-</div>
 
 
 
