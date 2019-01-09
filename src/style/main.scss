@@ -1611,8 +1611,10 @@ ul.left-top-menu {
   box-sizing: border-box;
   border-radius: 4px;
   background: transparent;
-  // font-size: 16px;
   font-weight: 900;
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 0.5px;
 }
 
 
@@ -1735,7 +1737,12 @@ ul.left-top-menu {
   .left-top {
     background: white;
   }
-
+  .left-content-sell-input input {
+    border: 1px solid transparent;
+}
+.left-content-sell-input input:focus {
+    border: 1px solid#D1C881;
+}
   .logo {
     background: url(../assets/images/header-logo.svg)no-repeat;
   }
@@ -2054,7 +2061,9 @@ ul.left-top-menu {
     background-color: #ffffff09;
     color: #a2afbe;
   }
-
+  .balance-title-search input:focus{
+    border:  1px solid  #D1C881;
+  }
   .balance-table-title {
     border-bottom: 1px solid #ffffff0c;
     color: #FFFFFF;
@@ -2726,6 +2735,10 @@ ul.left-top-menu {
 // profile dark
 .dark{
   .prof{
+    input:focus{
+      border:  1px solid #D1C881;
+    }
+    
   input{
       background: #ffffff09;
       color: #fff;
@@ -2759,7 +2772,9 @@ ul.left-top-menu {
   input[type=checkbox] + label span {
       background: #1B1E27;
   }
-  
+  input:focus{
+    border:  1px solid #CABC5F;
+  }
   input[type=checkbox] + label span::after {
       background: #484D5A;
   }
@@ -2935,6 +2950,7 @@ ul.left-top-menu {
 
   button.button-plus {
     border: 1px solid #ffffff33;
+    transition: none;
   }
 
   button.button-plus:before {
@@ -2950,11 +2966,13 @@ ul.left-top-menu {
   button.button-plus:hover,
   button.button-minus:hover {
     border: 1px solid #DACD7D;
+    background: #DACD7D;
   }
 
   button.button-plus:active,
   button.button-minus:active {
     border: 1px solid #5E5A44;
+    background: #5E5A44;
   }
 
   @media screen and (max-width: 600px) {
@@ -2971,6 +2989,7 @@ ul.left-top-menu {
 
   button.button-minus {
       border: 1px solid #ffffff33;
+      transition: none;
   }
 
   .left-content-balance {

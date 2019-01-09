@@ -36,7 +36,7 @@ ul.content-orders-tabs li,
   position: absolute;
   width: 210px;
   left: calc(50% - 105px);
-  top: 40px;
+  top: 70px;
   height: 40px;
   justify-content: space-between;
   align-items: center;
@@ -475,8 +475,9 @@ button.button-plus:before {
   content: '+';
   position: absolute;
   // color: white;
-  top: 5px;
+  top: calc(50% - 5px);
   left: 13px;
+  line-height: 10px;
 }
 
 button.button-minus:before {
@@ -484,7 +485,8 @@ button.button-minus:before {
   position: absolute;
   // color: white;
   left: 15px;
-  top: 6px;
+  top: calc(50% - 5px);
+  line-height: 10px;
 }
 
 
@@ -711,7 +713,7 @@ button.button-sell.button-sell-live {
   // caret-color: #D1C881;
   margin: 9px 0 0 0;
   padding: 0 48px 0 14px;
-  border: none;
+  // border: none;
   outline: none;
   // background: rgba(255, 255, 255, 0.03);
   border-radius: 4px;
@@ -722,18 +724,16 @@ button.button-sell.button-sell-live {
 
 
 .left-content-sell-input b {
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-    display: block;
-    width: 52px;
-    height: 38px;
-    text-align: center;
-    // color: rgba(255, 255, 255, 0.1);
-    font-size: 12px;
-    font-weight: 300;
-    line-height: 40px;
-    // background: #181B24;
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  display: block;
+  width: 52px;
+  height: 35px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 37px;
     border-radius: 0px 4px 4px 0px;
 }
 
@@ -1898,6 +1898,7 @@ ul.content-orders-tabs li.current {
   }
   .content-left-sticky{
     position: initial!important;
+
   }
   .content-left-red-item span:nth-child(3){
     width: auto;
@@ -1983,18 +1984,17 @@ ul.content-orders-tabs li.current {
     z-index: 1;
     width: 100%;
   }
-  #left{
-    border: none;
-    width: 100%;
-    display: none;
-  }
   #left.visible{
     display: block;
   }
   .top-currency{
     border: none;
   }
-
+ #left{
+  border: none;
+  width: 100%!important;
+  display: none;
+}
 
 }
 
@@ -2043,6 +2043,19 @@ ul.content-orders-tabs li.current {
   height: 36px;
   border-radius: 4px;
 }
+@media screen and (max-width: 650px) {
+  .chart-box{
+    padding-top: 110px;
+  }
+  ul.content-center-tabs{
+    right: auto;
+    left: 18px;
+    top: 40px;
+  }
+  .depth_chart_control{
+    top: 90px;
+  }
+}
 @media screen and (max-width: 600px) {
   .left-content-buttons{
     padding: 26px 18px 0px 18px;
@@ -2057,9 +2070,7 @@ ul.content-orders-tabs li.current {
     left: 18px;
     top: 40px;
   }
-  .chart-box{
-    padding-top: 110px;
-  }
+  
   .depth_chart_control{
     top: 90px;
   }

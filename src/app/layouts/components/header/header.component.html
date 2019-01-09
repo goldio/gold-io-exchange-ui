@@ -7,7 +7,7 @@
     'left-top-menu-open': menu
 }">
     <div class="exchanger-header-profile exchanger-header-profile-nav" >
-            <img class="user-photo" src="../../../../assets/images/persone-photo.svg" alt="">
+            <img (click)="userOpen = !userOpen" class="user-photo" src="../../../../assets/images/persone-photo.svg" alt="">
         <span (click)="userOpen = !userOpen">Username</span>
         <ul class="reset header-profile-drop2 profile2"[ngClass]="{
             'header-profile-drop2-open': userOpen
@@ -34,9 +34,9 @@
 </ul>
 <!-- dropdown menu end -->
 
-<div class="exchanger-header-profile exchanger-header-profile-top" (click)="userOpen = !userOpen">
-        <img class="user-photo" src="../../../../assets/images/persone-photo.svg" alt="">
-    <span>Username</span>
+<div class="exchanger-header-profile exchanger-header-profile-top" >
+        <img (click)="userOpen = !userOpen" class="user-photo" src="../../../../assets/images/persone-photo.svg" alt="">
+    <span (click)="userOpen = !userOpen">Username</span>
     <ul class="reset header-profile-drop2" [ngClass]="{
         'header-profile-drop2-open': userOpen
     }">
