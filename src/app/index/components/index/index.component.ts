@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import * as Highcharts from 'highcharts';
+import { WebsocketService } from 'src/app/common/services/websocket.service';
+import { TradeHistoryItem } from '../../models';
+
 declare var TradingView: any;
 declare var Swiper: any;
+
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -11,12 +16,29 @@ export class IndexComponent implements OnInit {
   public currencyBox: boolean = false;
   public buyCell: boolean = false;
   public responciveTabs = 2;
-  constructor() { }
+
+  public tradeHistory: TradeHistoryItem[] = [];
+
+  constructor(
+    private websocketService: WebsocketService
+  ) {
+    this.websocketService
+      .pairStreamMessage
+      .subscribe(msg => {
+        if (msg) {
+          const messageData = JSON.parse(msg.data);
+
+          if (messageData['e'] == "trade") {
+            this.tradeHistory.push(new TradeHistoryItem(messageData['p'], messageData['q'], "13:56:02", messageData['m']));
+          }
+        }
+      });
+  }
 
   ngOnInit() {
-    new Swiper('.swiper-container',{
+    new Swiper('.swiper-container', {
       scrollContainer: true
-  }); 
+    });
 
     // new TradingView.widget({
     //   "autosize": true,
@@ -32,6 +54,6 @@ export class IndexComponent implements OnInit {
     //   "hideideas": true
     // });
   }
- 
+
 
 }

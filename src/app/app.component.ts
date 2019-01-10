@@ -11,21 +11,23 @@ import { Theme } from './common/enums/theme.enum';
 export class AppComponent {
   public noHeader = false;
   public noSidebar = false;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     // private themeService: StateService<Theme>
-  ){
+  ) {
     // this.themeService.currentState.subscribe(theme => {
     //   console.log(theme);
     // })
 
     this.router.events
-    .subscribe(() => {
-      this.noHeader = this.hasNoHeaderFlag(this.route.snapshot);
-      this.noSidebar = this.hasNoSidebarFlag(this.route.snapshot);
-    })
+      .subscribe(() => {
+        this.noHeader = this.hasNoHeaderFlag(this.route.snapshot);
+        this.noSidebar = this.hasNoSidebarFlag(this.route.snapshot);
+      });
   }
+
   private hasNoHeaderFlag (route: ActivatedRouteSnapshot) {
     if (route.data && route.data.noHeader) {
       return true;

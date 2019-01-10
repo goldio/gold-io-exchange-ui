@@ -5,6 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { jqxDateTimeInputComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
+import { HighchartsChartComponent } from 'highcharts-angular';
 
 import { AppComponent } from './app.component';
 import { AuthorizationComponent } from './auth/components/authorization/authorization.component';
@@ -17,10 +18,12 @@ import { ApiKeysComponent } from './api-keys/components/api-keys/api-keys.compon
 import { ProfileComponent } from './profile/notifications/profile/profile.component';
 import { SecurityComponent } from './security/components/security/security.component';
 import { ActivityComponent } from './activity/components/activity/activity.component';
+import { WebsocketService } from './common/services/websocket.service';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HighchartsChartComponent,
     AuthorizationComponent,
     RegistrationComponent,
     BalanceComponent,
@@ -63,7 +66,9 @@ import { ActivityComponent } from './activity/components/activity/activity.compo
       ]
   )
   ],
-  providers: [],
+  providers: [
+    WebsocketService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
