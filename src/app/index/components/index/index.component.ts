@@ -29,7 +29,7 @@ export class IndexComponent implements OnInit {
           const messageData = JSON.parse(msg.data);
 
           if (messageData['e'] == "trade") {
-            this.tradeHistory.push(new TradeHistoryItem(messageData['p'], messageData['q'], "13:56:02", messageData['m']));
+            this.tradeHistory.unshift(new TradeHistoryItem(messageData['p'], messageData['q'], "13:56:02", messageData['m']));
           }
         }
       });
