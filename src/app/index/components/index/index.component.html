@@ -105,20 +105,23 @@
                         <input type="text" placeholder="Search">
                         <button></button>
                     </div>
+                    
                     <div class="top-currency-dropdown-title">
-                        <span>Coin</span>
-                        <span>Name</span>
-                        <span>Price</span>
-                        <span>Volume</span>
-                        <span>Change</span>
+                        <span>Symbol</span>
+                        <span>Base</span>
+                        <span>Quote</span>
+                        <!-- <span>Volume</span>
+                        <span>Change</span> -->
                     </div>
 
-                    <div class="top-currency-dropdown-item" *ngFor="let symbol of symbols">
-                        <span><b>{{ symbol.symbol }}</b></span>
-                        <span>{{ symbol.symbol }}</span>
-                        <span>0.01005052</span>
-                        <span>2213.466</span>
-                        <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
+                    <div class="top-currency-items-wrapper">
+                        <div class="top-currency-dropdown-item" *ngFor="let symbol of symbols" (click)="setSymbol(symbol)">
+                            <span><b>{{ symbol.baseAsset }}/{{ symbol.quoteAsset }}</b></span>
+                            <span>{{ symbol.baseAsset }}</span>
+                            <span>{{ symbol.quoteAsset }}</span>
+                            <!-- <span>2213.466</span>
+                            <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span> -->
+                        </div>
                     </div>
                 </div>
     
