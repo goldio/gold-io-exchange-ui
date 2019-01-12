@@ -4,6 +4,7 @@ import { WebsocketService } from 'src/app/common/services/websocket.service';
 import { TradeHistoryItem, OrderBookItem } from '../../models';
 import { BinanceService } from 'src/app/common/services/binance.service';
 import { DateHelper } from 'src/app/common/helpers';
+import { Symbol } from '../../models/symbol.model';
 
 declare var TradingView: any;
 declare var Swiper: any;
@@ -20,16 +21,36 @@ export class IndexComponent implements OnInit {
 	public buyCell: boolean = false;
 	public responciveTabs = 2;
 
+	public symbols: Symbol[];
+	public currentSymbol: Symbol;
+
 	public tradeHistory: TradeHistoryItem[] = [];
 	public orderBookBids: OrderBookItem[] = [];
 	public orderBookAsks: OrderBookItem[] = [];
 
-	constructor(
-		private websocketService: WebsocketService,
-		private binanceService: BinanceService
-	) {
+	private loadSymbols(): void {
 		this.binanceService
-			.getTrades("ETHBTC")
+			.getExchangeInfo()
+			.subscribe(res => {
+				this.symbols = res.symbols;
+				this.setSymbol();
+			});
+	}
+
+	private setSymbol(symbol?: Symbol): void {
+		if (!symbol) {
+			this.currentSymbol = this.symbols.find(x => x.symbol == "ETHBTC");
+		} else {
+			this.currentSymbol = symbol;
+		}
+
+		this.loadTrades();
+		this.openDepthStream();
+	}
+
+	private loadTrades(): void {
+		this.binanceService
+			.getTrades(this.currentSymbol.symbol)
 			.subscribe(res => {
 				res.forEach(item => {
 					this.tradeHistory
@@ -41,6 +62,11 @@ export class IndexComponent implements OnInit {
 						});
 				});
 			});
+	}
+
+	private openDepthStream(): void {
+		this.websocketService
+			.openDepthStream(this.currentSymbol.symbol);
 
 		this.websocketService
 			.depthStreamMessage
@@ -78,7 +104,12 @@ export class IndexComponent implements OnInit {
 					}
 				}
 			});
+	}
 
+	constructor(
+		private websocketService: WebsocketService,
+		private binanceService: BinanceService
+	) {
 		/* this.binanceService
 			.getSimpleData()
 			.subscribe(res => {
@@ -107,6 +138,8 @@ export class IndexComponent implements OnInit {
 		new Swiper('.swiper-container', {
 			scrollContainer: true
 		});
+
+		this.loadSymbols();
 
 		// new TradingView.widget({
 		//   "autosize": true,

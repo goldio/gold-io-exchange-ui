@@ -91,14 +91,14 @@
     
     
         <div id="top">
-            <div class="top-currency" >
+            <div class="top-currency" *ngIf="currentSymbol">
                 <span class="top-currency-btn" (click)="currencyBox = !currencyBox">
                     <img src="../../../../assets/images/eth.svg" alt="">
-                    <div style="padding: 4px 6px 0 6px;">ETH / BTC</div>
+                    <div style="padding: 4px 6px 0 6px;">{{ currentSymbol.baseAsset }} / {{ currentSymbol.quoteAsset }}</div>
                     <img src="../../../../assets/images/btc.svg" alt="">
                 </span>
     
-                <div class="top-currency-dropdown" [ngClass]="{
+                <div class="top-currency-dropdown" *ngIf="symbols" [ngClass]="{
                 'tcd-open': currencyBox
                 }">
                     <div class="top-currency-dropdown-search">
@@ -112,72 +112,10 @@
                         <span>Volume</span>
                         <span>Change</span>
                     </div>
-                    <div class="top-currency-dropdown-item">
-                        <span><b>LTC</b></span>
-                        <span>Litecoin</span>
-                        <span>0.01005052</span>
-                        <span>2213.466</span>
-                        <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
-                    </div>
-                    <div class="top-currency-dropdown-item">
-                        <span><b>BTC</b></span>
-                        <span>Litecoin</span>
-                        <span>0.01005052</span>
-                        <span>2213.466</span>
-                        <span class="top-currency-red">+8.23%<img src="../../../../assets/images/red-arr.svg" alt=""></span>
-                    </div>
-                    <div class="top-currency-dropdown-item">
-                        <span><b>XNO</b></span>
-                        <span>Litecoin</span>
-                        <span>0.01005052</span>
-                        <span>2213.466</span>
-                        <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
-                    </div>
-                    <div class="top-currency-dropdown-item">
-                        <span><b>ETH</b></span>
-                        <span>Litecoin</span>
-                        <span>0.01005052</span>
-                        <span>2213.466</span>
-                        <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
-                    </div>
-                    <div class="top-currency-dropdown-item">
-                        <span><b>DASH</b></span>
-                        <span>Litecoin</span>
-                        <span>0.01005052</span>
-                        <span>2213.466</span>
-                        <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
-                    </div>
-                    <div class="top-currency-dropdown-item">
-                        <span><b>XRP</b></span>
-                        <span>Litecoin</span>
-                        <span>0.01005052</span>
-                        <span>2213.466</span>
-                        <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
-                    </div>
-                    <div class="top-currency-dropdown-item">
-                        <span><b>DOGE</b></span>
-                        <span>Litecoin</span>
-                        <span>0.01005052</span>
-                        <span>2213.466</span>
-                        <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
-                    </div>
-                    <div class="top-currency-dropdown-item">
-                        <span><b>FNR</b></span>
-                        <span>Litecoin</span>
-                        <span>0.01005052</span>
-                        <span>2213.466</span>
-                        <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
-                    </div>
-                    <div class="top-currency-dropdown-item">
-                        <span><b>DOGE</b></span>
-                        <span>Litecoin</span>
-                        <span>0.01005052</span>
-                        <span>2213.466</span>
-                        <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>
-                    </div>
-                    <div class="top-currency-dropdown-item">
-                        <span><b>FNR</b></span>
-                        <span>Litecoin</span>
+
+                    <div class="top-currency-dropdown-item" *ngFor="let symbol of symbols">
+                        <span><b>{{ symbol.symbol }}</b></span>
+                        <span>{{ symbol.symbol }}</span>
                         <span>0.01005052</span>
                         <span>2213.466</span>
                         <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span>

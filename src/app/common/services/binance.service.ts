@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import { TradeHistoryItem } from 'src/app/index/models';
+import { ExchangeInfo } from 'src/app/index/models/exchange-info.model';
 
 @Injectable()
 export class BinanceService {
@@ -17,6 +18,11 @@ export class BinanceService {
 
     public getTrades(symbol: string): Observable<TradeHistoryItem[]> {
         return this.http.get(`/binance/api/v1/trades?symbol=${symbol}`)
+            .map(response => response.json());
+    }
+
+    public getExchangeInfo(): Observable<ExchangeInfo> {
+        return this.http.get(`/binance/api/v1/exchangeInfo`)
             .map(response => response.json());
     }
 }

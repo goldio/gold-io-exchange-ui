@@ -14,4 +14,16 @@ export class WebsocketService {
             }
         }
     }
+
+    public openDepthStream(symbol: string): void {
+        this.depthStream.close();
+
+        this.depthStream = new WebSocket(`wss://stream.binance.com:9443/ws/${symbol.toLowerCase()}@depth`);
+        
+        this.depthStream.onopen = () => {
+            this.depthStream.onmessage = (msg) => {
+                this._depthStreamMessage.next(msg);
+            }
+        }
+    }
 }
