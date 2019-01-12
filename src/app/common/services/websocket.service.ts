@@ -3,14 +3,14 @@ import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class WebsocketService {
-    private pairStream: WebSocket = new WebSocket(`wss://stream.binance.com:9443/ws/ethbtc@trade`);
-    private _pairStreamMessage: BehaviorSubject<MessageEvent> = new BehaviorSubject<MessageEvent>(null);
-    public pairStreamMessage: Observable<MessageEvent> = this._pairStreamMessage.asObservable();
+    private depthStream: WebSocket = new WebSocket(`wss://stream.binance.com:9443/ws/ethbtc@depth`);
+    private _depthStreamMessage: BehaviorSubject<MessageEvent> = new BehaviorSubject<MessageEvent>(null);
+    public depthStreamMessage: Observable<MessageEvent> = this._depthStreamMessage.asObservable();
 
     constructor() {
-        this.pairStream.onopen = () => {
-            this.pairStream.onmessage = (msg) => {
-                this._pairStreamMessage.next(msg);
+        this.depthStream.onopen = () => {
+            this.depthStream.onmessage = (msg) => {
+                this._depthStreamMessage.next(msg);
             }
         }
     }

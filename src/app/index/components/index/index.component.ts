@@ -1,59 +1,127 @@
 import { Component, OnInit } from '@angular/core';
-import * as Highcharts from 'highcharts';
+
 import { WebsocketService } from 'src/app/common/services/websocket.service';
-import { TradeHistoryItem } from '../../models';
+import { TradeHistoryItem, OrderBookItem } from '../../models';
+import { BinanceService } from 'src/app/common/services/binance.service';
+import { DateHelper } from 'src/app/common/helpers';
 
 declare var TradingView: any;
 declare var Swiper: any;
 
 @Component({
-  selector: 'app-index',
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss']
+	selector: 'app-index',
+	templateUrl: './index.component.html',
+	styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
-  public chart: boolean = false;
-  public currencyBox: boolean = false;
-  public buyCell: boolean = false;
-  public responciveTabs = 2;
 
-  public tradeHistory: TradeHistoryItem[] = [];
+	public chart: boolean = false;
+	public currencyBox: boolean = false;
+	public buyCell: boolean = false;
+	public responciveTabs = 2;
 
-  constructor(
-    private websocketService: WebsocketService
-  ) {
-    this.websocketService
-      .pairStreamMessage
-      .subscribe(msg => {
-        if (msg) {
-          const messageData = JSON.parse(msg.data);
+	public tradeHistory: TradeHistoryItem[] = [];
+	public orderBookBids: OrderBookItem[] = [];
+	public orderBookAsks: OrderBookItem[] = [];
 
-          if (messageData['e'] == "trade") {
-            this.tradeHistory.unshift(new TradeHistoryItem(messageData['p'], messageData['q'], "13:56:02", messageData['m']));
-          }
-        }
-      });
-  }
+	constructor(
+		private websocketService: WebsocketService,
+		private binanceService: BinanceService
+	) {
+		this.binanceService
+			.getTrades("ETHBTC")
+			.subscribe(res => {
+				res.forEach(item => {
+					this.tradeHistory
+						.push({ 
+							price: item.price,
+							qty: item.qty,
+							isBuyerMaker: item.isBuyerMaker,
+							time: DateHelper.getTimeFromDate(new Date(item.time))
+						});
+				});
+			});
 
-  ngOnInit() {
-    new Swiper('.swiper-container', {
-      scrollContainer: true
-    });
+		this.websocketService
+			.depthStreamMessage
+			.subscribe(msg => {
+				console.log(msg);
+				if (msg) {
+					const messageData = JSON.parse(msg.data);
 
-    // new TradingView.widget({
-    //   "autosize": true,
-    //   "symbol": "COINBASE:BTCUSD",
-    //   "interval": "D",
-    //   "timezone": "Europe/London",
-    //   "theme": "Dark",
-    //   "style": "9",
-    //   "locale": "en",
-    //   "toolbar_bg": "rgba(9, 19, 41, 1)",
-    //   "enable_publishing": false,
-    //   "save_image": false,
-    //   "hideideas": true
-    // });
-  }
+					if (messageData['e'] == "depthUpdate") {
+						messageData['b'].forEach(item => {
+							if (this.orderBookBids.length > 19) {
+								this.orderBookBids.shift();
+							}
+							
+							this.orderBookBids
+								.push({ 
+									price: item[0], 
+									amount: item[1], 
+									total: `${item[0] * item[1]}` 
+								});
+						});
+
+						messageData['a'].forEach(item => {
+							if (this.orderBookAsks.length > 19) {
+								this.orderBookAsks.shift();
+							}
+
+							this.orderBookAsks
+								.push({ 
+									price: item[0], 
+									amount: item[1], 
+									total: `${item[0] * item[1]}` 
+								});
+						});
+					}
+				}
+			});
+
+		/* this.binanceService
+			.getSimpleData()
+			.subscribe(res => {
+				this._chart = new Chart({
+					chart: {
+						type: 'line'
+					},
+					title: {
+						text: 'Linechart'
+					},
+					credits: {
+						enabled: false
+					},
+					series: [
+						{
+							type: 'candlestick',
+							name: 'Line 1',
+							data: res
+						}
+					]
+				});
+			}); */
+	}
+
+	ngOnInit() {
+		new Swiper('.swiper-container', {
+			scrollContainer: true
+		});
+
+		// new TradingView.widget({
+		//   "autosize": true,
+		//   "symbol": "COINBASE:BTCUSD",
+		//   "interval": "D",
+		//   "timezone": "Europe/London",
+		//   "theme": "Dark",
+		//   "style": "9",
+		//   "locale": "en",
+		//   "toolbar_bg": "rgba(9, 19, 41, 1)",
+		//   "enable_publishing": false,
+		//   "save_image": false,
+		//   "hideideas": true
+		// });
+	}
 
 
 }

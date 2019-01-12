@@ -1,8 +1,6 @@
 export class TradeHistoryItem {
-    constructor(
-        public price: string,
-        public amount: string,
-        public time: string,
-        public isBuyerMaker: boolean
-    ) {}
+    public time: string;
+    public price: string;
+    public qty: string;
+    public isBuyerMaker: boolean;
 }

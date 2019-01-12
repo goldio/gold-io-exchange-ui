@@ -5,7 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { jqxDateTimeInputComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
-import { HighchartsChartComponent } from 'highcharts-angular';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 import { AppComponent } from './app.component';
 import { AuthorizationComponent } from './auth/components/authorization/authorization.component';
@@ -19,11 +19,11 @@ import { ProfileComponent } from './profile/notifications/profile/profile.compon
 import { SecurityComponent } from './security/components/security/security.component';
 import { ActivityComponent } from './activity/components/activity/activity.component';
 import { WebsocketService } from './common/services/websocket.service';
+import { BinanceService } from './common/services/binance.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HighchartsChartComponent,
     AuthorizationComponent,
     RegistrationComponent,
     BalanceComponent,
@@ -41,6 +41,7 @@ import { WebsocketService } from './common/services/websocket.service';
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
+    HighchartsChartModule, 
     RouterModule.forRoot(
       [
         { path: '', redirectTo: 'index', pathMatch: 'full'},
@@ -67,7 +68,8 @@ import { WebsocketService } from './common/services/websocket.service';
   )
   ],
   providers: [
-    WebsocketService
+    WebsocketService,
+    BinanceService
   ],
   bootstrap: [AppComponent]
 })
