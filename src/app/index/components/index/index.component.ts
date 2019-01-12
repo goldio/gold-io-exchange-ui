@@ -38,6 +38,8 @@ export class IndexComponent implements OnInit {
 	}
 
 	private setSymbol(symbol?: Symbol): void {
+		this.currencyBox = false;
+		
 		if (!symbol) {
 			this.currentSymbol = this.symbols.find(x => x.symbol == "ETHBTC");
 		} else {
@@ -49,6 +51,8 @@ export class IndexComponent implements OnInit {
 	}
 
 	private loadTrades(): void {
+		this.tradeHistory = [];
+
 		this.binanceService
 			.getTrades(this.currentSymbol.symbol)
 			.subscribe(res => {
