@@ -25,4 +25,9 @@ export class BinanceService {
         return this.http.get(`/binance/api/v1/exchangeInfo`)
             .map(response => response.json());
     }
+
+    public getCandlestickData(symbol: string): Observable<any> {
+        return this.http.get(`/binance/api/v1/klines?symbol=${symbol}&interval=15m`)
+            .map(response => response.json());
+    }
 }
