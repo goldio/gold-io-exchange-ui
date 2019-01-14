@@ -363,7 +363,36 @@ export class IndexComponent implements OnInit, AfterViewInit {
 	}
 
 	ngAfterViewInit() {
-		this.initPriceChart();
-		this.initDepthChart();
+		// this.initPriceChart();
+		// this.initDepthChart();
+		new TradingView.widget({
+			'container_id': 'price-chart-box1',
+			"autosize": true,
+			"symbol": "COINBASE:BTCUSD",
+			"interval": "D",
+			"timezone": "Europe/London",
+			"theme": "Light",
+			"style": "9",
+			"locale": "en",
+			"toolbar_bg": "rgba(255, 255, 255, 1)",
+			"enable_publishing": false,
+			"save_image": false,
+			"hideideas": true
+		  });
+		//   depth-chart-box1
+		new TradingView.widget({
+			'container_id': 'depth-chart-box1',
+			"autosize": true,
+			"symbol": "KRAKEN:XRPUSD",
+			"interval": "D",
+			"timezone": "Europe/London",
+			"theme": "Dark",
+			"style": "9",
+			"locale": "en",
+			"toolbar_bg": "rgba(9, 19, 41, 1)",
+			"enable_publishing": false,
+			"save_image": false,
+			"hideideas": true
+		  });
 	}
 }
