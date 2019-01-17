@@ -1,2 +1,3 @@
-export class BaseModel{
+export class BaseModel {
+    public id: number;
 }
