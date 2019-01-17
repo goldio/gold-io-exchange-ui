@@ -13,7 +13,7 @@ export class BaseHttpService {
 
         const securityToken = LocalStorageHelper.getToken();
         if (securityToken) {
-            options.headers.set('Authorization', securityToken.token)
+            options.headers.set('Authorization', `Bearer ${securityToken.token}`)
         }
 
         return this.http.get(url, options);
@@ -25,7 +25,7 @@ export class BaseHttpService {
 
         const securityToken = LocalStorageHelper.getToken();
         if (securityToken) {
-            options.headers.set('Authorization', securityToken.token)
+            options.headers.set('Authorization', `Bearer ${securityToken.token}`)
         }
 
         return this.http.post(url, body, options);
