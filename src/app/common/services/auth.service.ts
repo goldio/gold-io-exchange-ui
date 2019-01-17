@@ -11,7 +11,6 @@ import { ResponseModel } from '../models/response';
 
 @Injectable()
 export class AuthService extends BaseHttpService {
-
     private loginSubject: BehaviorSubject<boolean>;
 
     // Check is user logged in
@@ -70,9 +69,10 @@ export class AuthService extends BaseHttpService {
     }
 
     constructor(
+        http: Http,
         private router: Router
     ) {
-        super();
+        super(http);
 
         this.checkAuth();
     }

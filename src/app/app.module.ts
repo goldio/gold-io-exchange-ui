@@ -20,6 +20,7 @@ import { SecurityComponent } from './security/components/security/security.compo
 import { ActivityComponent } from './activity/components/activity/activity.component';
 import { WebsocketService } from './common/services/websocket.service';
 import { BinanceService } from './common/services/binance.service';
+import { AuthService } from './common/services/auth.service';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { BinanceService } from './common/services/binance.service';
   )
   ],
   providers: [
+    AuthService,
     WebsocketService,
     BinanceService
   ],

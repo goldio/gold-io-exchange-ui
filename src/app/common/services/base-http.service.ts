@@ -4,8 +4,13 @@ import { Observable } from 'rxjs';
 import { RequestHelper, LocalStorageHelper } from '../helpers';
 
 export class BaseHttpService {
-    private http: Http;
     public apiUrl: string = environment.apiEndpoint;
+
+    constructor(
+        private http: Http
+    ) {
+        
+    }
 
     get(url: string, options?: RequestOptionsArgs): Observable<Response> {
         if (!options)
