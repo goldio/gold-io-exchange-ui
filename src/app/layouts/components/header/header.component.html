@@ -7,13 +7,12 @@
     'left-top-menu-open': menu
 }">
         <div class="exchanger-header-profile exchanger-header-profile-nav">
-            <img (click)="userOpen = !userOpen" class="user-photo" src="../../../../assets/images/persone-photo.svg"
-                alt="">
-            <span (click)="userOpen = !userOpen">Username</span>
+            <img (click)="userOpen = !userOpen" class="user-photo" src="../../../../assets/images/persone-photo.svg" alt="">
+            <span (click)="userOpen = !userOpen" *ngIf="user">{{ user.login }}</span>
             <ul class="reset header-profile-drop2 profile2" [ngClass]="{
             'header-profile-drop2-open': userOpen
         }">
-                <li class="header-profile-drop2-logout"><a>Logout</a></li>
+                <li class="header-profile-drop2-logout" (click)="logout()"><a>Logout</a></li>
             </ul>
         </div>
         <li><a><i class="ico01"></i>Exchange</a></li>
@@ -37,11 +36,11 @@
 
     <div class="exchanger-header-profile exchanger-header-profile-top" *ngIf="isLoggedIn">
         <img (click)="userOpen = !userOpen" class="user-photo" src="../../../../assets/images/persone-photo.svg" alt="">
-        <span (click)="userOpen = !userOpen">Username</span>
+        <span (click)="userOpen = !userOpen" *ngIf="user">{{ user.login }}</span>
         <ul class="reset header-profile-drop2" [ngClass]="{
         'header-profile-drop2-open': userOpen
     }">
-            <li class="header-profile-drop2-logout"><a>Logout</a></li>
+            <li class="header-profile-drop2-logout" (click)="logout()"><a>Logout</a></li>
         </ul>
     </div>
 

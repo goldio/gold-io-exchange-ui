@@ -21,6 +21,7 @@ import { ActivityComponent } from './activity/components/activity/activity.compo
 import { WebsocketService } from './common/services/websocket.service';
 import { BinanceService } from './common/services/binance.service';
 import { AuthService } from './common/services/auth.service';
+import { UsersService } from './common/services/users.service';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { AuthService } from './common/services/auth.service';
   ],
   providers: [
     AuthService,
+    UsersService,
     WebsocketService,
     BinanceService
   ],

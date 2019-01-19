@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Theme } from 'src/app/common/enums/theme.enum';
 import { AuthService } from 'src/app/common/services/auth.service';
+import { UsersService } from 'src/app/common/services/users.service';
+import { User } from 'src/app/common/models';
 
 @Component({
 	selector: 'app-header',
@@ -10,12 +12,30 @@ import { AuthService } from 'src/app/common/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 	public isLoggedIn: boolean;
+	public user: User;
 
 	public menu: boolean = false;
 	public userOpen: boolean = false;
 
+	private loadUser(): void {
+		if (!this.isLoggedIn) {
+			return;
+		}
+
+		this.usersService
+			.getMe()
+			.subscribe(res => {
+				if (!res.success) {
+					return false;
+				}
+
+				this.user = res.data;
+			});
+	}
+
 	constructor(
 		private authService: AuthService,
+		private usersService: UsersService,
 		private router: Router,
 		// private themeService: StateService<Theme>
 	) { }
@@ -26,10 +46,15 @@ export class HeaderComponent implements OnInit {
 			.subscribe(logged => {
 				this.isLoggedIn = logged;
 			});
+
+		this.loadUser();
 	}
 
 	public theme() {
 		// this.themeService.setTheme();
 	}
 
+	public logout() {
+		this.authService.logout();
+	}
 }
