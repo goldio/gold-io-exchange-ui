@@ -8,6 +8,7 @@ import { TradeHistoryItem, OrderBookItem, CandlestickItem } from '../../models';
 import { BinanceService } from 'src/app/common/services/binance.service';
 import { DateHelper } from 'src/app/common/helpers';
 import { Symbol } from '../../models/symbol.model';
+import { AuthService } from 'src/app/common/services/auth.service';
 
 declare var TradingView: any;
 declare var Swiper: any;
@@ -18,6 +19,8 @@ declare var Swiper: any;
 	styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit, AfterViewInit {
+
+	public isLoggedIn: boolean;
 
 	private priceChart: am4charts.XYChart;
 	private depthChart: am4charts.XYChart;
@@ -81,7 +84,6 @@ export class IndexComponent implements OnInit, AfterViewInit {
 		this.websocketService
 			.depthStreamMessage
 			.subscribe(msg => {
-				console.log(msg);
 				if (msg) {
 					const messageData = JSON.parse(msg.data);
 
@@ -117,6 +119,7 @@ export class IndexComponent implements OnInit, AfterViewInit {
 	}
 
 	constructor(
+		private authService: AuthService,
 		private websocketService: WebsocketService,
 		private binanceService: BinanceService
 	) {
@@ -145,6 +148,12 @@ export class IndexComponent implements OnInit, AfterViewInit {
 	}
 
 	ngOnInit() {
+		this.authService
+			.isLoggedIn
+			.subscribe(logged => {
+				this.isLoggedIn = logged;
+			});
+
 		new Swiper('.swiper-container', {
 			scrollContainer: true
 		});

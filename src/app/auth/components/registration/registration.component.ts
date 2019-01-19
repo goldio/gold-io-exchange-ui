@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/common/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-registration',
@@ -20,15 +21,24 @@ export class RegistrationComponent implements OnInit {
 	}
 
 	constructor(
-		private authService: AuthService
+		private authService: AuthService,
+		private router: Router
 	) { }
 
 	ngOnInit() {
 		this.initSignUpForm();
+
+		this.authService
+			.isLoggedIn
+			.subscribe(logged => {
+				if (logged) {
+					this.router.navigate(['/index']);
+					return;	
+				}
+			});
 	}
 
 	public submitRegistration(form: FormGroup): void {
-		console.log(form);
 		if (form.invalid) {
 			alert('form invalid');
 			return;

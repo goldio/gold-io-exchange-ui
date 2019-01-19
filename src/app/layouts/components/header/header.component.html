@@ -1,62 +1,63 @@
 <div class="exchanger-header">
     <a routerLink="/authorization" class="logo"></a>
-<div class="left-top-button" (click)="menu = !menu"></div>
+    <div class="left-top-button" (click)="menu = !menu"></div>
 
-<!-- dropdown menu -->
-<ul class="reset left-top-menu" [ngClass]="{
+    <!-- dropdown menu -->
+    <ul class="reset left-top-menu" [ngClass]="{
     'left-top-menu-open': menu
 }">
-    <div class="exchanger-header-profile exchanger-header-profile-nav" >
-            <img (click)="userOpen = !userOpen" class="user-photo" src="../../../../assets/images/persone-photo.svg" alt="">
-        <span (click)="userOpen = !userOpen">Username</span>
-        <ul class="reset header-profile-drop2 profile2"[ngClass]="{
+        <div class="exchanger-header-profile exchanger-header-profile-nav">
+            <img (click)="userOpen = !userOpen" class="user-photo" src="../../../../assets/images/persone-photo.svg"
+                alt="">
+            <span (click)="userOpen = !userOpen">Username</span>
+            <ul class="reset header-profile-drop2 profile2" [ngClass]="{
             'header-profile-drop2-open': userOpen
         }">
-            <li class="header-profile-drop2-logout"><a >Logout</a></li>
-        </ul>
-    </div>
-    <li><a ><i class="ico01"></i>Exchange</a></li>
-    <li><a ><i class="ico02"></i>Interest</a></li>
-    <li><a ><i class="ico03"></i>Margin</a></li>
-    <li><a ><i class="ico04"></i>Lending</a></li>
-    <li><a ><i class="ico05"></i>Trollbox</a></li>
-    <span>Account</span>
-    <li><a ><i class="ico06"></i>Profile</a></li>
-    <li><a ><i class="ico07"></i>Orders</a></li>
-    <li><a ><i class="ico08"></i>Trade history</a></li>
-    <li><a ><i class="ico09"></i>Balances</a></li>
-    <li><a ><i class="ico10"></i>Sign Up</a></li>
-    <span>System</span>
-    <li (click)="theme()"><a ><i class="ico11"></i>Black&amp;White</a></li>
-    <li><a ><i class="ico12"></i>Help</a></li>
-    <li><a ><i class="ico13"></i>Notification</a></li>
-    <li><a ><i class="ico14"></i>Settings</a></li>
-</ul>
-<!-- dropdown menu end -->
+                <li class="header-profile-drop2-logout"><a>Logout</a></li>
+            </ul>
+        </div>
+        <li><a><i class="ico01"></i>Exchange</a></li>
+        <li><a><i class="ico02"></i>Interest</a></li>
+        <li><a><i class="ico03"></i>Margin</a></li>
+        <li><a><i class="ico04"></i>Lending</a></li>
+        <li><a><i class="ico05"></i>Trollbox</a></li>
+        <span>Account</span>
+        <li><a><i class="ico06"></i>Profile</a></li>
+        <li><a><i class="ico07"></i>Orders</a></li>
+        <li><a><i class="ico08"></i>Trade history</a></li>
+        <li><a><i class="ico09"></i>Balances</a></li>
+        <li><a><i class="ico10"></i>Sign Up</a></li>
+        <span>System</span>
+        <li (click)="theme()"><a><i class="ico11"></i>Black&amp;White</a></li>
+        <li><a><i class="ico12"></i>Help</a></li>
+        <li><a><i class="ico13"></i>Notification</a></li>
+        <li><a><i class="ico14"></i>Settings</a></li>
+    </ul>
+    <!-- dropdown menu end -->
 
-<div class="exchanger-header-profile exchanger-header-profile-top" >
+    <div class="exchanger-header-profile exchanger-header-profile-top" *ngIf="isLoggedIn">
         <img (click)="userOpen = !userOpen" class="user-photo" src="../../../../assets/images/persone-photo.svg" alt="">
-    <span (click)="userOpen = !userOpen">Username</span>
-    <ul class="reset header-profile-drop2" [ngClass]="{
+        <span (click)="userOpen = !userOpen">Username</span>
+        <ul class="reset header-profile-drop2" [ngClass]="{
         'header-profile-drop2-open': userOpen
     }">
-        <li class="header-profile-drop2-logout"><a >Logout</a></li>
-    </ul>
-</div>
+            <li class="header-profile-drop2-logout"><a>Logout</a></li>
+        </ul>
+    </div>
 
-<ul class="reset exchanger-header-nav" *ngIf="(router.url != '/index')">
-    <div class="swiper-container">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
-        
-                <li routerLinkActive="exchanger-header-nav-active" routerLink="/profile"><a>My profile</a></li>
-                <li routerLinkActive="exchanger-header-nav-active" routerLink="/balance"><a>Balance</a></li>
-                <li routerLinkActive="exchanger-header-nav-active" routerLink="/activity"><a>Activity</a></li>
-                <li routerLinkActive="exchanger-header-nav-active" routerLink="/notification"><a>Notifications</a></li>
-                <li routerLinkActive="exchanger-header-nav-active" routerLink="/apiKeys"><a>API Keys</a></li>
-                <li routerLinkActive="exchanger-header-nav-active" routerLink="/security"><a>Security</a></li>
+    <ul class="reset exchanger-header-nav" *ngIf="(router.url != '/index')">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+
+                    <li routerLinkActive="exchanger-header-nav-active" routerLink="/profile"><a>My profile</a></li>
+                    <li routerLinkActive="exchanger-header-nav-active" routerLink="/balance"><a>Balance</a></li>
+                    <li routerLinkActive="exchanger-header-nav-active" routerLink="/activity"><a>Activity</a></li>
+                    <li routerLinkActive="exchanger-header-nav-active" routerLink="/notification"><a>Notifications</a></li>
+                    <li routerLinkActive="exchanger-header-nav-active" routerLink="/apiKeys"><a>API Keys</a></li>
+                    <li routerLinkActive="exchanger-header-nav-active" routerLink="/security"><a>Security</a></li>
+                </div>
             </div>
         </div>
-    </div>
-</ul>
+    </ul>
 </div>
