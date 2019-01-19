@@ -12,7 +12,7 @@ export class BaseHttpService {
         
     }
 
-    get(url: string, options?: RequestOptionsArgs): Observable<Response> {
+    protected get(url: string, options?: RequestOptionsArgs): Observable<Response> {
         if (!options)
             options = RequestHelper.constructRequestOptions();
 
@@ -24,7 +24,7 @@ export class BaseHttpService {
         return this.http.get(url, options);
     }
 
-    post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+    protected post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
         if (!options)
             options = RequestHelper.constructRequestOptions();
 

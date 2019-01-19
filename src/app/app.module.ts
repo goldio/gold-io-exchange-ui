@@ -22,59 +22,63 @@ import { WebsocketService } from './common/services/websocket.service';
 import { BinanceService } from './common/services/binance.service';
 import { AuthService } from './common/services/auth.service';
 import { UsersService } from './common/services/users.service';
+import { PersonsService } from './profile/services/persons.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AuthorizationComponent,
-    RegistrationComponent,
-    BalanceComponent,
-    NotificationsComponent,
-    HeaderComponent,
-    IndexComponent,
-    ApiKeysComponent,
-    ProfileComponent,
-    SecurityComponent,
-    ActivityComponent,
-    jqxDateTimeInputComponent,
-  ],
-  imports: [
-    BrowserModule,
-    HttpModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HighchartsChartModule, 
-    RouterModule.forRoot(
-      [
-        { path: '', redirectTo: 'index', pathMatch: 'full'},
-        { path: 'authorization', component: AuthorizationComponent , 
-          data : { 
-            noHeader: true, 
-            noSidebar: true 
-          }
-        },
-        { path: 'registration', component: RegistrationComponent , 
-          data : { 
-            noHeader: true, 
-            noSidebar: true 
-          }
-        },
-        { path: 'balance', component: BalanceComponent},
-        { path: 'profile', component: ProfileComponent},
-        { path: 'activity', component: ActivityComponent},
-        { path: 'notification', component: NotificationsComponent},
-        { path: 'apiKeys', component: ApiKeysComponent},
-        { path: 'security', component: SecurityComponent},
-        { path: 'index', component: IndexComponent},
-      ]
-  )
-  ],
-  providers: [
-    AuthService,
-    UsersService,
-    WebsocketService,
-    BinanceService
-  ],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		AuthorizationComponent,
+		RegistrationComponent,
+		BalanceComponent,
+		NotificationsComponent,
+		HeaderComponent,
+		IndexComponent,
+		ApiKeysComponent,
+		ProfileComponent,
+		SecurityComponent,
+		ActivityComponent,
+		jqxDateTimeInputComponent,
+	],
+	imports: [
+		BrowserModule,
+		HttpModule,
+		FormsModule,
+		ReactiveFormsModule,
+		HighchartsChartModule,
+		RouterModule.forRoot(
+			[
+				{ path: '', redirectTo: 'index', pathMatch: 'full' },
+				{
+					path: 'authorization', component: AuthorizationComponent,
+					data: {
+						noHeader: true,
+						noSidebar: true
+					}
+				},
+				{
+					path: 'registration', component: RegistrationComponent,
+					data: {
+						noHeader: true,
+						noSidebar: true
+					}
+				},
+				{ path: 'balance', component: BalanceComponent },
+				{ path: 'profile', component: ProfileComponent },
+				{ path: 'activity', component: ActivityComponent },
+				{ path: 'notification', component: NotificationsComponent },
+				{ path: 'apiKeys', component: ApiKeysComponent },
+				{ path: 'security', component: SecurityComponent },
+				{ path: 'index', component: IndexComponent },
+			]
+		)
+	],
+	providers: [
+		AuthService,
+		UsersService,
+		PersonsService,
+		WebsocketService,
+		BinanceService
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

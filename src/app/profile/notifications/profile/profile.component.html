@@ -16,51 +16,49 @@
         <div class="profile-title">
             <h2>Basic Information</h2>
         </div>
-        <div class="profile-item fl-row">
-            <div class="fl-col">
-                <span>First name</span>
-                <input class="w-171 mr-28" type="text" placeholder="Jackie">
+
+        <form [formGroup]="profileForm">
+            <div class="profile-item fl-row">
+                <div class="fl-col">
+                    <span>Full name</span>
+                    <input class="w-171 mr-28" type="text" placeholder="Jackie Chan" formControlName="fullName">
+                </div>
+                
+                <div class="fl-col calendar">
+                    <span>Birth date</span>
+                    <jqxDateTimeInput 
+                    [width]="171" [height]="36"
+                    (onValueChanged)="setUserBirthDate($event.args.date)">
+                </jqxDateTimeInput> 
+                    <!-- <input class="w-171" type="text" placeholder="30.03.1993"> -->
+                </div>
             </div>
-            <div class="fl-col">
-                <span>Last name</span>
-                <input class="w-171 mr-28" type="text" placeholder="Chan">
+            <div class="profile-item fl-row">
+                <div class="fl-col">
+                    <span>Email</span>
+                    <input class="w-271 mr-28" type="email" placeholder="administrator@softsolutions.com" formControlName="email">
+                </div>
+                <div class="fl-col">
+                    <span>Phone number</span>
+                    <input class="w-271" type="number" placeholder="+1 492 82 39 667" formControlName="phoneNumber">
+                </div>
             </div>
-            
-            <div class="fl-col calendar">
-                <span>Birth date</span>
-                <jqxDateTimeInput 
-                [width]="171" [height]="36"
-                (onValueChanged)="setUserBirthDate($event.args.date)">
-              </jqxDateTimeInput> 
-                <!-- <input class="w-171" type="text" placeholder="30.03.1993"> -->
+            <div class="profile-item fl-row">
+                <div class="fl-col">
+                    <span>Country</span>
+                    <input class="w-171 mr-28" type="text" placeholder="United States" formControlName="country">
+                </div>
+                <div class="fl-col">
+                    <span>City</span>
+                    <input class="w-171 mr-28" type="text" placeholder="New york" formControlName="city">
+                </div>
+                <div class="fl-col">
+                    <span>Address</span>
+                    <input class="w-171" type="text" placeholder="12 Wall Street 227" formControlName="address">
+                </div>
             </div>
-        </div>
-        <div class="profile-item fl-row">
-            <div class="fl-col">
-                <span>Email</span>
-                <input class="w-271 mr-28" type="email" placeholder="administrator@softsolutions.com">
-            </div>
-            <div class="fl-col">
-                <span>Phone number</span>
-                <input class="w-271" type="number" placeholder="+1 492 82 39 667">
-            </div>
-        </div>
-        <div class="profile-item fl-row">
-            <div class="fl-col">
-                <span>Country</span>
-                <input class="w-171 mr-28" type="text" placeholder="United States">
-            </div>
-            <div class="fl-col">
-                <span>City</span>
-                <input class="w-171 mr-28" type="text" placeholder="New york">
-            </div>
-            <div class="fl-col">
-                <span>Address</span>
-                <input class="w-171" type="text" placeholder="12 Wall Street 227">
-            </div>
-        </div>
-       <button class="main-btn">SAVE</button>
-      
+            <button class="main-btn" type="submit">SAVE</button>
+        </form>
     </div>
 </div>
  

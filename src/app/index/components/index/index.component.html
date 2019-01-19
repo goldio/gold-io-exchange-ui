@@ -2,15 +2,15 @@
     <div id="left" style="top: 60px;" [ngClass]="{
         'visible': responciveTabs == 1
     }">
-    
+
         <div class="left-content-block">
-    
+
             <div class="left-content box-responcive visible1">
-    
-            
-                
+
+
+
                 <div class="left-content-balance">
-                    <h4>Balance</h4> 
+                    <h4>Balance</h4>
                     <div class="left-content-balance-item">
                         <b>BTC</b>
                         0.73500.00
@@ -23,73 +23,73 @@
                         <button class="button-plus"></button>
                         <button class="button-minus"></button>
                     </div>
-                </div> 
-    
+                </div>
+
                 <div class="pos-rel">
                     <div class="box visible">
                         <div class="left-content-sell">
                             <div class="double-btns" [ngClass]="{
                                 'change-double-btn' : buyCell
                             }">
-                                <button class="" (click) = 'buyCell=!buyCell'>BUY</button>
-                                <button class="" (click) = 'buyCell=!buyCell'>SELL</button>
+                                <button class="" (click)='buyCell=!buyCell'>BUY</button>
+                                <button class="" (click)='buyCell=!buyCell'>SELL</button>
                                 <div class="choose"></div>
                             </div>
                             <div class="left-content-sell-input">
-                                    Price
-                                    <em>
+                                Price
+                                <em>
                                     <input type="radio" class="radio" id="radio1" name="radio">
-                                    <label  class="radio1" for="radio1">Market</label>
+                                    <label class="radio1" for="radio1">Market</label>
                                     <input type="radio" class="radio" id="radio2" name="radio" checked>
                                     <label for="radio2">Limit</label>
                                 </em>
-                                    <b>BTC</b>
-                                    <input type="text" placeholder="1.00000000">
-                                </div>
+                                <b>BTC</b>
+                                <input type="text" placeholder="1.00000000">
+                            </div>
                             <div class="left-content-sell-input">
                                 Ammount
                                 <b>ETH</b>
                                 <input type="text" placeholder="1.00000000">
                             </div>
                             <div class="left-content-sell-input percents">
-                                
-                                    <div class="percent"><span>25%</span></div>
-                                    <div class="percent"><span>50%</span></div>
-                                    <div class="percent"><span>75%</span></div>
-                                    <div class="percent"><span>100%</span></div>
+
+                                <div class="percent"><span>25%</span></div>
+                                <div class="percent"><span>50%</span></div>
+                                <div class="percent"><span>75%</span></div>
+                                <div class="percent"><span>100%</span></div>
                             </div>
-                            
+
                             <div class="left-content-sell-input">
                                 Total
                                 <b>USD</b>
                                 <input type="text" placeholder="1.00000000">
                             </div>
-                            <button class="transparent-btn">PLACE BUY ORDER</button>
+                            <button class="transparent-btn" *ngIf="isLoggedIn">PLACE BUY ORDER</button>
                         </div>
                     </div>
                 </div>
-    
-    
-                <div class="left-content-buttons">
-                        <button class="main-btn" routerLink="/authorization">SIGN IN</button>
-                        <button class="transparent-btn" routerLink="/registration" style="margin-top: 22px;">REGISTER</button>
-                    </div>
-    
-    
+
+
+                <div class="left-content-buttons" *ngIf="!isLoggedIn">
+                    <button class="main-btn" routerLink="/authorization">SIGN IN</button>
+                    <button class="transparent-btn" routerLink="/registration" style="margin-top: 22px;">REGISTER</button>
+                </div>
+
+
             </div>
-    
-            
-    
+
+
+
         </div>
-    
+
     </div>
-    
+
     <div id="content">
-    
-    
-    
-    
-    
+
+
+
+
+
         <div id="top">
             <div class="top-currency" *ngIf="currentSymbol">
                 <span class="top-currency-btn" (click)="currencyBox = !currencyBox">
@@ -97,7 +97,7 @@
                     <div style="padding: 4px 6px 0 6px;">{{ currentSymbol.baseAsset }} / {{ currentSymbol.quoteAsset }}</div>
                     <img src="../../../../assets/images/btc.svg" alt="">
                 </span>
-    
+
                 <div class="top-currency-dropdown" *ngIf="symbols" [ngClass]="{
                 'tcd-open': currencyBox
                 }">
@@ -105,7 +105,7 @@
                         <input type="text" placeholder="Search">
                         <button></button>
                     </div>
-                    
+
                     <div class="top-currency-dropdown-title">
                         <span>Symbol</span>
                         <span>Base</span>
@@ -124,16 +124,16 @@
                         </div>
                     </div>
                 </div>
-    
+
             </div>
-    
+
             <div class="top-last-price">
                 <div class="top-last-price-item">
                     <b style="text-transform: uppercase;">LAST PRICE</b> 0.034337
                     <span>$137.81</span>
                 </div>
                 <div class="top-last-price-item">
-                    <b style="text-transform: uppercase;">24h change</b>0.001899 
+                    <b style="text-transform: uppercase;">24h change</b>0.001899
                     <span>+5.85%</span>
                 </div>
                 <div class="top-last-price-item">
@@ -154,71 +154,75 @@
             -->
         </div>
         <ul class="reset responcive-tabs visible">
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-            
-                            <li class="current1" (click)="responciveTabs = 1"[ngClass]="{
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+
+                        <li class="current1" (click)="responciveTabs = 1" [ngClass]="{
                                 'active': responciveTabs == 1
                             }">BALANCE</li>
-                            <li  (click)="responciveTabs = 2"[ngClass]="{
+                        <li (click)="responciveTabs = 2" [ngClass]="{
                                 'active': responciveTabs == 2
-                            }">ORDER BOOK</li>
-                            <li (click)="responciveTabs = 3"[ngClass]="{
+                            }">ORDER
+                            BOOK</li>
+                        <li (click)="responciveTabs = 3" [ngClass]="{
                                 'active': responciveTabs == 3
-                            }">TRADE HISTORY</li>
-                            <li (click)="chart = true && responciveTabs = 4"[ngClass]="{
+                            }">TRADE
+                            HISTORY</li>
+                        <li (click)="chart = true && responciveTabs = 4" [ngClass]="{
                                 'active': responciveTabs == 4
-                            }">PRICE CHART</li>
-                            <li (click)="responciveTabs = 6"[ngClass]="{
+                            }">PRICE
+                            CHART</li>
+                        <li (click)="responciveTabs = 6" [ngClass]="{
                                 'active': responciveTabs == 5
-                            }">OPEN ORDERS</li>
-            
-                        </div>
+                            }">OPEN
+                            ORDERS</li>
+
                     </div>
                 </div>
+            </div>
         </ul>
         <div class="gradients" style="position:absolute;left:-9999px;">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-            
-            <filter id="shadow" filterUnits="userSpaceOnUse" x="0" y="0" width="1200" height="400">
-                <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur"/>
-                <feOffset in="blur" dx="1" dy="1" result="offsetBlr" />
-                <feFlood flood-color="rgba(237, 114, 72, 0.2)"/>
-                <feComposite operator="in" in2="offsetBlr" result="colBlur"/>
-                <feMerge>
-                <feMergeNode in="colBlur"/>
-                <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-            </filter>
-            </defs>
+                <defs>
+
+                    <filter id="shadow" filterUnits="userSpaceOnUse" x="0" y="0" width="1200" height="400">
+                        <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur" />
+                        <feOffset in="blur" dx="1" dy="1" result="offsetBlr" />
+                        <feFlood flood-color="rgba(237, 114, 72, 0.2)" />
+                        <feComposite operator="in" in2="offsetBlr" result="colBlur" />
+                        <feMerge>
+                            <feMergeNode in="colBlur" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                </defs>
             </svg>
             <svg xmlns="http://www.w3.org/2000/svg" width="200px" height="200px">
-            <defs> 
-                <linearGradient id="lgrad1" x1="50%" y1="0%" x2="50%" y2="100%" > 
-                    <stop offset="0%" style="stop-color:rgb(30,25,45);stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:rgb(30,25,45);stop-opacity:1" />
-                </linearGradient> 
-            </defs>
-            <rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad1)"/>
-        </svg>
+                <defs>
+                    <linearGradient id="lgrad1" x1="50%" y1="0%" x2="50%" y2="100%">
+                        <stop offset="0%" style="stop-color:rgb(30,25,45);stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:rgb(30,25,45);stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad1)" />
+            </svg>
             <svg xmlns="http://www.w3.org/2000/svg" width="200px" height="200px">
-            <defs> 
-            <linearGradient id="lgrad2" x1="50%" y1="0%" x2="50%" y2="100%" > 
-                <stop offset="0%" style="stop-color:rgb(28,49,56);stop-opacity:1" />
-                <stop offset="100%" style="stop-color:rgb(28,49,56);stop-opacity:1" />
-            </linearGradient> 
-            </defs>
-            <rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad2)"/>
-        </svg>
+                <defs>
+                    <linearGradient id="lgrad2" x1="50%" y1="0%" x2="50%" y2="100%">
+                        <stop offset="0%" style="stop-color:rgb(28,49,56);stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:rgb(28,49,56);stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad2)" />
+            </svg>
         </div>
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
         <div class="content-left box-responcive" [ngClass]="{
             'visible': responciveTabs == 2
         }">
@@ -226,32 +230,32 @@
             <span style="padding-left: 25px;">Price(BTC)</span>
             <span>Amount(ETH)</span>
             <span>Total(BTC)</span>
-            
+
             <div class="content-left-info">
-                    <div class="content-left-red">
-                        <div class="content-left-red-item left-red" *ngFor="let item of orderBookBids">
-                            <span>{{ item.price }}</span>
-                            <span>{{ item.amount }}</span>
-                            <span>{{ item.total }}</span>
-                            <em style="width: 2px;"></em>
-                        </div>
-                    </div>
-                    <div class="content-left-sticky">
-                        <span class="content-left-sticky-green">0.034337 </span>
-                        <span class="content-left-sticky-text">$137.81</span>
-                    </div>
-                    <div class="content-left-red">
-                        <div class="content-left-red-item left-green" *ngFor="let item of orderBookAsks">
-                                <span>{{ item.price }}</span>
-                                <span>{{ item.amount }}</span>
-                                <span>{{ item.total }}</span>
-                            <em style="width: 2px;"></em>
-                        </div>                                                                                                                                                                                                                                                                                                                             
+                <div class="content-left-red">
+                    <div class="content-left-red-item left-red" *ngFor="let item of orderBookBids">
+                        <span>{{ item.price }}</span>
+                        <span>{{ item.amount }}</span>
+                        <span>{{ item.total }}</span>
+                        <em style="width: 2px;"></em>
                     </div>
                 </div>
+                <div class="content-left-sticky">
+                    <span class="content-left-sticky-green">0.034337 </span>
+                    <span class="content-left-sticky-text">$137.81</span>
+                </div>
+                <div class="content-left-red">
+                    <div class="content-left-red-item left-green" *ngFor="let item of orderBookAsks">
+                        <span>{{ item.price }}</span>
+                        <span>{{ item.amount }}</span>
+                        <span>{{ item.total }}</span>
+                        <em style="width: 2px;"></em>
+                    </div>
+                </div>
+            </div>
         </div>
-    
-        <div class="content-right box-responcive"  [ngClass]="{
+
+        <div class="content-right box-responcive" [ngClass]="{
             'visible': responciveTabs == 3
         }">
             <h2>TRADE HISTORY</h2>
@@ -260,35 +264,36 @@
             <span>UTC Time</span>
             <div class="content-right-info">
                 <div class="content-right-item" *ngFor="let item of tradeHistory">
-                    <span [ngClass]="{ 'history-green': item.isBuyerMaker, 'history-red': !item.isBuyerMaker }">{{ item.price }}</span>
+                    <span [ngClass]="{ 'history-green': item.isBuyerMaker, 'history-red': !item.isBuyerMaker }">{{
+                        item.price }}</span>
                     <span>{{ item.qty }}</span>
                     <span>{{ item.time }}</span>
                 </div>
             </div>
         </div>
-    
-        <div class="content-center"  [ngClass]="{
+
+        <div class="content-center" [ngClass]="{
             'content-center-visible': responciveTabs == 4  || responciveTabs == 6
         }">
-            <div class="content-center-chart box-responcive"  [ngClass]="{
+            <div class="content-center-chart box-responcive" [ngClass]="{
                 'visible': responciveTabs == 4 
             }">
-    
-                <ul class="reset content-center-tabs double-btns"  [ngClass]="{
+
+                <ul class="reset content-center-tabs double-btns" [ngClass]="{
                     'change-double-btn': chart
                 }">
                     <button (click)="chart = false">Price chart</button>
                     <button (click)="chart = true">Depth chart</button>
                     <div class="choose"></div>
                 </ul>
-    
+
                 <div class="box price-box" [ngClass]="{
                     'visible': !chart
                     }">
                     <h2>PRICE CHART</h2>
-                    <div class="chart-box" id="price-chart-box"style="display:none">
+                    <div class="chart-box" id="price-chart-box" style="display:none">
                         <!-- <div [chart]="_chart" *ngIf="_chart"></div> -->
-                            <!-- <highcharts-chart *ngIf="chart"
+                        <!-- <highcharts-chart *ngIf="chart"
                             [Highcharts]="Highcharts"
                           
                             [constructorType]="chartConstructor"
@@ -301,8 +306,8 @@
                             style="width: 100%; height: 400px; display: block;"
                           ></highcharts-chart> -->
 
-                            <!-- TradingView Widget BEGIN -->
-                            <!-- <script type="text/javascript">
+                        <!-- TradingView Widget BEGIN -->
+                        <!-- <script type="text/javascript">
                             new TradingView.widget({
                                 "autosize": true,
                                 "symbol": "COINBASE:BTCUSD",
@@ -317,19 +322,19 @@
                                 "hideideas": true
                             });
                             </script> -->
-                            <!-- TradingView Widget END -->
+                        <!-- TradingView Widget END -->
                     </div>
                     <div class="chart-box" id="price-chart-box1"></div>
                 </div>
-    
+
                 <div class="box depth-box" [ngClass]="{
                     'visible': chart
                     }">
                     <h2>DEPTH CHART</h2>
                     <div class="chart-box" id="depth-chart-box1"></div>
-                    <div class="chart-box" id="depth-chart-box"style="display:none">
-                                <!-- TradingView Widget BEGIN -->
-                                <!-- <script type="text/javascript">
+                    <div class="chart-box" id="depth-chart-box" style="display:none">
+                        <!-- TradingView Widget BEGIN -->
+                        <!-- <script type="text/javascript">
                                 new TradingView.widget({
                                 "autosize": true,
                                 "symbol": "KRAKEN:XRPUSD",
@@ -344,26 +349,26 @@
                                 "hideideas": true
                                 });
                                 </script> -->
-                                <!-- TradingView Widget END -->
+                        <!-- TradingView Widget END -->
                     </div>
-    
-                    <div class="depth_chart_control"style="display:none">
+
+                    <div class="depth_chart_control" style="display:none">
                         <button id="depth_plus" class="balances-plus">+</button>
-    
+
                         <div class="depth_chart_header">
                             <div class="mid_price_label">Mid Market Price</div>
-    
+
                             <div id="depth_chart_mid_price" class="mid_price">
                                 0
                             </div>
                         </div>
-    
+
                         <button id="depth_minus" class="balances-minus">-</button>
                     </div>
                 </div>
-    
+
             </div>
-    
+
             <div class="content-center-orders box-responcive block-orders" [ngClass]="{
                 'visible': responciveTabs == 6 
             }">
@@ -505,16 +510,9 @@
                         </div>
                     </div>
                 </div>
-    
+
             </div>
         </div>
-    
+
     </div>
 </section>
-
-
-
-
-
-
-
