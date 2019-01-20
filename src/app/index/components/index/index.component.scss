@@ -24,22 +24,6 @@ ul.content-orders-tabs li,
   transition: all 0.3s ease;
 }
 
-.highcharts-series-0 .highcharts-area {
-  fill: rgba(255, 105, 57, 0.35);
-}
-
-.highcharts-series-0 .highcharts-graph {
-  stroke: rgb(255, 105, 57);
-}
-
-.highcharts-series-1 .highcharts-area {
-  fill: rgba(129, 193, 104, 0.35);
-}
-
-.highcharts-series-1 .highcharts-graph {
-  stroke: rgb(129, 193, 104);
-}
-
 .depth_chart_control {
   display: flex;
   position: absolute;
@@ -98,14 +82,6 @@ ul.content-orders-tabs li,
   border: 1px solid #161f34;
 }
 
-.highcharts-series-1 .highcharts-area {
-  fill: url(#lgrad2);
-}
-
-.highcharts-series-0 .highcharts-area {
-  fill: url(#lgrad1);
-}
-
 .t_i {
   display: flex;
 }
@@ -127,14 +103,6 @@ ul.content-orders-tabs li,
 
 .f_h {
   font-weight: bold;
-}
-
-.highcharts-axis.highcharts-xaxis .highcharts-axis-line {
-  display: none;
-}
-
-#depth-chart-container .highcharts-axis-line {
-  display: none;
 }
 
 
@@ -2215,4 +2183,72 @@ Pagination Styles
 	
 }
 
+/* 
+:host ::ng-deep .highcharts-series-0 .highcharts-point {
+  fill: #ff0000;
+  stroke: #0000ff;
+}
+:host ::ng-deep .highcharts-series-1 .highcharts-point {
+  fill: #ff0000;
+  stroke: #0000ff;
+} */
 
+// Price chart
+:host ::ng-deep .chart-box#price-chart-box .highcharts-background {
+  fill: #141720;
+}
+
+:host ::ng-deep .chart-box#price-chart-box .highcharts-grid-line {
+  stroke: rgba(255, 255, 255, 0.03);
+}
+
+:host ::ng-deep .chart-box#price-chart-box .highcharts-point.highcharts-color-0.highcharts-point-down {
+  fill: #DC4E45;
+  stroke: #DC4E45;
+}
+
+:host ::ng-deep .chart-box#price-chart-box .highcharts-point.highcharts-color-0.highcharts-point-up {
+  fill: #7FDB6F;
+  stroke: #7FDB6F;
+}
+
+:host ::ng-deep .chart-box#price-chart-box .highcharts-point.highcharts-color-1 {
+  fill: rgba(255, 255, 255, 0.03);
+  stroke: rgba(255, 255, 255, 0.03);
+}
+
+// Depth chart
+:host ::ng-deep .chart-box#depth-chart-box1 .highcharts-background {
+  fill: #141720;
+}
+
+.dark :host ::ng-deep .chart-box#depth-chart-box1 .highcharts-series-0 .highcharts-graph {
+  stroke: #DC4E45;
+}
+
+.dark :host ::ng-deep .chart-box#depth-chart-box1 .highcharts-series-0 .highcharts-area {
+  fill: rgba(220, 78, 69, 0.4);
+}
+
+.dark :host ::ng-deep .chart-box#depth-chart-box1 .highcharts-series-1 .highcharts-graph {
+  stroke: #7FDB6F;
+}
+
+.dark :host ::ng-deep .chart-box#depth-chart-box1 .highcharts-series-1 .highcharts-area {
+  fill: rgba(127, 219, 111, 0.4);
+}
+
+.dark :host ::ng-deep .chart-box#depth-chart-box1 .highcharts-grid-line {
+  stroke: #fff;
+  opacity: 0.03;
+}
+
+.dark :host ::ng-deep .chart-box#depth-chart-box1 .highcharts-axis-line {
+  stroke: #fff;
+  opacity: 0.03;
+}
+
+.dark :host ::ng-deep .chart-box#depth-chart-box1 .highcharts-tick {
+  stroke: #fff;
+  opacity: 0.03;
+}

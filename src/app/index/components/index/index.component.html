@@ -291,47 +291,28 @@
                     'visible': !chart
                     }">
                     <h2>PRICE CHART</h2>
-                    <div class="chart-box" id="price-chart-box" style="display:none">
-                        <!-- <div [chart]="_chart" *ngIf="_chart"></div> -->
-                        <!-- <highcharts-chart *ngIf="chart"
+                    <div class="chart-box" id="price-chart-box">
+                        <!-- <div [chart]="priceChart"></div> -->
+                        <highcharts-chart *ngIf="priceChartOptions"
                             [Highcharts]="Highcharts"
-                          
-                            [constructorType]="chartConstructor"
-                            [options]="chartOptions"
-                            [callbackFunction]="chartCallback"
-                          
-                            [(update)]="updateFlag"
-                            [oneToOne]="oneToOneFlag"
-                          
-                            style="width: 100%; height: 400px; display: block;"
-                          ></highcharts-chart> -->
-
-                        <!-- TradingView Widget BEGIN -->
-                        <!-- <script type="text/javascript">
-                            new TradingView.widget({
-                                "autosize": true,
-                                "symbol": "COINBASE:BTCUSD",
-                                "interval": "D",
-                                "timezone": "Europe/London",
-                                "theme": "Dark",
-                                "style": "9",
-                                "locale": "en",
-                                "toolbar_bg": "rgba(9, 19, 41, 1)",
-                                "enable_publishing": false,
-                                "save_image": false,
-                                "hideideas": true
-                            });
-                            </script> -->
-                        <!-- TradingView Widget END -->
+                            [options]="priceChartOptions"
+                            style="display: block; width: 100%; height: 100%;"
+                          ></highcharts-chart>
                     </div>
-                    <div class="chart-box" id="price-chart-box1"></div>
+                    <div class="chart-box" id="price-chart-box1" style="display:none"></div>
                 </div>
 
                 <div class="box depth-box" [ngClass]="{
                     'visible': chart
                     }">
                     <h2>DEPTH CHART</h2>
-                    <div class="chart-box" id="depth-chart-box1"></div>
+                    <div class="chart-box" id="depth-chart-box1">
+                        <highcharts-chart *ngIf="depthChartOptions"
+                            [Highcharts]="Highcharts"
+                            [options]="depthChartOptions"
+                            style="display: block; width: 100%; height: 100%;"
+                          ></highcharts-chart>
+                    </div>
                     <div class="chart-box" id="depth-chart-box" style="display:none">
                         <!-- TradingView Widget BEGIN -->
                         <!-- <script type="text/javascript">
