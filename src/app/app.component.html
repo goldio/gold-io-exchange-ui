@@ -1,5 +1,5 @@
 <!-- dark light -->
-<section class="main dark">
+<section class="main" [ngClass]="{'dark': theme === 0, 'light': theme === 1}">
   <app-header *ngIf='!noHeader'></app-header>
   <router-outlet></router-outlet>
 </section>

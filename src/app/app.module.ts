@@ -24,6 +24,7 @@ import { BinanceService } from './common/services/binance.service';
 import { AuthService } from './common/services/auth.service';
 import { UsersService } from './common/services/users.service';
 import { PersonsService } from './profile/services/persons.service';
+import { ThemeService } from './common/services/theme.service';
 
 @NgModule({
 	declarations: [
@@ -74,6 +75,7 @@ import { PersonsService } from './profile/services/persons.service';
 		)
 	],
 	providers: [
+		ThemeService,
 		AuthService,
 		UsersService,
 		PersonsService,

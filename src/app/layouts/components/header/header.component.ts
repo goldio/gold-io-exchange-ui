@@ -4,6 +4,7 @@ import { Theme } from 'src/app/common/enums/theme.enum';
 import { AuthService } from 'src/app/common/services/auth.service';
 import { UsersService } from 'src/app/common/services/users.service';
 import { User } from 'src/app/common/models';
+import { ThemeService } from 'src/app/common/services/theme.service';
 
 @Component({
 	selector: 'app-header',
@@ -37,7 +38,7 @@ export class HeaderComponent implements OnInit {
 		private authService: AuthService,
 		private usersService: UsersService,
 		private router: Router,
-		// private themeService: StateService<Theme>
+		private themeService: ThemeService
 	) { }
 
 	ngOnInit() {
@@ -51,7 +52,7 @@ export class HeaderComponent implements OnInit {
 	}
 
 	public theme() {
-		// this.themeService.setTheme();
+		this.themeService.setState();
 	}
 
 	public logout() {

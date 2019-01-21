@@ -2194,31 +2194,57 @@ Pagination Styles
 } */
 
 // Price chart
-:host ::ng-deep .chart-box#price-chart-box .highcharts-background {
+// dark
+.dark :host ::ng-deep .chart-box#price-chart-box .highcharts-background {
   fill: #141720;
 }
 
-:host ::ng-deep .chart-box#price-chart-box .highcharts-grid-line {
+.dark :host ::ng-deep .chart-box#price-chart-box .highcharts-grid-line {
   stroke: rgba(255, 255, 255, 0.03);
 }
 
-:host ::ng-deep .chart-box#price-chart-box .highcharts-point.highcharts-color-0.highcharts-point-down {
+.dark :host ::ng-deep .chart-box#price-chart-box .highcharts-point.highcharts-color-0.highcharts-point-down {
   fill: #DC4E45;
   stroke: #DC4E45;
 }
 
-:host ::ng-deep .chart-box#price-chart-box .highcharts-point.highcharts-color-0.highcharts-point-up {
+.dark :host ::ng-deep .chart-box#price-chart-box .highcharts-point.highcharts-color-0.highcharts-point-up {
   fill: #7FDB6F;
   stroke: #7FDB6F;
 }
 
-:host ::ng-deep .chart-box#price-chart-box .highcharts-point.highcharts-color-1 {
+.dark :host ::ng-deep .chart-box#price-chart-box .highcharts-point.highcharts-color-1 {
   fill: rgba(255, 255, 255, 0.03);
   stroke: rgba(255, 255, 255, 0.03);
 }
 
+// light
+.light :host ::ng-deep .chart-box#price-chart-box .highcharts-background {
+  fill: #fff;
+}
+
+.light :host ::ng-deep .chart-box#price-chart-box .highcharts-grid-line {
+  stroke: rgba(255, 255, 255, 0.03);
+}
+
+.light :host ::ng-deep .chart-box#price-chart-box .highcharts-point.highcharts-color-0.highcharts-point-down {
+  fill: #DE246E;
+  stroke: #DF8CA7;
+}
+
+.light :host ::ng-deep .chart-box#price-chart-box .highcharts-point.highcharts-color-0.highcharts-point-up {
+  fill: #77A542;
+  stroke: #BAD29A;
+}
+
+.light :host ::ng-deep .chart-box#price-chart-box .highcharts-point.highcharts-color-1 {
+  fill: rgba(0, 0, 0, 0.03);
+  stroke: rgba(0, 0, 0, 0.03);
+}
+
 // Depth chart
-:host ::ng-deep .chart-box#depth-chart-box1 .highcharts-background {
+// dark
+.dark :host ::ng-deep .chart-box#depth-chart-box1 .highcharts-background {
   fill: #141720;
 }
 
@@ -2250,5 +2276,41 @@ Pagination Styles
 
 .dark :host ::ng-deep .chart-box#depth-chart-box1 .highcharts-tick {
   stroke: #fff;
+  opacity: 0.03;
+}
+
+// light
+.light :host ::ng-deep .chart-box#depth-chart-box1 .highcharts-background {
+  fill: #fff;
+}
+
+.light :host ::ng-deep .chart-box#depth-chart-box1 .highcharts-series-0 .highcharts-graph {
+  stroke: #DC4E45;
+}
+
+.light :host ::ng-deep .chart-box#depth-chart-box1 .highcharts-series-0 .highcharts-area {
+  fill: rgba(220, 78, 69, 0.4);
+}
+
+.light :host ::ng-deep .chart-box#depth-chart-box1 .highcharts-series-1 .highcharts-graph {
+  stroke: #7FDB6F;
+}
+
+.light :host ::ng-deep .chart-box#depth-chart-box1 .highcharts-series-1 .highcharts-area {
+  fill: rgba(127, 219, 111, 0.4);
+}
+
+.light :host ::ng-deep .chart-box#depth-chart-box1 .highcharts-grid-line {
+  stroke: #000;
+  opacity: 0.03;
+}
+
+.light :host ::ng-deep .chart-box#depth-chart-box1 .highcharts-axis-line {
+  stroke: #000;
+  opacity: 0.03;
+}
+
+.light :host ::ng-deep .chart-box#depth-chart-box1 .highcharts-tick {
+  stroke: #000;
   opacity: 0.03;
 }
