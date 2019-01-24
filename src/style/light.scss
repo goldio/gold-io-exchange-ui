@@ -566,6 +566,7 @@
         background: linear-gradient(180deg, #D1C881 0%, #D0B65D 100%);
         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
         color: #FFFFFF;
+        transition: 0.3s;
     }
   
     .main-btn:hover {
@@ -622,7 +623,7 @@
     }
   
     .double-btns {
-      background: #FFFFFF;
+      // background: #FFFFFF;
       border: 1px solid #F2F2F2;
       box-sizing: border-box;
   
@@ -1288,7 +1289,7 @@
         
         
           .left-content-sell-input em .radio:checked+label:before {
-            border: 1px solid #D1C881;
+            border: 1.5px solid #D1C881;
           }
         
           // .left-content-sell-input em .radio:not(checked)+.radio1:after {

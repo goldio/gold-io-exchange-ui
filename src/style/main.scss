@@ -1660,7 +1660,7 @@ ul.left-top-menu {
 
 .double-btns {
   width: 219px;
-  height: 36px;
+  height: 28px;
   display: flex;
   flex-shrink: 0;
   align-items: center;
@@ -1672,7 +1672,7 @@ ul.left-top-menu {
   .choose {
     position: absolute;
     width: 110px;
-    height: 36px;
+    height: 28px;
     box-sizing: border-box;
     border-radius: 3px;
     top: 0;
@@ -1684,14 +1684,27 @@ ul.left-top-menu {
 
   button {
     width: 109px;
-    height: 36px;
+    height: 28px;
     letter-spacing: 0.5px;
     font-weight: bold;
     transition: all 0.3s ease;
   }
 
 }
-
+.left-content-sell{
+  .double-btns {
+    height: 36px;
+  
+    .choose {
+      height: 36px;
+    }
+  
+    button {
+      height: 36px;
+    }
+  
+  }
+}
 .change-double-btn {
   .choose {
     left: 50%;
@@ -1733,9 +1746,14 @@ ul.left-top-menu {
 // main dark
 .dark {
   background: #141720;
-
+  body{
+    background: #141720;
+  }
   .left-top {
     background: white;
+  }
+  .left-content-sell,.left-content-buttons{
+    background: #141720;
   }
   .left-content-sell-input input {
     border: 1px solid transparent;
@@ -1752,6 +1770,10 @@ ul.left-top-menu {
   }
 
   @media screen and (max-width: 600px) {
+    #content{
+      width: 100vw;
+      overflow-x: hidden;
+    }
     .left-top {
       box-shadow: 0 0 40px rgba(10, 17, 54, 0.11);
     }
@@ -2282,7 +2304,7 @@ ul.left-top-menu {
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
     color: white;
     background: transparent;
-    transition: none;
+    // transition: none;
   }
 
   .transparent-btn:hover {
@@ -2297,18 +2319,48 @@ ul.left-top-menu {
 
   .main-btn {
     background: linear-gradient(180deg, #D1C881 0%, #D0B65D 100%);
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
+    // box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
     color: #1A1F2B;
+    transition: 0.3s;
+
   }
+  .main-btn-hov::after{
+    content: 'SIGN IN';
+    background: linear-gradient(180deg, #FBEE8E 0%, #D1C881 100%);
+    width: 100%;
+    position: relative;
+    height: 35px;
+    display: block;
+    transition: .3s;
+    top: -24px;
+    padding-top: 10.5px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    opacity: 0; 
+  }
+  .main-btn-hov:hover::after {
+    opacity: 1;
+  }
+  .main-btn-hov:active::after {
+  opacity: 0;
+  }
+  .main-btn-hov:active {
+    background: linear-gradient(180deg, #817D58 0%, #D0B65D 100%);
+  }
+  .main-btn-hov{
+    padding-top: 11px!important;
+  }
+ 
+
 
   .main-btn:hover {
-    background: linear-gradient(180deg, #FBEE8E 0%, #D1C881 100%);
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
+    // background: linear-gradient(180deg, #FBEE8E 0%, #D1C881 100%);
+    // box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
   }
 
   .main-btn:active {
-    background: linear-gradient(180deg, #817D58 0%, #D0B65D 100%);
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
+    // background: linear-gradient(180deg, #817D58 0%, #D0B65D 100%);
+    // box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
   }
 
   .copy-btn {
@@ -2355,23 +2407,25 @@ ul.left-top-menu {
   }
 
   .double-btns {
-    background: #ffffff07;
+    background: rgba(#FFFFFF, 0.03);
 
     .choose {
       border: 1px solid #D1C881;
     }
 
     button {
-      background: rgba(255, 255, 255, 0.03);
+      background: transparent;
       color: white;
     }
 
     button:hover {
-      background: rgba(255, 255, 255, 0.05);
+      background: transparent;
+      // background: rgba(#FFFFFF, 0.05);
     }
 
     button:active {
-      background: rgba(255, 255, 255, 0.01);
+      background: transparent;
+      // background: rgba(#FFFFFF, 0.01);
     }
   }
 }
@@ -2434,17 +2488,17 @@ ul.left-top-menu {
       color: #868d91;
   }
   
-  .sign-container button {
-      background: linear-gradient(180deg, #D1C881 0%, #D0B65D 100%), linear-gradient(359.95deg, #9E7C2D 0.26%, #D6C856 99.73%);
-      color: #1A1F2B;
-  }
+  // .sign-container button {
+  //     background: linear-gradient(180deg, #D1C881 0%, #D0B65D 100%), linear-gradient(359.95deg, #9E7C2D 0.26%, #D6C856 99.73%);
+  //     color: #1A1F2B;
+  // }
   
-  .sign-container button:hover {
-      background: #D1C881;
-  }
-  .sign-container button:active {
-      background: #9E7C2D;
-  }
+  // .sign-container button:hover {
+  //     background: #D1C881;
+  // }
+  // .sign-container button:active {
+  //     background: #9E7C2D;
+  // }
   
   .sign-links a {
       color: #D1C881;
@@ -2531,12 +2585,12 @@ ul.left-top-menu {
   .sign-links a {
       color: #D1C881;
   }
-  button{
-      background: linear-gradient(180deg, #D1C881 0%, #D0B65D 100%), linear-gradient(359.95deg, #9E7C2D 0.26%, #D6C856 99.73%);
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
-  }
+  // button{
+  //     background: linear-gradient(180deg, #D1C881 0%, #D0B65D 100%), linear-gradient(359.95deg, #9E7C2D 0.26%, #D6C856 99.73%);
+  // box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
+  // }
   button:hover{
-       background: #D1C881; 
+      //  background: #D1C881; 
   }
 }
 // activity dark
@@ -2972,7 +3026,7 @@ ul.left-top-menu {
   button.button-plus:active,
   button.button-minus:active {
     border: 1px solid #5E5A44;
-    background: #5E5A44;
+    // background: #5E5A44;
   }
 
   @media screen and (max-width: 600px) {
@@ -3391,5 +3445,74 @@ ul.left-top-menu {
     font-family: 'DisplayBold';
     text-transform: uppercase;
     top: 8px;
+  }
+}
+
+.dark {
+  .sign{
+    
+    .main-btn {
+    background: linear-gradient(180deg, #D1C881 0%, #D0B65D 100%);
+    // box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
+    color: #1A1F2B;
+    transition: 0.3s;
+
+    }
+    .main-btn-hov::after{
+    content: 'LOGIN';
+    background: linear-gradient(180deg, #FBEE8E 0%, #D1C881 100%);
+    width: 100%;
+    position: relative;
+    height: 53px;
+    display: block;
+    transition: .3s;
+    top: -35px;
+    padding-top: 17.5px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    opacity: 0; 
+    }
+    .main-btn-hov:hover::after {
+    opacity: 1;
+    }
+    .main-btn-hov:active::after {
+    opacity: 0;
+    }
+    .main-btn-hov:active {
+    background: linear-gradient(180deg, #817D58 0%, #D0B65D 100%);
+    }
+    .main-btn-hov{
+    padding-top: 18px!important;
+    }
+
+  }
+  .reg{
+    .main-btn-hov::after{
+      content: 'CREATE ACCOUNT';
+    }
+  }
+}
+
+.highcharts-legend-item{
+  rect{
+    fill: #D1C881!important;
+    fill-rule : nonzero;
+    stroke: #D1C881!important;
+  }
+  text{
+    color: #D1C881!important;
+    fill:  #D1C881!important;
+  }
+}
+.highcharts-legend-item-hidden{
+  rect{
+    fill: transparent!important;
+    fill-rule : nonzero;
+    
+    stroke: #4D5364!important;
+  }
+  text{
+    color: #4D5364!important;
+    fill:  #4D5364!important;
   }
 }

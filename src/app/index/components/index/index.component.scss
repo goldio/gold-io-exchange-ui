@@ -531,6 +531,7 @@ button.button-minus {
     border-radius: 4px;
     background-size: 7px auto;
     background: transparent;
+    box-sizing: border-box;
 }
 
 
@@ -545,7 +546,7 @@ button.button-minus {
   right: 0;
   top: 0;
   bottom: 44px;
-  overflow: auto;
+  // overflow: auto;
 }
 
 .left-content::-webkit-scrollbar {
@@ -605,7 +606,7 @@ button.button-minus {
 
 .left-content-buttons {
   padding: 26px 0 0px 0;
-  background: transparent;
+  // background: transparent;
   text-align: center;
   font-size: 12px;
   font-weight: 500;
@@ -616,8 +617,10 @@ button.button-minus {
   border-radius: 3px;
   font-size: 12px;
   font-weight: 700;
-  line-height: 36px;
+  // line-height: 36px;
+  padding-top: 1px;
   margin: 0;
+  transition: 0.3s;
 }
 
 
@@ -628,6 +631,7 @@ button.button-minus {
   padding: 20px 17px 0 14px;
   .double-btns {
     button {
+      background: transparent;
       font-weight: 300;
       font-size: 12px;
       letter-spacing: 0.5px;
@@ -704,21 +708,23 @@ button.button-sell.button-sell-live {
   // color: #fff;
   font-size: 14px;
   font-weight: 400;
+  // z-index: 1;
 }
 
 
 .left-content-sell-input b {
   position: absolute;
-  bottom: 2px;
-  right: 2px;
+  bottom: 0px;
+  right: 0px;
   display: block;
   width: 52px;
-  height: 35px;
+  height: 40px;
   text-align: center;
   font-size: 12px;
   font-weight: 300;
-  line-height: 37px;
-    border-radius: 0px 4px 4px 0px;
+  line-height: 41px;
+  // z-index: -1;
+  border-radius: 0px 4px 4px 0px;
 }
 
 
@@ -769,8 +775,10 @@ button.button-sell.button-sell-live {
 .left-content-sell-input em .radio:not(checked)+label:after {
   content: '';
   position: absolute;
-  top: 6px;
-  left: 5px;
+  // top: 6px;
+  // left: 5px;
+  top: 5.6px;
+  left: 5.4px;
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -779,6 +787,10 @@ button.button-sell.button-sell-live {
   transition: all .3s;
 }
 
+.radioMarket:after{
+  top: 5.6px;
+  left: 5px!important;
+}
 .left-content-sell-input em .radio:checked+label:after {
   opacity: 1;
 }
@@ -956,6 +968,8 @@ ul.left-content-tabs li:nth-child(3).current {
   bottom: 0;
   left: 251px;
   right: 0;
+  overflow: auto;
+
 }
 
 @media screen and (max-width: 600px) {
@@ -981,7 +995,7 @@ ul.left-content-tabs li:nth-child(3).current {
   padding: 0 25px;
   // background: #141720;
   // color: #686D7A;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 50px;
 }
@@ -1001,7 +1015,7 @@ ul.left-content-tabs li:nth-child(3).current {
   bottom: 0;
   left: 0;
   right: 0;
-  overflow: auto;
+  // overflow: auto;
 }
 
 .content-left-info::-webkit-scrollbar {
@@ -1363,7 +1377,7 @@ ul.left-content-tabs li:nth-child(3).current {
   padding: 0 26px;
   // background: #141720;
   // color: #686D7A;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 50px;
 }
@@ -1406,7 +1420,8 @@ ul.left-content-tabs li:nth-child(3).current {
   bottom: 0;
   left: 0;
   right: 0;
-  overflow: auto;
+  // overflow: auto;
+  height: 100%;
 }
 
 .content-right-info::-webkit-scrollbar {
@@ -1517,7 +1532,7 @@ ul.left-content-tabs li:nth-child(3).current {
   right: 286px;
   top: 61px;
   bottom: 0;
-  overflow: auto;
+  // overflow: auto;
 }
 
 .content-center::-webkit-scrollbar {
@@ -1534,7 +1549,7 @@ ul.left-content-tabs li:nth-child(3).current {
   height: 43px;
   padding: 0 0 0 16px;
   // color: #686D7A;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 50px;
 }
@@ -1860,6 +1875,7 @@ ul.content-orders-tabs li.current {
 
 .responcive-tabs {
   display: none;
+  position: fixed;
 }
 
 .box-responcive.visible,
@@ -1870,7 +1886,7 @@ ul.content-orders-tabs li.current {
 @media screen and (max-width: 1280px) {
   .responcive-tabs {
     overflow: hidden;
-    position: absolute;
+    position: fixed;
     z-index: 6;
     left: 0;
     right: 0;
@@ -2318,4 +2334,11 @@ Pagination Styles
 .light :host ::ng-deep .chart-box#depth-chart-box1 .highcharts-tick {
   stroke: #000;
   opacity: 0.03;
+}
+.left-content-sell-input input:focus ~ b{
+  bottom: 1px;
+    right: 1px;
+    height: 37.5px;
+    width: 51px;
+    line-height: 39px;
 }

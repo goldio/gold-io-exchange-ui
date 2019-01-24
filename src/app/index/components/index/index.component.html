@@ -39,17 +39,17 @@
                                 Price
                                 <em>
                                     <input type="radio" class="radio" id="radio1" name="radio">
-                                    <label class="radio1" for="radio1">Market</label>
+                                    <label class="radio1 radioMarket" for="radio1">Market</label>
                                     <input type="radio" class="radio" id="radio2" name="radio" checked>
-                                    <label for="radio2">Limit</label>
+                                    <label  class="radio1" for="radio2">Limit</label>
                                 </em>
-                                <b>BTC</b>
                                 <input type="text" placeholder="1.00000000">
+                                <b class="input-decor">BTC</b>
                             </div>
                             <div class="left-content-sell-input">
                                 Ammount
-                                <b>ETH</b>
                                 <input type="text" placeholder="1.00000000">
+                                <b>ETH</b>
                             </div>
                             <div class="left-content-sell-input percents">
 
@@ -61,8 +61,8 @@
 
                             <div class="left-content-sell-input">
                                 Total
-                                <b>USD</b>
                                 <input type="text" placeholder="1.00000000">
+                                <b>USD</b>
                             </div>
                             <button class="transparent-btn" *ngIf="isLoggedIn">PLACE BUY ORDER</button>
                         </div>
@@ -71,7 +71,7 @@
 
 
                 <div class="left-content-buttons" *ngIf="!isLoggedIn">
-                    <button class="main-btn" routerLink="/authorization">SIGN IN</button>
+                    <button class="main-btn main-btn-hov" routerLink="/authorization">SIGN IN</button>
                     <button class="transparent-btn" routerLink="/registration" style="margin-top: 22px;">REGISTER</button>
                 </div>
 

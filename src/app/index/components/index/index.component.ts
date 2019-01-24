@@ -292,6 +292,7 @@ export class IndexComponent implements OnInit {
 		this.priceChartOptions = {
 			chart: { type: 'area' },
 			title: null,
+			
 			credits: { enabled: false },
 			rangeSelector: {
                 buttons: [{
@@ -357,6 +358,8 @@ export class IndexComponent implements OnInit {
                 zIndex: 2,
                 pointWidth: 4
             }]
+			
+			
 			/* series: [{
 				type: 'candlestick',
 				name: 'Line1', 
