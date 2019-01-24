@@ -365,7 +365,7 @@ ul.left-top-menu {
   position: absolute;
   z-index: 4;
   top: 22px;
-  right: 165px;
+  right: 51px;
   display: inline-block;
 }
 
@@ -2966,7 +2966,7 @@ ul.left-top-menu {
   button.button-plus:hover,
   button.button-minus:hover {
     border: 1px solid #DACD7D;
-    background: #DACD7D;
+    //background: #DACD7D;
   }
 
   button.button-plus:active,
@@ -3367,3 +3367,29 @@ ul.left-top-menu {
   }
 }
 
+.error {
+  position: absolute;
+  width: 100%;
+  height: 68px;
+  background: rgba(#FF7373, .9);
+  border-radius: 4px;
+  top: 0;
+  z-index: -1;
+
+  .error-text {
+    display: block;
+    position: absolute;
+    bottom: 3px;
+    left: 16px;
+    color: white;
+    font-size: 12px;
+    font-family: 'DisplayMedium';
+  }
+
+  .inp-text {
+    font-size: 7px;
+    font-family: 'DisplayBold';
+    text-transform: uppercase;
+    top: 8px;
+  }
+}

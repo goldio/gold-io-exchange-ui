@@ -10,11 +10,13 @@ import HC_stock from 'highcharts/modules/stock';
 HC_stock(Highcharts);
 
 import { WebsocketService } from 'src/app/common/services/websocket.service';
-import { TradeHistoryItem, OrderBookItem, CandlestickItem } from '../../models';
+import { TradeHistoryItem, OrderBookItem, CandlestickItem, TradeHistoryItemNative } from '../../models';
 import { BinanceService } from 'src/app/common/services/binance.service';
 import { DateHelper } from 'src/app/common/helpers';
 import { Symbol } from '../../models/symbol.model';
 import { AuthService } from 'src/app/common/services/auth.service';
+
+import symbols from './symbols';
 
 declare var TradingView: any;
 declare var Swiper: any;
@@ -45,8 +47,8 @@ export class IndexComponent implements OnInit {
 	public orderBookAsks: OrderBookItem[] = [];
 
 	public depthChartData: any;
-	public dataDepthAsks;
-	public dataDepthBids;
+	public dataDepthAsks: any[];
+	public dataDepthBids: any[];
 
 	private getBestAsk(data: any) {
 		let best = Number(data[0][0]);
@@ -123,12 +125,8 @@ export class IndexComponent implements OnInit {
 	}
 
 	private loadSymbols(): void {
-		this.binanceService
-			.getExchangeInfo()
-			.subscribe(res => {
-				this.symbols = res.symbols;
-				this.setSymbol();
-			});
+		this.symbols = symbols;
+		this.setSymbol();
 	}
 
 	private setSymbol(symbol?: Symbol): void {
@@ -142,6 +140,14 @@ export class IndexComponent implements OnInit {
 
 		this.loadTrades();
 		this.openDepthStream();
+
+		if (this.Highcharts.charts[0]) {
+			this.Highcharts.charts[0].update(this.priceChartOptions, true);
+		}
+
+		if (this.Highcharts.charts[1]) {
+			this.Highcharts.charts[1].update(this.depthChartOptions, true);
+		}
 	}
 
 	private loadTrades(): void {
@@ -150,12 +156,13 @@ export class IndexComponent implements OnInit {
 		this.binanceService
 			.getTrades(this.currentSymbol.symbol)
 			.subscribe(res => {
-				res.forEach(item => {
+				res.data.forEach((item: TradeHistoryItemNative) => {
 					this.tradeHistory
 						.push({
-							price: item.price,
-							qty: item.qty,
+							price: item.price.toFixed(4),
+							qty: item.qty.toFixed(8),
 							isBuyerMaker: item.isBuyerMaker,
+							isBestMatch: item.isBestMatch,
 							time: DateHelper.getTimeFromDate(new Date(item.time))
 						});
 				});
@@ -178,14 +185,14 @@ export class IndexComponent implements OnInit {
 								this.orderBookBids.shift();
 							}
 
-							this.orderBookBids
-								.push({
-									price: item[0],
-									amount: item[1],
-									total: `${item[0] * item[1]}`
-								});
+							let aItem = { 
+								price: parseFloat(item[0]).toFixed(8), 
+								amount: parseFloat(item[1]).toFixed(8), 
+								total: `${(item[0] * item[1]).toFixed(8)}` 
+							};
 
-							/* this.updateMainData(item, 'bids'); */
+							this.orderBookBids.push(aItem);
+							this.updateMainData(item, 'bids');
 						});
 
 						messageData['a'].forEach(item => {
@@ -193,12 +200,13 @@ export class IndexComponent implements OnInit {
 								this.orderBookAsks.shift();
 							}
 
-							this.orderBookAsks
-								.push({
-									price: item[0],
-									amount: item[1],
-									total: `${item[0] * item[1]}`
-								});
+							let aItem = { 
+								price: parseFloat(item[0]).toFixed(8), 
+								amount: parseFloat(item[1]).toFixed(8), 
+								total: `${(item[0] * item[1]).toFixed(8)}` 
+							};
+
+							this.orderBookAsks.push(aItem);
 
 							/* this.updateMainData(item, 'asks'); */
 						});
@@ -238,20 +246,7 @@ export class IndexComponent implements OnInit {
 			.getCandlestickData(symbol)
 			.toPromise();
 
-		const result = [];
-		data.forEach(item => {
-			let resItem = [];
-			resItem.push(item[0]);
-			resItem.push(parseFloat(item[1]));
-			resItem.push(parseFloat(item[2]));
-			resItem.push(parseFloat(item[3]));
-			resItem.push(parseFloat(item[4]));
-			resItem.push(parseFloat(item[5]));
-
-			result.push(resItem);
-		});
-
-		return result;
+		return data;
 	}
 
 	private async getOrderBook() {
@@ -261,12 +256,12 @@ export class IndexComponent implements OnInit {
 			.toPromise();
 
 		const asks = [];
-		data.asks.forEach(ask => {
+		data.data.asks.forEach(ask => {
 			asks.push([parseFloat(ask[0]), parseFloat(ask[1])]);
 		});
 
 		const bids = [];
-		data.bids.forEach(bid => {
+		data.data.bids.forEach(bid => {
 			bids.push([parseFloat(bid[0]), parseFloat(bid[1])]);
 		});
 
@@ -277,20 +272,20 @@ export class IndexComponent implements OnInit {
 		const data = await this.getCandlestickData();
 		let ohlc = [],
             volume = [],
-            dataLength = data.length,
+            dataLength = data.data.length,
 			i = 0;
 			
 		for (i; i < dataLength; i += 1) {
             ohlc.push([
-                new Date(data[i][0] * 1000).toString(), // the date
-                data[i][1], // open
-                data[i][2], // high
-                data[i][3], // low
-                data[i][4] // close
+                new Date(data.data[i][0] * 1000).toString(), // the date
+                data.data[i][1], // open
+                data.data[i][2], // high
+                data.data[i][3], // low
+                data.data[i][4] // close
             ]);
             volume.push([
-                new Date(data[i][0] * 1000).toString(), // the date
-                data[i][5] // the volume
+                new Date(data.data[i][0] * 1000).toString(), // the date
+                data.data[i][5] // the volume
             ]);
         }
 
@@ -386,7 +381,7 @@ export class IndexComponent implements OnInit {
         let curMaxAxisExtr = maxAxisExtr;
 
         //формирование левого графика
-        this.dataDepthBids = {};
+        this.dataDepthBids = [];
         let summBids = 0;
         data.bids.forEach(el => {
             if (el[0] > minAxisExtr && el[0] < maxAxisExtr) {
@@ -397,7 +392,7 @@ export class IndexComponent implements OnInit {
         let chartBidsData = this.convertToGraphData(this.dataDepthBids);
 
         //формирование правого графика
-        this.dataDepthAsks = {};
+        this.dataDepthAsks = [];
         let summAsks = 0;
         data.asks.forEach(el => {
             if (el[0] > (midPrice - 2000) && el[0] < (midPrice + 2000)) {

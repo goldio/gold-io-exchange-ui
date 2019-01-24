@@ -445,12 +445,12 @@ button.button-plus {
   position: absolute;
   top: 8px;
   right: 51px;
-  width: 35px;
-  height: 30px;
-  // border: 1px solid #ffffff33;
+  width: 27px;
+  height: 27px;
+  border: 1px solid #ffffff33;
   border-radius: 4px;
-  // background: transparent;
-  background-size: 7px auto;
+  background: transparent;
+  // background-size: 7px auto;
 }
 
 button.button-plus:before {
@@ -458,29 +458,29 @@ button.button-plus:before {
   position: absolute;
   // color: white;
   top: calc(50% - 5px);
-  left: 13px;
-  line-height: 10px;
+  left: 9px;
+  line-height: 8px;
 }
 
 button.button-minus:before {
   content: '-';
   position: absolute;
   // color: white;
-  left: 15px;
+  left: 10px;
   top: calc(50% - 5px);
-  line-height: 10px;
+  line-height: 8px;
 }
 
 
 
 button.button-plus:hover,
 button.button-minus:hover {
-  // border: 1px solid #DACD7D;
+  border: 1px solid #DACD7D;
 }
 
 button.button-plus:active,
 button.button-minus:active {
-//   border: 1px solid #5E5A44;
+  border: 1px solid #5E5A44;
 }
 
 @media screen and (max-width: 600px) {
@@ -525,12 +525,12 @@ button.button-minus {
     position: absolute;
     top: 8px;
     right: 6px;
-    width: 35px;
-    height: 30px;
-    // border: 1px solid #ffffff33;
+    width: 27px;
+    height: 27px;
+    border: 1px solid #ffffff33;
     border-radius: 4px;
     background-size: 7px auto;
-    // background: transparent;
+    background: transparent;
 }
 
 
@@ -616,6 +616,7 @@ button.button-minus {
   border-radius: 3px;
   font-size: 12px;
   font-weight: 700;
+  line-height: 36px;
   margin: 0;
 }
 
@@ -630,6 +631,7 @@ button.button-minus {
       font-weight: 300;
       font-size: 12px;
       letter-spacing: 0.5px;
+      border-radius: 3px;
     }
   }
 }
@@ -681,7 +683,7 @@ button.button-sell.button-sell-live {
   padding: 20px 0 0 0;
   // color: #4D5364;
   font-size: 12px;
-  font-weight: 700;
+  //font-weight: 700;
 }
 
 .left-content-sell-input input::-webkit-input-placeholder {
@@ -743,7 +745,7 @@ button.button-sell.button-sell-live {
 
 .left-content-sell-input em .radio:not(checked)+label {
   position: relative;
-  padding: 0 0 0 17px;
+  padding: 2px 0 0 22px;
   // color: #4D5364;
 }
 
@@ -756,8 +758,8 @@ button.button-sell.button-sell-live {
   position: absolute;
   top: 1px;
   left: 0;
-  width: 11px;
-  height: 11px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   // border: 1px solid #4D5364;
   background: transparent;
@@ -767,8 +769,8 @@ button.button-sell.button-sell-live {
 .left-content-sell-input em .radio:not(checked)+label:after {
   content: '';
   position: absolute;
-  top: 4.5px;
-  left: 3.5px;
+  top: 6px;
+  left: 5px;
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -1553,6 +1555,7 @@ ul.content-center-tabs {
     text-transform: uppercase;
     font-weight: normal;
     font-size: 10px;
+    border-radius: 3px;
   }
 }
 
@@ -2063,14 +2066,16 @@ ul.content-orders-tabs li.current {
 }
 
 .percent{
-    padding: 11px 14px 10px 13px;
-      // border: 1px solid #ffffff33;
-      border-radius: 4px;
-      background: transparent;
-      background-size: 7px auto;
-      max-width: 50px;
-      width: 100%;
-      box-sizing: border-box;
+    padding: 11px 0 10px 0;
+    color: #fff;
+    text-align: center;
+    // border: 1px solid #ffffff33;
+    border-radius: 4px;
+    background: transparent;
+    background-size: 7px auto;
+    max-width: 50px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 

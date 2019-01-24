@@ -5,35 +5,38 @@ import 'rxjs/add/operator/map';
 import { TradeHistoryItem } from 'src/app/index/models';
 import { ExchangeInfo } from 'src/app/index/models/exchange-info.model';
 import { OrderBookResponse } from '../models/binance/order-book-response.model';
+import { BaseHttpService } from './base-http.service';
 
 @Injectable()
-export class BinanceService {
+export class BinanceService extends BaseHttpService {
     constructor(
-        private http: Http
-    ) {}
+        http: Http
+    ) {
+        super(http);
+    }
 
     /* public getSimpleData(): Observable<any> {
         return this.http.get(`/highcharts/samples/data/aapl-ohlc.json`)
             .map(response => response.json());
     } */
 
-    public getTrades(symbol: string): Observable<TradeHistoryItem[]> {
-        return this.http.get(`/binance/api/v1/trades?symbol=${symbol}`)
+    public getTrades(symbol: string): Observable<any> {
+        return this.get(`${this.apiUrl}/binance/trades/${symbol}`)
             .map(response => response.json());
     }
 
-    public getExchangeInfo(): Observable<ExchangeInfo> {
-        return this.http.get(`/binance/api/v1/exchangeInfo`)
+    public getExchangeInfo(): Observable<Symbol[]> {
+        return this.get(`./symbols.json`)
             .map(response => response.json());
     }
 
     public getCandlestickData(symbol: string): Observable<any> {
-        return this.http.get(`/binance/api/v1/klines?symbol=${symbol}&interval=1w`)
+        return this.get(`${this.apiUrl}/binance/klines/${symbol}`)
             .map(response => response.json());
     }
 
-    public getOrderBook(symbol: string, limit: number = 1000): Observable<OrderBookResponse> {
-        return this.http.get(`/binance/api/v1/depth?symbol=BTCUSDT&limit=${limit}`)
+    public getOrderBook(symbol: string, limit: number = 1000): Observable<any> {
+        return this.get(`${this.apiUrl}/binance/depth/${symbol}`)
             .map(response => response.json());
     }
 }

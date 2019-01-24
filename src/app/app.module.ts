@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { jqxDateTimeInputComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
 
@@ -72,7 +73,7 @@ import { ThemeService } from './common/services/theme.service';
 				{ path: 'security', component: SecurityComponent },
 				{ path: 'index', component: IndexComponent },
 			]
-		)
+		),
 	],
 	providers: [
 		ThemeService,
@@ -80,7 +81,8 @@ import { ThemeService } from './common/services/theme.service';
 		UsersService,
 		PersonsService,
 		WebsocketService,
-		BinanceService
+		BinanceService,
+		{ provide: LocationStrategy, useClass: HashLocationStrategy }
 	],
 	bootstrap: [AppComponent]
 })
