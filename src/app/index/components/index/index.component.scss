@@ -198,14 +198,18 @@ a:hover {
     z-index: -1;
     left: 0;
     right: 0;
-    top: 71px;
+    top: 61px;
   }
 
   .top-currency {
     position: relative;
     z-index: 4;
+    height: 50px;
     border-right: 0;
     // border-bottom: 1px solid #e1e4e8;
+    .top-currency-btn{
+      height: 50px;
+    }
   }
 }
 
@@ -227,6 +231,8 @@ a:hover {
   visibility: hidden;
   opacity: 0;
   border-radius: 4px;
+  overflow: auto;
+  max-height: 600px;
 }
 .tcd-open{
     top: 60px;
@@ -381,6 +387,13 @@ a:hover {
   .top-currency-dropdown {
     width: auto;
     right: 0;
+  }
+}
+@media screen and (max-width: 600px) {
+  .top-currency-dropdown {
+    width: 96%;
+    left: 10px;
+    max-height: calc(100vh - 200px);
   }
 }
 
@@ -546,8 +559,8 @@ button.button-minus {
   right: 0;
   top: 0;
   bottom: 44px;
-  // overflow: auto;
-}
+  overflow: auto;
+ }
 
 .left-content::-webkit-scrollbar {
   width: 0;
@@ -587,7 +600,7 @@ button.button-minus {
 
 @media screen and (max-width: 600px) {
   .left-content {
-    top: 70px;
+    top: 60px;
     bottom: 52px;
   }
 
@@ -832,6 +845,17 @@ button.button-place:hover {
   button.button-sell {
     height: 30px;
   }
+
+
+  .left-content-sell-input em .radio:not(checked) + label:after{
+    top: 6.5px;
+    left: 4.5px;
+  }
+  .left-content-sell-input em .radio:not(checked) + .radioMarket:after{
+    top: 6.4px!important;
+    left: 5.4px!important;
+  }
+  
 }
 
 
@@ -968,13 +992,14 @@ ul.left-content-tabs li:nth-child(3).current {
   bottom: 0;
   left: 251px;
   right: 0;
-  overflow: auto;
+ overflow: hidden;
 
 }
 
 @media screen and (max-width: 600px) {
   #content {
     left: 0;
+    // overflow: auto;
   }
 }
 
@@ -1012,10 +1037,10 @@ ul.left-content-tabs li:nth-child(3).current {
 .content-left-info {
   position: absolute;
   top: 76px;
-  bottom: 0;
+  bottom: 35px;
   left: 0;
   right: 0;
-  // overflow: auto;
+  overflow: auto;
 }
 
 .content-left-info::-webkit-scrollbar {
@@ -1027,6 +1052,9 @@ ul.left-content-tabs li:nth-child(3).current {
   overflow: hidden;
   height: 21px;
   cursor: pointer;
+  span{
+    text-overflow: ellipsis;
+  }
 }
 
 .content-left-red-item em {
@@ -1312,6 +1340,7 @@ ul.left-content-tabs li:nth-child(3).current {
 @media screen and (max-width: 1280px) {
   .content-left {
     bottom: 52px;
+
     right: 0;
     width: auto;
   }
@@ -1320,6 +1349,7 @@ ul.left-content-tabs li:nth-child(3).current {
 @media screen and (max-width: 600px) {
   .content-left {
     top: 131px;
+    
     bottom: 52px;
     right: 0;
     width: auto;
@@ -1336,7 +1366,8 @@ ul.left-content-tabs li:nth-child(3).current {
 
 @media screen and (max-width: 600px) {
   .content-left {
-    top: 131px;
+    // top: 131px;
+    top: 105px;
     bottom: 52px;
     right: 0;
     width: auto;
@@ -1420,7 +1451,7 @@ ul.left-content-tabs li:nth-child(3).current {
   bottom: 0;
   left: 0;
   right: 0;
-  // overflow: auto;
+  overflow: auto;
   height: 100%;
 }
 
@@ -1514,7 +1545,7 @@ ul.left-content-tabs li:nth-child(3).current {
 
 @media screen and (max-width: 600px) {
   .content-right {
-    top: 131px;
+    top: 105px;
     left: 0;
     bottom: 52px;
     width: auto;
@@ -1532,7 +1563,7 @@ ul.left-content-tabs li:nth-child(3).current {
   right: 286px;
   top: 61px;
   bottom: 0;
-  // overflow: auto;
+  overflow: auto;
 }
 
 .content-center::-webkit-scrollbar {
@@ -1839,10 +1870,13 @@ ul.content-orders-tabs li.current {
 
 @media screen and (max-width: 600px) {
   .content-center {
-    top: 131px;
+    top: 105px;
     left: 0;
     right: 0;
     bottom: 52px;
+      h2{
+        padding-left: 27px;
+      }
   }
 
   ul.content-center-tabs {
@@ -1886,7 +1920,8 @@ ul.content-orders-tabs li.current {
 @media screen and (max-width: 1280px) {
   .responcive-tabs {
     overflow: hidden;
-    position: fixed;
+    // position: fixed;
+    position: absolute;
     z-index: 6;
     left: 0;
     right: 0;
@@ -2046,11 +2081,11 @@ ul.content-orders-tabs li.current {
 }
 @media screen and (max-width: 650px) {
   .chart-box{
-    padding-top: 110px;
+    padding-top: 50px;
   }
   ul.content-center-tabs{
     right: auto;
-    left: 18px;
+    left: 27px;
     top: 40px;
   }
   .depth_chart_control{

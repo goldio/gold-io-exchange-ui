@@ -7,7 +7,7 @@
 .main {
   padding: 0;
   margin: 0;
-  width: 100vw;
+  // width: 100vw;
   height: 100vh;
   font-family: 'Helvetica Neue';
   font-weight: 400;
@@ -136,7 +136,8 @@ img {
   left: 0;
   right: 0;
   bottom: 0;
-  top: 60px;
+  // top: 60px;
+  top: 59px;
   padding-top: 7px;
   visibility: hidden;
   opacity: 0;
@@ -191,6 +192,7 @@ img {
   .left-top-menu {
     top: 80px;
     z-index: 8;
+    bottom: 50px;
   }
 
   .left-top-menu.left-top-menu-open {
@@ -1771,7 +1773,7 @@ ul.left-top-menu {
 
   @media screen and (max-width: 600px) {
     #content{
-      width: 100vw;
+      // width: 100vw;
       overflow-x: hidden;
     }
     .left-top {
@@ -3516,3 +3518,5 @@ ul.left-top-menu {
     fill:  #4D5364!important;
   }
 }
+
+
