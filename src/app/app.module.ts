@@ -7,6 +7,13 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { jqxDateTimeInputComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
 
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatMenuModule, MatIconModule} from '@angular/material';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material';
+
+
 import { HighchartsChartModule } from 'highcharts-angular';
 
 import { AppComponent } from './app.component';
@@ -26,6 +33,7 @@ import { AuthService } from './common/services/auth.service';
 import { UsersService } from './common/services/users.service';
 import { PersonsService } from './profile/services/persons.service';
 import { ThemeService } from './common/services/theme.service';
+import { CalendarComponent } from './calendar/calendar.component';
 
 @NgModule({
 	declarations: [
@@ -41,6 +49,7 @@ import { ThemeService } from './common/services/theme.service';
 		SecurityComponent,
 		ActivityComponent,
 		jqxDateTimeInputComponent,
+		CalendarComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -48,6 +57,16 @@ import { ThemeService } from './common/services/theme.service';
 		FormsModule,
 		ReactiveFormsModule,
 		HighchartsChartModule,
+		[BrowserAnimationsModule],
+		MatDatepickerModule,
+		MatNativeDateModule,
+		MatMenuModule,
+		MatButtonModule,
+		MatIconModule,
+		MatDatepickerModule,
+		MatFormFieldModule,
+    	MatInputModule,
+		[MatButtonModule, MatCheckboxModule],
 		RouterModule.forRoot(
 			[
 				{ path: '', redirectTo: 'index', pathMatch: 'full' },
