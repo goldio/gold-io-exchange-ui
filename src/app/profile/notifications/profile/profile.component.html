@@ -1,35 +1,37 @@
 <div class="profile-narrow prof">
     <div class="profile-right">
         <div class="profile-right-title">Withdrawal limit</div>
+
         <div class="profile-right-content">
             <span class="gold-text">
                 <div class="gold-text-img"></div>
                 <span class="gold-text2">70 BTC </span>
-                &nbsp;&nbsp;/&nbsp;&nbsp;100 BTC</span>
+                &nbsp;&nbsp;/&nbsp;&nbsp;100 BTC
+            </span>
+
             <div class="profile-right-progress"><span style="width: 73%;"></span></div>
         </div>
+
         <span class="mw-250">Sumbit your basic information to increase your limits.</span>
         <button class="transparent-btn">INCREASE LIMITS</button>
     </div>
-    
+
     <div class="profile-left">
         <div class="profile-title">
             <h2>Basic Information</h2>
         </div>
 
-        <form [formGroup]="profileForm">
+        <form [formGroup]="profileForm" (ngSubmit)="submitProfile(profileForm)">
             <div class="profile-item fl-row">
                 <div class="fl-col">
                     <span>Full name</span>
                     <input class="w-171 mr-28" type="text" placeholder="Jackie Chan" formControlName="fullName">
                 </div>
-                
+
                 <div class="fl-col calendar">
                     <span>Birth date</span>
-                    <jqxDateTimeInput 
-                    [width]="171" [height]="36"
-                    (onValueChanged)="setUserBirthDate($event.args.date)">
-                </jqxDateTimeInput> 
+                    <jqxDateTimeInput [width]="171" [height]="36" (onValueChanged)="setUserBirthDate($event.args.date)">
+                    </jqxDateTimeInput>
                     <!-- <input class="w-171" type="text" placeholder="30.03.1993"> -->
                 </div>
                 <!-- <mat-form-field class="fl-col calendar">
@@ -39,23 +41,27 @@
                     <mat-datepicker #dp></mat-datepicker>
                   </mat-form-field> -->
             </div>
+
             <div class="profile-item fl-row">
                 <div class="fl-col">
                     <span>Email</span>
                     <input class="w-271 mr-28" type="email" placeholder="administrator@softsolutions.com" formControlName="email">
                 </div>
+
                 <div class="fl-col">
                     <span>Phone number</span>
                     <input class="w-271" type="number" placeholder="+1 492 82 39 667" formControlName="phoneNumber">
                 </div>
             </div>
+
             <div class="profile-item fl-row">
                 <div class="fl-col">
                     <span>Country</span>
                     <input class="w-171 mr-28" type="text" placeholder="United States" formControlName="country">
 
                     <div class="list-dropdown" style="margin-right: 28px; background-color: #fff; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; position: relative; top: -2px;" *ngIf="showCountriesDropdown">
-                        <div class="list-dropdown-item" style="font-size: 13px; text-align: center; cursor: pointer;" *ngFor="let country of viewCountries" (click)="setCountry(country);">
+                        <div class="list-dropdown-item" style="font-size: 13px; text-align: center; cursor: pointer;"
+                            *ngFor="let country of viewCountries" (click)="setCountry(country);">
                             {{ country.name }}
                         </div>
                     </div>
@@ -65,18 +71,20 @@
                     <input class="w-171 mr-28" type="text" placeholder="New york" formControlName="city">
 
                     <div class="list-dropdown" style="margin-right: 28px; background-color: #fff; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; position: relative; top: -2px;" *ngIf="showCitiesDropdown">
-                            <div class="list-dropdown-item" style="font-size: 13px; text-align: center; cursor: pointer;" *ngFor="let city of viewCities" (click)="setCity(city);">
-                                {{ city.name }}
-                            </div>
+                        <div class="list-dropdown-item" style="font-size: 13px; text-align: center; cursor: pointer;"
+                            *ngFor="let city of viewCities" (click)="setCity(city);">
+                            {{ city.name }}
                         </div>
+                    </div>
                 </div>
+
                 <div class="fl-col">
                     <span>Address</span>
                     <input class="w-171" type="text" placeholder="12 Wall Street 227" formControlName="address">
                 </div>
             </div>
+            
             <button class="main-btn" type="submit">SAVE</button>
         </form>
     </div>
 </div>
- 

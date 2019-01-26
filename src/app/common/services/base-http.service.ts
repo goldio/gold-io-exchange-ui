@@ -35,4 +35,16 @@ export class BaseHttpService {
 
         return this.http.post(url, body, options);
     }
+
+    protected put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+        if (!options)
+            options = RequestHelper.constructRequestOptions();
+
+        const securityToken = LocalStorageHelper.getToken();
+        if (securityToken) {
+            options.headers.set('Authorization', `Bearer ${securityToken.token}`)
+        }
+
+        return this.http.post(url, body, options);
+    }
 }

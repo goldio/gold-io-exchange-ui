@@ -3,8 +3,9 @@ import { AuthService } from 'src/app/common/services/auth.service';
 import { Router } from '@angular/router';
 import { PersonsService } from '../../services/persons.service';
 import { Person, Country, City } from 'src/app/common/models';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CountriesService } from '../../services/countries.service';
+import { UpdatePersonRequest } from 'src/app/common/models/request';
 
 @Component({
 	selector: 'app-profile',
@@ -14,12 +15,12 @@ import { CountriesService } from '../../services/countries.service';
 export class ProfileComponent implements OnInit {
 
 	public isLoggedIn: boolean;
-	public person: Person;
 
 	private countries: Country[];
-	public viewCountries: Country[];
-
 	private cities: City[];
+	
+	public person: Person;
+	public viewCountries: Country[];
 	public viewCities: City[];
 
 	public profileForm: FormGroup;
@@ -90,8 +91,8 @@ export class ProfileComponent implements OnInit {
 
 	private initProfileForm(): void {
 		this.profileForm = new FormGroup({
-			fullName: new FormControl(null),
-			email: new FormControl(null),
+			fullName: new FormControl(null, [Validators.required]),
+			email: new FormControl(null, [Validators.required, Validators.email]),
 			phoneNumber: new FormControl(null),
 			country: new FormControl(null),
 			countryID: new FormControl(null),
@@ -194,5 +195,32 @@ export class ProfileComponent implements OnInit {
 			.setValue(city.id, { emitEvent: false });
 
 		this.showCitiesDropdown = false;
+	}
+
+	public submitProfile(form: FormGroup): void {
+		if (form.invalid) {
+			alert('form invalid');
+			return;
+		}
+
+		const req = new UpdatePersonRequest();
+		req.fullName = form.value['fullName'];
+		// req.birthDate = form.value['birthDate'];
+		req.email = form.value['email'];
+		req.phoneNumber = form.value['phoneNumber'];
+		req.cityID = form.value['cityID'];
+		req.address = form.value['address'];
+
+		this.personsService
+			.updateMe(req)
+			.subscribe(res => {
+				if (!res.success) {
+					alert(res.message);
+					return;
+				}
+
+				this.person = res.data;
+				alert('OK');
+			});
 	}
 }
