@@ -17,6 +17,11 @@ export class CountriesService extends BaseHttpService {
             .map(response => response.json());
     }
 
+    public getCities(): Observable<DataResponse<City[]>> {
+        return this.get(`${this.apiUrl}/cities`)
+            .map(response => response.json());
+    }
+
     public getCountryCities(countryID: number): Observable<DataResponse<City[]>> {
         return this.get(`${this.apiUrl}/countries/${countryID}/cities`)
             .map(response => response.json());

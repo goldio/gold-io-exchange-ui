@@ -32,24 +32,26 @@ export class BalanceComponent implements OnInit {
 			.subscribe(value => {
 				if (!value) {
 					this.viewWallets = this.wallets;
+					return;
 				}
 
 				this.viewWallets = this.wallets
 					.filter(x =>
-						x.coin.name.includes(value) ||
-						x.coin.shortName.includes(value));
+						x.coin.name.toLowerCase().includes(`${value}`.toLowerCase()) ||
+						x.coin.shortName.toLowerCase().includes(`${value}`.toLowerCase()));
 			});
 	}
 
 	public submitSearch(form: FormGroup): void {
 		if (!form.controls['search']) {
 			this.viewWallets = this.wallets;
+			return;
 		}
 
 		this.viewWallets = this.wallets
 			.filter(x =>
-				x.coin.name.includes(form.value['search']) ||
-				x.coin.shortName.includes(form.value['search']));
+				x.coin.name.toLowerCase().includes(`${form.value['search']}`.toLowerCase()) ||
+				x.coin.shortName.toLowerCase().includes(`${form.value['search']}`.toLowerCase()));
 	}
 
 	private loadWallets(): void {
