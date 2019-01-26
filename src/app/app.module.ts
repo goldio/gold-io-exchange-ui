@@ -34,6 +34,7 @@ import { UsersService } from './common/services/users.service';
 import { PersonsService } from './profile/services/persons.service';
 import { ThemeService } from './common/services/theme.service';
 import { CalendarComponent } from './calendar/calendar.component';
+import { WalletsService } from './balance/services/wallets.service';
 
 @NgModule({
 	declarations: [
@@ -99,6 +100,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 		AuthService,
 		UsersService,
 		PersonsService,
+		WalletsService,
 		WebsocketService,
 		BinanceService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy }
