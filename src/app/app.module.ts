@@ -8,10 +8,10 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { jqxDateTimeInputComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
 
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatMenuModule, MatIconModule} from '@angular/material';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatMenuModule, MatIconModule } from '@angular/material';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
 
 
 import { HighchartsChartModule } from 'highcharts-angular';
@@ -23,6 +23,7 @@ import { HeaderComponent } from './layouts/components/header/header.component';
 import { BalanceComponent } from './balance/components/balance/balance.component';
 import { NotificationsComponent } from './notifications/components/notifications/notifications.component';
 import { IndexComponent } from './index/components/index/index.component';
+import { PriceChartComponent } from './index/components/price-chart/price-chart.component';
 import { ApiKeysComponent } from './api-keys/components/api-keys/api-keys.component';
 import { ProfileComponent } from './profile/notifications/profile/profile.component';
 import { SecurityComponent } from './security/components/security/security.component';
@@ -37,6 +38,23 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { WalletsService } from './balance/services/wallets.service';
 import { CountriesService } from './profile/services/countries.service';
 
+// Import angular-fusioncharts
+import { FusionChartsModule } from 'angular-fusioncharts';
+
+// Load FusionCharts
+import * as FusionCharts from 'fusioncharts';
+// Load Charts module
+import * as Charts from 'fusioncharts/fusioncharts.charts';
+// Load themes
+import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+
+// Add dependencies to FusionChartsModule
+FusionChartsModule.fcRoot(
+	FusionCharts,
+	Charts,
+	FusionTheme
+);
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -46,6 +64,7 @@ import { CountriesService } from './profile/services/countries.service';
 		NotificationsComponent,
 		HeaderComponent,
 		IndexComponent,
+		PriceChartComponent,
 		ApiKeysComponent,
 		ProfileComponent,
 		SecurityComponent,
@@ -57,6 +76,7 @@ import { CountriesService } from './profile/services/countries.service';
 		BrowserModule,
 		HttpModule,
 		FormsModule,
+		FusionChartsModule,
 		ReactiveFormsModule,
 		HighchartsChartModule,
 		[BrowserAnimationsModule],
@@ -67,7 +87,7 @@ import { CountriesService } from './profile/services/countries.service';
 		MatIconModule,
 		MatDatepickerModule,
 		MatFormFieldModule,
-    	MatInputModule,
+		MatInputModule,
 		[MatButtonModule, MatCheckboxModule],
 		RouterModule.forRoot(
 			[

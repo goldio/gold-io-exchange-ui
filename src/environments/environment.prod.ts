@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiEndpoint: "https://api.golderex.com/api"
+  apiEndpoint: "http://188.42.172.246:5000/api"
 };

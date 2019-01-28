@@ -41,7 +41,7 @@
                                     <input type="radio" class="radio" id="radio1" name="radio">
                                     <label class="radio1 radioMarket" for="radio1">Market</label>
                                     <input type="radio" class="radio" id="radio2" name="radio" checked>
-                                    <label  class="radio1" for="radio2">Limit</label>
+                                    <label class="radio1" for="radio2">Limit</label>
                                 </em>
                                 <input type="text" placeholder="1.00000000">
                                 <b class="input-decor">BTC</b>
@@ -293,11 +293,12 @@
                     <h2>PRICE CHART</h2>
                     <div class="chart-box" id="price-chart-box">
                         <!-- <div [chart]="priceChart"></div> -->
-                        <highcharts-chart *ngIf="priceChartOptions"
+                        <!-- <highcharts-chart *ngIf="priceChartOptions"
                             [Highcharts]="Highcharts"
                             [options]="priceChartOptions"
                             style="display: block; width: 100%; height: 100%;"
-                          ></highcharts-chart>
+                          ></highcharts-chart> -->
+                        <price-chart></price-chart>
                     </div>
                     <div class="chart-box" id="price-chart-box1" style="display:none"></div>
                 </div>
@@ -307,11 +308,8 @@
                     }">
                     <h2>DEPTH CHART</h2>
                     <div class="chart-box" id="depth-chart-box1">
-                        <highcharts-chart *ngIf="depthChartOptions"
-                            [Highcharts]="Highcharts"
-                            [options]="depthChartOptions"
-                            style="display: block; width: 100%; height: 100%;"
-                          ></highcharts-chart>
+                        <highcharts-chart *ngIf="depthChartOptions" [Highcharts]="Highcharts" [options]="depthChartOptions"
+                            style="display: block; width: 100%; height: 100%;"></highcharts-chart>
                     </div>
                     <div class="chart-box" id="depth-chart-box" style="display:none">
                         <!-- TradingView Widget BEGIN -->
