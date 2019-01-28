@@ -6,6 +6,8 @@ import { Person, Country, City } from 'src/app/common/models';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CountriesService } from '../../services/countries.service';
 import { UpdatePersonRequest } from 'src/app/common/models/request';
+import { Theme } from 'src/app/common/enums';
+import { ThemeService } from 'src/app/common/services/theme.service';
 
 @Component({
 	selector: 'app-profile',
@@ -27,6 +29,10 @@ export class ProfileComponent implements OnInit {
 
 	public showCountriesDropdown: boolean = false;
 	public showCitiesDropdown: boolean = false;
+
+	public theme: Theme;
+	public calendarTheme: string;
+
 
 	private loadPerson(): void {
 		if (!this.isLoggedIn) {
@@ -152,8 +158,18 @@ export class ProfileComponent implements OnInit {
 		private authService: AuthService,
 		private personsService: PersonsService,
 		private countriesService: CountriesService,
-		private router: Router
-	) { }
+		private router: Router,
+		private themeService: ThemeService
+	) { 
+		this.themeService
+		.currentState
+		.subscribe(theme => {
+			this.theme = theme;
+			if(this.theme === 0){
+				this.calendarTheme = './light.scss';
+			}
+		});
+	 }
 
 	ngOnInit() {
 		this.authService

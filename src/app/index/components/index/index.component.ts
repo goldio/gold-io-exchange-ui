@@ -17,6 +17,8 @@ import { Symbol } from '../../models/symbol.model';
 import { AuthService } from 'src/app/common/services/auth.service';
 
 import symbols from './symbols';
+import { TradeService } from 'src/app/common/services/trade.service';
+import { Pair } from '../../models/pair.model';
 
 declare var TradingView: any;
 declare var Swiper: any;
@@ -49,6 +51,9 @@ export class IndexComponent implements OnInit {
 	public depthChartData: any;
 	public dataDepthAsks: any[];
 	public dataDepthBids: any[];
+
+	public pairs : Pair[];
+	public currentPairs: Pair;
 
 	private getBestAsk(data: any) {
 		let best = Number(data[0][0]);
@@ -107,10 +112,10 @@ export class IndexComponent implements OnInit {
 
 		if (type == 'asks') {
 			this.dataDepthAsks.push([ Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1]) ]);
-			console.log(this.dataDepthAsks);
+			// console.log(this.dataDepthAsks);
 		} else if (type == 'bids') {
 			this.dataDepthBids.push([ Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1]) ]);
-			console.log(this.dataDepthBids);
+			// console.log(this.dataDepthBids);
 		}
 		
 		/* series.setData(this.depthChartData[type]);
@@ -129,13 +134,15 @@ export class IndexComponent implements OnInit {
 		this.setSymbol();
 	}
 
-	private setSymbol(symbol?: Symbol): void {
+	private setSymbol(symbol?: Symbol , pair?: Pair): void {
 		this.currencyBox = false;
 
 		if (!symbol) {
 			this.currentSymbol = this.symbols.find(x => x.symbol == "ETHBTC");
+			this.currentPairs = this.pairs[0];
 		} else {
 			this.currentSymbol = symbol;
+			this.currentPairs = pair;
 		}
 
 		this.loadTrades();
@@ -215,10 +222,21 @@ export class IndexComponent implements OnInit {
 			});
 	}
 
+	private getPair(){
+		this.tradeService.getPair().subscribe(res => {
+			if(!res.success)
+				return;
+			this.pairs = res.data;
+			this.setSymbol();
+		});
+
+	}
+
 	constructor(
 		private authService: AuthService,
 		private websocketService: WebsocketService,
-		private binanceService: BinanceService
+		private binanceService: BinanceService,
+		private tradeService : TradeService
 	) {
 		
 	}
@@ -238,6 +256,8 @@ export class IndexComponent implements OnInit {
 
 		this.initPriceChart();
 		this.initDepthChart();
+
+		this.getPair();
 	}
 
 	private async getCandlestickData() {

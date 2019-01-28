@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 export class AuthorizationComponent implements OnInit {
 
 	public signInForm: FormGroup;
-
 	private initSignInForm(): void {
 		this.signInForm = new FormGroup({
 			login: new FormControl(null, [Validators.required, Validators.email]),
@@ -26,7 +25,6 @@ export class AuthorizationComponent implements OnInit {
 
 	ngOnInit() {
 		this.initSignInForm();
-
 		this.authService
 			.isLoggedIn
 			.subscribe(logged => {

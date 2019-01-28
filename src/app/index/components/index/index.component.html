@@ -2,13 +2,8 @@
     <div id="left" style="top: 60px;" [ngClass]="{
         'visible': responciveTabs == 1
     }">
-
         <div class="left-content-block">
-
             <div class="left-content box-responcive visible1">
-
-
-
                 <div class="left-content-balance">
                     <h4>Balance</h4>
                     <div class="left-content-balance-item">
@@ -24,7 +19,6 @@
                         <button class="button-minus"></button>
                     </div>
                 </div>
-
                 <div class="pos-rel">
                     <div class="box visible">
                         <div class="left-content-sell">
@@ -58,7 +52,6 @@
                                 <div class="percent"><span>75%</span></div>
                                 <div class="percent"><span>100%</span></div>
                             </div>
-
                             <div class="left-content-sell-input">
                                 Total
                                 <input type="text" placeholder="1.00000000">
@@ -68,28 +61,14 @@
                         </div>
                     </div>
                 </div>
-
-
                 <div class="left-content-buttons" *ngIf="!isLoggedIn">
                     <button class="main-btn main-btn-hov" routerLink="/authorization">SIGN IN</button>
                     <button class="transparent-btn" routerLink="/registration" style="margin-top: 22px;">REGISTER</button>
                 </div>
-
-
             </div>
-
-
-
         </div>
-
     </div>
-
     <div id="content">
-
-
-
-
-
         <div id="top">
             <div class="top-currency" *ngIf="currentSymbol">
                 <span class="top-currency-btn" (click)="currencyBox = !currencyBox">
@@ -97,8 +76,7 @@
                     <div style="padding: 4px 6px 0 6px;">{{ currentSymbol.baseAsset }} / {{ currentSymbol.quoteAsset }}</div>
                     <img src="../../../../assets/images/btc.svg" alt="">
                 </span>
-
-                <div class="top-currency-dropdown" *ngIf="symbols" [ngClass]="{
+                <div class="top-currency-dropdown" *ngIf="pairs" [ngClass]="{
                 'tcd-open': currencyBox
                 }">
                     <div class="top-currency-dropdown-search">
@@ -110,15 +88,12 @@
                         <span>Symbol</span>
                         <span>Base</span>
                         <span>Quote</span>
-                        <!-- <span>Volume</span>
-                        <span>Change</span> -->
                     </div>
-
                     <div class="top-currency-items-wrapper">
-                        <div class="top-currency-dropdown-item" *ngFor="let symbol of symbols" (click)="setSymbol(symbol)">
-                            <span><b>{{ symbol.baseAsset }}/{{ symbol.quoteAsset }}</b></span>
-                            <span>{{ symbol.baseAsset }}</span>
-                            <span>{{ symbol.quoteAsset }}</span>
+                        <div class="top-currency-dropdown-item" *ngFor="let pair of pairs" (click)="setSymbol(pair)">
+                            <span><b>{{ pair.baseAsset.shortName }}/{{ pair.quoteAsset.shortName }}</b></span>
+                            <span>{{ pair.baseAsset.shortName }}</span>
+                            <span>{{ pair.quoteAsset.shortName }}</span>
                             <!-- <span>2213.466</span>
                             <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span> -->
                         </div>
@@ -314,23 +289,6 @@
                           ></highcharts-chart>
                     </div>
                     <div class="chart-box" id="depth-chart-box" style="display:none">
-                        <!-- TradingView Widget BEGIN -->
-                        <!-- <script type="text/javascript">
-                                new TradingView.widget({
-                                "autosize": true,
-                                "symbol": "KRAKEN:XRPUSD",
-                                "interval": "D",
-                                "timezone": "Europe/London",
-                                "theme": "Dark",
-                                "style": "9",
-                                "locale": "en",
-                                "toolbar_bg": "rgba(9, 19, 41, 1)",
-                                "enable_publishing": false,
-                                "save_image": false,
-                                "hideideas": true
-                                });
-                                </script> -->
-                        <!-- TradingView Widget END -->
                     </div>
 
                     <div class="depth_chart_control" style="display:none">

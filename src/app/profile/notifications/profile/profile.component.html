@@ -30,16 +30,25 @@
 
                 <div class="fl-col calendar">
                     <span>Birth date</span>
-                    <jqxDateTimeInput [width]="171" [height]="36" (onValueChanged)="setUserBirthDate($event.args.date)">
-                    </jqxDateTimeInput>
+                    <mat-form-field class="fl-col calendar">
+                        <input matInput [matDatepicker]="dp" placeholder="Choose a date">
+                        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                        <mat-datepicker #dp ></mat-datepicker>
+                        </mat-form-field>
+    
+                    <!-- <jqxDateTimeInput [width]="171" [height]="36" (onValueChanged)="setUserBirthDate($event.args.date)">
+                    </jqxDateTimeInput> -->
                     <!-- <input class="w-171" type="text" placeholder="30.03.1993"> -->
                 </div>
-                <!-- <mat-form-field class="fl-col calendar">
-                    
-                    <input matInput [matDatepicker]="dp" >
-                    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                    <mat-datepicker #dp></mat-datepicker>
-                  </mat-form-field> -->
+                <!-- <div class="fl-col calendar">
+                    <span>Birth date</span>
+                      <mat-form-field class="example-full-width">
+                        <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker touchUi #picker></mat-datepicker>
+                      </mat-form-field>
+                </div> -->
+                
             </div>
 
             <div class="profile-item fl-row">

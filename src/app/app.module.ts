@@ -36,6 +36,7 @@ import { ThemeService } from './common/services/theme.service';
 import { CalendarComponent } from './calendar/calendar.component';
 import { WalletsService } from './balance/services/wallets.service';
 import { CountriesService } from './profile/services/countries.service';
+import { TradeService } from './common/services/trade.service';
 
 @NgModule({
 	declarations: [
@@ -105,6 +106,7 @@ import { CountriesService } from './profile/services/countries.service';
 		CountriesService,
 		WebsocketService,
 		BinanceService,
+		TradeService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy }
 	],
 	bootstrap: [AppComponent]
