@@ -107,10 +107,10 @@ export class IndexComponent implements OnInit {
 
 		if (type == 'asks') {
 			this.dataDepthAsks.push([Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1])]);
-			console.log(this.dataDepthAsks);
+			/* console.log(this.dataDepthAsks); */
 		} else if (type == 'bids') {
 			this.dataDepthBids.push([Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1])]);
-			console.log(this.dataDepthBids);
+			/* console.log(this.dataDepthBids); */
 		}
 
 		/* series.setData(this.depthChartData[type]);

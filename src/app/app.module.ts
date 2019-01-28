@@ -49,11 +49,9 @@ import * as Charts from 'fusioncharts/fusioncharts.charts';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 
 // Add dependencies to FusionChartsModule
-FusionChartsModule.fcRoot(
-	FusionCharts,
-	Charts,
-	FusionTheme
-);
+Charts(FusionCharts);
+FusionTheme(FusionCharts);
+FusionChartsModule.fcRoot(FusionCharts);
 
 @NgModule({
 	declarations: [
