@@ -76,7 +76,7 @@
                     <div style="padding: 4px 6px 0 6px;">{{ currentSymbol.baseAsset }} / {{ currentSymbol.quoteAsset }}</div>
                     <img src="../../../../assets/images/btc.svg" alt="">
                 </span>
-                <div class="top-currency-dropdown" *ngIf="pairs" [ngClass]="{
+                <div class="top-currency-dropdown" *ngIf="symbols" [ngClass]="{
                 'tcd-open': currencyBox
                 }">
                     <div class="top-currency-dropdown-search">
@@ -90,10 +90,10 @@
                         <span>Quote</span>
                     </div>
                     <div class="top-currency-items-wrapper">
-                        <div class="top-currency-dropdown-item" *ngFor="let pair of pairs" (click)="setSymbol(pair)">
-                            <span><b>{{ pair.baseAsset.shortName }}/{{ pair.quoteAsset.shortName }}</b></span>
-                            <span>{{ pair.baseAsset.shortName }}</span>
-                            <span>{{ pair.quoteAsset.shortName }}</span>
+                        <div class="top-currency-dropdown-item" *ngFor="let symbol of symbols" (click)="setSymbol(symbol)">
+                            <span><b>{{ symbol.baseAsset }}/{{ symbol.quoteAsset }}</b></span>
+                            <span>{{ symbol.baseAsset }}</span>
+                            <span>{{ symbol.quoteAsset }}</span>
                             <!-- <span>2213.466</span>
                             <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span> -->
                         </div>

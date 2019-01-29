@@ -4,4 +4,5 @@ export class Symbol {
     public icebergAllowed: boolean;
     public status: string;
     public symbol: string;
+    public gio: boolean = false;
 }

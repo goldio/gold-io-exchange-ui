@@ -21,22 +21,22 @@ export class BinanceService extends BaseHttpService {
     } */
 
     public getTrades(symbol: string): Observable<any> {
-        return this.get(`${this.apiUrl}/binance/trades/${symbol}`)
+        return this.get(`${this.apiUrl}/binance/trades/${symbol.replace('/', '')}`)
             .map(response => response.json());
-    }
+    }   
 
-    public getExchangeInfo(): Observable<Symbol[]> {
-        return this.get(`./symbols.json`)
+    public getExchangeInfo(): Observable<ExchangeInfo> {
+        return this.get(`/binance/api/v1/exchangeInfo`)
             .map(response => response.json());
     }
 
     public getCandlestickData(symbol: string): Observable<any> {
-        return this.get(`${this.apiUrl}/binance/klines/${symbol}`)
+        return this.get(`${this.apiUrl}/binance/klines/${symbol.replace('/', '')}`)
             .map(response => response.json());
     }
 
     public getOrderBook(symbol: string, limit: number = 1000): Observable<any> {
-        return this.get(`${this.apiUrl}/binance/depth/${symbol}`)
+        return this.get(`${this.apiUrl}/binance/depth/${symbol.replace('/', '')}`)
             .map(response => response.json());
     }
 }

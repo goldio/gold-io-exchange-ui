@@ -17,8 +17,9 @@ import { Symbol } from '../../models/symbol.model';
 import { AuthService } from 'src/app/common/services/auth.service';
 
 import symbols from './symbols';
-import { TradeService } from 'src/app/common/services/trade.service';
 import { Pair } from '../../models/pair.model';
+import { TradeService } from 'src/app/common/services/trade.service';
+import { OrderType } from 'src/app/common/enums';
 
 declare var TradingView: any;
 declare var Swiper: any;
@@ -41,9 +42,6 @@ export class IndexComponent implements OnInit {
 	public buyCell: boolean = false;
 	public responciveTabs = 2;
 
-	public symbols: Symbol[];
-	public currentSymbol: Symbol;
-
 	public tradeHistory: TradeHistoryItem[] = [];
 	public orderBookBids: OrderBookItem[] = [];
 	public orderBookAsks: OrderBookItem[] = [];
@@ -52,8 +50,8 @@ export class IndexComponent implements OnInit {
 	public dataDepthAsks: any[];
 	public dataDepthBids: any[];
 
-	public pairs : Pair[];
-	public currentPairs: Pair;
+	public symbols : Symbol[];
+	public currentSymbol: Symbol;
 
 	private getBestAsk(data: any) {
 		let best = Number(data[0][0]);
@@ -130,19 +128,34 @@ export class IndexComponent implements OnInit {
 	}
 
 	private loadSymbols(): void {
-		this.symbols = symbols;
-		this.setSymbol();
+		this.binanceService
+			.getExchangeInfo()
+			.subscribe(res => {
+				this.symbols = res.symbols;
+
+				const coins = ["BTC", "ETH", "EOS"];
+
+				coins.forEach(coin => {
+					let symbol = new Symbol();
+					symbol.baseAsset = "GIO";
+					symbol.quoteAsset = coin;
+					symbol.symbol = `GIO${coin}`;
+					symbol.gio = true;
+
+					this.symbols.unshift(symbol);
+				});
+
+				this.setSymbol();
+			});
 	}
 
-	private setSymbol(symbol?: Symbol , pair?: Pair): void {
+	private setSymbol(symbol?: Symbol): void {
 		this.currencyBox = false;
 
 		if (!symbol) {
-			this.currentSymbol = this.symbols.find(x => x.symbol == "ETHBTC");
-			this.currentPairs = this.pairs[0];
+			this.currentSymbol = this.symbols[0];
 		} else {
 			this.currentSymbol = symbol;
-			this.currentPairs = pair;
 		}
 
 		this.loadTrades();
@@ -159,6 +172,30 @@ export class IndexComponent implements OnInit {
 
 	private loadTrades(): void {
 		this.tradeHistory = [];
+
+		if (this.currentSymbol.gio) {
+			this.tradeService
+				.getOrdersBySymbol(this.currentSymbol.baseAsset, this.currentSymbol.quoteAsset)
+				.subscribe(res => {
+					if (!res.success) {
+						alert(res.message);
+						return;
+					}
+
+					res.data.forEach(item => {
+						this.tradeHistory
+							.push({
+								price: item.price.toFixed(4),
+								qty: item.amount.toFixed(8),
+								isBuyerMaker: item.type == OrderType.Buy ? true : false,
+								isBestMatch: false,
+								time: DateHelper.getTimeFromDate(item.time)
+							});
+					});
+				});
+
+			return;
+		}
 
 		this.binanceService
 			.getTrades(this.currentSymbol.symbol)
@@ -222,16 +259,6 @@ export class IndexComponent implements OnInit {
 			});
 	}
 
-	private getPair(){
-		this.tradeService.getPair().subscribe(res => {
-			if(!res.success)
-				return;
-			this.pairs = res.data;
-			this.setSymbol();
-		});
-
-	}
-
 	constructor(
 		private authService: AuthService,
 		private websocketService: WebsocketService,
@@ -256,8 +283,6 @@ export class IndexComponent implements OnInit {
 
 		this.initPriceChart();
 		this.initDepthChart();
-
-		this.getPair();
 	}
 
 	private async getCandlestickData() {

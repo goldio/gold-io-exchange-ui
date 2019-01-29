@@ -8,3 +8,4 @@ export * from './person.model';
 export * from './coin.model';
 export * from './security-token.model';
 export * from './wallet.model';
+export * from './order.model';

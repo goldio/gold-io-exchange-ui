@@ -6,8 +6,9 @@ import { TradeHistoryItem } from 'src/app/index/models';
 import { ExchangeInfo } from 'src/app/index/models/exchange-info.model';
 import { OrderBookResponse } from '../models/binance/order-book-response.model';
 import { BaseHttpService } from './base-http.service';
-import { Pair } from 'src/app/index/models/pair.model';
 import { DataResponse } from '../models/response';
+import { Pair } from 'src/app/index/models/pair.model';
+import { Order } from '../models';
 
 @Injectable()
 export class TradeService extends BaseHttpService {
@@ -17,9 +18,13 @@ export class TradeService extends BaseHttpService {
         super(http);
     }
 
-    public getPair(): Observable<DataResponse<Pair[]>> {
+    public getPairs(): Observable<DataResponse<Pair[]>> {
         return this.get(`${this.apiUrl}/coins/pairs`)
             .map(response => response.json());
     }
     
+    public getOrdersBySymbol(base: string, quote: string): Observable<DataResponse<Order[]>> {
+        return this.get(`${this.apiUrl}/orders/symbol/${base}/${quote}`)
+            .map(response => response.json());
+    }
 }
