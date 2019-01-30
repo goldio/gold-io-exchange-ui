@@ -1563,9 +1563,16 @@ ul.left-content-tabs li:nth-child(3).current {
   right: 286px;
   top: 61px;
   bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+#price-chart-box{
+  min-width: 1050px;
   overflow: auto;
 }
-
+.price-box{
+  overflow: auto;
+}
 .content-center::-webkit-scrollbar {
   width: 0;
 }
@@ -1589,10 +1596,7 @@ ul.left-content-tabs li:nth-child(3).current {
   height: 426px;
   padding: 6px 14px 0 14px;
 }
-#price-chart-box{
-  min-width: 1050px;
-  overflow-x: auto;
-}
+
 // #depth-chart-box1{
 //   min-width: 1050px;
 //   overflow-x: auto;
