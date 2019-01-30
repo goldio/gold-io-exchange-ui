@@ -3,9 +3,9 @@
         <div class="sign-container">
             <a href="" class="sign-logo"></a>
             <h3>Sign in</h3>
-
             <form [formGroup]="signInForm" (ngSubmit)="submitAuthorization(signInForm)">
-                <div class="sign-container-input">
+                <div class="error-text error-text_open">error text</div>
+                <div class="sign-container-input error-input">
                     <span>Email</span>
                     <input class="sign-place" type="text" placeholder="sample@gmail.com" formControlName="login">
                     <!-- <div class="error">

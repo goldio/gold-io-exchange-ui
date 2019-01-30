@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import 'rxjs/add/operator/debounceTime';
 
 import { Wallet } from 'src/app/common/models';
-import { WalletsService } from '../../services/wallets.service';
+import { WalletsService } from 'src/app/common/services/wallets.service';
 
 @Component({
 	selector: 'app-balance',

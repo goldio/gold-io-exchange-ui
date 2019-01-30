@@ -34,7 +34,7 @@ import { UsersService } from './common/services/users.service';
 import { PersonsService } from './profile/services/persons.service';
 import { ThemeService } from './common/services/theme.service';
 import { CalendarComponent } from './calendar/calendar.component';
-import { WalletsService } from './balance/services/wallets.service';
+import { WalletsService } from './common/services/wallets.service';
 import { CountriesService } from './profile/services/countries.service';
 import { TradeService } from './common/services/trade.service';
 

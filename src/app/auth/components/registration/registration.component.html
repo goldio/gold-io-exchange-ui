@@ -6,7 +6,8 @@
             <h3>Create your account</h3>
 
             <form [formGroup]="signUpForm" (ngSubmit)="submitRegistration(signUpForm)">
-                <div class="sign-container-input">
+                    <div class="error-text error-text_open">error text</div>
+                <div class="sign-container-input error-input" >
                     <span>Full name</span>
                     <input class="sign-place" type="text" placeholder="First & Last name" formControlName="fullName">
                 </div>

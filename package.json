@@ -26,6 +26,7 @@
     "angular-highcharts": "^7.1.0",
     "core-js": "^2.5.4",
     "format-currency": "^1.0.0",
+    "fusioncharts": "^3.13.3-sr.1",
     "highcharts": "^7.0.2",
     "highcharts-angular": "^2.4.0",
     "highcharts-more": "^0.1.7",

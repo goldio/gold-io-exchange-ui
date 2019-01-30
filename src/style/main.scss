@@ -3426,32 +3426,6 @@ ul.left-top-menu {
   }
 }
 
-.error {
-  position: absolute;
-  width: 100%;
-  height: 68px;
-  background: rgba(#FF7373, .9);
-  border-radius: 4px;
-  top: 0;
-  z-index: -1;
-
-  .error-text {
-    display: block;
-    position: absolute;
-    bottom: 3px;
-    left: 16px;
-    color: white;
-    font-size: 12px;
-    font-family: 'DisplayMedium';
-  }
-
-  .inp-text {
-    font-size: 7px;
-    font-family: 'DisplayBold';
-    text-transform: uppercase;
-    top: 8px;
-  }
-}
 
 .dark {
   .sign{
@@ -4316,5 +4290,62 @@ input::-webkit-inner-spin-button {
 
   .mat-form-field-underline{
       display: none!important;
+  }
+}
+
+
+
+
+
+////////////////////////////////////////////////////////// errors /////////////////////////////////////////////////////////
+
+
+// .error {
+//   // position: absolute;
+//   // width: 100%;
+//   // height: 68px;
+//   // background: rgba(#FF7373, .9);
+//   // border-radius: 4px;
+//   // top: 0;
+//   // z-index: -1;
+
+//   // .error-text {
+//   //   display: block;
+//   //   position: absolute;
+//   //   bottom: 3px;
+//   //   left: 16px;
+//   //   color: white;
+//   //   font-size: 12px;
+//   //   font-family: 'DisplayMedium';
+//   // }
+
+//   // .inp-text {
+//   //   font-size: 7px;
+//   //   font-family: 'DisplayBold';
+//   //   text-transform: uppercase;
+//   //   top: 8px;
+//   // }
+// }
+.sign{
+  form{
+    position: relative;
+  }
+}
+.error-text{
+  color: #ff0000c2;
+  opacity: 0;
+  transition: 3s;
+  position: absolute;
+  top: -25px;
+  left: 25px;
+}
+.error-text_open{
+  opacity: 1;
+}
+.error-input{
+  background: #ff00004d;
+}
+.dark{
+  .mat-calendar-table{
   }
 }

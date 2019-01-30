@@ -20,6 +20,9 @@ import symbols from './symbols';
 import { Pair } from '../../models/pair.model';
 import { TradeService } from 'src/app/common/services/trade.service';
 import { OrderType } from 'src/app/common/enums';
+import { Coin, Wallet } from 'src/app/common/models';
+import { WalletsService } from 'src/app/common/services/wallets.service';
+import { runInThisContext } from 'vm';
 
 declare var TradingView: any;
 declare var Swiper: any;
@@ -32,6 +35,10 @@ declare var Swiper: any;
 export class IndexComponent implements OnInit {
 
 	public isLoggedIn: boolean;
+
+	public baseAsset = 0.0000000;
+	public quoteAsset = 0.0000000;
+	public wallets : Wallet[];
 
 	public Highcharts = Highcharts;
 	public priceChartOptions: Highcharts.Options;
@@ -153,7 +160,7 @@ export class IndexComponent implements OnInit {
 		this.currencyBox = false;
 
 		if (!symbol) {
-			this.currentSymbol = this.symbols[0];
+			this.currentSymbol = this.symbols.find(x => x.symbol == "ETHBTC");
 		} else {
 			this.currentSymbol = symbol;
 		}
@@ -259,11 +266,61 @@ export class IndexComponent implements OnInit {
 			});
 	}
 
+	private calcQuoteAsset(decr?: boolean): void {
+		if(!decr){
+			
+			this.quoteAsset += 0.001;
+			if(this.quoteAsset > this.wallets.find(x => x.coin.shortName == this.currentSymbol.quoteAsset).balance){
+				this.quoteAsset -= 0.001;
+				return;
+			}
+		}else {
+			this.quoteAsset -= 0.001;
+			if(this.quoteAsset < 0 ){
+				this.quoteAsset = 0.0;
+				return;
+			}
+		}
+	}
+
+	private calcBaseAsset(decr?: boolean): void {
+		if(!decr){
+			
+			this.baseAsset += 0.001;
+			if(this.baseAsset > this.wallets.find(x => x.coin.shortName == this.currentSymbol.baseAsset).balance){
+				this.baseAsset -= 0.001;
+				return;
+			}
+		}else {
+			this.baseAsset -= 0.001;
+			if(this.baseAsset < 0 ){
+				this.baseAsset = 0.0;
+				return;
+			}
+		}
+	}
+
+	private getBalance():void {
+		this.walletsService
+			.getMe()
+			.subscribe(res => {
+				if (!res.success) {
+					alert(res.message);
+					return;
+				}
+				this.wallets = res.data;
+				
+			});
+	
+			
+	}
+
 	constructor(
 		private authService: AuthService,
 		private websocketService: WebsocketService,
 		private binanceService: BinanceService,
-		private tradeService : TradeService
+		private tradeService : TradeService,
+		private walletsService : WalletsService
 	) {
 		
 	}
@@ -283,6 +340,7 @@ export class IndexComponent implements OnInit {
 
 		this.initPriceChart();
 		this.initDepthChart();
+		this.getBalance();
 	}
 
 	private async getCandlestickData() {

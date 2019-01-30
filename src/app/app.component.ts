@@ -22,6 +22,11 @@ export class AppComponent {
 		this.themeService
 			.currentState
 			.subscribe(theme => {
+				if (theme == Theme.Dark) {
+					document.body.className = 'dark';
+				} else {
+					document.body.className = '';
+				}
 				this.theme = theme;
 			});
 

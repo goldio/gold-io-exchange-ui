@@ -1,22 +1,22 @@
-<section class="index">
+<section class="index" *ngIf="currentSymbol">
     <div id="left" style="top: 60px;" [ngClass]="{
         'visible': responciveTabs == 1
     }">
         <div class="left-content-block">
             <div class="left-content box-responcive visible1">
-                <div class="left-content-balance">
+                <div class="left-content-balance"  >
                     <h4>Balance</h4>
-                    <div class="left-content-balance-item">
-                        <b>BTC</b>
-                        0.73500.00
-                        <button class="button-plus"></button>
-                        <button class="button-minus"></button>
+                    <div class="left-content-balance-item" >
+                        <b>{{ currentSymbol.quoteAsset }}</b>
+                        {{ quoteAsset }}
+                        <button class="button-plus" (click)="calcQuoteAsset( false)"></button>
+                        <button class="button-minus" (click)="calcQuoteAsset( true)"></button>
                     </div>
-                    <div class="left-content-balance-item">
-                        <b>ETH</b>
-                        0.89900.00
-                        <button class="button-plus"></button>
-                        <button class="button-minus"></button>
+                    <div class="left-content-balance-item" >
+                        <b>{{ currentSymbol.baseAsset }}</b>
+                        {{ baseAsset }}
+                        <button class="button-plus" (click)="calcBaseAsset( false)"></button>
+                        <button class="button-minus" (click)="calcBaseAsset( true)"></button>
                     </div>
                 </div>
                 <div class="pos-rel">
@@ -38,12 +38,12 @@
                                     <label  class="radio1" for="radio2">Limit</label>
                                 </em>
                                 <input type="text" placeholder="1.00000000">
-                                <b class="input-decor">BTC</b>
+                                <b class="input-decor" >{{ currentSymbol.quoteAsset }}</b>
                             </div>
                             <div class="left-content-sell-input">
                                 Ammount
                                 <input type="text" placeholder="1.00000000">
-                                <b>ETH</b>
+                                <b>{{ currentSymbol.baseAsset }}</b>
                             </div>
                             <div class="left-content-sell-input percents">
 
@@ -55,7 +55,7 @@
                             <div class="left-content-sell-input">
                                 Total
                                 <input type="text" placeholder="1.00000000">
-                                <b>USD</b>
+                                <b>{{ currentSymbol.quoteAsset }}</b>
                             </div>
                             <button class="transparent-btn" *ngIf="isLoggedIn">PLACE BUY ORDER</button>
                         </div>
