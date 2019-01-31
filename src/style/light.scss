@@ -1,7 +1,7 @@
 
 // main light
 .light {
-    background: linear-gradient(180deg, #F0EFEA 0%, #F8F7F5 100%);
+    // background: linear-gradient(180deg, #F0EFEA 0%, #F8F7F5 100%);
     background: #fff;
     input::-webkit-input-placeholder { color: #C0C1C4; }
     input::-moz-placeholder          { color: #C0C1C4; }
@@ -649,8 +649,49 @@
   
   // auth light
   .light{ 
-      .sign{
-        background: linear-gradient(180deg, #F0EFEA 0%, #F8F7F5 100%);
+    .sign{
+    
+      .main-btn {
+      
+      transition: 0.3s;
+  
+      }
+      .main-btn-hov::after{
+      content: 'LOGIN';
+     
+      width: 100%;
+      position: relative;
+      height: 53px;
+      display: block;
+      transition: .3s;
+      top: -35px;
+      padding-top: 17.5px;
+      box-sizing: border-box;
+      border-radius: 3px;
+      opacity: 0; 
+      }
+      .main-btn-hov:hover::after {
+      opacity: 1;
+      }
+      .main-btn-hov:active::after {
+      opacity: 0;
+      }
+      .main-btn-hov:active {
+      
+      }
+      .main-btn-hov{
+      padding-top: 18px!important;
+      }
+  
+    }
+    .sign {
+      background-image: linear-gradient(180deg, #F0EFEA 0%, #F8F7F5 100%)!important;
+        .bac-logo{
+          background: url(../assets/images/bacgr-logo-light.svg)no-repeat ;
+          background-position-x: 47%;
+          background-position-y: 41px;
+        }
+      
       }
     a.sign-logo {
         background: url(../assets/images/logo.svg)no-repeat;
@@ -675,6 +716,9 @@
     .sign-container-input {
         border-bottom:  1px solid rgba(0, 0, 0, 0.05);
     }
+    .border-top {
+      border-top:  1px solid rgba(0, 0, 0, 0.05);
+  }
     
     .sign-container-input span {
         color: #D6D6D6;
@@ -733,9 +777,7 @@
   }
     
     
-    .sign {
-        background: url(../assets/images/bacgr-logo-light.svg)no-repeat ;
-    }
+    
   }
   // activity light
   .light{
@@ -1580,6 +1622,17 @@
           }
       }
     
+  }
+
+  .light{
+    .text-box{
+      .title{
+        color: #313131;
+      }
+      .text{
+        color: #595E64;
+      }
+  }
   }
 
   

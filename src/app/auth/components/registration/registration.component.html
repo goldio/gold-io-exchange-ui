@@ -1,40 +1,41 @@
 <div class="sign reg">
-    <div class="sign-narrow">
-        <div class="sign-container">
-            <a href="#" class="sign-logo">xxx</a>
-
-            <h3>Create your account</h3>
-
-            <form [formGroup]="signUpForm" (ngSubmit)="submitRegistration(signUpForm)">
-                    <div class="error-text error-text_open">error text</div>
-                <div class="sign-container-input error-input" >
-                    <span>Full name</span>
-                    <input class="sign-place" type="text" placeholder="First & Last name" formControlName="fullName">
+        <div class="bac-logo">
+            <div class="sign-narrow">
+                <div class="sign-container">
+                    <a href="#" class="sign-logo">xxx</a>
+        
+                    <h3>Create your account</h3>
+        
+                    <form [formGroup]="signUpForm" (ngSubmit)="submitRegistration(signUpForm)">
+                        <div class="sign-container-input " >
+                            <span>Full name</span>
+                            <input class="sign-place" type="text" placeholder="First & Last name" formControlName="fullName">
+                        </div>
+        
+                        <div class="sign-container-input">
+                            <span>Password</span>
+                            <input class="sign-place" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" formControlName="password">
+                        </div>
+        
+                        <div class="sign-container-input">
+                            <span>Email</span>
+                            <input class="sign-place" type="text" placeholder="sample@gmail.com" formControlName="email">
+                        </div>
+        
+                        <div class="sign-container-checkbox">
+                            <input type="checkbox" id="todo_1" />
+                            <label for="todo_1">
+                                <span class="sup-lable"></span>I agree to the <a href="">Terms and conditions</a>
+                            </label>
+                        </div>
+        
+                        <button type="submit" class="main-btn main-btn-hov">CREATE ACCOUNT</button>
+                    </form>
+        
+                    <div class="sign-links">
+                        <a routerLink="/authorization">Already have an account?</a><br><br>
+                    </div>
                 </div>
-
-                <div class="sign-container-input">
-                    <span>Password</span>
-                    <input class="sign-place" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" formControlName="password">
-                </div>
-
-                <div class="sign-container-input">
-                    <span>Email</span>
-                    <input class="sign-place" type="text" placeholder="sample@gmail.com" formControlName="email">
-                </div>
-
-                <div class="sign-container-checkbox">
-                    <input type="checkbox" id="todo_1" />
-                    <label for="todo_1">
-                        <span class="sup-lable"></span>I agree to the <a href="">Terms and conditions</a>
-                    </label>
-                </div>
-
-                <button type="submit" class="main-btn main-btn-hov">CREATE ACCOUNT</button>
-            </form>
-
-            <div class="sign-links">
-                <a routerLink="/authorization">Already have an account?</a><br><br>
             </div>
         </div>
-    </div>
 </div>

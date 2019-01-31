@@ -37,6 +37,8 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { WalletsService } from './common/services/wallets.service';
 import { CountriesService } from './profile/services/countries.service';
 import { TradeService } from './common/services/trade.service';
+import { SucessfullComponent } from './auth/components/sucessfull/sucessfull.component';
+import { RecoveryComponent } from './auth/components/recovery/recovery.component';
 
 @NgModule({
 	declarations: [
@@ -53,6 +55,8 @@ import { TradeService } from './common/services/trade.service';
 		ActivityComponent,
 		jqxDateTimeInputComponent,
 		CalendarComponent,
+		SucessfullComponent,
+		RecoveryComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -94,6 +98,20 @@ import { TradeService } from './common/services/trade.service';
 				{ path: 'apiKeys', component: ApiKeysComponent },
 				{ path: 'security', component: SecurityComponent },
 				{ path: 'index', component: IndexComponent },
+				{
+					path: 'sucessfull', component: SucessfullComponent,
+					data: {
+						noHeader: true,
+						noSidebar: true
+					}
+				},
+				{
+					path: 'recovery', component: RecoveryComponent,
+					data: {
+						noHeader: true,
+						noSidebar: true
+					}
+				}
 			]
 		),
 	],

@@ -7,7 +7,7 @@ a.sign-logo {
     display: block;
     width: 47px; height: 47px;
     line-height: 200px;
-    background: url(../../../../assets/images/logo.svg)no-repeat;
+    // background: url(../../../../assets/images/logo.svg)no-repeat;
     background-size: auto 47px;
     margin: auto;
 }
@@ -15,7 +15,7 @@ a.sign-logo {
 
 
 a {
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 a:hover {
@@ -105,7 +105,7 @@ input[type=checkbox]:checked + label span::after {
 }
 
 .sign-container {
-    padding-bottom: 27px;
+    padding-bottom: 35px;
     border-radius: 3px;
     padding-top: 35px;
 }
@@ -226,8 +226,10 @@ input[type=checkbox] + label span
 
 
 .sign {
-    background-position-x: 47%;
-    background-position-y: 41px;
+    // background-position-x: 47%;
+    // background-position-y: 41px;
+    width: 100vw;
+    height: 100vh;
 }
 
 .sign-container {
@@ -269,3 +271,10 @@ input[type=checkbox] + label span
 
 
 
+.bac-logo{
+    background-position-x: 47%;
+    background-position-y: 41px;
+    overflow: auto;
+    width: 100vw;
+    height: 100vh;
+}

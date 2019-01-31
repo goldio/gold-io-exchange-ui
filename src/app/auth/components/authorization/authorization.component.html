@@ -1,35 +1,36 @@
 <div class="sign">
-    <div class="sign-narrow">
-        <div class="sign-container">
-            <a href="" class="sign-logo"></a>
-            <h3>Sign in</h3>
-            <form [formGroup]="signInForm" (ngSubmit)="submitAuthorization(signInForm)">
-                <div class="error-text error-text_open">error text</div>
-                <div class="sign-container-input error-input">
-                    <span>Email</span>
-                    <input class="sign-place" type="text" placeholder="sample@gmail.com" formControlName="login">
-                    <!-- <div class="error">
-                        <span class="error-text">Сan't be empty!</span>
-                    </div> -->
-                </div>
-
-                <div class="sign-container-input">
-                    <span>Password</span>
-                    <input class="sign-place" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
-                        formControlName="password">
-                </div>
-
-                <div class="sign-container-checkbox">
-                    <input type="checkbox" id="todo_1" />
-                    <label for="todo_1">
-                        <span></span>Remember me
-                    </label>
-                    <!-- <a href="" class="sign-container-fgtpss">Forgot password?</a> -->
-                </div>
-
-                <button class="main-btn main-btn-hov" type="submit">LOGIN</button>
-            </form>
+    <div class="bac-logo">
+        <div class="sign-narrow">
+            <div class="sign-container">
+                <a href="" class="sign-logo"></a>
+                <h3>Sign in</h3>
+                <form [formGroup]="signInForm" (ngSubmit)="submitAuthorization(signInForm)">
+                    <div class="sign-container-input">
+                        <span>Email</span>
+                        <input class="sign-place" type="text" placeholder="sample@gmail.com" formControlName="login">
+                    </div>
+    
+                    <div class="sign-container-input">
+                        <span>Password</span>
+                        <input class="sign-place" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+                            formControlName="password">
+                    </div>
+    
+                    <div class="sign-container-checkbox">
+                        <input type="checkbox" id="todo_1" />
+                        <label for="todo_1">
+                            <span></span>Remember me
+                        </label>
+                        <!-- <a href="" class="sign-container-fgtpss">Forgot password?</a> -->
+                    </div>
+    
+                    <button class="main-btn main-btn-hov" type="submit">LOGIN</button>
+                    <div class="link">
+                        <a class="">Forgot password?</a>
+                    </div>
+                </form>
+            </div>
+    
         </div>
-
     </div>
 </div>

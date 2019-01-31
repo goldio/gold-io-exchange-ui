@@ -2472,7 +2472,7 @@ ul.left-top-menu {
   }
   
   .sign-container {
-      box-shadow: 0 10px 44px rgba(137, 145, 164, 0.13);
+      // box-shadow: 0 10px 44px rgba(137, 145, 164, 0.13);
   }
   
   .sign-container h3 {
@@ -2562,19 +2562,28 @@ ul.left-top-menu {
   
   
   .sign {
-      background: url(../assets/images/bacgr-logo.svg)no-repeat #141720;
+    background: #141720;
+      .bac-logo{
+        background: url(../assets/images/bacgr-logo.svg)no-repeat;
+        background-position-x: 47%;
+        background-position-y: 41px;
+      }
   }
   
   .sign-container {
       background: linear-gradient(180deg, #151922 0%, #1C202E 100%);
-      box-shadow: 0 10px 44px rgba(7, 14, 30, 0.26);
+      // box-shadow: 0 10px 44px rgba(7, 14, 30, 0.26);
   }
   
   .sign-container h3 {
       border-bottom: 1px solid #fefefe0d;
       color: white;
   }
-  
+  .recovery{
+    .border-top {
+      border-top: 1px solid #fefefe0d;
+  }
+  }
   .sign-container-input {
       border-bottom: 1px solid #fefefe0d;
   }
@@ -3426,7 +3435,7 @@ ul.left-top-menu {
   }
 }
 
-
+//sign
 .dark {
   .sign{
     
@@ -3471,7 +3480,17 @@ ul.left-top-menu {
     }
   }
 }
-
+// sucsess
+.dark{
+  .text-box{
+    .title{
+      color: white;
+    }
+    .text{
+       color: #595E64;
+    }
+}
+}
 .highcharts-legend-item{
   rect{
     fill: #D1C881!important;
@@ -4299,52 +4318,12 @@ input::-webkit-inner-spin-button {
 
 ////////////////////////////////////////////////////////// errors /////////////////////////////////////////////////////////
 
-
-// .error {
-//   // position: absolute;
-//   // width: 100%;
-//   // height: 68px;
-//   // background: rgba(#FF7373, .9);
-//   // border-radius: 4px;
-//   // top: 0;
-//   // z-index: -1;
-
-//   // .error-text {
-//   //   display: block;
-//   //   position: absolute;
-//   //   bottom: 3px;
-//   //   left: 16px;
-//   //   color: white;
-//   //   font-size: 12px;
-//   //   font-family: 'DisplayMedium';
-//   // }
-
-//   // .inp-text {
-//   //   font-size: 7px;
-//   //   font-family: 'DisplayBold';
-//   //   text-transform: uppercase;
-//   //   top: 8px;
-//   // }
-// }
 .sign{
-  form{
+  .sign-container-input input{
     position: relative;
   }
 }
-.error-text{
-  color: #ff0000c2;
-  opacity: 0;
-  transition: 3s;
-  position: absolute;
-  top: -25px;
-  left: 25px;
-}
-.error-text_open{
-  opacity: 1;
-}
-.error-input{
-  background: #ff00004d;
-}
+
 .dark{
   .mat-calendar-table{
   }

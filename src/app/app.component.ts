@@ -23,9 +23,9 @@ export class AppComponent {
 			.currentState
 			.subscribe(theme => {
 				if (theme == Theme.Dark) {
-					document.body.className = 'dark';
+					document.body.className = 'dark-calend';
 				} else {
-					document.body.className = '';
+					document.body.className = 'light-calend';
 				}
 				this.theme = theme;
 			});

@@ -36,8 +36,8 @@ export class IndexComponent implements OnInit {
 
 	public isLoggedIn: boolean;
 
-	public baseAsset = 0.0000000;
-	public quoteAsset = 0.0000000;
+	public baseAsset = 0;
+	public quoteAsset = 0;
 	public wallets : Wallet[];
 
 	public Highcharts = Highcharts;

@@ -1,0 +1,41 @@
+<div class="sign recovery">
+        <div class="bac-logo">
+            <div class="sign-narrow">
+                <div class="sign-container" *ngIf="!firstStep">
+                    <a href="" class="sign-logo"></a>
+                    <div class="text-box">
+                            <span class="title">Password recovery!</span>
+                            <span class="text">We will send you an email with <br>
+                                a link to reset your password</span>
+                        </div>
+                    <form [formGroup]="recoveryForm" (ngSubmit)="submitAuthorization(recoveryForm)">
+                        <div class="sign-container-input border-top">
+                            <span>Email</span>
+                            <input class="sign-place" type="text" placeholder="sample@gmail.com" formControlName="login">
+                        </div>
+                        <button class="main-btn main-btn-hov submit-btn" type="submit">SUBMIT</button>
+                        
+                    </form>
+                </div>
+                <div class="sign-container" *ngIf="!firstStep">
+                        <a href="" class="sign-logo"></a>
+                        <div class="text-box">
+                                <span class="title">Password recovery!</span>
+                                <span class="text">Set a new password.</span>
+                            </div>
+                        <form [formGroup]="recoveryPassForm" (ngSubmit)="submitAuthorization(recoveryPassForm)">
+                            <div class="sign-container-input border-top">
+                                <span>Password</span>
+                                <input class="sign-place" type="text" placeholder="password" formControlName="password1">
+                            </div>
+                            <div class="sign-container-input ">
+                                    <span>Again</span>
+                                    <input class="sign-place" type="text" placeholder="repeat password" formControlName="password2">
+                                </div>
+                            <button class="main-btn main-btn-hov save-btn" type="submit">SAVE</button>
+                            
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>

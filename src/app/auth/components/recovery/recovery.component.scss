@@ -1,4 +1,22 @@
 
+.text-box{
+    // color: white;
+    text-align: center;
+
+    .title{
+        display: block;
+        margin-top: 15px;
+        font-size: 20px;
+    }
+    .text{
+        display: block;
+        margin-top: 20px;
+        line-height: 24px;
+        font-size: 16px;
+        font-weight: 300;
+        margin-bottom: 28px;
+    }
+}
 
 a.sign-logo {
     /* position: absolute;
@@ -141,6 +159,7 @@ input[type=checkbox]:checked + label span::after {
     font-size: 16px;
     font-weight: 900;
     transition: none;
+    margin-top: 33px;
 }
 
 
@@ -261,3 +280,14 @@ input[type=checkbox] + label span
     width: 100vw;
     height: 100vh;
 }
+
+
+    .submit-btn::after{
+    content: 'SUBMIT'!important;
+  }
+
+  
+  .save-btn::after{
+    content: 'SAVE'!important;
+  }
+ 
