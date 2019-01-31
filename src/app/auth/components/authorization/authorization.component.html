@@ -5,15 +5,28 @@
                 <a href="" class="sign-logo"></a>
                 <h3>Sign in</h3>
                 <form [formGroup]="signInForm" (ngSubmit)="submitAuthorization(signInForm)">
-                    <div class="sign-container-input">
+                    <div class="sign-container-input error" [ngClass]="{
+                        'error-open' : (signInForm.controls.login.hasError('required')&& signInForm.controls.login.touched) || (signInForm.controls.login.hasError('email')  && signInForm.controls.login.touched)
+                    }">
                         <span>Email</span>
-                        <input class="sign-place" type="text" placeholder="sample@gmail.com" formControlName="login">
+                        <input class="sign-place" type="email" placeholder="sample@gmail.com" formControlName="login" required>
+                        <div class="error-text" [ngClass]="{
+                            'error-text-open' : signInForm.controls.login.hasError('required') && signInForm.controls.login.touched
+                        }">Сan't be empty!</div>
+                        <div class="error-text" [ngClass]="{
+                            'error-text-open' : signInForm.controls.login.hasError('email')  && signInForm.controls.login.touched
+                        }">{{emailErrorText}}</div>
                     </div>
     
-                    <div class="sign-container-input">
+                    <div class="sign-container-input error" [ngClass]="{
+                        'error-open' : signInForm.controls.password.hasError('required')&& signInForm.controls.password.touched
+                    }">
                         <span>Password</span>
                         <input class="sign-place" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
-                            formControlName="password">
+                            formControlName="password" required>
+                            <div class="error-text"[ngClass]="{
+                                'error-text-open' : signInForm.controls.password.hasError('required') && signInForm.controls.password.touched
+                            }">Сan't be empty!</div>
                     </div>
     
                     <div class="sign-container-checkbox">
@@ -26,7 +39,7 @@
     
                     <button class="main-btn main-btn-hov" type="submit">LOGIN</button>
                     <div class="link">
-                        <a class="">Forgot password?</a>
+                        <a routerLink="/recovery">Forgot password?</a>
                     </div>
                 </form>
             </div>

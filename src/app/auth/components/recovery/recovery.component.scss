@@ -134,7 +134,7 @@ input[type=checkbox]:checked + label span::after {
 }
 
 .sign-container-input input {
-    width: 68.2%;
+    width: 55%;
     height: 36px;
     border: 0;
     background-color: transparent;
@@ -236,7 +236,7 @@ input[type=checkbox] + label span
 
 .sign-container {
     opacity: 0.9;
-    overflow: hidden;
+    // overflow: hidden;
 }
 
 
@@ -291,3 +291,21 @@ input[type=checkbox] + label span
     content: 'SAVE'!important;
   }
  
+
+//   @media screen and (max-width: 650px) {
+//     .error{
+//         .error-text{
+//             right: 35px;
+//             top: -60px;
+//           max-width: 233px;
+//           min-height: 47px;
+//         }
+//         .error-text:after{
+//             border: 9px solid transparent;
+//             border-top: 10px solid #0E111A;
+//             left: calc(50% - 10px);
+//             top: 46px;
+//             bottom: -1px;
+//         }
+//       }
+// }

@@ -2,16 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/common/services/auth.service';
 import { Router } from '@angular/router';
+import { BaseComponent } from 'src/app/common/components/base.component';
 
 @Component({
 	selector: 'app-registration',
 	templateUrl: './registration.component.html',
 	styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent extends BaseComponent implements OnInit {
 
 	public signUpForm: FormGroup;
-
+	public emailErrorText: string;
 	private initSignUpForm(): void {
 		this.signUpForm = new FormGroup({
 			fullName: new FormControl(null),
@@ -23,7 +24,9 @@ export class RegistrationComponent implements OnInit {
 	constructor(
 		private authService: AuthService,
 		private router: Router
-	) { }
+	) {
+		super();
+	 }
 
 	ngOnInit() {
 		this.initSignUpForm();
@@ -40,7 +43,10 @@ export class RegistrationComponent implements OnInit {
 
 	public submitRegistration(form: FormGroup): void {
 		if (form.invalid) {
-			alert('form invalid');
+			this.markContolsAsTouched();
+
+			// alert('form invalid');
+
 			return;
 		}
 
@@ -48,12 +54,27 @@ export class RegistrationComponent implements OnInit {
 			.registration(form.value)
 			.subscribe(res => {
 				if (!res.success) {
-					alert(res.message);
+					// alert(res.message);
+					this.emailErrorText = res.message ;
+					form.controls['email'].setErrors({
+						error: true
+					});
+					setTimeout(() => {
+						form.controls['email'].setErrors({
+							error: false
+						});
+					}, 3000);
 					return;
 				}
 
-				alert('OK');
+				this.router.navigate(['/sucessfull']);
 				return;
 			});
 	}
+
+	public markContolsAsTouched() {
+		this.signUpForm.controls['fullName'].markAsTouched();
+		this.signUpForm.controls['password'].markAsTouched();
+		this.signUpForm.controls['email'].markAsTouched();
+	  }
 }

@@ -22,7 +22,7 @@ import { TradeService } from 'src/app/common/services/trade.service';
 import { OrderType } from 'src/app/common/enums';
 import { Coin, Wallet } from 'src/app/common/models';
 import { WalletsService } from 'src/app/common/services/wallets.service';
-import { runInThisContext } from 'vm';
+// import { runInThisContext } from 'vm';
 
 declare var TradingView: any;
 declare var Swiper: any;

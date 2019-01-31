@@ -4318,12 +4318,73 @@ input::-webkit-inner-spin-button {
 
 ////////////////////////////////////////////////////////// errors /////////////////////////////////////////////////////////
 
-.sign{
-  .sign-container-input input{
-    position: relative;
+.error{
+  position: relative;
+  transition: 1.5s;
+  .error-text{
+    position: absolute;
+    right: -108px;
+    top: 6px;
+    max-width: 233px;
+    min-height: 47px;
+    background: #0E111A;
+    color: #D1C881;
+    box-sizing: border-box;
+    font-size: 14px;
+    padding: 15px 17px;
+    // opacity: 0.9;
+    border-radius: 4px;
+    word-wrap: break-word;
+    transition: 1.5s;
+    opacity: 0;
+  }
+  .error-text:after{
+    content: "";
+    position: absolute;
+    border: 9px solid transparent;
+    border-right: 10px solid #0E111A;
+    left: -18px;
+    top: calc(50% - 10px);
+    
+  }
+}
+.error::before{
+  content: "";
+  position: absolute;
+  background: url(../assets/images/error.svg)no-repeat center;
+  width: 4px;
+  height: 17px;
+  left: 112px;
+  top: 22px;
+  transition: 1.5s;
+  opacity: 0;
+}
+.error{
+  .error-text-open{
+    opacity: 1;
   }
 }
 
+.error-open::before{
+    opacity: 1;
+}
+@media screen and (max-width: 650px) {
+  .error{
+      .error-text{
+          right: 35px;
+          top: -40px;
+        max-width: 233px;
+        min-height: 47px;
+      }
+      .error-text:after{
+          border: 9px solid transparent;
+          border-top: 10px solid #0E111A;
+          left: calc(50% - 10px);
+          top: 46px;
+          bottom: -1px;
+      }
+    }
+}
 .dark{
   .mat-calendar-table{
   }

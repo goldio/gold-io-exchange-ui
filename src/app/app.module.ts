@@ -39,6 +39,8 @@ import { CountriesService } from './profile/services/countries.service';
 import { TradeService } from './common/services/trade.service';
 import { SucessfullComponent } from './auth/components/sucessfull/sucessfull.component';
 import { RecoveryComponent } from './auth/components/recovery/recovery.component';
+import { ActivationComponent } from './auth/components/activation/activation.component';
+import { ChangePasswordComponent } from './auth/components/change-password/change-password.component';
 
 @NgModule({
 	declarations: [
@@ -57,6 +59,8 @@ import { RecoveryComponent } from './auth/components/recovery/recovery.component
 		CalendarComponent,
 		SucessfullComponent,
 		RecoveryComponent,
+		ActivationComponent,
+		ChangePasswordComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -100,6 +104,13 @@ import { RecoveryComponent } from './auth/components/recovery/recovery.component
 				{ path: 'index', component: IndexComponent },
 				{
 					path: 'sucessfull', component: SucessfullComponent,
+					data: {
+						noHeader: true,
+						noSidebar: true
+					}
+				},
+				{
+					path: 'changePassword', component: ChangePasswordComponent,
 					data: {
 						noHeader: true,
 						noSidebar: true

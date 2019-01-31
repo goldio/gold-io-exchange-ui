@@ -7,19 +7,37 @@
                     <h3>Create your account</h3>
         
                     <form [formGroup]="signUpForm" (ngSubmit)="submitRegistration(signUpForm)">
-                        <div class="sign-container-input " >
+                        <div class="sign-container-input error" [ngClass]="{
+                            'error-open' : signUpForm.controls.fullName.hasError('required')&& signUpForm.controls.fullName.touched
+                        }">
                             <span>Full name</span>
-                            <input class="sign-place" type="text" placeholder="First & Last name" formControlName="fullName">
+                            <input class="sign-place" type="text" placeholder="First & Last name" formControlName="fullName" required>
+                            <div class="error-text" [ngClass]="{
+                                'error-text-open' : signUpForm.controls.fullName.hasError('required') && signUpForm.controls.fullName.touched
+                            }">Сan't be empty!</div>
                         </div>
         
-                        <div class="sign-container-input">
+                        <div class="sign-container-input error"[ngClass]="{
+                            'error-open' : signUpForm.controls.password.hasError('required')&& signUpForm.controls.password.touched
+                        }">
                             <span>Password</span>
-                            <input class="sign-place" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" formControlName="password">
+                            <input class="sign-place" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" formControlName="password" required>
+                            <div class="error-text" [ngClass]="{
+                                'error-text-open' : signUpForm.controls.password.hasError('required') && signUpForm.controls.password.touched
+                            }">Сan't be empty!</div>
                         </div>
         
-                        <div class="sign-container-input">
+                        <div class="sign-container-input error"[ngClass]="{
+                            'error-open' : (signUpForm.controls.email.hasError('required')&& signUpForm.controls.email.touched) || (signUpForm.controls.email.hasError('error') && signUpForm.controls.email.touched)
+                        }">
                             <span>Email</span>
-                            <input class="sign-place" type="text" placeholder="sample@gmail.com" formControlName="email">
+                            <input class="sign-place" type="text" placeholder="sample@gmail.com" formControlName="email" required>
+                            <div class="error-text" [ngClass]="{
+                                'error-text-open' : signUpForm.controls.email.hasError('required') && signUpForm.controls.email.touched
+                            }">Сan't be empty!</div>
+                            <div class="error-text" [ngClass]="{
+                                'error-text-open' : signUpForm.controls.email.hasError('error') && signUpForm.controls.email.touched
+                            }">{{emailErrorText}}</div>
                         </div>
         
                         <div class="sign-container-checkbox">

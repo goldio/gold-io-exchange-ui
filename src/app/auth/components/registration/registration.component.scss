@@ -101,7 +101,7 @@ input[type=checkbox]:checked + label span::after {
     max-width: 394px;
     margin: 0 auto;
     padding: 155px 11px 30px 11px;
-    overflow: hidden;
+    // overflow: hidden;
 }
 
 .sign-container {
@@ -133,7 +133,7 @@ input[type=checkbox]:checked + label span::after {
 }
 
 .sign-container-input input {
-    width: 68.2%;
+    width: 55%;
     height: 36px;
     border: 0;
     background-color: transparent;
