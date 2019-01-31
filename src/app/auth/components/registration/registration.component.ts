@@ -57,11 +57,11 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 					// alert(res.message);
 					this.emailErrorText = res.message ;
 					form.controls['email'].setErrors({
-						error: true
+						errorError: true
 					});
 					setTimeout(() => {
 						form.controls['email'].setErrors({
-							error: false
+							errorError: false
 						});
 					}, 3000);
 					return;

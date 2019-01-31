@@ -15,8 +15,14 @@
                         }">Сan't be empty!</div>
                         <div class="error-text" [ngClass]="{
                             'error-text-open' : signInForm.controls.login.hasError('email')  && signInForm.controls.login.touched
+                        }">Wrong Email</div>
+                       
+                        <div class="error-text" [ngClass]="{
+                            'error-text-open' : signInForm.controls.login.hasError('emailError')  && signInForm.controls.login.touched
                         }">{{emailErrorText}}</div>
+                        
                     </div>
+                    
     
                     <div class="sign-container-input error" [ngClass]="{
                         'error-open' : signInForm.controls.password.hasError('required')&& signInForm.controls.password.touched

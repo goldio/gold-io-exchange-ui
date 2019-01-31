@@ -55,11 +55,11 @@ export class AuthorizationComponent extends BaseComponent implements OnInit {
 				if (!res.success) {
 					this.emailErrorText = res.message ;
 					form.controls['login'].setErrors({
-						email: true
+						emailError: true
 					});
 					setTimeout(() => {
 						form.controls['login'].setErrors({
-							email: false
+							emailError: false
 						});
 					}, 3000);
 					

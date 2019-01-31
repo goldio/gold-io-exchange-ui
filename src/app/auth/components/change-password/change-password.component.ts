@@ -46,11 +46,11 @@ export class ChangePasswordComponent implements OnInit {
 			.subscribe(res => {
 				if (!res.success) {
           this.emailErrorText = res.message ;
-					form.controls['email'].setErrors({
+					form.controls['emailError'].setErrors({
 						email: true
 					});
 					setTimeout(() => {
-						form.controls['email'].setErrors({
+						form.controls['emailError'].setErrors({
 							email: false
 						});
 					}, 3000);

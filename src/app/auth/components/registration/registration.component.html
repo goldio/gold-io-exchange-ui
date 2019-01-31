@@ -28,16 +28,19 @@
                         </div>
         
                         <div class="sign-container-input error"[ngClass]="{
-                            'error-open' : (signUpForm.controls.email.hasError('required')&& signUpForm.controls.email.touched) || (signUpForm.controls.email.hasError('error') && signUpForm.controls.email.touched)
+                            'error-open' : (signUpForm.controls.email.hasError('required')&& signUpForm.controls.email.touched) || (signUpForm.controls.email.hasError('errorError') && signUpForm.controls.email.touched) || (signUpForm.controls.email.hasError('email') && signUpForm.controls.email.touched)
                         }">
                             <span>Email</span>
-                            <input class="sign-place" type="text" placeholder="sample@gmail.com" formControlName="email" required>
+                            <input class="sign-place" type="email" placeholder="sample@gmail.com" formControlName="email" required>
                             <div class="error-text" [ngClass]="{
                                 'error-text-open' : signUpForm.controls.email.hasError('required') && signUpForm.controls.email.touched
                             }">Сan't be empty!</div>
                             <div class="error-text" [ngClass]="{
-                                'error-text-open' : signUpForm.controls.email.hasError('error') && signUpForm.controls.email.touched
+                                'error-text-open' : signUpForm.controls.email.hasError('errorError') && signUpForm.controls.email.touched
                             }">{{emailErrorText}}</div>
+                            <div class="error-text" [ngClass]="{
+                                'error-text-open' : signUpForm.controls.email.hasError('email') && signUpForm.controls.email.touched
+                            }">Wrong Email</div>
                         </div>
         
                         <div class="sign-container-checkbox">

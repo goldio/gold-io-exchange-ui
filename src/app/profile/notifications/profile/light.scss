@@ -164,21 +164,21 @@
 
 
 
-.mat-form-field-appearance-legacy{
-  border: none;
-}
+// .mat-form-field-appearance-legacy{
+//   border: none;
+// }
 
-:host-context(.dark){ 
-  /deep/mat-form-field {
-      .mat-icon-button{
-          background: red;
-          .mat-button-wrapper{
-              display: none;
-          }
-      }
-  }
+// :host-context(.dark){ 
+//   /deep/mat-form-field {
+//       .mat-icon-button{
+//           background: red;
+//           .mat-button-wrapper{
+//               display: none;
+//           }
+//       }
+//   }
   
-  /deep/.mat-datepicker-content{
-      background: red;
-  }
-} 
+//   /deep/.mat-datepicker-content{
+//       background: red;
+//   }
+// } 
