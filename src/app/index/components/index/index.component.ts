@@ -46,6 +46,8 @@ export class IndexComponent implements OnInit {
 	public baseAsset = 0;
 	public quoteAsset = 0;
 	public orderPrice = 0;
+	public orderAmount = 0;
+	public orderTotal = 0;
 	public wallets: Wallet[];
 
 	public Highcharts = Highcharts;
@@ -54,7 +56,7 @@ export class IndexComponent implements OnInit {
 
 	public chart: boolean = false;
 	public currencyBox: boolean = false;
-	public buyCell: boolean = false;
+	public buyCell: OrderType = OrderType.Buy;
 	public buyCellBtn = "PLACE BUY ORDER";
 	public responciveTabs = 2;
 
@@ -346,6 +348,8 @@ export class IndexComponent implements OnInit {
 				return;
 			}
 		}
+		this.baseAsset = this.quoteAsset*this.orderPrice;
+		this.orderTotal = this.baseAsset * this.orderPrice;
 	}
 
 	private calcBaseAsset(decr?: boolean): void {
@@ -363,6 +367,24 @@ export class IndexComponent implements OnInit {
 				return;
 			}
 		}
+		this.quoteAsset= this.baseAsset/this.orderPrice;
+		this.orderTotal = this.baseAsset * this.orderPrice;
+	}
+	private calcWithNewPrice(){
+		this.orderPrice = this.tradeForm.controls['price'].value;
+		this.baseAsset = this.quoteAsset * this.orderPrice;
+		this.orderTotal = this.baseAsset * this.orderPrice;
+	}
+	private calcTotal(): void {
+		// this.orderTotal = this.orderPrice * this.baseAsset;
+	}
+	private calcBase(): void {
+		// this.baseAsset = this.orderPrice * this.quoteAsset;
+		// console.log(this.baseAsset);
+	}
+	private calcQuote(): void {
+		// this.baseAsset = this.orderPrice * this.quoteAsset;
+		// console.log(this.baseAsset);
 	}
 
 	private getBalance(): void {
@@ -381,11 +403,12 @@ export class IndexComponent implements OnInit {
 	private changeBuySell(act: string) {
 		if (act == "buy") {
 			this.buyCellBtn = "PLACE BUY ORDER"
-			this.buyCell = false;
+			this.buyCell = OrderType.Buy;
+			
 		}
 		if (act == "sell") {
 			this.buyCellBtn = "PLACE SELL ORDER"
-			this.buyCell = true;
+			this.buyCell = OrderType.Sell;
 		}
 		// this.buyCell = !this.buyCell;
 		// if(this.buyCellBtn == "PLACE BUY ORDER"){
@@ -461,7 +484,7 @@ export class IndexComponent implements OnInit {
 				// 	amount : "0.0000001",
 				// 	total: "0.0000000"
 				// });
-				this.startNumb = "0.0000000"
+				// this.startNumb = "0.0000000"
 			});
 		}
 		this.orderPrice = 0;
