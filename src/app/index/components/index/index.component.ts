@@ -23,6 +23,7 @@ import { OrderType } from 'src/app/common/enums';
 import { Coin, Wallet } from 'src/app/common/models';
 import { WalletsService } from 'src/app/common/services/wallets.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { CreateOrderRequest } from 'src/app/common/models/request';
 // import { runInThisContext } from 'vm';
 
 declare var TradingView: any;
@@ -419,7 +420,7 @@ export class IndexComponent implements OnInit {
 		this.tradeForm = new FormGroup({
 			baseAsset: new FormControl(this.currentSymbol.baseAsset, [Validators.required]),
 			quoteAsset: new FormControl(this.currentSymbol.quoteAsset, [Validators.required]),
-			// act : new FormControl(null, [Validators.required]),
+			type: new FormControl(OrderType.Buy, [Validators.required]),
 			price: new FormControl(this.orderPrice, [Validators.required]),
 			amount: new FormControl(this.quoteAsset, [Validators.required]),
 			total: new FormControl(this.orderPrice * this.quoteAsset, [Validators.required]),
@@ -433,6 +434,17 @@ export class IndexComponent implements OnInit {
 			return;
 		}
 		alert('form valid');
+		
+		this.tradeService
+			.createOrder(form.value)
+			.subscribe(res => {
+				if (!res.success) {
+					alert(res.message);
+				}
+
+				this.loadOrderBook();
+				this.loadTrades();
+			});
 
 		// const req = new order();
 

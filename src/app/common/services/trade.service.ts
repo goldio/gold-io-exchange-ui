@@ -6,9 +6,10 @@ import { TradeHistoryItem } from 'src/app/index/models';
 import { ExchangeInfo } from 'src/app/index/models/exchange-info.model';
 import { OrderBookResponse } from '../models/binance/order-book-response.model';
 import { BaseHttpService } from './base-http.service';
-import { DataResponse } from '../models/response';
+import { DataResponse, ResponseModel } from '../models/response';
 import { Pair } from 'src/app/index/models/pair.model';
 import { Order } from '../models';
+import { CreateOrderRequest } from '../models/request';
 
 @Injectable()
 export class TradeService extends BaseHttpService {
@@ -35,6 +36,11 @@ export class TradeService extends BaseHttpService {
 
     public getPriceByPair(base: string, quote: string): Observable<DataResponse<number>> {
         return this.get(`${this.apiUrl}/coins/price/${base}/${quote}`)
+            .map(response => response.json());
+    }
+
+    public createOrder(request: CreateOrderRequest): Observable<ResponseModel> {
+        return this.post(`${this.apiUrl}/orders`, request)
             .map(response => response.json());
     }
 }
