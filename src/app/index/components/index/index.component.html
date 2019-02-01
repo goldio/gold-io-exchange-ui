@@ -37,12 +37,12 @@
                   <input type="radio" class="radio" id="radio2" name="radio" checked>
                   <label class="radio1" for="radio2">Limit</label>
                 </em>
-                <input type="number" placeholder="1.00000000" formControlName="price" required>
+                <input type="number" placeholder="1.00000000" formControlName="price" required  value="{{startNumb}}">
                 <b class="input-decor">{{ currentSymbol.quoteAsset }}</b>
               </div>
               <div class="left-content-sell-input">
                 Amount
-                <input type="number" placeholder="1.00000000" formControlName="amount" required>
+                <input type="number" placeholder="1.00000000" formControlName="amount" required value="{{startNumb}}">
                 <b>{{ currentSymbol.baseAsset }}</b>
               </div>
               <div class="left-content-sell-input percents">
@@ -54,7 +54,7 @@
               </div>
               <div class="left-content-sell-input">
                 Total
-                <input type="number" placeholder="1.00000000" formControlName="total" required>
+                <input type="number" placeholder="1.00000000" formControlName="total" required value="{{startNumb}}">
                 <b>{{ currentSymbol.quoteAsset }}</b>
               </div>
               <button class="transparent-btn" type="submit" *ngIf="isLoggedIn">{{ buyCellBtn }}</button>

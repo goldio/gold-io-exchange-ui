@@ -33,6 +33,8 @@ export class ProfileComponent implements OnInit {
 	public theme: Theme;
 	public calendarTheme: string;
 
+	public updateRes:boolean = false;
+	public updateResText : string;
 
 	private loadPerson(): void {
 		if (!this.isLoggedIn) {
@@ -232,11 +234,20 @@ export class ProfileComponent implements OnInit {
 			.subscribe(res => {
 				if (!res.success) {
 					alert(res.message);
-					return;
+					this.updateResText = res.message;
+					this.updateRes = true;
+					setTimeout(() => {
+						this.updateRes = false;
+					}, 3000);
+						return;
 				}
 
 				this.person = res.data;
-				alert('OK');
+				this.updateRes = true;
+				this.updateResText = "Data successfully changed."
+				setTimeout(() => {
+					this.updateRes = false;
+				}, 3000);
 			});
 	}
 }

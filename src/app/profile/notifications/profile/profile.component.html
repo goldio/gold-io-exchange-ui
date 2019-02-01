@@ -94,7 +94,9 @@
             </div>
             <div class="btnTexts">
                 <button class="main-btn save-btn" type="submit">SAVE</button>
-                <div class="some-answer"><img src="../../../../assets/images/ready.svg" alt="">rerer</div>
+                <div class="some-answer" [ngClass]="{
+                    'some-answer-open': updateRes
+                }"><img src="../../../../assets/images/ready.svg" alt="" *ngIf=" updateResText != 'Data successfully changed.'">{{ updateResText }}</div>
             </div>
             
         </form>

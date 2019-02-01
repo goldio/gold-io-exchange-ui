@@ -38,7 +38,7 @@ export class IndexComponent implements OnInit {
 	public isLoggedIn: boolean;
 
 	public tradeForm: FormGroup;
-
+	public startNumb = "0.0000000"
 	public baseAsset = 0;
 	public quoteAsset = 0;
 	public orderPrice = 0;
