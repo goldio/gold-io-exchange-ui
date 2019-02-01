@@ -42,7 +42,7 @@ export class IndexComponent implements OnInit {
 	public baseAsset = 0;
 	public quoteAsset = 0;
 	public orderPrice = 0;
-	public wallets : Wallet[];
+	public wallets: Wallet[];
 
 	public Highcharts = Highcharts;
 	public priceChartOptions: Highcharts.Options;
@@ -62,7 +62,7 @@ export class IndexComponent implements OnInit {
 	public dataDepthAsks: any[];
 	public dataDepthBids: any[];
 
-	public symbols : Symbol[];
+	public symbols: Symbol[];
 	public currentSymbol: Symbol;
 
 	private getBestAsk(data: any) {
@@ -76,7 +76,7 @@ export class IndexComponent implements OnInit {
 		});
 		return best;
 	}
-	
+
 	private getBestBid(data: any) {
 		let best = Number(data[0][0]);
 		let val;
@@ -98,7 +98,7 @@ export class IndexComponent implements OnInit {
 			};
 			convertedData.push(point);
 		}
-		convertedData.sort(function(first, second) {
+		convertedData.sort(function (first, second) {
 			return first.x - second.x;
 		});
 		return convertedData;
@@ -108,7 +108,7 @@ export class IndexComponent implements OnInit {
 		let finded = false;
 		let val = Number.parseFloat(updatedElem[0]);
 		//let series = this.Highcharts.charts[0].series.find(x => x.name == type);
-	
+
 		for (let i = 0; i < this.depthChartData[type].length; i++) {
 			let el = this.depthChartData[type][i];
 			if (Number.parseFloat(el[0]) == val) {
@@ -121,13 +121,13 @@ export class IndexComponent implements OnInit {
 		}
 
 		if (type == 'asks') {
-			this.dataDepthAsks.push([ Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1]) ]);
+			this.dataDepthAsks.push([Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1])]);
 			// console.log(this.dataDepthAsks);
 		} else if (type == 'bids') {
-			this.dataDepthBids.push([ Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1]) ]);
+			this.dataDepthBids.push([Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1])]);
 			// console.log(this.dataDepthBids);
 		}
-		
+
 		/* series.setData(this.depthChartData[type]);
 		series.update(series.options, true); */
 		return false;
@@ -292,10 +292,10 @@ export class IndexComponent implements OnInit {
 								this.orderBookBids.shift();
 							}
 
-							let aItem = { 
-								price: parseFloat(item[0]).toFixed(8), 
-								amount: parseFloat(item[1]).toFixed(8), 
-								total: `${(item[0] * item[1]).toFixed(8)}` 
+							let aItem = {
+								price: parseFloat(item[0]).toFixed(8),
+								amount: parseFloat(item[1]).toFixed(8),
+								total: `${(item[0] * item[1]).toFixed(8)}`
 							};
 
 							this.orderBookBids.push(aItem);
@@ -307,10 +307,10 @@ export class IndexComponent implements OnInit {
 								this.orderBookAsks.shift();
 							}
 
-							let aItem = { 
-								price: parseFloat(item[0]).toFixed(8), 
-								amount: parseFloat(item[1]).toFixed(8), 
-								total: `${(item[0] * item[1]).toFixed(8)}` 
+							let aItem = {
+								price: parseFloat(item[0]).toFixed(8),
+								amount: parseFloat(item[1]).toFixed(8),
+								total: `${(item[0] * item[1]).toFixed(8)}`
 							};
 
 							this.orderBookAsks.push(aItem);
@@ -323,16 +323,16 @@ export class IndexComponent implements OnInit {
 	}
 
 	private calcQuoteAsset(decr?: boolean): void {
-		if(!decr){
-			
+		if (!decr) {
+
 			this.quoteAsset += 0.001;
-			if(this.quoteAsset > this.wallets.find(x => x.coin.shortName == this.currentSymbol.quoteAsset).balance){
+			if (this.quoteAsset > this.wallets.find(x => x.coin.shortName == this.currentSymbol.quoteAsset).balance) {
 				this.quoteAsset -= 0.001;
 				return;
 			}
-		}else {
+		} else {
 			this.quoteAsset -= 0.001;
-			if(this.quoteAsset < 0 ){
+			if (this.quoteAsset < 0) {
 				this.quoteAsset = 0.0;
 				return;
 			}
@@ -340,23 +340,23 @@ export class IndexComponent implements OnInit {
 	}
 
 	private calcBaseAsset(decr?: boolean): void {
-		if(!decr){
-			
+		if (!decr) {
+
 			this.baseAsset += 0.001;
-			if(this.baseAsset > this.wallets.find(x => x.coin.shortName == this.currentSymbol.baseAsset).balance){
+			if (this.baseAsset > this.wallets.find(x => x.coin.shortName == this.currentSymbol.baseAsset).balance) {
 				this.baseAsset -= 0.001;
 				return;
 			}
-		}else {
+		} else {
 			this.baseAsset -= 0.001;
-			if(this.baseAsset < 0 ){
+			if (this.baseAsset < 0) {
 				this.baseAsset = 0.0;
 				return;
 			}
 		}
 	}
 
-	private getBalance():void {
+	private getBalance(): void {
 		this.walletsService
 			.getMe()
 			.subscribe(res => {
@@ -367,16 +367,14 @@ export class IndexComponent implements OnInit {
 				this.wallets = res.data;
 				console.log(this.wallets);
 			});
-	
-			
 	}
 
-	private changeBuySell(act: string){
-		if(act=="buy"){
+	private changeBuySell(act: string) {
+		if (act == "buy") {
 			this.buyCellBtn = "PLACE BUY ORDER"
 			this.buyCell = false;
 		}
-		if(act=="sell"){
+		if (act == "sell") {
 			this.buyCellBtn = "PLACE SELL ORDER"
 			this.buyCell = true;
 		}
@@ -390,7 +388,7 @@ export class IndexComponent implements OnInit {
 	private initTradeForm(): void {
 		this.tradeForm = new FormGroup({
 			baseAsset: new FormControl(this.currentSymbol.baseAsset, [Validators.required]),
-			quoteAsset : new FormControl(this.currentSymbol.quoteAsset, [Validators.required]),
+			quoteAsset: new FormControl(this.currentSymbol.quoteAsset, [Validators.required]),
 			// act : new FormControl(null, [Validators.required]),
 			price: new FormControl(this.orderPrice, [Validators.required]),
 			amount: new FormControl(this.quoteAsset, [Validators.required]),
@@ -430,10 +428,10 @@ export class IndexComponent implements OnInit {
 		private authService: AuthService,
 		private websocketService: WebsocketService,
 		private binanceService: BinanceService,
-		private tradeService : TradeService,
-		private walletsService : WalletsService
+		private tradeService: TradeService,
+		private walletsService: WalletsService
 	) {
-		
+
 	}
 
 	ngOnInit() {
@@ -452,7 +450,7 @@ export class IndexComponent implements OnInit {
 		this.initPriceChart();
 		this.initDepthChart();
 		this.getBalance();
-		
+
 	}
 
 	private async getCandlestickData() {
@@ -486,95 +484,95 @@ export class IndexComponent implements OnInit {
 	private async initPriceChart() {
 		const data = await this.getCandlestickData();
 		let ohlc = [],
-            volume = [],
-            dataLength = data.data.length,
+			volume = [],
+			dataLength = data.data.length,
 			i = 0;
-			
+
 		for (i; i < dataLength; i += 1) {
-            ohlc.push([
-                new Date(data.data[i][0] * 1000).toString(), // the date
-                data.data[i][1], // open
-                data.data[i][2], // high
-                data.data[i][3], // low
-                data.data[i][4] // close
-            ]);
-            volume.push([
-                new Date(data.data[i][0] * 1000).toString(), // the date
-                data.data[i][5] // the volume
-            ]);
-        }
+			ohlc.push([
+				new Date(data.data[i][0] * 1000).toString(), // the date
+				data.data[i][1], // open
+				data.data[i][2], // high
+				data.data[i][3], // low
+				data.data[i][4] // close
+			]);
+			volume.push([
+				new Date(data.data[i][0] * 1000).toString(), // the date
+				data.data[i][5] // the volume
+			]);
+		}
 
 		this.priceChartOptions = {
 			chart: { type: 'area' },
 			title: null,
-			
+
 			credits: { enabled: false },
 			rangeSelector: {
-                buttons: [{
-                    type: 'month',
-                    count: 2,
-                    text: '2m'
-                }, {
-                    type: 'all',
-                    count: 1,
-                    text: 'All'
-                }],
-                selected: 1
+				buttons: [{
+					type: 'month',
+					count: 2,
+					text: '2m'
+				}, {
+					type: 'all',
+					count: 1,
+					text: 'All'
+				}],
+				selected: 1
 			},
 			xAxis: [{
-                labels: {
-                    style: {
-                        color: '#a2afbe'
-                    }
-                },
+				labels: {
+					style: {
+						color: '#a2afbe'
+					}
+				},
 			}],
 			yAxis: [{
-                labels: {
-                    align: 'right',
-                    style: {
-                        color: '#a2afbe'
-                    },
-                    useHTML: true,
-                    format: '<span style="font-family: Helvetica Neue">${value}</span>',
-                },
-                title: {
-                    text: ''
-                },
-                resize: {
-                    enabled: true
-                }
-            }, {
-                labels: {
-                    align: 'left',
-                    style: {
-                        color: '#a2afbe'
-                    },
-                    enabled: false,
-                },
-                title: {
-                    text: ''
-                },
-                visible: false,
-                resize: {
-                    enabled: true
-                }
+				labels: {
+					align: 'right',
+					style: {
+						color: '#a2afbe'
+					},
+					useHTML: true,
+					format: '<span style="font-family: Helvetica Neue">${value}</span>',
+				},
+				title: {
+					text: ''
+				},
+				resize: {
+					enabled: true
+				}
+			}, {
+				labels: {
+					align: 'left',
+					style: {
+						color: '#a2afbe'
+					},
+					enabled: false,
+				},
+				title: {
+					text: ''
+				},
+				visible: false,
+				resize: {
+					enabled: true
+				}
 			}],
 			series: [{
-                type: 'candlestick',
-                name: 'BTC',
-                data: ohlc,
-                zIndex: 3,
-                pointWidth: 8
-            }, {
-                type: 'column',
-                name: 'Volume',
-                data: volume,
-                yAxis: 1,
-                zIndex: 2,
-                pointWidth: 4
-            }]
-			
-			
+				type: 'candlestick',
+				name: 'BTC',
+				data: ohlc,
+				zIndex: 3,
+				pointWidth: 8
+			}, {
+				type: 'column',
+				name: 'Volume',
+				data: volume,
+				yAxis: 1,
+				zIndex: 2,
+				pointWidth: 4
+			}]
+
+
 			/* series: [{
 				type: 'candlestick',
 				name: 'Line1', 
@@ -589,42 +587,42 @@ export class IndexComponent implements OnInit {
 	private async initDepthChart() {
 		const data = await this.getOrderBook();
 		const bestBid = this.getBestBid(data.bids);
-        const bestAsk = this.getBestAsk(data.asks);
+		const bestAsk = this.getBestAsk(data.asks);
 		const midPrice = (bestAsk + bestBid) / 2;
 
-        let minAxisExtr = midPrice - 2000;
+		let minAxisExtr = midPrice - 2000;
 		let curMinAxisExtr = minAxisExtr;
-		
-        let maxAxisExtr = midPrice + 2000;
-        let curMaxAxisExtr = maxAxisExtr;
 
-        //формирование левого графика
-        this.dataDepthBids = [];
-        let summBids = 0;
-        data.bids.forEach(el => {
-            if (el[0] > minAxisExtr && el[0] < maxAxisExtr) {
-                summBids += Number(el[1]);
-                this.dataDepthBids[el[0]] = summBids;
-            }
-        });
-        let chartBidsData = this.convertToGraphData(this.dataDepthBids);
+		let maxAxisExtr = midPrice + 2000;
+		let curMaxAxisExtr = maxAxisExtr;
 
-        //формирование правого графика
-        this.dataDepthAsks = [];
-        let summAsks = 0;
-        data.asks.forEach(el => {
-            if (el[0] > (midPrice - 2000) && el[0] < (midPrice + 2000)) {
-                summAsks += Number(el[1]);
-                this.dataDepthAsks[el[0]] = summAsks;
-            }
-        });
-        let chartAsksData = this.convertToGraphData(this.dataDepthAsks);
+		//формирование левого графика
+		this.dataDepthBids = [];
+		let summBids = 0;
+		data.bids.forEach(el => {
+			if (el[0] > minAxisExtr && el[0] < maxAxisExtr) {
+				summBids += Number(el[1]);
+				this.dataDepthBids[el[0]] = summBids;
+			}
+		});
+		let chartBidsData = this.convertToGraphData(this.dataDepthBids);
+
+		//формирование правого графика
+		this.dataDepthAsks = [];
+		let summAsks = 0;
+		data.asks.forEach(el => {
+			if (el[0] > (midPrice - 2000) && el[0] < (midPrice + 2000)) {
+				summAsks += Number(el[1]);
+				this.dataDepthAsks[el[0]] = summAsks;
+			}
+		});
+		let chartAsksData = this.convertToGraphData(this.dataDepthAsks);
 
 
-        this.depthChartData = {
-            asks: chartAsksData,
-            bids: chartBidsData
-        };
+		this.depthChartData = {
+			asks: chartAsksData,
+			bids: chartBidsData
+		};
 
 		this.depthChartOptions = {
 			chart: { type: 'area', zoomType: 'xy', animation: true },
@@ -643,18 +641,18 @@ export class IndexComponent implements OnInit {
 					}
 				}],
 				labels: {
-                    style: {
+					style: {
 						fontFamily: 'Helvetica Neue',
-                        color: '#ffffff',
-                        fontSize: '10px'
-                    }
-                },
+						color: '#ffffff',
+						fontSize: '10px'
+					}
+				},
 				title: {
 					text: 'Price',
 					style: {
 						fontFamily: 'Helvetica Neue',
-                        color: '#ffffff',
-                        fontSize: '10px'
+						color: '#ffffff',
+						fontSize: '10px'
 					}
 				}
 			},
@@ -670,10 +668,10 @@ export class IndexComponent implements OnInit {
 					x: 8,
 					style: {
 						fontFamily: 'Helvetica Neue',
-                        color: '#ffffff',
+						color: '#ffffff',
 						fontSize: '11px',
 						opacity: 0.4
-                    }
+					}
 				}
 			}, {
 				opposite: true,
@@ -689,10 +687,10 @@ export class IndexComponent implements OnInit {
 					x: -8,
 					style: {
 						fontFamily: 'Helvetica Neue',
-                        color: '#ffffff',
+						color: '#ffffff',
 						fontSize: '11px',
 						opacity: 0.4
-                    }
+					}
 				}
 			}],
 			legend: { enabled: false },
