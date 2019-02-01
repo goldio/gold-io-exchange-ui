@@ -33,9 +33,12 @@ declare var Swiper: any;
 	templateUrl: './index.component.html',
 	styleUrls: ['./index.component.scss']
 })
+
+
 export class IndexComponent implements OnInit {
 
 	public isLoggedIn: boolean;
+
 
 	public tradeForm: FormGroup;
 	public startNumb = "0.0000000"
@@ -166,8 +169,11 @@ export class IndexComponent implements OnInit {
 
 		if (!symbol) {
 			this.currentSymbol = this.symbols.find(x => x.symbol == "ETHBTC");
+			this.loadPrice('ETH', 'BTC');
 		} else {
 			this.currentSymbol = symbol;
+			this.loadPrice(symbol.baseAsset, symbol.quoteAsset);
+			
 		}
 
 		this.loadTrades();
@@ -385,6 +391,7 @@ export class IndexComponent implements OnInit {
 		// 	this.buyCellBtn = "PLACE BUY ORDER"
 		// }
 	}
+
 	private initTradeForm(): void {
 		this.tradeForm = new FormGroup({
 			baseAsset: new FormControl(this.currentSymbol.baseAsset, [Validators.required]),
@@ -424,6 +431,30 @@ export class IndexComponent implements OnInit {
 		// 		alert('OK');
 		// 	});
 	}
+
+	private loadPrice(base:string, quote:string,){
+		if(this.currentSymbol.gio){
+			this.tradeService
+			.getPriceByPair(base,quote)
+			.subscribe(res => {
+				if (!res.success) {
+					alert(res.message);
+					return;
+				}
+				this.orderPrice = res.data;
+				// this.tradeForm.setValue({
+				// 	price : res.data,
+				// 	amount : "0.0000001",
+				// 	total: "0.0000000"
+				// });
+				this.startNumb = "0.0000000"
+			});
+		}
+		this.orderPrice = 0;
+		return;
+		
+	}
+
 	constructor(
 		private authService: AuthService,
 		private websocketService: WebsocketService,

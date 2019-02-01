@@ -32,4 +32,9 @@ export class TradeService extends BaseHttpService {
         return this.get(`${this.apiUrl}/orders/symbol/${base}/${quote}/book`)
             .map(response => response.json());
     }
+
+    public getPriceByPair(base: string, quote: string): Observable<DataResponse<number>> {
+        return this.get(`${this.apiUrl}/coins/price/${base}/${quote}`)
+            .map(response => response.json());
+    }
 }
