@@ -113,34 +113,36 @@ export class IndexComponent implements OnInit {
 		let val = Number.parseFloat(updatedElem[0]);
 		//let series = this.Highcharts.charts[0].series.find(x => x.name == type);
 
-		for (let i = 0; i < this.depthChartData[type].length; i++) {
-			let el = this.depthChartData[type][i];
-			if (Number.parseFloat(el[0]) == val) {
-				this.depthChartData[type][i][1] = updatedElem[1];
-				finded = true;
-				/* series.setData(this.depthChartData[type]);
-				series.update(series.options, true); */
-				return true;
+		if (this.depthChartData) {
+			for (let i = 0; i < this.depthChartData[type].length; i++) {
+				let el = this.depthChartData[type][i];
+				if (Number.parseFloat(el[0]) == val) {
+					this.depthChartData[type][i][1] = updatedElem[1];
+					finded = true;
+					/* series.setData(this.depthChartData[type]);
+					series.update(series.options, true); */
+					return true;
+				}
 			}
+	
+			if (type == 'asks') {
+				this.dataDepthAsks.push([Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1])]);
+				// console.log(this.dataDepthAsks);
+			} else if (type == 'bids') {
+				this.dataDepthBids.push([Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1])]);
+				// console.log(this.dataDepthBids);
+			}
+	
+			/* series.setData(this.depthChartData[type]);
+			series.update(series.options, true); */
+			return false;
+			// mainData[type].forEach(function(el, index){
+			//     if(Number(el[0]) == val){
+			//         mainData[type][index] = updatedElem[2];
+			//         finded = true;
+			//     }
+			// });
 		}
-
-		if (type == 'asks') {
-			this.dataDepthAsks.push([Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1])]);
-			// console.log(this.dataDepthAsks);
-		} else if (type == 'bids') {
-			this.dataDepthBids.push([Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1])]);
-			// console.log(this.dataDepthBids);
-		}
-
-		/* series.setData(this.depthChartData[type]);
-		series.update(series.options, true); */
-		return false;
-		// mainData[type].forEach(function(el, index){
-		//     if(Number(el[0]) == val){
-		//         mainData[type][index] = updatedElem[2];
-		//         finded = true;
-		//     }
-		// });
 	}
 
 	private loadSymbols(): void {
