@@ -102,7 +102,7 @@ export class IndexComponent implements OnInit {
 	private updateMainData(updatedElem: any, type: string) {
 		let finded = false;
 		let val = Number.parseFloat(updatedElem[0]);
-		let series = this.Highcharts.charts[0].series.find(x => x.name == type);
+		//let series = this.Highcharts.charts[0].series.find(x => x.name == type);
 	
 		for (let i = 0; i < this.depthChartData[type].length; i++) {
 			let el = this.depthChartData[type][i];
@@ -166,6 +166,7 @@ export class IndexComponent implements OnInit {
 		}
 
 		this.loadTrades();
+		this.loadOrderBook();
 		this.openDepthStream();
 
 		if (this.Highcharts.charts[0]) {
@@ -196,7 +197,7 @@ export class IndexComponent implements OnInit {
 								qty: item.amount.toFixed(8),
 								isBuyerMaker: item.type == OrderType.Buy ? true : false,
 								isBestMatch: false,
-								time: DateHelper.getTimeFromDate(item.time)
+								time: DateHelper.getTimeFromDate(new Date(item.time))
 							});
 					});
 				});
@@ -220,9 +221,58 @@ export class IndexComponent implements OnInit {
 			});
 	}
 
+	private loadOrderBook(): void {
+		this.orderBookAsks = [];
+		this.orderBookBids = [];
+
+		if (this.currentSymbol.gio) {
+			this.tradeService
+				.getOrderBookBySymbol(this.currentSymbol.baseAsset, this.currentSymbol.quoteAsset)
+				.subscribe(res => {
+					if (!res.success) {
+						alert(res.message);
+						return;
+					}
+
+					res.data.forEach(item => {
+						if (item.type == OrderType.Buy) {
+							this.orderBookAsks
+								.push({
+									price: item.price.toFixed(8),
+									amount: item.amount.toFixed(8),
+									total: (item.price * item.amount).toFixed(8)
+								});
+						} else if (item.type == OrderType.Sell) {
+							this.orderBookBids
+								.push({
+									price: item.price.toFixed(8),
+									amount: item.amount.toFixed(8),
+									total: (item.price * item.amount).toFixed(8)
+								});
+						}
+					});
+				});
+
+			return;
+		}
+	}
+
 	private openDepthStream(): void {
-		this.websocketService
-			.openDepthStream(this.currentSymbol.symbol);
+		this.websocketService.closeDepthStream();
+		this.websocketService.closeLocalDepthStream();
+
+		if (this.currentSymbol.gio) {
+			this.websocketService.openLocalDepthStream();
+			this.websocketService
+				.localDepthStreamMessage
+				.subscribe(msg => {
+					console.log(msg);
+				});
+
+			return;
+		}
+
+		this.websocketService.openDepthStream(this.currentSymbol.symbol);
 
 		this.websocketService
 			.depthStreamMessage
