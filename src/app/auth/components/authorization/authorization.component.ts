@@ -80,34 +80,38 @@ export class AuthorizationComponent extends BaseComponent implements OnInit {
 
 		this.activatedRoute.queryParams
 			.subscribe((params: Params) => {
-
-				if (params.passwordChanged) {
+				console.log(params);
+				if (params.passwordChanged == "true") {
 					this.showPassMessage = true;
 					this.showPassMessageText  = 'password successfully changed';
 					setTimeout(() => {
 						this.showPassMessage = false;
 					}, 5000);
+					return;
 				}
-				if (!params.passwordChanged) {
+				if (params.passwordChanged == "false") {
 					this.showPassMessage = true;
 					this.showPassMessageText  = 'password change error';
 					setTimeout(() => {
 						this.showPassMessage = false;
 					}, 5000);
+					return;
 				}
-				if (params.activation) {
+				if (params.activation == "true") {
 					this.showPassMessage = true;
 					this.showPassMessageText  = 'Your account has been successfully activated';
 					setTimeout(() => {
 						this.showPassMessage = false;
 					}, 5000);
+					return;
 				}
-				if (!params.activation) {
+				if (params.activation == "false") {
 					this.showPassMessage = true;
 					this.showPassMessageText  = 'Your account is already activated';
 					setTimeout(() => {
 						this.showPassMessage = false;
 					}, 5000);
+					return;
 				}
 				
 			});

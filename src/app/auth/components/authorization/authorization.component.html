@@ -4,6 +4,11 @@
             <div class="sign-container">
                 <a href="" class="sign-logo"></a>
                 <h3>Sign in</h3>
+                <div class="showPassMessage" [ngClass]="{
+                    'showPassMessage-open': showPassMessage
+                }">
+                    <span class="showPassMessageText">{{ showPassMessageText }}</span>
+                </div>
                 <form [formGroup]="signInForm" (ngSubmit)="submitAuthorization(signInForm)">
                     <div class="sign-container-input error" [ngClass]="{
                         'error-open' : (signInForm.controls.login.hasError('required')&& signInForm.controls.login.touched) || (signInForm.controls.login.hasError('email')  && signInForm.controls.login.touched)

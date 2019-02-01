@@ -365,7 +365,7 @@ export class IndexComponent implements OnInit {
 					return;
 				}
 				this.wallets = res.data;
-				
+				console.log(this.wallets);
 			});
 	
 			
