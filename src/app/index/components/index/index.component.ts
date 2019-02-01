@@ -46,8 +46,6 @@ export class IndexComponent implements OnInit {
 	public baseAsset = 0;
 	public quoteAsset = 0;
 	public orderPrice = 0;
-	public orderAmount = 0;
-	public orderTotal = 0;
 	public wallets: Wallet[];
 
 	public Highcharts = Highcharts;
@@ -56,7 +54,7 @@ export class IndexComponent implements OnInit {
 
 	public chart: boolean = false;
 	public currencyBox: boolean = false;
-	public buyCell: OrderType = OrderType.Buy;
+	public buyCell: boolean = false;
 	public buyCellBtn = "PLACE BUY ORDER";
 	public responciveTabs = 2;
 
@@ -114,37 +112,35 @@ export class IndexComponent implements OnInit {
 		let finded = false;
 		let val = Number.parseFloat(updatedElem[0]);
 		//let series = this.Highcharts.charts[0].series.find(x => x.name == type);
-
-		if (this.depthChartData) {
-			for (let i = 0; i < this.depthChartData[type].length; i++) {
-				let el = this.depthChartData[type][i];
-				if (Number.parseFloat(el[0]) == val) {
-					this.depthChartData[type][i][1] = updatedElem[1];
-					finded = true;
-					/* series.setData(this.depthChartData[type]);
-					series.update(series.options, true); */
-					return true;
-				}
+		
+		for (let i = 0; i < this.depthChartData[type].length; i++) {
+			let el = this.depthChartData[type][i];
+			if (Number.parseFloat(el[0]) == val) {
+				this.depthChartData[type][i][1] = updatedElem[1];
+				finded = true;
+				/* series.setData(this.depthChartData[type]);
+				series.update(series.options, true); */
+				return true;
 			}
-	
-			if (type == 'asks') {
-				this.dataDepthAsks.push([Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1])]);
-				// console.log(this.dataDepthAsks);
-			} else if (type == 'bids') {
-				this.dataDepthBids.push([Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1])]);
-				// console.log(this.dataDepthBids);
-			}
-	
-			/* series.setData(this.depthChartData[type]);
-			series.update(series.options, true); */
-			return false;
-			// mainData[type].forEach(function(el, index){
-			//     if(Number(el[0]) == val){
-			//         mainData[type][index] = updatedElem[2];
-			//         finded = true;
-			//     }
-			// });
 		}
+
+		if (type == 'asks') {
+			this.dataDepthAsks.push([Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1])]);
+			// console.log(this.dataDepthAsks);
+		} else if (type == 'bids') {
+			this.dataDepthBids.push([Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1])]);
+			// console.log(this.dataDepthBids);
+		}
+
+		/* series.setData(this.depthChartData[type]);
+		series.update(series.options, true); */
+		return false;
+		// mainData[type].forEach(function(el, index){
+		//     if(Number(el[0]) == val){
+		//         mainData[type][index] = updatedElem[2];
+		//         finded = true;
+		//     }
+		// });
 	}
 
 	private loadSymbols(): void {
@@ -348,8 +344,6 @@ export class IndexComponent implements OnInit {
 				return;
 			}
 		}
-		this.baseAsset = this.quoteAsset*this.orderPrice;
-		this.orderTotal = this.baseAsset * this.orderPrice;
 	}
 
 	private calcBaseAsset(decr?: boolean): void {
@@ -367,24 +361,6 @@ export class IndexComponent implements OnInit {
 				return;
 			}
 		}
-		this.quoteAsset= this.baseAsset/this.orderPrice;
-		this.orderTotal = this.baseAsset * this.orderPrice;
-	}
-	private calcWithNewPrice(){
-		this.orderPrice = this.tradeForm.controls['price'].value;
-		this.baseAsset = this.quoteAsset * this.orderPrice;
-		this.orderTotal = this.baseAsset * this.orderPrice;
-	}
-	private calcTotal(): void {
-		// this.orderTotal = this.orderPrice * this.baseAsset;
-	}
-	private calcBase(): void {
-		// this.baseAsset = this.orderPrice * this.quoteAsset;
-		// console.log(this.baseAsset);
-	}
-	private calcQuote(): void {
-		// this.baseAsset = this.orderPrice * this.quoteAsset;
-		// console.log(this.baseAsset);
 	}
 
 	private getBalance(): void {
@@ -403,12 +379,11 @@ export class IndexComponent implements OnInit {
 	private changeBuySell(act: string) {
 		if (act == "buy") {
 			this.buyCellBtn = "PLACE BUY ORDER"
-			this.buyCell = OrderType.Buy;
-			
+			this.buyCell = false;
 		}
 		if (act == "sell") {
 			this.buyCellBtn = "PLACE SELL ORDER"
-			this.buyCell = OrderType.Sell;
+			this.buyCell = true;
 		}
 		// this.buyCell = !this.buyCell;
 		// if(this.buyCellBtn == "PLACE BUY ORDER"){
@@ -484,7 +459,7 @@ export class IndexComponent implements OnInit {
 				// 	amount : "0.0000001",
 				// 	total: "0.0000000"
 				// });
-				// this.startNumb = "0.0000000"
+				this.startNumb = "0.0000000"
 			});
 		}
 		this.orderPrice = 0;
