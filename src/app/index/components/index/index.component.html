@@ -8,13 +8,13 @@
           <h4>Balance</h4>
           <div class="left-content-balance-item">
             <b>{{ currentSymbol.quoteAsset }}</b>
-            {{ quoteAsset.toFixed(8) }}
+            {{ quoteAsset }}
             <button class="button-plus" type="button" (click)="calcQuoteAsset(false)"></button>
             <button class="button-minus" type="button" (click)="calcQuoteAsset(true)"></button>
           </div>
           <div class="left-content-balance-item">
             <b>{{ currentSymbol.baseAsset }}</b>
-            {{ baseAsset.toFixed(8) }}
+            {{ baseAsset }}
             <button class="button-plus" type="button" (click)="calcBaseAsset(false)"></button>
             <button class="button-minus" type="button" (click)="calcBaseAsset(true)"></button>
           </div>

@@ -43,11 +43,11 @@ export class IndexComponent implements OnInit {
 
 	public tradeForm: FormGroup;
 	public startNumb = "0.0000000"
-	public baseAsset = 0;
-	public quoteAsset = 0;
-	public orderPrice = 0;
-	public orderAmount = 0;
-	public orderTotal = 0;
+	public baseAsset:any = 0;
+	public quoteAsset:any = 0;
+	public orderPrice:any = 0;
+	public orderAmount:any = 0;
+	public orderTotal:any = 0;
 	public wallets: Wallet[];
 
 	public Highcharts = Highcharts;
@@ -333,56 +333,57 @@ export class IndexComponent implements OnInit {
 
 	private calcQuoteAsset(decr?: boolean): void {
 		if (!decr) {
-
+			this.quoteAsset = Number(this.quoteAsset);
 			this.quoteAsset += 0.001;
 			if (this.quoteAsset > this.wallets.find(x => x.coin.shortName == this.currentSymbol.quoteAsset).balance) {
 				this.quoteAsset -= 0.001;
-				return;
+				this.quoteAsset = this.quoteAsset.toFixed(8);
+				
 			}
 		} else {
 			this.quoteAsset -= 0.001;
-			if (this.quoteAsset < 0) {
-				this.quoteAsset = 0.0;
-				return;
+			if (this.quoteAsset < 0.00000001) {
+				this.quoteAsset = 0;
+				this.quoteAsset = this.quoteAsset.toFixed(8);
+				
 			}
 		}
-		this.baseAsset = this.quoteAsset*this.orderPrice;
-		this.orderTotal = this.baseAsset * this.orderPrice;
+		this.baseAsset = Number(this.baseAsset);
+		this.baseAsset = (this.quoteAsset*this.orderPrice).toFixed(8);
+		this.orderTotal = (this.baseAsset * this.orderPrice).toFixed(8);
+		this.quoteAsset = this.quoteAsset.toFixed(8);
 	}
 
 	private calcBaseAsset(decr?: boolean): void {
 		if (!decr) {
-
+			this.baseAsset = Number(this.baseAsset);
 			this.baseAsset += 0.001;
 			if (this.baseAsset > this.wallets.find(x => x.coin.shortName == this.currentSymbol.baseAsset).balance) {
 				this.baseAsset -= 0.001;
-				return;
+				this.baseAsset = this.baseAsset.toFixed(8);
+				
 			}
 		} else {
 			this.baseAsset -= 0.001;
-			if (this.baseAsset < 0) {
-				this.baseAsset = 0.0;
-				return;
+			if (this.baseAsset < 0.00000001) {
+				this.baseAsset = 0;
+				this.baseAsset = this.baseAsset.toFixed(8);
+				
 			}
 		}
-		this.quoteAsset= this.baseAsset/this.orderPrice;
-		this.orderTotal = this.baseAsset * this.orderPrice;
+		this.quoteAsset = Number(this.quoteAsset);
+		this.quoteAsset= (this.baseAsset/this.orderPrice).toFixed(8);
+		this.orderTotal = (this.baseAsset * this.orderPrice).toFixed(8);
+		this.baseAsset = this.baseAsset.toFixed(8);
 	}
 	private calcWithNewPrice(){
 		this.orderPrice = this.tradeForm.controls['price'].value;
-		this.baseAsset = this.quoteAsset * this.orderPrice;
-		this.orderTotal = this.baseAsset * this.orderPrice;
-	}
-	private calcTotal(): void {
-		// this.orderTotal = this.orderPrice * this.baseAsset;
-	}
-	private calcBase(): void {
-		// this.baseAsset = this.orderPrice * this.quoteAsset;
-		// console.log(this.baseAsset);
-	}
-	private calcQuote(): void {
-		// this.baseAsset = this.orderPrice * this.quoteAsset;
-		// console.log(this.baseAsset);
+		this.baseAsset = Number(this.baseAsset);
+		this.orderPrice = Number(this.orderPrice);
+		this.quoteAsset = Number(this.quoteAsset);
+		this.baseAsset = (this.quoteAsset * this.orderPrice).toFixed(8);
+		this.quoteAsset = (this.quoteAsset * this.quoteAsset).toFixed(8);
+		this.orderTotal = (this.baseAsset * this.orderPrice).toFixed(8);
 	}
 
 	private getBalance(): void {
@@ -408,19 +409,13 @@ export class IndexComponent implements OnInit {
 			this.buyCellBtn = "PLACE SELL ORDER"
 			this.buyCell = OrderType.Sell;
 		}
-		// this.buyCell = !this.buyCell;
-		// if(this.buyCellBtn == "PLACE BUY ORDER"){
-		// 	this.buyCellBtn = "PLACE SELL ORDER"
-		// }else{
-		// 	this.buyCellBtn = "PLACE BUY ORDER"
-		// }
 	}
 
 	private initTradeForm(): void {
 		this.tradeForm = new FormGroup({
 			baseAsset: new FormControl(this.currentSymbol.baseAsset, [Validators.required]),
 			quoteAsset: new FormControl(this.currentSymbol.quoteAsset, [Validators.required]),
-			type: new FormControl(OrderType.Buy, [Validators.required]),
+			type: new FormControl(this.buyCell, [Validators.required]),
 			price: new FormControl(this.orderPrice, [Validators.required]),
 			amount: new FormControl(this.quoteAsset, [Validators.required]),
 			total: new FormControl(this.orderPrice * this.quoteAsset, [Validators.required]),
@@ -516,6 +511,12 @@ export class IndexComponent implements OnInit {
 		this.initPriceChart();
 		this.initDepthChart();
 		this.getBalance();
+
+		this.baseAsset = this.baseAsset.toFixed(8);
+		this.quoteAsset = this.quoteAsset.toFixed(8);
+		this.orderPrice = this.orderPrice.toFixed(8);
+		this.orderAmount = this.orderAmount.toFixed(8);
+		this.orderTotal = this.orderTotal.toFixed(8);
 
 	}
 
