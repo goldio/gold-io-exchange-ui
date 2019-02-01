@@ -9,14 +9,14 @@
                     <div class="left-content-balance-item" >
                         <b>{{ currentSymbol.quoteAsset }}</b>
                         {{ quoteAsset.toFixed(8) }}
-                        <button class="button-plus" (click)="calcQuoteAsset(false)"></button>
-                        <button class="button-minus" (click)="calcQuoteAsset(true)"></button>
+                        <button class="button-plus" type="button" (click)="calcQuoteAsset(false)"></button>
+                        <button class="button-minus" type="button" (click)="calcQuoteAsset(true)"></button>
                     </div>
                     <div class="left-content-balance-item" >
                         <b>{{ currentSymbol.baseAsset }}</b>
                         {{ baseAsset.toFixed(8) }}
-                        <button class="button-plus" (click)="calcBaseAsset(false)"></button>
-                        <button class="button-minus" (click)="calcBaseAsset(true)"></button>
+                        <button class="button-plus" type="button" (click)="calcBaseAsset(false)"></button>
+                        <button class="button-minus" type="button" (click)="calcBaseAsset(true)"></button>
                     </div>
                 </div>
                 <div class="pos-rel">
@@ -25,8 +25,8 @@
                             <div class="double-btns" [ngClass]="{
                                 'change-double-btn' : buyCell
                             }">
-                                <button class="" (click)='changeBuySell("buy")'>BUY</button>
-                                <button class="" (click)='changeBuySell("sell")'>SELL</button>
+                                <button class=""  type="button" (click)='changeBuySell("buy")'>BUY</button>
+                                <button class=""  type="button" (click)='changeBuySell("sell")'>SELL</button>
                                 <div class="choose"></div>
                             </div>
                             <div class="left-content-sell-input">
@@ -57,13 +57,13 @@
                                 <input type="number" placeholder="1.00000000" formControlName="total" required>
                                 <b>{{ currentSymbol.quoteAsset }}</b>
                             </div>
-                            <button class="transparent-btn" *ngIf="isLoggedIn">{{ buyCellBtn }}</button>
+                            <button class="transparent-btn" type="submit" *ngIf="isLoggedIn">{{ buyCellBtn }}</button>
                         </div>
                     </div>
                 </div>
                 <div class="left-content-buttons" *ngIf="!isLoggedIn">
-                    <button class="main-btn main-btn-hov" routerLink="/authorization">SIGN IN</button>
-                    <button class="transparent-btn" routerLink="/registration" style="margin-top: 22px;">REGISTER</button>
+                    <button  type="button" class="main-btn main-btn-hov" routerLink="/authorization">SIGN IN</button>
+                    <button  type="button" class="transparent-btn" routerLink="/registration" style="margin-top: 22px;">REGISTER</button>
                 </div>
             </div>
         </form>

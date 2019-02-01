@@ -402,6 +402,7 @@ export class IndexComponent implements OnInit {
 			alert('form invalid');
 			return;
 		}
+		alert('form valid');
 
 		// const req = new order();
 
