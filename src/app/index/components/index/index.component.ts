@@ -173,6 +173,7 @@ export class IndexComponent implements OnInit {
 		this.loadTrades();
 		this.loadOrderBook();
 		this.openDepthStream();
+		this.initTradeForm();
 
 		if (this.Highcharts.charts[0]) {
 			this.Highcharts.charts[0].update(this.priceChartOptions, true);
@@ -451,7 +452,7 @@ export class IndexComponent implements OnInit {
 		this.initPriceChart();
 		this.initDepthChart();
 		this.getBalance();
-		this.initTradeForm();
+		
 	}
 
 	private async getCandlestickData() {
