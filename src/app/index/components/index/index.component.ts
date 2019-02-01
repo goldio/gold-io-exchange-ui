@@ -41,6 +41,7 @@ export class IndexComponent implements OnInit {
 
 	public baseAsset = 0;
 	public quoteAsset = 0;
+	public orderPrice = 0;
 	public wallets : Wallet[];
 
 	public Highcharts = Highcharts;
@@ -387,12 +388,12 @@ export class IndexComponent implements OnInit {
 	}
 	private initTradeForm(): void {
 		this.tradeForm = new FormGroup({
-			// baseAsset : new FormControl(null, [Validators.required]),
-			// quoteAsset : new FormControl(null, [Validators.required]),
+			baseAsset: new FormControl(this.currentSymbol.baseAsset, [Validators.required]),
+			quoteAsset : new FormControl(this.currentSymbol.quoteAsset, [Validators.required]),
 			// act : new FormControl(null, [Validators.required]),
-			price : new FormControl(null, [Validators.required]),
-			amount : new FormControl(null, [Validators.required]),
-			total : new FormControl(null, [Validators.required]),
+			price: new FormControl(this.orderPrice, [Validators.required]),
+			amount: new FormControl(this.quoteAsset, [Validators.required]),
+			total: new FormControl(this.orderPrice * this.quoteAsset, [Validators.required]),
 		});
 	}
 
