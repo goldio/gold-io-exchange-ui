@@ -56,7 +56,7 @@ export class IndexComponent implements OnInit {
 
 	public chart: boolean = false;
 	public currencyBox: boolean = false;
-	public buyCell: OrderType = OrderType.Buy;
+	public buyCell: boolean = false;
 	public buyCellBtn = "PLACE BUY ORDER";
 	public responciveTabs = 2;
 
@@ -114,7 +114,7 @@ export class IndexComponent implements OnInit {
 		let finded = false;
 		let val = Number.parseFloat(updatedElem[0]);
 		//let series = this.Highcharts.charts[0].series.find(x => x.name == type);
-
+		
 		for (let i = 0; i < this.depthChartData[type].length; i++) {
 			let el = this.depthChartData[type][i];
 			if (Number.parseFloat(el[0]) == val) {
@@ -402,12 +402,11 @@ export class IndexComponent implements OnInit {
 	private changeBuySell(act: string) {
 		if (act == "buy") {
 			this.buyCellBtn = "PLACE BUY ORDER"
-			this.buyCell = OrderType.Buy;
-			
+			this.buyCell = false;
 		}
 		if (act == "sell") {
 			this.buyCellBtn = "PLACE SELL ORDER"
-			this.buyCell = OrderType.Sell;
+			this.buyCell = true;
 		}
 	}
 
@@ -477,7 +476,7 @@ export class IndexComponent implements OnInit {
 				// 	amount : "0.0000001",
 				// 	total: "0.0000000"
 				// });
-				// this.startNumb = "0.0000000"
+				this.startNumb = "0.0000000"
 			});
 		}
 		this.orderPrice = 0;
