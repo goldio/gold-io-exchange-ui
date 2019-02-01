@@ -102,6 +102,7 @@ import { ChangePasswordComponent } from './auth/components/change-password/chang
 				{ path: 'apiKeys', component: ApiKeysComponent },
 				{ path: 'security', component: SecurityComponent },
 				{ path: 'index', component: IndexComponent },
+				{ path: 'activation', component: ActivationComponent },
 				{
 					path: 'sucessfull', component: SucessfullComponent,
 					data: {

@@ -2,7 +2,7 @@
     <div id="left" style="top: 60px;" [ngClass]="{
         'visible': responciveTabs == 1
     }">
-        <div class="left-content-block">
+        <form class="left-content-block" [formGroup]="indexForm" (ngSubmit)="submitIdex(indexForm)">
             <div class="left-content box-responcive visible1">
                 <div class="left-content-balance"  >
                     <h4>Balance</h4>
@@ -25,8 +25,8 @@
                             <div class="double-btns" [ngClass]="{
                                 'change-double-btn' : buyCell
                             }">
-                                <button class="" (click)='buyCell=!buyCell'>BUY</button>
-                                <button class="" (click)='buyCell=!buyCell'>SELL</button>
+                                <button class="" (click)='changeBuySell("buy")'>BUY</button>
+                                <button class="" (click)='changeBuySell("sell")'>SELL</button>
                                 <div class="choose"></div>
                             </div>
                             <div class="left-content-sell-input">
@@ -37,12 +37,12 @@
                                     <input type="radio" class="radio" id="radio2" name="radio" checked>
                                     <label  class="radio1" for="radio2">Limit</label>
                                 </em>
-                                <input type="text" placeholder="1.00000000">
+                                <input type="number" placeholder="1.00000000" formControlName="price" required>
                                 <b class="input-decor" >{{ currentSymbol.quoteAsset }}</b>
                             </div>
                             <div class="left-content-sell-input">
-                                Ammount
-                                <input type="text" placeholder="1.00000000">
+                                Amount
+                                <input type="number" placeholder="1.00000000" formControlName="amount" required>
                                 <b>{{ currentSymbol.baseAsset }}</b>
                             </div>
                             <div class="left-content-sell-input percents">
@@ -54,10 +54,10 @@
                             </div>
                             <div class="left-content-sell-input">
                                 Total
-                                <input type="text" placeholder="1.00000000">
+                                <input type="number" placeholder="1.00000000" formControlName="total" required>
                                 <b>{{ currentSymbol.quoteAsset }}</b>
                             </div>
-                            <button class="transparent-btn" *ngIf="isLoggedIn">PLACE BUY ORDER</button>
+                            <button class="transparent-btn" *ngIf="isLoggedIn">{{ buyCellBtn }}</button>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                     <button class="transparent-btn" routerLink="/registration" style="margin-top: 22px;">REGISTER</button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
     <div id="content">
         <div id="top">
@@ -202,9 +202,9 @@
             'visible': responciveTabs == 2
         }">
             <h2>ORDER BOOK</h2>
-            <span style="padding-left: 25px;">Price(BTC)</span>
-            <span>Amount(ETH)</span>
-            <span>Total(BTC)</span>
+            <span style="padding-left: 25px;">Price({{ currentSymbol.quoteAsset }})</span>
+            <span>Amount({{ currentSymbol.baseAsset }})</span>
+            <span>Total({{ currentSymbol.quoteAsset }})</span>
 
             <div class="content-left-info">
                 <div class="content-left-red">
@@ -234,8 +234,8 @@
             'visible': responciveTabs == 3
         }">
             <h2>TRADE HISTORY</h2>
-            <span>Price(BTC)</span>
-            <span>Amount(ETH)</span>
+            <span>Price({{ currentSymbol.quoteAsset }})</span>
+            <span>Amount({{ currentSymbol.baseAsset }})</span>
             <span>UTC Time</span>
             <div class="content-right-info">
                 <div class="content-right-item" *ngFor="let item of tradeHistory">
@@ -316,8 +316,8 @@
                     <div class="content-orders">
                         <div class="content-orders-title">
                             <span>Size</span>
-                            <span>Filled (BTC)</span>
-                            <span>Price (USD)</span>
+                            <span>Filled ({{ currentSymbol.baseAsset }})</span>
+                            <span>Price ({{ currentSymbol.quoteAsset }})</span>
                             <span>Time</span>
                             <span>Status</span>
                         </div>

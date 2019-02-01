@@ -22,6 +22,7 @@ import { TradeService } from 'src/app/common/services/trade.service';
 import { OrderType } from 'src/app/common/enums';
 import { Coin, Wallet } from 'src/app/common/models';
 import { WalletsService } from 'src/app/common/services/wallets.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 // import { runInThisContext } from 'vm';
 
 declare var TradingView: any;
@@ -36,6 +37,8 @@ export class IndexComponent implements OnInit {
 
 	public isLoggedIn: boolean;
 
+	public indexForm: FormGroup;
+
 	public baseAsset = 0;
 	public quoteAsset = 0;
 	public wallets : Wallet[];
@@ -47,6 +50,7 @@ export class IndexComponent implements OnInit {
 	public chart: boolean = false;
 	public currencyBox: boolean = false;
 	public buyCell: boolean = false;
+	public buyCellBtn = "PLACE BUY ORDER";
 	public responciveTabs = 2;
 
 	public tradeHistory: TradeHistoryItem[] = [];
@@ -315,6 +319,59 @@ export class IndexComponent implements OnInit {
 			
 	}
 
+	private changeBuySell(act: string){
+		if(act=="buy"){
+			this.buyCellBtn = "PLACE BUY ORDER"
+			this.buyCell = false;
+		}
+		if(act=="sell"){
+			this.buyCellBtn = "PLACE SELL ORDER"
+			this.buyCell = true;
+		}
+		// this.buyCell = !this.buyCell;
+		// if(this.buyCellBtn == "PLACE BUY ORDER"){
+		// 	this.buyCellBtn = "PLACE SELL ORDER"
+		// }else{
+		// 	this.buyCellBtn = "PLACE BUY ORDER"
+		// }
+	}
+	private initProfileForm(): void {
+		this.indexForm = new FormGroup({
+			// baseAsset : new FormControl(null, [Validators.required]),
+			// quoteAsset : new FormControl(null, [Validators.required]),
+			// act : new FormControl(null, [Validators.required]),
+			price : new FormControl(null, [Validators.required]),
+			amount : new FormControl(null, [Validators.required]),
+			total : new FormControl(null, [Validators.required]),
+		});
+	}
+
+	public submitOrder(form: FormGroup): void {
+		if (form.invalid) {
+			alert('form invalid');
+			return;
+		}
+
+		// const req = new order();
+
+		// req.baseAsset = ;
+		// // req.quoteAsset = ;
+		// req.act = ;
+
+		// req.price = form.value['price'];
+		// req.amount = form.value['amount'];
+		// req.total = form.value['total'];
+
+		// this.order...
+		// 	....(req)
+		// 	.subscribe(res => {
+		// 		if (!res.success) {
+		// 			alert(res.message);
+		// 			return;
+		// 		}
+		// 		alert('OK');
+		// 	});
+	}
 	constructor(
 		private authService: AuthService,
 		private websocketService: WebsocketService,
@@ -341,6 +398,7 @@ export class IndexComponent implements OnInit {
 		this.initPriceChart();
 		this.initDepthChart();
 		this.getBalance();
+		this.initProfileForm();
 	}
 
 	private async getCandlestickData() {
