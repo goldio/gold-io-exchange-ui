@@ -24,7 +24,12 @@ export class TradeService extends BaseHttpService {
     }
     
     public getOrdersBySymbol(base: string, quote: string): Observable<DataResponse<Order[]>> {
-        return this.get(`${this.apiUrl}/orders/symbol/${base}/${quote}`)
+        return this.get(`${this.apiUrl}/orders/symbol/${base}/${quote}/trades`)
+            .map(response => response.json());
+    }
+
+    public getOrderBookBySymbol(base: string, quote: string): Observable<DataResponse<Order[]>> {
+        return this.get(`${this.apiUrl}/orders/symbol/${base}/${quote}/book`)
             .map(response => response.json());
     }
 }
