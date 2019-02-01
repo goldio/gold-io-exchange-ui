@@ -37,7 +37,7 @@ export class IndexComponent implements OnInit {
 
 	public isLoggedIn: boolean;
 
-	public indexForm: FormGroup;
+	public tradeForm: FormGroup;
 
 	public baseAsset = 0;
 	public quoteAsset = 0;
@@ -385,8 +385,8 @@ export class IndexComponent implements OnInit {
 		// 	this.buyCellBtn = "PLACE BUY ORDER"
 		// }
 	}
-	private initProfileForm(): void {
-		this.indexForm = new FormGroup({
+	private initTradeForm(): void {
+		this.tradeForm = new FormGroup({
 			// baseAsset : new FormControl(null, [Validators.required]),
 			// quoteAsset : new FormControl(null, [Validators.required]),
 			// act : new FormControl(null, [Validators.required]),
@@ -397,6 +397,7 @@ export class IndexComponent implements OnInit {
 	}
 
 	public submitOrder(form: FormGroup): void {
+		console.log(form);
 		if (form.invalid) {
 			alert('form invalid');
 			return;
@@ -448,7 +449,7 @@ export class IndexComponent implements OnInit {
 		this.initPriceChart();
 		this.initDepthChart();
 		this.getBalance();
-		this.initProfileForm();
+		this.initTradeForm();
 	}
 
 	private async getCandlestickData() {

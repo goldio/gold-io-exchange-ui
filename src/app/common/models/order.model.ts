@@ -8,6 +8,7 @@ export class Order extends BaseModel {
     public baseAsset: Coin;
     public quoteAsset: Coin;
     public amount: number;
+    public balance: number;
     public price: number;
     public type: OrderType;
     public status: OrderStatus;

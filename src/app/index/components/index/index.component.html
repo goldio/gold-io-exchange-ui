@@ -2,21 +2,21 @@
     <div id="left" style="top: 60px;" [ngClass]="{
         'visible': responciveTabs == 1
     }">
-        <form class="left-content-block" [formGroup]="indexForm" (ngSubmit)="submitIdex(indexForm)">
+        <form class="left-content-block" [formGroup]="tradeForm" (ngSubmit)="submitOrder(tradeForm)">
             <div class="left-content box-responcive visible1">
                 <div class="left-content-balance"  >
                     <h4>Balance</h4>
                     <div class="left-content-balance-item" >
                         <b>{{ currentSymbol.quoteAsset }}</b>
                         {{ quoteAsset.toFixed(8) }}
-                        <button class="button-plus" (click)="calcQuoteAsset( false)"></button>
-                        <button class="button-minus" (click)="calcQuoteAsset( true)"></button>
+                        <button class="button-plus" (click)="calcQuoteAsset(false)"></button>
+                        <button class="button-minus" (click)="calcQuoteAsset(true)"></button>
                     </div>
                     <div class="left-content-balance-item" >
                         <b>{{ currentSymbol.baseAsset }}</b>
                         {{ baseAsset.toFixed(8) }}
-                        <button class="button-plus" (click)="calcBaseAsset( false)"></button>
-                        <button class="button-minus" (click)="calcBaseAsset( true)"></button>
+                        <button class="button-plus" (click)="calcBaseAsset(false)"></button>
+                        <button class="button-minus" (click)="calcBaseAsset(true)"></button>
                     </div>
                 </div>
                 <div class="pos-rel">
