@@ -305,20 +305,22 @@ export class IndexComponent implements OnInit {
 								this.orderBookBids.shift();
 							}
 
-							let aItem = {
-								price: parseFloat(item[0]).toFixed(8),
-								amount: parseFloat(item[1]).toFixed(8),
-								total: `${(item[0] * item[1]).toFixed(8)}`
-							};
-
-							if (this.Highcharts.charts[1]) {
-								this.Highcharts.charts[1]
-									.series[0]
-									.addPoint([parseFloat(item[0]), parseFloat(item[1])], false, this.Highcharts.charts[1].series[0].data.length > 500);
+							if (parseFloat(item[1]) > 0) {
+								let aItem = {
+									price: parseFloat(item[0]).toFixed(8),
+									amount: parseFloat(item[1]).toFixed(8),
+									total: `${(item[0] * item[1]).toFixed(8)}`
+								};
+	
+								if (this.Highcharts.charts[1]) {
+									this.Highcharts.charts[1]
+										.series[0]
+										.addPoint([parseFloat(item[0]), parseFloat(item[1])], false, true);
+								}
+	
+								this.orderBookBids.push(aItem);
+								this.updateMainData(item, 'bids');
 							}
-
-							this.orderBookBids.push(aItem);
-							this.updateMainData(item, 'bids');
 						});
 
 						messageData['a'].forEach(item => {
@@ -326,21 +328,23 @@ export class IndexComponent implements OnInit {
 								this.orderBookAsks.shift();
 							}
 
-							let aItem = {
-								price: parseFloat(item[0]).toFixed(8),
-								amount: parseFloat(item[1]).toFixed(8),
-								total: `${(item[0] * item[1]).toFixed(8)}`
-							};
-
-							if (this.Highcharts.charts[1]) {
-								this.Highcharts.charts[1]
-								.series[1]
-								.addPoint([parseFloat(item[0]), parseFloat(item[1])], true, this.Highcharts.charts[1].series[1].data.length > 500);
+							if (parseFloat(item[1]) > 0) {
+								let aItem = {
+									price: parseFloat(item[0]).toFixed(8),
+									amount: parseFloat(item[1]).toFixed(8),
+									total: `${(item[0] * item[1]).toFixed(8)}`
+								};
+	
+								if (this.Highcharts.charts[1]) {
+									this.Highcharts.charts[1]
+									.series[1]
+									.addPoint([parseFloat(item[0]), parseFloat(item[1])], true, true);
+								}
+	
+								this.orderBookAsks.push(aItem);
+	
+								this.updateMainData(item, 'asks');
 							}
-
-							this.orderBookAsks.push(aItem);
-
-							/* this.updateMainData(item, 'asks'); */
 						});
 					}
 				}
