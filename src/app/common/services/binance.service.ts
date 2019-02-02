@@ -35,7 +35,7 @@ export class BinanceService extends BaseHttpService {
             .map(response => response.json());
     }
 
-    public getOrderBook(symbol: string, limit: number = 1000): Observable<any> {
+    public getOrderBook(symbol: string, limit: number = 500): Observable<any> {
         return this.get(`${this.apiUrl}/binance/depth/${symbol.replace('/', '')}`)
             .map(response => response.json());
     }

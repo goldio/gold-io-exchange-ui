@@ -180,13 +180,11 @@ export class IndexComponent implements OnInit {
 			this.loadPrice(symbol.baseAsset, symbol.quoteAsset);
 		}
 
-		this.initPriceChart();
-		this.initDepthChart();
+		this.initPriceChart().finally(() => this.initDepthChart().finally(() => this.openDepthStream()));
 
 		this.loadTrades();
 		this.loadOrderBook();
-		this.openDepthStream();
-		
+
 		this.initTradeForm();
 
 		/* if (this.Highcharts.charts[0]) {
@@ -278,10 +276,9 @@ export class IndexComponent implements OnInit {
 	}
 
 	private openDepthStream(): void {
-		this.websocketService.closeDepthStream();
-		this.websocketService.closeLocalDepthStream();
+		/* this.websocketService.closeLocalDepthStream(); */
 
-		if (this.currentSymbol.gio) {
+		/* if (this.currentSymbol.gio) {
 			this.websocketService.openLocalDepthStream();
 			this.websocketService
 				.localDepthStreamMessage
@@ -290,8 +287,9 @@ export class IndexComponent implements OnInit {
 				});
 
 			return;
-		}
+		} */
 
+		this.websocketService.closeDepthStream();
 		this.websocketService.openDepthStream(this.currentSymbol.symbol);
 
 		this.websocketService
@@ -299,6 +297,7 @@ export class IndexComponent implements OnInit {
 			.subscribe(msg => {
 				if (msg) {
 					const messageData = JSON.parse(msg.data);
+					console.log(messageData);
 
 					if (messageData['e'] == "depthUpdate") {
 						messageData['b'].forEach(item => {
@@ -311,6 +310,12 @@ export class IndexComponent implements OnInit {
 								amount: parseFloat(item[1]).toFixed(8),
 								total: `${(item[0] * item[1]).toFixed(8)}`
 							};
+
+							if (this.Highcharts.charts[1]) {
+								this.Highcharts.charts[1]
+									.series[0]
+									.addPoint([parseFloat(item[0]), parseFloat(item[1])], false, this.Highcharts.charts[1].series[0].data.length > 500);
+							}
 
 							this.orderBookBids.push(aItem);
 							this.updateMainData(item, 'bids');
@@ -326,6 +331,12 @@ export class IndexComponent implements OnInit {
 								amount: parseFloat(item[1]).toFixed(8),
 								total: `${(item[0] * item[1]).toFixed(8)}`
 							};
+
+							if (this.Highcharts.charts[1]) {
+								this.Highcharts.charts[1]
+								.series[1]
+								.addPoint([parseFloat(item[0]), parseFloat(item[1])], true, this.Highcharts.charts[1].series[1].data.length > 500);
+							}
 
 							this.orderBookAsks.push(aItem);
 
@@ -640,7 +651,7 @@ export class IndexComponent implements OnInit {
 		};
 	}
 
-	private async initDepthChart() {
+	private async setDepthChartData() {
 		const data = await this.getOrderBook();
 		const bestBid = this.getBestBid(data.bids);
 		const bestAsk = this.getBestAsk(data.asks);
@@ -679,6 +690,10 @@ export class IndexComponent implements OnInit {
 			asks: chartAsksData,
 			bids: chartBidsData
 		};
+	}
+
+	private async initDepthChart() {
+		await this.setDepthChartData();
 
 		this.depthChartOptions = {
 			chart: { type: 'area', zoomType: 'xy', animation: true },
