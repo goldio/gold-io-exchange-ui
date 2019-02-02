@@ -68,6 +68,8 @@ export class IndexComponent implements OnInit {
 	public dataDepthAsks: any[];
 	public dataDepthBids: any[];
 
+	public priceChartData: any;
+
 	public symbols: Symbol[];
 	public currentSymbol: Symbol;
 
@@ -176,21 +178,24 @@ export class IndexComponent implements OnInit {
 		} else {
 			this.currentSymbol = symbol;
 			this.loadPrice(symbol.baseAsset, symbol.quoteAsset);
-			
 		}
+
+		this.initPriceChart();
+		this.initDepthChart();
 
 		this.loadTrades();
 		this.loadOrderBook();
 		this.openDepthStream();
+		
 		this.initTradeForm();
 
-		if (this.Highcharts.charts[0]) {
+		/* if (this.Highcharts.charts[0]) {
 			this.Highcharts.charts[0].update(this.priceChartOptions, true);
 		}
 
 		if (this.Highcharts.charts[1]) {
 			this.Highcharts.charts[1].update(this.depthChartOptions, true);
-		}
+		} */
 	}
 
 	private loadTrades(): void {
@@ -439,26 +444,6 @@ export class IndexComponent implements OnInit {
 				this.loadOrderBook();
 				this.loadTrades();
 			});
-
-		// const req = new order();
-
-		// req.baseAsset = ;
-		// // req.quoteAsset = ;
-		// req.act = ;
-
-		// req.price = form.value['price'];
-		// req.amount = form.value['amount'];
-		// req.total = form.value['total'];
-
-		// this.order...
-		// 	....(req)
-		// 	.subscribe(res => {
-		// 		if (!res.success) {
-		// 			alert(res.message);
-		// 			return;
-		// 		}
-		// 		alert('OK');
-		// 	});
 	}
 
 	private loadPrice(base:string, quote:string,){
@@ -506,9 +491,6 @@ export class IndexComponent implements OnInit {
 		});
 
 		this.loadSymbols();
-
-		this.initPriceChart();
-		this.initDepthChart();
 		this.getBalance();
 
 		this.baseAsset = this.baseAsset.toFixed(8);
@@ -520,7 +502,7 @@ export class IndexComponent implements OnInit {
 	}
 
 	private async getCandlestickData() {
-		const symbol = this.currentSymbol ? this.currentSymbol.symbol : "ETHBTC";
+		const symbol = this.currentSymbol.symbol;
 		const data = await this.binanceService
 			.getCandlestickData(symbol)
 			.toPromise();
@@ -529,7 +511,7 @@ export class IndexComponent implements OnInit {
 	}
 
 	private async getOrderBook() {
-		const symbol = this.currentSymbol ? this.currentSymbol.symbol : "ETHBTC";
+		const symbol = this.currentSymbol.symbol;
 		const data = await this.binanceService
 			.getOrderBook(symbol)
 			.toPromise();
@@ -547,7 +529,7 @@ export class IndexComponent implements OnInit {
 		return { asks: asks, bids: bids };
 	}
 
-	private async initPriceChart() {
+	private async setPriceChartData() {
 		const data = await this.getCandlestickData();
 		let ohlc = [],
 			volume = [],
@@ -567,6 +549,14 @@ export class IndexComponent implements OnInit {
 				data.data[i][5] // the volume
 			]);
 		}
+
+		this.priceChartData = { ohlc, volume };
+	}
+
+	
+
+	private async initPriceChart() {
+		await this.setPriceChartData();
 
 		this.priceChartOptions = {
 			chart: { type: 'area' },
@@ -626,13 +616,13 @@ export class IndexComponent implements OnInit {
 			series: [{
 				type: 'candlestick',
 				name: 'BTC',
-				data: ohlc,
+				data: this.priceChartData.ohlc,
 				zIndex: 3,
 				pointWidth: 8
 			}, {
 				type: 'column',
 				name: 'Volume',
-				data: volume,
+				data: this.priceChartData.volume,
 				yAxis: 1,
 				zIndex: 2,
 				pointWidth: 4
