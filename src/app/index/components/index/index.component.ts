@@ -301,7 +301,7 @@ export class IndexComponent implements OnInit {
 
 					if (messageData['e'] == "depthUpdate") {
 						messageData['b'].forEach(item => {
-							if (this.orderBookBids.length > 19) {
+							if (this.orderBookBids.length > 21) {
 								this.orderBookBids.shift();
 							}
 
@@ -322,7 +322,7 @@ export class IndexComponent implements OnInit {
 						});
 
 						messageData['a'].forEach(item => {
-							if (this.orderBookAsks.length > 19) {
+							if (this.orderBookAsks.length > 21) {
 								this.orderBookAsks.shift();
 							}
 
