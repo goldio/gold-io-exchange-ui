@@ -32,6 +32,16 @@ a {
 a:hover {
   text-decoration: none;
 }
+
+input[type='number'] {
+  -moz-appearance:textfield;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -3087,29 +3097,23 @@ ul.left-top-menu {
   }
 
 
-  button.button-plus {
+  .button-plus {
     border: 1px solid #ffffff33;
+    cursor: pointer;
     transition: none;
   }
 
-  button.button-plus:before {
-    color: white;
-  }
-
-  button.button-minus:before {
-    color: white;
-  }
+//  
 
 
-
-  button.button-plus:hover,
-  button.button-minus:hover {
+  .button-plus:hover,
+ .button-minus:hover {
     border: 1px solid #DACD7D;
     //background: #DACD7D;
   }
 
-  button.button-plus:active,
-  button.button-minus:active {
+  .button-plus:active,
+ .button-minus:active {
     border: 1px solid #5E5A44;
     // background: #5E5A44;
   }
@@ -3127,9 +3131,10 @@ ul.left-top-menu {
   }
 
 
-  button.button-minus {
+ .button-minus {
     border: 1px solid #ffffff33;
     transition: none;
+    cursor: pointer;
   }
 
   .left-content-balance {
@@ -3222,7 +3227,7 @@ ul.left-top-menu {
 
 
   .left-content-sell-input em .radio:checked+label:before {
-    border: 1px solid #D1C881;
+    // border: 1px solid red;
   }
 
   // .left-content-sell-input em .radio:not(checked)+.radio1:after {

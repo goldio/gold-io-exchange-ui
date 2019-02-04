@@ -19,11 +19,13 @@ import { AuthService } from 'src/app/common/services/auth.service';
 import symbols from './symbols';
 import { Pair } from '../../models/pair.model';
 import { TradeService } from 'src/app/common/services/trade.service';
-import { OrderType } from 'src/app/common/enums';
+import { OrderType, Theme } from 'src/app/common/enums';
 import { Coin, Wallet } from 'src/app/common/models';
 import { WalletsService } from 'src/app/common/services/wallets.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CreateOrderRequest } from 'src/app/common/models/request';
+import { ThemeService } from 'src/app/common/services/theme.service';
+
 // import { runInThisContext } from 'vm';
 
 declare var TradingView: any;
@@ -69,6 +71,8 @@ export class IndexComponent implements OnInit {
 	public dataDepthBids: any[];
 
 	public priceChartData: any;
+
+	public theme: Theme;
 
 	public symbols: Symbol[];
 	public currentSymbol: Symbol;
@@ -484,14 +488,26 @@ export class IndexComponent implements OnInit {
 		
 	}
 
+	public scrollbarOptions = { axis: 'yx', theme: 'minimal' };
+
 	constructor(
 		private authService: AuthService,
 		private websocketService: WebsocketService,
 		private binanceService: BinanceService,
 		private tradeService: TradeService,
-		private walletsService: WalletsService
+		private walletsService: WalletsService,
+		private themeService: ThemeService
 	) {
-
+		this.themeService
+		.currentState
+		.subscribe(theme => {
+			if (theme == Theme.Dark) {
+				this.scrollbarOptions = { axis: 'yx', theme: 'minimal' };
+			} else {
+				this.scrollbarOptions = { axis: 'yx', theme: 'minimal-dark' };
+			}
+			this.theme = theme;
+		});
 	}
 
 	ngOnInit() {
@@ -515,6 +531,8 @@ export class IndexComponent implements OnInit {
 		this.orderTotal = this.orderTotal.toFixed(8);
 
 	}
+
+
 
 	private async getCandlestickData() {
 		const symbol = this.currentSymbol.symbol;
@@ -567,8 +585,6 @@ export class IndexComponent implements OnInit {
 
 		this.priceChartData = { ohlc, volume };
 	}
-
-	
 
 	private async initPriceChart() {
 		await this.setPriceChartData();

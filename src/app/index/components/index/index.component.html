@@ -9,14 +9,18 @@
           <div class="left-content-balance-item">
             <b>{{ currentSymbol.quoteAsset }}</b>
             {{ quoteAsset }}
-            <button class="button-plus" type="button" (click)="calcQuoteAsset(false)"></button>
-            <button class="button-minus" type="button" (click)="calcQuoteAsset(true)"></button>
+            <div class="button-plus" type="button" (click)="calcQuoteAsset(false)" *ngIf="isLoggedIn"><span>+</span></div>
+            <div class="button-minus" type="button" (click)="calcQuoteAsset(true)" *ngIf="isLoggedIn"><span>-</span></div>
+            <div class="button-plus" type="button" *ngIf="!isLoggedIn"><span>+</span></div>
+            <div class="button-minus" type="button" *ngIf="!isLoggedIn"><span>-</span></div>
           </div>
           <div class="left-content-balance-item">
             <b>{{ currentSymbol.baseAsset }}</b>
             {{ baseAsset }}
-            <button class="button-plus" type="button" (click)="calcBaseAsset(false)"></button>
-            <button class="button-minus" type="button" (click)="calcBaseAsset(true)"></button>
+            <div class="button-plus" type="button" (click)="calcBaseAsset(false)" *ngIf="isLoggedIn"><span>+</span></div>
+            <div class="button-minus" type="button" (click)="calcBaseAsset(true)" *ngIf="isLoggedIn"><span>-</span></div>
+            <div class="button-plus" type="button"  *ngIf="!isLoggedIn"><span>+</span></div>
+            <div class="button-minus" type="button" *ngIf="!isLoggedIn"><span>-</span></div>
           </div>
         </div>
         <div class="pos-rel">
@@ -89,7 +93,7 @@
             <span>Base</span>
             <span>Quote</span>
           </div>
-          <div class="top-currency-items-wrapper">
+          <div class="top-currency-items-wrapper" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" >
             <div class="top-currency-dropdown-item" *ngFor="let symbol of symbols" (click)="setSymbol(symbol)">
               <span><b>{{ symbol.baseAsset }}/{{ symbol.quoteAsset }}</b></span>
               <span>{{ symbol.baseAsset }}</span>
@@ -206,7 +210,7 @@
       <span>Amount({{ currentSymbol.baseAsset }})</span>
       <span>Total({{ currentSymbol.quoteAsset }})</span>
 
-      <div class="content-left-info">
+      <div class="content-left-info" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
         <div class="content-left-red">
           <div class="content-left-red-item left-red" *ngFor="let item of orderBookBids">
             <span>{{ item.price }}</span>
@@ -237,7 +241,7 @@
       <span>Price({{ currentSymbol.quoteAsset }})</span>
       <span>Amount({{ currentSymbol.baseAsset }})</span>
       <span>UTC Time</span>
-      <div class="content-right-info">
+      <div class="content-right-info" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
         <div class="content-right-item" *ngFor="let item of tradeHistory">
           <span [ngClass]="{ 'history-green': item.isBuyerMaker, 'history-red': !item.isBuyerMaker }">{{
             item.price }}</span>
@@ -247,7 +251,8 @@
       </div>
     </div>
 
-    <div class="content-center" [ngClass]="{
+    <div class="content-center" malihu-scrollbar [scrollbarOptions]="scrollbarOptions"
+      [ngClass]="{
             'content-center-visible': responciveTabs == 4  || responciveTabs == 6
         }">
       <div class="content-center-chart box-responcive" [ngClass]="{
@@ -284,7 +289,7 @@
           </div>
 
           <div class="depth_chart_control" style="display:none">
-            <button id="depth_plus" class="balances-plus">+</button>
+            <button id="depth_plus" class="balances-plus" >+</button>
 
             <div class="depth_chart_header">
               <div class="mid_price_label">Mid Market Price</div>

@@ -30,9 +30,12 @@
               "src/style/main.scss",
               "src/style/light.scss",
               "src/style/fonts.css",
-              "node_modules/jqwidgets-scripts/jqwidgets/styles/jqx.base.css"
+              "node_modules/jqwidgets-scripts/jqwidgets/styles/jqx.base.css",
+              "node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"
             ],
             "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"
             ]
           },
           "configurations": {

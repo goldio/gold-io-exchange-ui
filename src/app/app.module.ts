@@ -12,7 +12,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatMenuModule, MatIconModule} from '@angular/material';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material';
-
+import { MalihuScrollbarModule } from 'ngx-malihu-scrollbar';
 
 import { HighchartsChartModule } from 'highcharts-angular';
 
@@ -78,6 +78,7 @@ import { ChangePasswordComponent } from './auth/components/change-password/chang
 		MatFormFieldModule,
     	MatInputModule,
 		[MatButtonModule, MatCheckboxModule],
+		MalihuScrollbarModule.forRoot(),
 		RouterModule.forRoot(
 			[
 				{ path: '', redirectTo: 'index', pathMatch: 'full' },

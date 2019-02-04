@@ -1,9 +1,9 @@
 <div class="exchanger-header">
     <a routerLink="/authorization" class="logo"></a>
-    <div class="left-top-button" (click)="menu = !menu"></div>
+    <div class="left-top-button" (click)="menuOpen()" ></div>
 
     <!-- dropdown menu -->
-    <ul class="reset left-top-menu" [ngClass]="{
+    <ul class="reset left-top-menu" id="popup" [ngClass]="{
     'left-top-menu-open': menu
 }">
         <div class="exchanger-header-profile exchanger-header-profile-nav">
@@ -21,10 +21,10 @@
         <li><a><i class="ico04"></i>Lending</a></li>
         <li><a><i class="ico05"></i>Trollbox</a></li>
         <span>Account</span>
-        <li routerLink="/profile"><a><i class="ico06"></i>Profile</a></li>
+        <li routerLink="/profile" (click)="menu = !menu"><a><i class="ico06"></i>Profile</a></li>
         <li><a><i class="ico07"></i>Orders</a></li>
         <li><a><i class="ico08"></i>Trade history</a></li>
-        <li><a><i class="ico09"></i>Balances</a></li>
+        <li routerLink="/balance" (click)="menu = !menu"><a><i class="ico09"></i>Balances</a></li>
         <li><a><i class="ico10"></i>Sign Up</a></li>
         <span>System</span>
         <li (click)="theme()"><a><i class="ico11"></i>Black&amp;White</a></li>

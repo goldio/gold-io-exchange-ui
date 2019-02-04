@@ -489,47 +489,10 @@ a:hover {
 /*---------------------- top menu ----------------------*/
 
 
-button.button-plus {
-  position: absolute;
-  top: 8px;
-  right: 51px;
-  width: 27px;
-  height: 27px;
-  border: 1px solid #ffffff33;
-  border-radius: 4px;
-  background: transparent;
-  // background-size: 7px auto;
-}
-
-button.button-plus:before {
-  content: '+';
-  position: absolute;
-  // color: white;
-  top: calc(50% - 5px);
-  left: 9px;
-  line-height: 8px;
-}
-
-button.button-minus:before {
-  content: '-';
-  position: absolute;
-  // color: white;
-  left: 10px;
-  top: calc(50% - 5px);
-  line-height: 8px;
-}
 
 
 
-button.button-plus:hover,
-button.button-minus:hover {
-  border: 1px solid #DACD7D;
-}
 
-button.button-plus:active,
-button.button-minus:active {
-  border: 1px solid #5E5A44;
-}
 
 @media screen and (max-width: 600px) {
   .left-content {
@@ -569,9 +532,10 @@ button.button-minus:active {
 }
 
 
-button.button-minus {
+.button-minus {
   position: absolute;
   top: 8px;
+  cursor: pointer;
   right: 6px;
   width: 27px;
   height: 27px;
@@ -580,6 +544,33 @@ button.button-minus {
   background-size: 7px auto;
   background: transparent;
   box-sizing: border-box;
+  display: flex;
+  span{
+    display: flex;
+    margin: auto;
+    height: fit-content;
+    line-height: 3px;
+  }
+}
+.button-plus {
+  position: absolute;
+  top: 8px;
+  cursor: pointer;
+  right: 59px;
+  width: 27px;
+  height: 27px;
+  border: 1px solid #ffffff33;
+  border-radius: 4px;
+  background-size: 7px auto;
+  background: transparent;
+  box-sizing: border-box;
+  display: flex;
+  span{
+    display: flex;
+    margin: auto;
+    height: fit-content;
+    line-height: 9px;
+  }
 }
 
 
@@ -842,11 +833,17 @@ button.button-sell.button-sell-live {
 }
 
 .left-content-sell-input em .radio:checked+label:after {
-  opacity: 1;
+  opacity: 0;
 }
 
 .left-content-sell-input em .radio:checked+label:before {
   // border: 1px solid #D1C881;
+  border: none;
+    background: url(../../../../assets/images/check-round.svg) no-repeat center/16px;
+    top: 1.5px;
+    left: 0px;
+    width: 16px;
+    height: 16px;
 }
 
 // .left-content-sell-input em .radio:not(checked)+.radio1:after {
@@ -2198,17 +2195,21 @@ ul.content-orders-tabs li.current {
 }
 
 .percent {
-  padding: 11px 0 10px 0;
+  display: flex;
+  width: 50px;
+  height: 36px;
   color: #fff;
   text-align: center;
   // border: 1px solid #ffffff33;
   border-radius: 4px;
   background: transparent;
   background-size: 7px auto;
-  max-width: 50px;
-  width: 100%;
   box-sizing: border-box;
   cursor: pointer;
+  span{
+    display: flex;
+    margin: auto;
+  }
 }
 
 
@@ -2470,3 +2471,5 @@ Pagination Styles
   width: 51px;
   line-height: 39px;
 }
+
+

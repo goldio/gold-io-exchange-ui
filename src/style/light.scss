@@ -1197,29 +1197,23 @@
           }
         
         
-          button.button-plus, 
-          button.button-minus {
+          .button-plus, 
+          .button-minus {
               background: #FDFDFD;
               border: 1px solid #F6F6F6;
           }
         
-          button.button-plus:before {
-            color: #CABC5F;
-          }
-        
-          button.button-minus:before {
-            color: #CABC5F;
-          }
+   
         
         
         
-          button.button-plus:hover,
-          button.button-minus:hover {
+          .button-plus:hover,
+          .button-minus:hover {
             border: 1px solid #CABC5F;
           }
         
-          button.button-plus:active,
-          button.button-minus:active {
+          .button-plus:active,
+          .button-minus:active {
             border: 1px solid #DFDFDF;
           }
         
