@@ -9,3 +9,25 @@
         width: 100%;
     }
 }
+
+.notif {
+    .main-btn-hov{
+        overflow: hidden;
+        padding-top: 15px !important;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: 900;
+        transition: none;
+        overflow: hidden;
+    }
+    .main-btn-hov::after {
+        content: 'SAVE';
+        height: 48px;
+        display: block;
+        transition: .3s;
+        top: -32px;
+        padding-top: 14.5px;
+        box-sizing: border-box;
+        border-radius: 4px;
+    }
+}

@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/common/services/auth.service';
 import { Router } from '@angular/router';
 import { BaseComponent } from 'src/app/common/components/base.component';
+import { SignUpRequest } from 'src/app/common/models/request';
 
 @Component({
 	selector: 'app-registration',
@@ -11,13 +12,17 @@ import { BaseComponent } from 'src/app/common/components/base.component';
 })
 export class RegistrationComponent extends BaseComponent implements OnInit {
 
+	public checkErr = false;
+
 	public signUpForm: FormGroup;
 	public emailErrorText: string;
 	private initSignUpForm(): void {
 		this.signUpForm = new FormGroup({
 			fullName: new FormControl(null),
 			password: new FormControl(null, [Validators.required]),
-			email: new FormControl(null, [Validators.required, Validators.email])
+			email: new FormControl(null, [Validators.required, Validators.email]),
+			agreeBox: new FormControl(null, [Validators.required])
+			
 		});
 	}
 
@@ -44,14 +49,23 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 	public submitRegistration(form: FormGroup): void {
 		if (form.invalid) {
 			this.markContolsAsTouched();
-
-			// alert('form invalid');
-
+			if (form.controls['agreeBox'].invalid) {
+				this.checkErr = true;
+				setTimeout(() => {
+					this.checkErr = false;
+				}, 3000);
+	
+				return;
+			}
 			return;
 		}
-
+		let req :SignUpRequest = {
+			fullName: form.controls['fullName'].value,
+			email: form.controls['email'].value,
+			password: form.controls['password'].value,
+		};
 		this.authService
-			.registration(form.value)
+			.registration(req)
 			.subscribe(res => {
 				if (!res.success) {
 					// alert(res.message);
@@ -76,5 +90,6 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 		this.signUpForm.controls['fullName'].markAsTouched();
 		this.signUpForm.controls['password'].markAsTouched();
 		this.signUpForm.controls['email'].markAsTouched();
+		this.signUpForm.controls['agreeBox'].markAsTouched();
 	  }
 }

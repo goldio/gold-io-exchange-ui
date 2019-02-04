@@ -8,15 +8,19 @@ import { CountriesService } from '../../services/countries.service';
 import { UpdatePersonRequest } from 'src/app/common/models/request';
 import { Theme } from 'src/app/common/enums';
 import { ThemeService } from 'src/app/common/services/theme.service';
-
+import * as moment from 'moment';
+import { MatDatepickerInputEvent } from '@angular/material';
+import { last } from '@angular/router/src/utils/collection';
 @Component({
 	selector: 'app-profile',
 	templateUrl: './profile.component.html',
 	styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
+	
 	public isLoggedIn: boolean;
+
+	public maxDate: any = moment().subtract(18, 'years').toDate();
 
 	private countries: Country[];
 	private cities: City[];
@@ -35,6 +39,10 @@ export class ProfileComponent implements OnInit {
 
 	public updateRes:boolean = false;
 	public updateResText : string;
+
+	public dateB:Date;
+	public dateBError = false;
+	
 
 	private loadPerson(): void {
 		if (!this.isLoggedIn) {
@@ -101,12 +109,12 @@ export class ProfileComponent implements OnInit {
 		this.profileForm = new FormGroup({
 			fullName: new FormControl(null, [Validators.required]),
 			email: new FormControl(null, [Validators.required, Validators.email]),
-			phoneNumber: new FormControl(null),
-			country: new FormControl(null),
-			countryID: new FormControl(null),
-			city: new FormControl(null),
-			cityID: new FormControl(null),
-			address: new FormControl(null)
+			phoneNumber: new FormControl(null, [Validators.required]),
+			country: new FormControl(null, [Validators.required]),
+			countryID: new FormControl(null, [Validators.required]),
+			city: new FormControl(null, [Validators.required]),
+			cityID: new FormControl(null, [Validators.required]),
+			address: new FormControl(null, [Validators.required])
 		});
 
 		this.profileForm
@@ -152,8 +160,10 @@ export class ProfileComponent implements OnInit {
 				countryID: this.person.city.country ? this.person.city.country.id : null,
 				city: this.person.city ? this.person.city.name : null,
 				cityID: this.person.city ? this.person.city.id : null,
+				
 				address: this.person.address
 			}, { emitEvent: false });
+			
 	}
 
 	constructor(
@@ -188,6 +198,8 @@ export class ProfileComponent implements OnInit {
 		this.loadCountries();
 		this.loadCities();
 		this.loadPerson();
+
+		
 	}
 
 	public setCountry(country: Country): void {
@@ -214,16 +226,27 @@ export class ProfileComponent implements OnInit {
 
 		this.showCitiesDropdown = false;
 	}
+	
 
+	public addEvent(event: MatDatepickerInputEvent<Date>) {
+	  this.dateB = new Date(event.value);
+	}
 	public submitProfile(form: FormGroup): void {
+		if(!this.dateB){
+			this.dateBError = true;
+			setTimeout(() => {
+				this.dateBError = false;
+			}, 3000);
+		}
 		if (form.invalid) {
-			alert('form invalid');
+			this.markContolsAsTouched() ;
 			return;
 		}
 
+		
 		const req = new UpdatePersonRequest();
 		req.fullName = form.value['fullName'];
-		// req.birthDate = form.value['birthDate'];
+		req.birthDate = this.dateB;
 		req.email = form.value['email'];
 		req.phoneNumber = form.value['phoneNumber'];
 		req.cityID = form.value['cityID'];
@@ -250,4 +273,14 @@ export class ProfileComponent implements OnInit {
 				}, 3000);
 			});
 	}
+
+
+	public markContolsAsTouched() {
+		this.profileForm.controls['fullName'].markAsTouched();
+		this.profileForm.controls['email'].markAsTouched();
+		this.profileForm.controls['phoneNumber'].markAsTouched();
+		this.profileForm.controls['country'].markAsTouched();
+		this.profileForm.controls['city'].markAsTouched();
+		this.profileForm.controls['address'].markAsTouched();
+	  }
 }

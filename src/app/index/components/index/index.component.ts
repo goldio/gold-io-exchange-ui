@@ -361,14 +361,12 @@ export class IndexComponent implements OnInit {
 			this.quoteAsset += 0.001;
 			if (this.quoteAsset > this.wallets.find(x => x.coin.shortName == this.currentSymbol.quoteAsset).balance) {
 				this.quoteAsset -= 0.001;
-				this.quoteAsset = this.quoteAsset.toFixed(8);
 				
 			}
 		} else {
 			this.quoteAsset -= 0.001;
 			if (this.quoteAsset < 0.00000001) {
 				this.quoteAsset = 0;
-				this.quoteAsset = this.quoteAsset.toFixed(8);
 				
 			}
 		}
@@ -376,6 +374,7 @@ export class IndexComponent implements OnInit {
 		this.baseAsset = (this.quoteAsset*this.orderPrice).toFixed(8);
 		this.orderTotal = (this.baseAsset * this.orderPrice).toFixed(8);
 		this.quoteAsset = this.quoteAsset.toFixed(8);
+		this.baseAsset = this.baseAsset.toFixed(8);
 	}
 
 	private calcBaseAsset(decr?: boolean): void {
@@ -384,21 +383,22 @@ export class IndexComponent implements OnInit {
 			this.baseAsset += 0.001;
 			if (this.baseAsset > this.wallets.find(x => x.coin.shortName == this.currentSymbol.baseAsset).balance) {
 				this.baseAsset -= 0.001;
-				this.baseAsset = this.baseAsset.toFixed(8);
-				
 			}
 		} else {
 			this.baseAsset -= 0.001;
 			if (this.baseAsset < 0.00000001) {
 				this.baseAsset = 0;
-				this.baseAsset = this.baseAsset.toFixed(8);
+				
 				
 			}
 		}
 		this.quoteAsset = Number(this.quoteAsset);
-		this.quoteAsset= (this.baseAsset/this.orderPrice).toFixed(8);
+		if(this.orderPrice != 0){
+			this.quoteAsset= (this.baseAsset/this.orderPrice).toFixed(8);
+		}
 		this.orderTotal = (this.baseAsset * this.orderPrice).toFixed(8);
 		this.baseAsset = this.baseAsset.toFixed(8);
+		this.quoteAsset = this.quoteAsset.toFixed(8);
 	}
 	private calcWithNewPrice(){
 		this.orderPrice = this.tradeForm.controls['price'].value;

@@ -23,19 +23,28 @@
 
         <form [formGroup]="profileForm" (ngSubmit)="submitProfile(profileForm)">
             <div class="profile-item fl-row">
-                <div class="fl-col">
+                <div class="fl-col error" [ngClass]="{
+                    'error-open' : profileForm.controls.fullName.hasError('required')&& profileForm.controls.fullName.touched
+                }">
                     <span>Full name</span>
-                    <input class="w-171 mr-28" type="text" placeholder="Jackie Chan" formControlName="fullName">
+                    <input class="w-171 mr-28" type="text" placeholder="Jackie Chan" formControlName="fullName" required>
+                    <div class="error-text"[ngClass]="{
+                        'error-text-open' : profileForm.controls.fullName.hasError('required') && profileForm.controls.fullName.touched
+                    }">Сan't be empty!</div>
                 </div>
 
-                <div class="fl-col calendar">
+                <div class="fl-col calendar error" [ngClass]="{
+                    'error-open' : dateBError
+                }">
                     <span>Birth date</span>
                     <mat-form-field class="fl-col calendar">
-                        <input matInput [matDatepicker]="dp" >
+                        <input matInput [matDatepicker]="dp" [max]="maxDate"  (dateChange)="addEvent($event)" required disabled>
                         <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                        <mat-datepicker #dp ></mat-datepicker>
+                        <mat-datepicker #dp disabled="false"></mat-datepicker>
                         </mat-form-field>
-    
+                        <div class="error-text"[ngClass]="{
+                            'error-text-open' : dateBError
+                        }">Сan't be empty!</div>
                     <!-- <jqxDateTimeInput [width]="171" [height]="36" (onValueChanged)="setUserBirthDate($event.args.date)">
                     </jqxDateTimeInput> -->
                     <!-- <input class="w-171" type="text" placeholder="30.03.1993"> -->
@@ -52,21 +61,37 @@
             </div>
 
             <div class="profile-item fl-row">
-                <div class="fl-col">
+                <div class="fl-col error" [ngClass]="{
+                    'error-open' : profileForm.controls.email.hasError('required')&& profileForm.controls.email.touched
+                }">
                     <span>Email</span>
-                    <input class="w-271 mr-28" type="email" placeholder="administrator@softsolutions.com" formControlName="email">
+                    <input class="w-271 mr-28" type="email" placeholder="administrator@softsolutions.com" formControlName="email" required>
                 </div>
 
-                <div class="fl-col">
+                <div class="fl-col error" [ngClass]="{
+                    'error-open' : profileForm.controls.email.hasError('required')&& profileForm.controls.email.touched
+                }" >
+
                     <span>Phone number</span>
-                    <input class="w-271" type="number" placeholder="+1 492 82 39 667" formControlName="phoneNumber">
+                    <input class="w-271" type="number" placeholder="+1 492 82 39 667" formControlName="phoneNumber" required>
+                    <div class="error-text"[ngClass]="{
+                        'error-text-open' : profileForm.controls.phoneNumber.hasError('required') && profileForm.controls.phoneNumber.touched
+                    }">Сan't be empty!</div>
+                    <div class="error-text"[ngClass]="{
+                        'error-text-open' : profileForm.controls.phoneNumber.hasError('email') && profileForm.controls.phoneNumber.touched
+                    }">Сan't be empty!</div>
                 </div>
             </div>
 
             <div class="profile-item fl-row">
-                <div class="fl-col">
+                <div class="fl-col error" [ngClass]="{
+                    'error-open' : profileForm.controls.country.hasError('required')&& profileForm.controls.country.touched
+                }">
                     <span>Country</span>
-                    <input class="w-171 mr-28" type="text" placeholder="United States" formControlName="country">
+                    <input class="w-171 mr-28" type="text" placeholder="United States" formControlName="country" required>
+                    <div class="error-text"[ngClass]="{
+                        'error-text-open' : profileForm.controls.country.hasError('required') && profileForm.controls.country.touched
+                    }">Сan't be empty!</div>
 
                     <div class="list-dropdown" style="margin-right: 28px; background-color: #fff; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; position: relative; top: -2px;" *ngIf="showCountriesDropdown">
                         <div class="list-dropdown-item" style="font-size: 13px; text-align: center; cursor: pointer;"
@@ -75,10 +100,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="fl-col">
+                <div class="fl-col error" [ngClass]="{
+                    'error-open' : profileForm.controls.city.hasError('required')&& profileForm.controls.city.touched
+                }">
                     <span>City</span>
-                    <input class="w-171 mr-28" type="text" placeholder="New york" formControlName="city">
-
+                    <input class="w-171 mr-28" type="text" placeholder="New york" formControlName="city" required>
+                    <div class="error-text"[ngClass]="{
+                        'error-text-open' : profileForm.controls.city.hasError('required') && profileForm.controls.city.touched
+                    }">Сan't be empty!</div>
                     <div class="list-dropdown" style="margin-right: 28px; background-color: #fff; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; position: relative; top: -2px;" *ngIf="showCitiesDropdown">
                         <div class="list-dropdown-item" style="font-size: 13px; text-align: center; cursor: pointer;"
                             *ngFor="let city of viewCities" (click)="setCity(city);">
@@ -87,13 +116,18 @@
                     </div>
                 </div>
 
-                <div class="fl-col">
+                <div class="fl-col error" [ngClass]="{
+                    'error-open' : profileForm.controls.address.hasError('required')&& profileForm.controls.address.touched
+                }">
                     <span>Address</span>
-                    <input class="w-171" type="text" placeholder="12 Wall Street 227" formControlName="address">
+                    <input class="w-171" type="text" placeholder="12 Wall Street 227" formControlName="address" required>
+                    <div class="error-text"[ngClass]="{
+                        'error-text-open' : profileForm.controls.address.hasError('required') && profileForm.controls.address.touched
+                    }">Сan't be empty!</div>
                 </div>
             </div>
             <div class="btnTexts">
-                <button class="main-btn save-btn" type="submit">SAVE</button>
+                <button class="main-btn save-btn main-btn-hov" type="submit">SAVE</button>
                 <div class="some-answer" [ngClass]="{
                     'some-answer-open': updateRes
                 }"><img src="../../../../assets/images/ready.svg" alt="" *ngIf=" updateResText != 'Data successfully changed.'">{{ updateResText }}</div>

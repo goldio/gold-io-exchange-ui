@@ -51,14 +51,14 @@ export class HeaderComponent implements OnInit {
 
 		this.loadUser();
 		$(document).mouseup(function (e){ // событие клика по веб-документу
-			var div = $("#popup"); // тут указываем ID элемента
+			var div = $("#header"); // тут указываем ID элемента
 			if (!div.is(e.target) // если клик был не по нашему блоку
-				&& div.has(e.target).length === 0) { // и не по его дочерним элементам
-				// div.hide(); // скрываем его
+				&& div.has(e.target).length === 0) { 
 				if(document.getElementById('popup').classList.contains('left-top-menu-open')){
 					document.getElementById('popup').classList.remove('left-top-menu-open');
-					// this.menu = false;
+					
 				}
+				
 			}
 		});
 		
@@ -75,12 +75,14 @@ export class HeaderComponent implements OnInit {
 	public menuOpen(){
 		if(document.getElementById('popup').classList.contains('left-top-menu-open')){
 			document.getElementById('popup').classList.remove('left-top-menu-open');
-			this.menu = false;
+			return;
 		}
 		if(!document.getElementById('popup').classList.contains('left-top-menu-open')){
 			document.getElementById('popup').classList.add('left-top-menu-open');
-			this.menu = true;
 		}
+	}
+	public changeMenu(){
+		this.menu = false;
 	}
 		
 }

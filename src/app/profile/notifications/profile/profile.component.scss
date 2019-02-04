@@ -33,6 +33,7 @@ input{
     width: 142px;
     margin: 0;
     margin-top: 29px;
+    height: 48px;
 }
 .transparent-btn{
     width: 219px;
@@ -119,34 +120,77 @@ input::-webkit-inner-spin-button {
 
  
 
-    .mat-form-field-underline{
-        display: none!important;
-    }
-    
+.mat-form-field-underline{
+    display: none!important;
+}
 
-    .btnTexts{
-        position: relative;
-        .some-answer{
-            position: absolute;
-            width: fit-content;
-            top: 40px;
-            left: 200px;
-            color: #D1C174;
-            transition: 1.5s;
-            opacity: 0;
-            img{
-                margin-right: 11px;
-            }
-        }
-        .some-answer-open{
-            opacity: 1;
-        }
-        // .some-answer:before{
-        //     content: "";
-        //     background: url(../../../../assets/images/ready.svg)no-repeat center;
-        //     width: 15px;
-        //     height: 15px;
-        // }
 
+.btnTexts{
+    position: relative;
+    .some-answer{
+        position: absolute;
+        width: fit-content;
+        top: 40px;
+        left: 200px;
+        color: #D1C174;
+        transition: 1.5s;
+        opacity: 0;
+        img{
+            margin-right: 11px;
+        }
     }
+    .some-answer-open{
+        opacity: 1;
+    }
+    // .some-answer:before{
+    //     content: "";
+    //     background: url(../../../../assets/images/ready.svg)no-repeat center;
+    //     width: 15px;
+    //     height: 15px;
+    // }
+
+}
+
+.prof {
+    .main-btn-hov{
+        overflow: hidden;
+        padding-top: 15px !important;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: 900;
+        transition: none;
+        overflow: hidden;
+    }
+    .main-btn-hov::after {
+        content: 'SAVE';
+        height: 48px;
+        display: block;
+        transition: .3s;
+        top: -32px;
+        padding-top: 14.5px;
+        box-sizing: border-box;
+        border-radius: 4px;
+    }
+    .error .error-text{
+        top: 35px;
+    }
+    .error::before{
+        display: none;
+    }
+    .error {
+        .error-text {
+          right: 0px;
+          top: -25px;
+          max-width: 233px;
+          min-height: 47px;
+        }
     
+        .error-text:after {
+          border: 9px solid transparent;
+          border-top: 10px solid #0E111A;
+          left: calc(50% - 10px);
+          top: 46px;
+          bottom: -1px;
+        }
+      }
+}

@@ -4445,7 +4445,7 @@ ul.left-top-menu {
     top: 6px;
     max-width: 233px;
     min-height: 47px;
-    background: #0E111A;
+    background: rgba(14, 17, 26, 0.9);
     color: #D1C881;
     box-sizing: border-box;
     font-size: 14px;
@@ -4461,7 +4461,7 @@ ul.left-top-menu {
     content: "";
     position: absolute;
     border: 9px solid transparent;
-    border-right: 10px solid #0E111A;
+    border-right: 10px solid rgba(14, 17, 26, 0.9);
     left: -18px;
     top: calc(50% - 10px);
 
@@ -4532,6 +4532,7 @@ ul.left-top-menu {
       display: none;
     }
   }
+  
   .mat-datepicker-content .mat-calendar{
     height:  max-content;
   }
@@ -4611,6 +4612,9 @@ ul.left-top-menu {
     border: 1px solid #C2A458;
     color: #C2A458;
   }
+  .mat-calendar-body-disabled>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected){
+    color: #525250!important;
+  }
 }
 
 .light-calend {
@@ -4663,5 +4667,8 @@ ul.left-top-menu {
   .mat-calendar-body-selected:hover{
     background: #F2E288;
     border: 1px solid transparent;
+  }
+  .mat-calendar-body-disabled>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected){
+    color: #BCB8AE!important;
   }
 }

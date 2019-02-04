@@ -43,13 +43,18 @@
                             }">Wrong Email</div>
                         </div>
         
-                        <div class="sign-container-checkbox">
-                            <input type="checkbox" id="todo_1" />
+                        <div class="sign-container-checkbox error" [ngClass]="{
+                            'error-open' :  checkErr
+                        }">
+                            <input type="checkbox" id="todo_1" formControlName="agreeBox" required>
                             <label for="todo_1">
                                 <span class="sup-lable"></span>I agree to the <a href="">Terms and conditions</a>
                             </label>
+                            <div class="error-text" [ngClass]="{
+                                'error-text-open' :  checkErr
+                            }">Confirm consent!</div>
                         </div>
-        
+                        
                         <button type="submit" class="main-btn main-btn-hov">CREATE ACCOUNT</button>
                     </form>
         

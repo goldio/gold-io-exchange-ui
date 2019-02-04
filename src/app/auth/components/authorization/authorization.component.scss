@@ -141,6 +141,7 @@ input[type=checkbox]:checked + label span::after {
     font-size: 16px;
     font-weight: 900;
     transition: none;
+    overflow: hidden;
 }
 
 
@@ -203,8 +204,11 @@ input[type=checkbox] + label span
 }
 .link{
     text-align: center;
+    
     a{
         display: block;
+        width: max-content;
+    margin: auto;
         margin-top: 28px;
         text-decoration: underline;
         color: #D1C881;
@@ -232,7 +236,7 @@ input[type=checkbox] + label span
     border-radius: 4px;
     text-align: center;
     left: 0;
-    bottom: 15px;
+    bottom: -15px;
     transition: 1.5s;
     opacity: 0;
     display: block;
@@ -243,6 +247,7 @@ input[type=checkbox] + label span
 }
 .showPassMessage-open{
     opacity: 1;
+    bottom: 15px;
 }
 
 

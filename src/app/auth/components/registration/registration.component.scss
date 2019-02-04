@@ -18,9 +18,7 @@ a {
     text-decoration: underline;
 }
 
-a:hover {
-    text-decoration: underline;
-}
+
 
 
 
@@ -158,6 +156,7 @@ input[type=checkbox]:checked + label span::after {
     font-size: 16px;
     font-weight: 900;
     transition: none;
+    overflow: hidden;
 }
 
 
