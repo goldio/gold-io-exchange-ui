@@ -41,7 +41,8 @@ declare var Swiper: any;
 export class IndexComponent implements OnInit {
 
 	public isLoggedIn: boolean;
-
+	
+	public scrollbarOptions = { axis: 'yx', theme: 'minimal' };
 
 	public tradeForm: FormGroup;
 	public startNumb = "0.0000000"
@@ -488,7 +489,7 @@ export class IndexComponent implements OnInit {
 		
 	}
 
-	public scrollbarOptions = { axis: 'yx', theme: 'minimal' };
+	
 
 	constructor(
 		private authService: AuthService,

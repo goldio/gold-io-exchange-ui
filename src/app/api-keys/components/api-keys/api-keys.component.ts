@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-api-keys',
@@ -6,10 +7,36 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./api-keys.component.scss']
 })
 export class ApiKeysComponent implements OnInit {
+
   public settings:boolean = false;
+
+  public copyText= "JKSlfdsi352dvd5fm3ZXi";
+  public apiForm: FormGroup;
   constructor() { }
 
   ngOnInit() {
+    this.initProfileForm();
+    this.apiForm.controls['api'].setValue(this.copyText);
+    this.apiForm.controls['secretCode'].setValue(this.copyText);
   }
 
+	private initProfileForm(): void {
+		this.apiForm = new FormGroup({
+			api: new FormControl(),
+			secretCode: new FormControl(),
+			viewAccInfo: new FormControl(),
+			redOrder: new FormControl(),
+			withdrawFunds: new FormControl()
+		});
+	}
+
+  public copyToClipboard(str = this.copyText) {
+    const el = document.createElement('textarea');
+    el.value = str;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+
+  };
 }

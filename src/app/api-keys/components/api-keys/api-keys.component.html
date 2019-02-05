@@ -1,4 +1,4 @@
-<div class="history-narrow api">
+<form class="history-narrow api" [formGroup]="apiForm" (ngSubmit)="submitApi(apiForm)">
     <div class="api-keys-title">
         <h2><b>API Keys</b></h2>
     </div>
@@ -9,28 +9,28 @@
             
     </div>
     <div class="api-keys-item">
-            <div class="column column1 table-text">JKSlfdsi352dvd5fm3ZXi</div>
-            <div class="column column2 table-text">JKSlfdsi352dvd5fm3ZXi<button class="copy-btn ml-27"></button></div>
+            <div class="column column1 table-text" ><input type="text" class="invisibleInp" formControlName="api" disabled></div>
+            <div class="column column2 table-text"><input type="text" class="invisibleInp" formControlName="secretCode" disabled><button type="button" class="copy-btn ml-27" (click)="copyToClipboard()"></button></div>
             <div class="column column3">
-                <button class="change-btn" (click)="settings = !settings"></button>
-                <button class="delete-btn ml-19"></button>
+                <button type="button"  class="change-btn" (click)="settings = !settings"></button>
+                <button type="button" class="delete-btn ml-19"></button>
                 <div class="settings" [ngClass]="{
                     'open': settings
                 }">
                         <div class="sign-container-checkbox">
-                            <input type="checkbox" id="1" />
+                            <input type="checkbox" id="1" formControlName="viewAccInfo" />
                             <label for="1">
                                 <span></span>View account info
                             </label>
                         </div>
                         <div class="sign-container-checkbox">
-                                <input type="checkbox" id="2" />
+                                <input type="checkbox" id="2" formControlName="redOrder" />
                                 <label for="2">
                                     <span></span>Create & edit orders
                                 </label>
                         </div>
                         <div class="sign-container-checkbox">
-                                <input type="checkbox" id="3" />
+                                <input type="checkbox" id="3" formControlName="withdrawFunds" />
                                 <label for="3">
                                     <span></span>Withdraw funds
                                 </label>
@@ -39,10 +39,10 @@
             </div>
     </div>
     <div class="row">
-        <button class="main-btn main-btn-hov">SAVE</button>
-        <button class="transparent-btn ">GENERATE NET KEY</button>
+        <button  class="main-btn main-btn-hov" type="submit">SAVE</button>
+        <button type="button" class="transparent-btn">GENERATE NET KEY</button>
     </div>
-</div>
+</form>
 
 
 

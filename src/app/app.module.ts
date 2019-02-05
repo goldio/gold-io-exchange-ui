@@ -41,6 +41,9 @@ import { SucessfullComponent } from './auth/components/sucessfull/sucessfull.com
 import { RecoveryComponent } from './auth/components/recovery/recovery.component';
 import { ActivationComponent } from './auth/components/activation/activation.component';
 import { ChangePasswordComponent } from './auth/components/change-password/change-password.component';
+import { NotificationsService } from './notifications/services/notifications.service';
+import { ApiService } from './api-keys/services/apiKey.service';
+import { SecurityService } from './security/services/security.service';
 
 @NgModule({
 	declarations: [
@@ -138,6 +141,9 @@ import { ChangePasswordComponent } from './auth/components/change-password/chang
 		WebsocketService,
 		BinanceService,
 		TradeService,
+		NotificationsService,
+		ApiService,
+		SecurityService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy }
 	],
 	bootstrap: [AppComponent]
