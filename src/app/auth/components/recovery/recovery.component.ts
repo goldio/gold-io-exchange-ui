@@ -13,6 +13,7 @@ export class RecoveryComponent implements OnInit {
 
 	public recoveryPassForm: FormGroup;
 	public key:string;
+	public passwordErrorText:string;
 
 	private initRecoveryPassForm(): void {
 		this.recoveryPassForm = new FormGroup({
@@ -38,6 +39,8 @@ export class RecoveryComponent implements OnInit {
 			});
 		this.checkKey();
 		this.initRecoveryPassForm();
+
+		
 	}
 
 	public submitRecoveryPassForm(form: FormGroup): void {
@@ -86,4 +89,38 @@ export class RecoveryComponent implements OnInit {
 			});
 	}
 	
+	public checkPassword(){
+		this.recoveryPassForm.controls['password']
+			.valueChanges
+			.debounceTime(1000)
+			.subscribe(value => {
+	  
+				if (value.search(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/)){
+					this.passwordErrorText = "Your password is easy!" ;
+					this.recoveryPassForm.controls['password'].setErrors({
+						easy: true
+					});
+					setTimeout(() => {
+						this.recoveryPassForm.controls['password'].setErrors({
+							easy: false
+						});
+					}, 5000);
+				  }
+		  
+				if (value.length < 8){
+				this.passwordErrorText = "Your password is too short!" ;
+				this.recoveryPassForm.controls['password'].setErrors({
+					easy: true
+				});
+				setTimeout(() => {
+					this.recoveryPassForm.controls['password'].setErrors({
+						easy: false
+					});
+				}, 5000);
+				}
+				if (value.search(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/) || (value.length < 8)){
+					return;
+				}
+			});
+	}
 }

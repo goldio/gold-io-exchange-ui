@@ -364,8 +364,6 @@ export class IndexComponent implements OnInit {
 			});
 	}
 
-	
-
 	private changeBuySell(act: string) {
 		if (act == "buy") {
 			this.buyCellBtn = "PLACE BUY ORDER"
@@ -470,13 +468,11 @@ export class IndexComponent implements OnInit {
 		});
 
 		this.loadSymbols();
-		this.getBalance();
+		
 		this.initSearchForm();
-		this.baseAsset = this.baseAsset.toFixed(8);
-		this.quoteAsset = this.quoteAsset.toFixed(8);
-		this.orderPrice = this.orderPrice.toFixed(8);
-		this.orderAmount = this.orderAmount.toFixed(8);
-		this.orderTotal = this.orderTotal.toFixed(8);
+		this.convertToFloat();
+		this.getBalance();
+		
 		this.searchForm
 		.controls['search']
 		.valueChanges
@@ -492,9 +488,10 @@ export class IndexComponent implements OnInit {
 					x.symbol.toLowerCase().includes(`${value}`.toLowerCase()) ||
 					x.symbol.toLowerCase().includes(`${value}`.toLowerCase()));
 		});
+		
 	}
 
-
+		
 
 	private async getCandlestickData() {
 		const symbol = this.currentSymbol.symbol;
@@ -776,9 +773,6 @@ export class IndexComponent implements OnInit {
 
 
 
-
-
-
 	private loadPrice(base:string, quote:string,){
 		if(this.currentSymbol.gio){
 			this.tradeService
@@ -807,7 +801,7 @@ export class IndexComponent implements OnInit {
 					return;
 				}
 				this.MyWallets = res.data;
-				this.calcMaxMyBalance();
+				this.calcMaxMyBalance(this.MyWallets);
 			});
 	}
 
@@ -827,9 +821,21 @@ export class IndexComponent implements OnInit {
 		this.orderAmount =  this.orderAmount.toFixed(8);
 	}
 
-	public calcMaxMyBalance(){
-		this.maxBaseAsset = this.MyWallets.find(x => x.coin.shortName == this.currentSymbol.baseAsset).balance;
-		this.maxQuoteAsset = this.MyWallets.find(x => x.coin.shortName == this.currentSymbol.quoteAsset).balance;
+	public calcMaxMyBalance(myWallets :Wallet[]){
+		console.log(myWallets);
+		if(myWallets){
+			if(myWallets.find(x => x.coin.shortName == this.currentSymbol.baseAsset)){
+				this.maxBaseAsset = myWallets.find(x => x.coin.shortName == this.currentSymbol.baseAsset).balance;
+			}
+			if(myWallets.find(x => x.coin.shortName == this.currentSymbol.quoteAsset)){
+			   this.maxQuoteAsset = myWallets.find(x => x.coin.shortName == this.currentSymbol.quoteAsset).balance;
+		   }
+		}
+		this.maxBaseAsset = 5;
+		this.maxQuoteAsset = 5;
+			// this.MyWallets.find(x => x.coin.shortName == this.currentSymbol.baseAsset).balance = 5;
+			// this.MyWallets.find(x => x.coin.shortName == this.currentSymbol.quoteAsset).balance = 5;
+			
 	}
 
 	public calcAccets(){
@@ -840,6 +846,9 @@ export class IndexComponent implements OnInit {
 			this.orderAmount = this.quoteAsset;
 		}
 		this.orderTotal = this.baseAsset;
+		if(this.orderPrice == 0){
+			this.orderTotal = 0;
+		}
 		this.convertToFloat();
 	}
 
@@ -924,4 +933,7 @@ export class IndexComponent implements OnInit {
 
 	}
 
+	public maxValues(){
+		
+	}
 }

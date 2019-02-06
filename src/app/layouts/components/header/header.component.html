@@ -20,15 +20,15 @@
         <li><a><i class="ico05"></i>Trollbox</a></li>
         <span>Account</span>
         <li routerLink="/profile" (click)="menuOpen()"><a><i class="ico06"></i>Profile</a></li>
-        <li><a><i class="ico07"></i>Orders</a></li>
-        <li><a><i class="ico08"></i>Trade history</a></li>
+        <li ><a><i class="ico07"></i>Orders</a></li>
+        <li routerLink="/activity" (click)="menuOpen()"><a><i class="ico08"></i>Trade history</a></li>
         <li routerLink="/balance" (click)="menuOpen()"><a><i class="ico09"></i>Balances</a></li>
         <li><a><i class="ico10"></i>Sign Up</a></li>
         <span>System</span>
         <li (click)="theme()"><a><i class="ico11"></i>Black&amp;White</a></li>
         <li><a><i class="ico12"></i>Help</a></li>
-        <li><a><i class="ico13"></i>Notification</a></li>
-        <li><a><i class="ico14"></i>Settings</a></li>
+        <li routerLink="/notification" (click)="menuOpen()"><a><i class="ico13"></i>Notification</a></li>
+        <li routerLink="/security" (click)="menuOpen()"><a><i class="ico14"></i>Settings</a></li>
     </ul>
     <!-- dropdown menu end -->
 
