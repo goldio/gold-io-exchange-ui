@@ -20,6 +20,8 @@ export class ProfileComponent implements OnInit {
 	
 	public isLoggedIn: boolean;
 
+	public scrollbarOptions = { axis: 'yx', theme: 'minimal' };
+
 	public maxDate: any = moment().subtract(18, 'years').toDate();
 
 	private countries: Country[];

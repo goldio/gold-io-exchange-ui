@@ -1,26 +1,26 @@
-<div class="profile-narrow login-history notif">
+<form class="profile-narrow login-history notif" [formGroup]="notifForm" (ngSubmit)="submitNotif(notifForm)">
     <div class="profile-title notifications-title">
         <h2>Notifications</h2>
-        <div class="notifications-item">
-            <input type="checkbox" id="todo_1" checked>
+        <div class="notifications-item" >
+            <input type="checkbox" id="todo_1" formControlName="news" [checked]="">
             <label for="todo_1">
                 <span></span>Email me about news
             </label>
         </div>
         <div class="notifications-item">
-            <input type="checkbox" id="todo_2">
+            <input type="checkbox" id="todo_2" formControlName="loging" [checked]="">
             <label for="todo_2">
                 <span></span>Email me about my logins
             </label>
         </div>
         <div class="notifications-item">
-            <input type="checkbox" id="todo_3">
+            <input type="checkbox" id="todo_3" formControlName="coin" [checked]="">
             <label for="todo_3">
                 <span></span>Email me about coin removals
             </label>
         </div>
         <div class="notifications-item">
-            <input type="checkbox" id="todo_4">
+            <input type="checkbox" id="todo_4" formControlName="market" [checked]="">
             <label for="todo_4">
                 <span></span>Email me about market removals
             </label>
@@ -28,6 +28,6 @@
     </div>
 
     <div class="notifications-buttons">
-        <button class="main-btn main-btn-hov" >SAVE</button>
+        <button class="main-btn main-btn-hov" type="submit">SAVE</button>
     </div>
-</div>
+</form>

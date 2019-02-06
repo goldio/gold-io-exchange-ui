@@ -9,14 +9,18 @@
                             </div>
                         <form [formGroup]="recoveryPassForm" (ngSubmit)="submitRecoveryPassForm(recoveryPassForm)">
                             <div class="sign-container-input border-top error"[ngClass]="{
-                                'error-open' : (recoveryPassForm.controls.password.hasError('required')&& recoveryPassForm.controls.password.touched) || ( recoveryPassForm.controls.password.hasError('email') && recoveryPassForm.controls.password.touched)
+                                'error-open' : (recoveryPassForm.controls.password.hasError('required')&& recoveryPassForm.controls.password.touched) || ( recoveryPassForm.controls.password.hasError('easy') && recoveryPassForm.controls.password.touched)
                             }">
                                 <span>Password</span>
-                                <input class="sign-place" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" formControlName="password" required>
+                                <input class="sign-place" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" formControlName="password" (keyup)="checkPassword()" required>
                                 <div class="error-text" [ngClass]="{
                                     'error-text-open' : recoveryPassForm.controls.password.hasError('required') && recoveryPassForm.controls.password.touched
                                 }" 
                                 >Сan't be empty!</div>
+                                <div class="error-text" [ngClass]="{
+                                    'error-text-open' : recoveryPassForm.controls.password.hasError('easy') && recoveryPassForm.controls.password.touched 
+                                }">{{ passwordErrorText }}</div>
+
                             </div>
                             <div class="sign-container-input error " [ngClass]="{
                                 'error-open' : (recoveryPassForm.controls.confirmPassword.hasError('required')&& recoveryPassForm.controls.confirmPassword.touched) || (recoveryPassForm.controls.confirmPassword.hasError('doNotMatch') && recoveryPassForm.controls.confirmPassword.touched)

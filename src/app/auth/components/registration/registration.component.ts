@@ -15,7 +15,10 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 	public checkErr = false;
 
 	public signUpForm: FormGroup;
+
 	public emailErrorText: string;
+	public passwordErrorText: string;
+
 	private initSignUpForm(): void {
 		this.signUpForm = new FormGroup({
 			fullName: new FormControl(null),
@@ -44,6 +47,36 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 					return;	
 				}
 			});
+
+			this.signUpForm.controls['password']
+			.valueChanges
+			.debounceTime(1000)
+			.subscribe(value => {
+	  
+			  if (value.search(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/)){
+				this.passwordErrorText = "Your password is easy!" ;
+				this.signUpForm.controls['password'].setErrors({
+					easy: true
+				});
+				setTimeout(() => {
+					this.signUpForm.controls['password'].setErrors({
+						easy: false
+					});
+				}, 5000);
+			  }
+	  
+			  if (value.length < 8){
+				this.passwordErrorText = "Your password is too short!" ;
+				this.signUpForm.controls['password'].setErrors({
+					easy: true
+				});
+				setTimeout(() => {
+					this.signUpForm.controls['password'].setErrors({
+						easy: false
+					});
+				}, 5000);
+			  }
+			});
 	}
 
 	public submitRegistration(form: FormGroup): void {
@@ -59,6 +92,39 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 			}
 			return;
 		}
+
+		this.signUpForm.controls['password']
+			.valueChanges
+			.debounceTime(1000)
+			.subscribe(value => {
+	  
+				if (value.search(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/)){
+					this.passwordErrorText = "Your password is easy!" ;
+					this.signUpForm.controls['password'].setErrors({
+						easy: true
+					});
+					setTimeout(() => {
+						this.signUpForm.controls['password'].setErrors({
+							easy: false
+						});
+					}, 5000);
+				  }
+		  
+				if (value.length < 8){
+				this.passwordErrorText = "Your password is too short!" ;
+				this.signUpForm.controls['password'].setErrors({
+					easy: true
+				});
+				setTimeout(() => {
+					this.signUpForm.controls['password'].setErrors({
+						easy: false
+					});
+				}, 5000);
+				}
+				if (value.search(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/) || (value.length < 8)){
+					return;
+				}
+			});
 		let req :SignUpRequest = {
 			fullName: form.controls['fullName'].value,
 			email: form.controls['email'].value,
@@ -68,7 +134,6 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 			.registration(req)
 			.subscribe(res => {
 				if (!res.success) {
-					// alert(res.message);
 					this.emailErrorText = res.message ;
 					form.controls['email'].setErrors({
 						errorError: true
@@ -91,5 +156,7 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 		this.signUpForm.controls['password'].markAsTouched();
 		this.signUpForm.controls['email'].markAsTouched();
 		this.signUpForm.controls['agreeBox'].markAsTouched();
-	  }
+	}
+
+	
 }

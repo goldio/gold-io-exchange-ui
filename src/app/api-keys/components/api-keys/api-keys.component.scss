@@ -311,7 +311,14 @@ input[type=checkbox]:checked+label span::after {
       border-radius: 4px;
   }
 }
-
+.invisibleInp{
+  background: transparent;
+  border: none;
+  color: #686D7A;
+  font-size: 15px;
+  line-height: 22px;
+  letter-spacing: -0.016em;
+}
 
 
 

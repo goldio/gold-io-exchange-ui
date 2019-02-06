@@ -25,6 +25,9 @@
                             <div class="error-text" [ngClass]="{
                                 'error-text-open' : signUpForm.controls.password.hasError('required') && signUpForm.controls.password.touched
                             }">Сan't be empty!</div>
+                            <div class="error-text" [ngClass]="{
+                                'error-text-open' : signUpForm.controls.password.hasError('easy') && signUpForm.controls.password.touched
+                            }">{{ passwordErrorText }}</div>
                         </div>
         
                         <div class="sign-container-input error"[ngClass]="{

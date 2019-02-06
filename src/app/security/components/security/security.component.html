@@ -1,4 +1,4 @@
-<div class="profile-narrow secur">
+<div class="profile-narrow secur" [formGroup]="securityForm" (ngSubmit)="submitSecurity(securityForm)">
     <div class="profile-right security-right">
         <div class="profile-right-title">Security level</div>
         <div class="profile-right-content">
@@ -20,7 +20,7 @@
         <div class="profile-title">
             <h2>Security</h2>
             <div class="security-item">
-                    <input type="checkbox" id="1">
+                    <input type="checkbox" id="1" formControlName="verification">
                     <label for="1">
                         <em>
                             <b>Two-step verification</b>
@@ -35,22 +35,22 @@
                    </div>
                    <div class="df-column">
                     <span class="text1">Secret code</span>
-                    <span class="text2">JFCEMRBSGJHUUTKV</span>
-                   <input type="text" class="authenticator-code" placeholder="Authenticator code">
+                    <span class="" ><input class="text2 invisibleInp" type="text" formControlName="secretCode" disabled ></span>
+                   <input type="text" class="authenticator-code" placeholder="Authenticator code" formControlName="authenticator">
                    </div>
                 </div>
             </div>
             <div class="security-item">
                     <h2 class="title">Change password</h2>  
                     <div class="df-row mt-20">
-                        <input class="pass-inp mr-27" type="text" placeholder="Old password">
-                        <input class="pass-inp mr-27" type="text" placeholder="New password">
-                        <input class="pass-inp" type="text" placeholder="Again">
+                        <input class="pass-inp mr-27" type="text" placeholder="Old password" formControlName="lastPassword">
+                        <input class="pass-inp mr-27" type="text" placeholder="New password" formControlName="newPassword">
+                        <input class="pass-inp" type="text" placeholder="Again" formControlName="confirmNewPassword">
                     </div>
             </div>
         </div>
         
-        <button class="main-btn main-btn-hov">SAVE</button>
+        <button type="submit" class="main-btn main-btn-hov">SAVE</button>
     </div>
 </div>
 

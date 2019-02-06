@@ -9,16 +9,16 @@
           <div class="left-content-balance-item">
             <b>{{ currentSymbol.quoteAsset }}</b>
             {{ quoteAsset }}
-            <div class="button-plus" type="button" (click)="calcQuoteAsset(false)" *ngIf="isLoggedIn"><span>+</span></div>
-            <div class="button-minus" type="button" (click)="calcQuoteAsset(true)" *ngIf="isLoggedIn"><span>-</span></div>
+            <div class="button-plus" type="button" (click)="calcQuoteAss(false)" *ngIf="isLoggedIn"><span>+</span></div>
+            <div class="button-minus" type="button" (click)="calcQuoteAss(true)" *ngIf="isLoggedIn"><span>-</span></div>
             <div class="button-plus" type="button" *ngIf="!isLoggedIn"><span>+</span></div>
             <div class="button-minus" type="button" *ngIf="!isLoggedIn"><span>-</span></div>
           </div>
           <div class="left-content-balance-item">
             <b>{{ currentSymbol.baseAsset }}</b>
             {{ baseAsset }}
-            <div class="button-plus" type="button" (click)="calcBaseAsset(false)" *ngIf="isLoggedIn"><span>+</span></div>
-            <div class="button-minus" type="button" (click)="calcBaseAsset(true)" *ngIf="isLoggedIn"><span>-</span></div>
+            <div class="button-plus" type="button" (click)="calcBaseAss(false)" *ngIf="isLoggedIn"><span>+</span></div>
+            <div class="button-minus" type="button" (click)="calcBaseAss(true)" *ngIf="isLoggedIn"><span>-</span></div>
             <div class="button-plus" type="button"  *ngIf="!isLoggedIn"><span>+</span></div>
             <div class="button-minus" type="button" *ngIf="!isLoggedIn"><span>-</span></div>
           </div>
@@ -46,7 +46,7 @@
               </div>
               <div class="left-content-sell-input">
                 Amount
-                <input  placeholder="1.00000000" type="number" formControlName="amount" required [(ngModel)]="baseAsset">
+                <input  placeholder="1.00000000" type="number" formControlName="amount" required [(ngModel)]="orderAmount"  (keyup)="calcWithNewAmount()">
                 <b>{{ currentSymbol.baseAsset }}</b>
               </div>
               <div class="left-content-sell-input percents">
@@ -58,7 +58,7 @@
               </div>
               <div class="left-content-sell-input">
                 Total
-                <input  placeholder="1.00000000" type="number" formControlName="total" required [(ngModel)]="orderTotal">
+                <input  placeholder="1.00000000" type="number" formControlName="total" required [(ngModel)]="orderTotal"  (keyup)="calcWithNewTotal()">
                 <b>{{ currentSymbol.quoteAsset }}</b>
               </div>
               <button class="transparent-btn" type="submit" *ngIf="isLoggedIn">{{ buyCellBtn }}</button>
@@ -83,10 +83,10 @@
         <div class="top-currency-dropdown" *ngIf="symbols" [ngClass]="{
                 'tcd-open': currencyBox
                 }">
-          <div class="top-currency-dropdown-search">
-            <input type="text" placeholder="Search">
-            <button></button>
-          </div>
+          <form class="top-currency-dropdown-search" [formGroup]="searchForm">
+            <input type="text" placeholder="Search" formControlName="search">
+            <button type="submit"></button>
+          </form>
 
           <div class="top-currency-dropdown-title">
             <span>Symbol</span>
@@ -94,10 +94,10 @@
             <span>Quote</span>
           </div>
           <div class="top-currency-items-wrapper" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" >
-            <div class="top-currency-dropdown-item" *ngFor="let symbol of symbols" (click)="setSymbol(symbol)">
-              <span><b>{{ symbol.baseAsset }}/{{ symbol.quoteAsset }}</b></span>
-              <span>{{ symbol.baseAsset }}</span>
-              <span>{{ symbol.quoteAsset }}</span>
+            <div class="top-currency-dropdown-item" *ngFor="let viewSymbol of viewSymbols" (click)="setSymbol(viewSymbol)">
+              <span><b>{{ viewSymbol.baseAsset }}/{{ viewSymbol.quoteAsset }}</b></span>
+              <span>{{ viewSymbol.baseAsset }}</span>
+              <span>{{ viewSymbol.quoteAsset }}</span>
               <!-- <span>2213.466</span>
                             <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span> -->
             </div>
@@ -267,7 +267,7 @@
           <div class="choose"></div>
         </ul>
 
-        <div class="box price-box" [ngClass]="{
+        <div class="box price-box" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" [ngClass]="{
                     'visible': !chart
                     }">
           <h2>PRICE CHART</h2>
