@@ -83,10 +83,10 @@
         <div class="top-currency-dropdown" *ngIf="symbols" [ngClass]="{
                 'tcd-open': currencyBox
                 }">
-          <div class="top-currency-dropdown-search">
-            <input type="text" placeholder="Search">
-            <button></button>
-          </div>
+          <form class="top-currency-dropdown-search" [formGroup]="searchForm">
+            <input type="text" placeholder="Search" >
+            <button type="submit"></button>
+          </form>
 
           <div class="top-currency-dropdown-title">
             <span>Symbol</span>

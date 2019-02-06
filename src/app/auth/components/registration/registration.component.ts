@@ -122,7 +122,7 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 				}, 5000);
 				}
 				if (value.search(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/) || (value.length < 8)){
-					return
+					return;
 				}
 			});
 		let req :SignUpRequest = {
@@ -134,7 +134,6 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 			.registration(req)
 			.subscribe(res => {
 				if (!res.success) {
-					// alert(res.message);
 					this.emailErrorText = res.message ;
 					form.controls['email'].setErrors({
 						errorError: true

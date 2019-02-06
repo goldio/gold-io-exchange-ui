@@ -45,6 +45,7 @@ export class IndexComponent implements OnInit {
 	public scrollbarOptions = { axis: 'yx', theme: 'minimal' };
 
 	public tradeForm: FormGroup;
+	public searchForm: FormGroup;
 	public startNumb = "0.0000000"
 	public baseAsset:any = 0;
 	public quoteAsset:any = 0;
@@ -489,7 +490,27 @@ export class IndexComponent implements OnInit {
 		
 	}
 
-	
+	private initSearchForm(): void {
+		this.searchForm = new FormGroup({
+			search: new FormControl(null)
+		});
+
+		this.searchForm
+			.controls['search']
+			.valueChanges
+			.debounceTime(500)
+			.subscribe(value => {
+				if (!value) {
+					this.symbols = this.symbols;
+					return;
+				}
+
+				this.symbols = this.symbols
+					.filter(x =>
+						x.symbol.toLowerCase().includes(`${value}`.toLowerCase()) ||
+						x.symbol.toLowerCase().includes(`${value}`.toLowerCase()));
+			});
+	}
 
 	constructor(
 		private authService: AuthService,
@@ -524,7 +545,7 @@ export class IndexComponent implements OnInit {
 
 		this.loadSymbols();
 		this.getBalance();
-
+		this.initSearchForm();
 		this.baseAsset = this.baseAsset.toFixed(8);
 		this.quoteAsset = this.quoteAsset.toFixed(8);
 		this.orderPrice = this.orderPrice.toFixed(8);
