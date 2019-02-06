@@ -46,13 +46,17 @@ export class IndexComponent implements OnInit {
 
 	public tradeForm: FormGroup;
 	public searchForm: FormGroup;
-	public startNumb = "0.0000000"
+	
 	public baseAsset:any = 0;
 	public quoteAsset:any = 0;
 	public orderPrice:any = 0;
 	public orderAmount:any = 0;
+	public maxBaseAsset:any = 0;
+	public maxQuoteAsset:any = 0;
+	
 	public orderTotal:any = 0;
-	public wallets: Wallet[];
+
+	public MyWallets: Wallet[];
 
 	public Highcharts = Highcharts;
 	public priceChartOptions: Highcharts.Options;
@@ -360,73 +364,7 @@ export class IndexComponent implements OnInit {
 			});
 	}
 
-	private calcQuoteAsset(decr?: boolean): void {
-		if (!decr) {
-			this.quoteAsset = Number(this.quoteAsset);
-			this.quoteAsset += 0.001;
-			if (this.quoteAsset > this.wallets.find(x => x.coin.shortName == this.currentSymbol.quoteAsset).balance) {
-				this.quoteAsset -= 0.001;
-				
-			}
-		} else {
-			this.quoteAsset -= 0.001;
-			if (this.quoteAsset < 0.00000001) {
-				this.quoteAsset = 0;
-				
-			}
-		}
-		this.baseAsset = Number(this.baseAsset);
-		this.baseAsset = (this.quoteAsset*this.orderPrice).toFixed(8);
-		this.orderTotal = (this.baseAsset * this.orderPrice).toFixed(8);
-		this.quoteAsset = this.quoteAsset.toFixed(8);
-		this.baseAsset = this.baseAsset.toFixed(8);
-	}
-
-	private calcBaseAsset(decr?: boolean): void {
-		if (!decr) {
-			this.baseAsset = Number(this.baseAsset);
-			this.baseAsset += 0.001;
-			if (this.baseAsset > this.wallets.find(x => x.coin.shortName == this.currentSymbol.baseAsset).balance) {
-				this.baseAsset -= 0.001;
-			}
-		} else {
-			this.baseAsset -= 0.001;
-			if (this.baseAsset < 0.00000001) {
-				this.baseAsset = 0;
-				
-				
-			}
-		}
-		this.quoteAsset = Number(this.quoteAsset);
-		if(this.orderPrice != 0){
-			this.quoteAsset= (this.baseAsset/this.orderPrice).toFixed(8);
-		}
-		this.orderTotal = (this.baseAsset * this.orderPrice).toFixed(8);
-		this.baseAsset = this.baseAsset.toFixed(8);
-		this.quoteAsset = this.quoteAsset.toFixed(8);
-	}
-	private calcWithNewPrice(){
-		this.orderPrice = this.tradeForm.controls['price'].value;
-		this.baseAsset = Number(this.baseAsset);
-		this.orderPrice = Number(this.orderPrice);
-		this.quoteAsset = Number(this.quoteAsset);
-		this.baseAsset = (this.quoteAsset * this.orderPrice).toFixed(8);
-		this.quoteAsset = (this.quoteAsset * this.quoteAsset).toFixed(8);
-		this.orderTotal = (this.baseAsset * this.orderPrice).toFixed(8);
-	}
-
-	private getBalance(): void {
-		this.walletsService
-			.getMe()
-			.subscribe(res => {
-				if (!res.success) {
-					alert(res.message);
-					return;
-				}
-				this.wallets = res.data;
-				console.log(this.wallets);
-			});
-	}
+	
 
 	private changeBuySell(act: string) {
 		if (act == "buy") {
@@ -470,28 +408,7 @@ export class IndexComponent implements OnInit {
 			});
 	}
 
-	private loadPrice(base:string, quote:string,){
-		if(this.currentSymbol.gio){
-			this.tradeService
-			.getPriceByPair(base,quote)
-			.subscribe(res => {
-				if (!res.success) {
-					alert(res.message);
-					return;
-				}
-				this.orderPrice = res.data;
-				// this.tradeForm.setValue({
-				// 	price : res.data,
-				// 	amount : "0.0000001",
-				// 	total: "0.0000000"
-				// });
-				this.startNumb = "0.0000000"
-			});
-		}
-		this.orderPrice = 0;
-		return;
-		
-	}
+	
 
 	private initSearchForm(): void {
 		this.searchForm = new FormGroup({
@@ -566,16 +483,10 @@ export class IndexComponent implements OnInit {
 		.debounceTime(500)
 		.subscribe(value => {
 			if (!value) {
-				// this.symbols = this.symbols;
 				this.viewSymbols = this.symbols;
-				console.log(this.viewSymbols);
+				// console.log(this.viewSymbols);
 				return;
 			}
-
-			// this.symbols = this.symbols
-			// 	.filter(x =>
-			// 		x.symbol.toLowerCase().includes(`${value}`.toLowerCase()) ||
-			// 		x.symbol.toLowerCase().includes(`${value}`.toLowerCase()));
 			this.viewSymbols = this.symbols
 				.filter(x =>
 					x.symbol.toLowerCase().includes(`${value}`.toLowerCase()) ||
@@ -862,4 +773,155 @@ export class IndexComponent implements OnInit {
 			}]
 		};
 	}
+
+
+
+
+
+
+	private loadPrice(base:string, quote:string,){
+		if(this.currentSymbol.gio){
+			this.tradeService
+			.getPriceByPair(base,quote)
+			.subscribe(res => {
+				if (!res.success) {
+					alert(res.message);
+					return;
+				}
+				this.orderPrice = res.data;
+				this.orderPrice = this.orderPrice.toFixed(8);
+			});
+		}
+		this.orderPrice = 0;
+		this.orderPrice = this.orderPrice.toFixed(8);
+		return;
+		
+	}
+
+	private getBalance(): void {
+		this.walletsService
+			.getMe()
+			.subscribe(res => {
+				if (!res.success) {
+					alert(res.message);
+					return;
+				}
+				this.MyWallets = res.data;
+				this.calcMaxMyBalance();
+			});
+	}
+
+	public convertToNumber(){
+		this.baseAsset = Number(this.baseAsset);
+		this.quoteAsset = Number(this.quoteAsset);
+		this.orderTotal = Number(this.orderTotal);
+		this.orderPrice = Number(this.orderPrice);
+		this.orderAmount =   Number(this.orderAmount);
+	}
+
+	public convertToFloat(){
+		this.baseAsset =  this.baseAsset.toFixed(8);
+		this.quoteAsset =  this.quoteAsset.toFixed(8);
+		this.orderTotal =  this.orderTotal.toFixed(8);
+		this.orderPrice =  this.orderPrice.toFixed(8);
+		this.orderAmount =  this.orderAmount.toFixed(8);
+	}
+
+	public calcMaxMyBalance(){
+		this.maxBaseAsset = this.MyWallets.find(x => x.coin.shortName == this.currentSymbol.baseAsset).balance;
+		this.maxQuoteAsset = this.MyWallets.find(x => x.coin.shortName == this.currentSymbol.quoteAsset).balance;
+	}
+
+	public calcAccets(){
+		this.convertToNumber();
+		
+		if(this.orderPrice!=0){
+			this.quoteAsset = (this.baseAsset / this.orderPrice);
+			this.orderAmount = this.quoteAsset;
+		}
+		this.orderTotal = this.baseAsset;
+		this.convertToFloat();
+	}
+
+	private calcWithNewPrice(){
+		this.convertToNumber();
+		this.orderPrice = this.tradeForm.controls['price'].value;
+		this.baseAsset = (this.quoteAsset * this.orderPrice);
+		if(this.orderPrice!=0){
+			this.quoteAsset = (this.baseAsset / this.orderPrice);
+			this.orderAmount = this.quoteAsset;
+		}
+		this.orderTotal = this.baseAsset;
+		this.baseAsset =  this.baseAsset.toFixed(8);
+		this.quoteAsset =  this.quoteAsset.toFixed(8);
+		this.orderAmount = this.orderAmount.toFixed(8);
+		this.orderTotal =  this.orderTotal.toFixed(8);
+	}
+
+	public calcBaseAss(decr?: boolean){
+		this.convertToNumber();
+		if(!decr){
+			this.baseAsset += 0.001;
+			// if(this.baseAsset > ){
+
+			// }
+		} else{
+			this.baseAsset -= 0.001;
+			if(this.baseAsset < 0.00000001){
+				this.baseAsset = 0;
+			}
+		}
+		this.convertToFloat();
+		this.calcAccets();
+	}
+
+	public calcQuoteAss(decr?: boolean){
+		this.convertToNumber();
+		if(!decr){
+			this.quoteAsset += 0.001;
+			this.orderAmount = this.quoteAsset;
+			// if(this.baseAsset > ){
+
+			// }
+		} else{
+			this.quoteAsset -= 0.001;
+			if(this.quoteAsset < 0.00000001){
+				this.quoteAsset = 0;
+				this.orderAmount = this.quoteAsset;
+			}
+		}
+		this.baseAsset = (this.quoteAsset * this.orderPrice);
+		this.convertToFloat();
+		this.calcAccets();
+	}
+
+	public  calcWithNewAmount(){
+		this.convertToNumber();
+		this.quoteAsset = this.tradeForm.controls['amount'].value;
+		this.orderAmount = this.tradeForm.controls['amount'].value;
+		
+		this.baseAsset = this.quoteAsset * this.orderPrice;
+
+		this.orderTotal = this.baseAsset;
+		this.baseAsset = this.baseAsset.toFixed(8);
+		this.quoteAsset =  this.quoteAsset.toFixed(8);
+		this.orderTotal =  this.orderTotal.toFixed(8);
+	}
+
+	public  calcWithNewTotal(){
+
+		this.convertToNumber();
+
+		this.orderTotal = this.tradeForm.controls['total'].value;
+		this.baseAsset = this.tradeForm.controls['total'].value;
+		if(this.quoteAsset!=0){
+			this.orderPrice = (this.orderTotal / this.quoteAsset).toFixed(8);
+		}
+		this.orderAmount = this.quoteAsset;
+		this.baseAsset =  this.baseAsset.toFixed(8);
+		this.quoteAsset =  this.quoteAsset.toFixed(8);
+		this.orderPrice =  this.orderPrice.toFixed(8);
+
+	}
+
 }
