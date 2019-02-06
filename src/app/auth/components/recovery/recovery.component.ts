@@ -48,6 +48,15 @@ export class RecoveryComponent implements OnInit {
 			this.markControlsAsTouched();
 			return;
 		}
+		this.recoveryPassForm.controls['password']
+			.valueChanges
+			.debounceTime(1000)
+			.subscribe(value => {
+	  
+				if (value.search(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/)|| (value.length < 8)){
+				return
+				}
+			});
 		if (form.value.password !== form.value.confirmPassword) {
 			form.controls['confirmPassword'].setErrors({
 				doNotMatch: true
@@ -118,9 +127,7 @@ export class RecoveryComponent implements OnInit {
 					});
 				}, 5000);
 				}
-				if (value.search(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/) || (value.length < 8)){
-					return;
-				}
+				
 			});
 	}
 }
