@@ -84,7 +84,7 @@
                 'tcd-open': currencyBox
                 }">
           <form class="top-currency-dropdown-search" [formGroup]="searchForm">
-            <input type="text" placeholder="Search" >
+            <input type="text" placeholder="Search" formControlName="search">
             <button type="submit"></button>
           </form>
 
@@ -94,10 +94,10 @@
             <span>Quote</span>
           </div>
           <div class="top-currency-items-wrapper" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" >
-            <div class="top-currency-dropdown-item" *ngFor="let symbol of symbols" (click)="setSymbol(symbol)">
-              <span><b>{{ symbol.baseAsset }}/{{ symbol.quoteAsset }}</b></span>
-              <span>{{ symbol.baseAsset }}</span>
-              <span>{{ symbol.quoteAsset }}</span>
+            <div class="top-currency-dropdown-item" *ngFor="let viewSymbol of viewSymbols" (click)="setSymbol(viewSymbol)">
+              <span><b>{{ viewSymbol.baseAsset }}/{{ viewSymbol.quoteAsset }}</b></span>
+              <span>{{ viewSymbol.baseAsset }}</span>
+              <span>{{ viewSymbol.quoteAsset }}</span>
               <!-- <span>2213.466</span>
                             <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span> -->
             </div>

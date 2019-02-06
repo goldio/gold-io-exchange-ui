@@ -77,6 +77,7 @@ export class IndexComponent implements OnInit {
 	public theme: Theme;
 
 	public symbols: Symbol[];
+	public viewSymbols: Symbol[];
 	public currentSymbol: Symbol;
 
 	private getBestAsk(data: any) {
@@ -158,7 +159,7 @@ export class IndexComponent implements OnInit {
 			.getExchangeInfo()
 			.subscribe(res => {
 				this.symbols = res.symbols;
-
+				this.viewSymbols = this.symbols;
 				const coins = ["BTC", "ETH", "EOS"];
 
 				coins.forEach(coin => {
@@ -169,7 +170,9 @@ export class IndexComponent implements OnInit {
 					symbol.gio = true;
 
 					this.symbols.unshift(symbol);
+					this.viewSymbols = this.symbols;
 				});
+				
 
 				this.setSymbol();
 			});
@@ -303,7 +306,7 @@ export class IndexComponent implements OnInit {
 			.subscribe(msg => {
 				if (msg) {
 					const messageData = JSON.parse(msg.data);
-					console.log(messageData);
+					// console.log(messageData);
 
 					if (messageData['e'] == "depthUpdate") {
 						messageData['b'].forEach(item => {
@@ -501,15 +504,21 @@ export class IndexComponent implements OnInit {
 			.debounceTime(500)
 			.subscribe(value => {
 				if (!value) {
-					this.symbols = this.symbols;
+					// this.symbols = this.symbols;
+					this.viewSymbols = this.symbols;
+					// console.log(this.viewSymbols);
 					return;
 				}
-
-				this.symbols = this.symbols
+				this.viewSymbols = this.symbols
 					.filter(x =>
 						x.symbol.toLowerCase().includes(`${value}`.toLowerCase()) ||
 						x.symbol.toLowerCase().includes(`${value}`.toLowerCase()));
+				// this.symbols = this.symbols
+				// 	.filter(x =>
+				// 		x.symbol.toLowerCase().includes(`${value}`.toLowerCase()) ||
+				// 		x.symbol.toLowerCase().includes(`${value}`.toLowerCase()));
 			});
+			// console.log(this.viewSymbols);
 	}
 
 	constructor(
@@ -551,7 +560,27 @@ export class IndexComponent implements OnInit {
 		this.orderPrice = this.orderPrice.toFixed(8);
 		this.orderAmount = this.orderAmount.toFixed(8);
 		this.orderTotal = this.orderTotal.toFixed(8);
+		this.searchForm
+		.controls['search']
+		.valueChanges
+		.debounceTime(500)
+		.subscribe(value => {
+			if (!value) {
+				// this.symbols = this.symbols;
+				this.viewSymbols = this.symbols;
+				console.log(this.viewSymbols);
+				return;
+			}
 
+			// this.symbols = this.symbols
+			// 	.filter(x =>
+			// 		x.symbol.toLowerCase().includes(`${value}`.toLowerCase()) ||
+			// 		x.symbol.toLowerCase().includes(`${value}`.toLowerCase()));
+			this.viewSymbols = this.symbols
+				.filter(x =>
+					x.symbol.toLowerCase().includes(`${value}`.toLowerCase()) ||
+					x.symbol.toLowerCase().includes(`${value}`.toLowerCase()));
+		});
 	}
 
 
