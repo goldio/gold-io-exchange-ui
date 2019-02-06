@@ -304,6 +304,8 @@ export class IndexComponent implements OnInit {
 					console.log(messageData);
 
 					if (messageData['e'] == "depthUpdate") {
+						let points = { asks: [], bids: [] };
+
 						messageData['b'].forEach(item => {
 							if (this.orderBookBids.length > 21) {
 								this.orderBookBids.shift();
@@ -315,13 +317,8 @@ export class IndexComponent implements OnInit {
 									amount: parseFloat(item[1]).toFixed(8),
 									total: `${(item[0] * item[1]).toFixed(8)}`
 								};
-	
-								if (this.Highcharts.charts[1]) {
-									this.Highcharts.charts[1]
-										.series[0]
-										.addPoint([parseFloat(item[0]), parseFloat(item[1])], false, true);
-								}
-	
+
+								points.bids.push([parseFloat(item[0]), parseFloat(item[1])]);
 								this.orderBookBids.push(aItem);
 								this.updateMainData(item, 'bids');
 							}
@@ -338,18 +335,14 @@ export class IndexComponent implements OnInit {
 									amount: parseFloat(item[1]).toFixed(8),
 									total: `${(item[0] * item[1]).toFixed(8)}`
 								};
-	
-								if (this.Highcharts.charts[1]) {
-									this.Highcharts.charts[1]
-									.series[1]
-									.addPoint([parseFloat(item[0]), parseFloat(item[1])], true, true);
-								}
-	
+
+								points.asks.push([parseFloat(item[0]), parseFloat(item[1])]);
 								this.orderBookAsks.push(aItem);
-	
 								this.updateMainData(item, 'asks');
 							}
 						});
+
+						this.setDepthChartData(points);
 					}
 				}
 			});
@@ -671,17 +664,28 @@ export class IndexComponent implements OnInit {
 		};
 	}
 
-	private async setDepthChartData() {
+	private async setDepthChartData(points?: { asks: any[], bids: any[] }) {
 		const data = await this.getOrderBook();
+
+		if (points) {
+			points.bids.forEach(point => {
+				data.bids.unshift(point);
+			});
+
+			points.asks.forEach(point => {
+				data.asks.unshift(point);
+			});
+		}
+		
 		const bestBid = this.getBestBid(data.bids);
 		const bestAsk = this.getBestAsk(data.asks);
 		const midPrice = (bestAsk + bestBid) / 2;
 
 		let minAxisExtr = midPrice - 2000;
-		let curMinAxisExtr = minAxisExtr;
+		//let curMinAxisExtr = minAxisExtr;
 
 		let maxAxisExtr = midPrice + 2000;
-		let curMaxAxisExtr = maxAxisExtr;
+		//let curMaxAxisExtr = maxAxisExtr;
 
 		//формирование левого графика
 		this.dataDepthBids = [];
@@ -710,6 +714,20 @@ export class IndexComponent implements OnInit {
 			asks: chartAsksData,
 			bids: chartBidsData
 		};
+
+		if (this.Highcharts.charts[1]) {
+			this.Highcharts.charts[1].series[0].update({
+				name: 'bids',
+				type: 'area',
+				data: this.depthChartData.bids
+			});
+
+			this.Highcharts.charts[1].series[1].update({
+				name: 'asks',
+				type: 'area',
+				data: this.depthChartData.asks
+			});
+		}
 	}
 
 	private async initDepthChart() {
