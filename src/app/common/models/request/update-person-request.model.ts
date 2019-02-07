@@ -1,3 +1,5 @@
+import { City } from '../city.model';
+
 export class UpdatePersonRequest {
     public fullName: string;
     public birthDate: Date;

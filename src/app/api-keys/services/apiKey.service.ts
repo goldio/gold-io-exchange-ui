@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { DataResponse } from 'src/app/common/models/response';
 import { Person } from 'src/app/common/models';
 import { UpdatePersonRequest } from 'src/app/common/models/request';
+import { ApiKey } from '../models/apiKey.model';
+import { CreateUpdateKeyRequest } from '../models/create-update-keyRequest.model';
 
 @Injectable()
 export class ApiService extends BaseHttpService {
@@ -14,13 +16,23 @@ export class ApiService extends BaseHttpService {
         super(http);
     }
 
-    // public getApi(): Observable<DataResponse<Person>> {
-    //     return this.get(`${this.apiUrl}/persons/me`)
-    //         .map(response => response.json());
-    // }
+    public getApi(): Observable<DataResponse<ApiKey[]>> {
+        return this.get(`${this.apiUrl}/apiKeys`)
+            .map(response => response.json());
+    }
 
-    // public updateApi(request: UpdatePersonRequest): Observable<DataResponse<Person>> {
-    //     return this.post(`${this.apiUrl}/persons/me`, request)
-    //         .map(response => response.json());
-    // }
+    public updateApi(request: CreateUpdateKeyRequest): Observable<DataResponse<ApiKey[]>> {
+        return this.post(`${this.apiUrl}/persons/me`, request)
+            .map(response => response.json());
+    }
+
+    public generateNewKey(request: CreateUpdateKeyRequest): Observable<DataResponse<ApiKey[]>> {
+        return this.post(`${this.apiUrl}/persons/me`, request)
+            .map(response => response.json());
+    }
+
+    public deleteApiKey(request: number): Observable<DataResponse<ApiKey[]>> {
+        return this.post(`${this.apiUrl}/apiKeys/delete`, request)
+            .map(response => response.json());
+    }
 }

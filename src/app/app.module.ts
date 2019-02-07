@@ -5,7 +5,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
-import { jqxDateTimeInputComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
 
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -33,7 +32,6 @@ import { AuthService } from './common/services/auth.service';
 import { UsersService } from './common/services/users.service';
 import { PersonsService } from './profile/services/persons.service';
 import { ThemeService } from './common/services/theme.service';
-import { CalendarComponent } from './calendar/calendar.component';
 import { WalletsService } from './common/services/wallets.service';
 import { CountriesService } from './profile/services/countries.service';
 import { TradeService } from './common/services/trade.service';
@@ -58,8 +56,6 @@ import { SecurityService } from './security/services/security.service';
 		ProfileComponent,
 		SecurityComponent,
 		ActivityComponent,
-		jqxDateTimeInputComponent,
-		CalendarComponent,
 		SucessfullComponent,
 		RecoveryComponent,
 		ActivationComponent,

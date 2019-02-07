@@ -4,6 +4,8 @@ import 'rxjs/add/operator/debounceTime';
 
 import { Wallet } from 'src/app/common/models';
 import { WalletsService } from 'src/app/common/services/wallets.service';
+import { AuthService } from 'src/app/common/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-balance',
@@ -12,12 +14,16 @@ import { WalletsService } from 'src/app/common/services/wallets.service';
 })
 export class BalanceComponent implements OnInit {
 
+	public isLoggedIn: boolean;
+
 	private wallets: Wallet[];
 	public viewWallets: Wallet[];
 	public searchForm: FormGroup;
 
 	constructor(
-		private walletsService: WalletsService
+		private walletsService: WalletsService,
+		private authService: AuthService,
+    private router: Router,
 	) { }
 
 	private initSearchForm(): void {
@@ -69,6 +75,17 @@ export class BalanceComponent implements OnInit {
 	}
 
 	ngOnInit() {
+
+		this.authService
+		.isLoggedIn
+		.subscribe(logged => {
+			this.isLoggedIn = logged;
+		});
+
+	if (!this.isLoggedIn) {
+		this.router.navigate(['/authorization']);
+}
+
 		this.loadWallets();
 		this.initSearchForm();
 	}

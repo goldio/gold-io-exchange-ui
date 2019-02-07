@@ -45,6 +45,7 @@ export class ProfileComponent implements OnInit {
 	public dateB:Date;
 	public dateBError = false;
 	
+	public windowWidth:boolean= false;
 
 	private loadPerson(): void {
 		if (!this.isLoggedIn) {
@@ -201,6 +202,10 @@ export class ProfileComponent implements OnInit {
 		this.loadCities();
 		this.loadPerson();
 
+		if(document.documentElement.clientWidth < 800){
+			this.windowWidth = true;
+		} 
+
 		
 	}
 
@@ -212,9 +217,10 @@ export class ProfileComponent implements OnInit {
 		this.profileForm
 			.controls['countryID']
 			.setValue(country.id, { emitEvent: false });
-
+			
 		this.loadCities(country.id);
 		this.showCountriesDropdown = false;
+
 	}
 
 	public setCity(city: City): void {
@@ -239,12 +245,13 @@ export class ProfileComponent implements OnInit {
 			setTimeout(() => {
 				this.dateBError = false;
 			}, 3000);
+			alert('error');
 		}
 		if (form.invalid) {
 			this.markContolsAsTouched() ;
+			alert('error');
 			return;
 		}
-
 		
 		const req = new UpdatePersonRequest();
 		req.fullName = form.value['fullName'];
