@@ -8,41 +8,48 @@
             <div class="column3"></div>
             
     </div>
-    <div class="api-keys-item">
-            <div class="column column1 table-text" ><input type="text" class="invisibleInp" formControlName="api" disabled></div>
-            <div class="column column2 table-text"><input type="text" class="invisibleInp" formControlName="secretCode" disabled><button type="button" class="copy-btn ml-27" (click)="copyToClipboard()"></button></div>
-            <div class="column column3">
-                <button type="button"  class="change-btn" (click)="settings = !settings"></button>
-                <button type="button" class="delete-btn ml-19"></button>
-                <div class="settings" [ngClass]="{
-                    'open': settings
-                }">
-                        <div class="sign-container-checkbox">
-                            <input type="checkbox" id="1" formControlName="viewAccInfo" />
-                            <label for="1">
-                                <span></span>View account info
-                            </label>
-                        </div>
-                        <div class="sign-container-checkbox">
-                                <input type="checkbox" id="2" formControlName="redOrder" />
-                                <label for="2">
-                                    <span></span>Create & edit orders
-                                </label>
-                        </div>
-                        <div class="sign-container-checkbox">
-                                <input type="checkbox" id="3" formControlName="withdrawFunds" />
-                                <label for="3">
-                                    <span></span>Withdraw funds
-                                </label>
-                        </div>
+    <div >
+        <div class="api-keys-item" *ngFor="let apiKey of apiKeys">
+                <div class="column column1 table-text" >
+                    {{ apiKey.publicKey }}
                 </div>
-            </div>
+                <div class="column column2 table-text">
+                        {{ apiKey.secretKey }}
+                    <button type="button" class="copy-btn ml-27" (click)="copyToClipboard(apiKey.secretKey)"></button>
+                </div>
+                <div class="column column3">
+                    <button type="button"  class="change-btn" (click)="settingsOpen(apiKey.id)"></button>
+                    <button type="button" class="delete-btn ml-19" (click)="deleteApiKey(apiKey.id)"></button>
+                    <button type="button" class="save-btn ml-19" (click)="setValues(apiKey.id)"></button>
+                    <div class="settings"  id="{{apiKey.id}} +'4'">
+                            <div class="sign-container-checkbox">
+                                <input type="checkbox" id="{{apiKey.id}} +'1'"  [ngModel]="apiKey.accountPermissions" [checked]="apiKey.accountPermissions"/>
+                                <label for="{{apiKey.id}} +'1'">
+                                    <span></span>View account info
+                                </label>
+                            </div>
+                            <div class="sign-container-checkbox">
+                                    <input type="checkbox" id="{{apiKey.id}} +'2'" [ngModel]="apiKey.ordersPermissions" [checked]="apiKey.ordersPermissions"/>
+                                    <label for="{{apiKey.id}} +'2'">
+                                        <span></span>Create & edit orders
+                                    </label>
+                            </div>
+                            <div class="sign-container-checkbox">
+                                    <input type="checkbox" id="{{apiKey.id}} +'3'" [ngModel]="apiKey.fundsPermissions"  [checked]="apiKey.fundsPermissions"/>
+                                    <label for="{{apiKey.id}} +'3'">
+                                        <span></span>Withdraw funds
+                                    </label>
+                            </div>
+                    </div>
+                </div>
+        </div>
     </div>
+    
     <div class="row">
-        <button  class="main-btn main-btn-hov" type="submit">SAVE</button>
-        <button type="button" class="transparent-btn">GENERATE NET KEY</button>
+        <!-- <button  class="main-btn main-btn-hov" type="submit">SAVE</button> -->
+        <button type="button" class="transparent-btn">GENERATE NEW KEY</button>
     </div>
-</form>
+</div>
 
 
 

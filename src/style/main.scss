@@ -2882,7 +2882,9 @@ ul.left-top-menu {
       color: #686D7A;
     }
 
-
+    .calendar .input::-webkit-input-placeholder {
+      color: #686D7A;
+    }
     .gold-text {
       color: #D1C881;
     }
@@ -3868,6 +3870,9 @@ ul.left-top-menu {
 
 ////////////////////////////////////    calendar    ///////////////////////////////////////
 .light-calend , .dark-calend{
+  .mat-dialog-container{
+    background: transparent;
+  }
   .mat-form-field-infix{
     border-top: none;
     padding: 0;

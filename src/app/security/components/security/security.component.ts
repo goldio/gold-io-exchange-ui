@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { BaseLayoutComponent } from 'src/app/common/components/base.component';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/common/services/auth.service';
 
 @Component({
   selector: 'app-security',
@@ -9,12 +10,31 @@ import { BaseLayoutComponent } from 'src/app/common/components/base.component';
 })
 export class SecurityComponent extends BaseLayoutComponent implements OnInit {
 
+  public isLoggedIn: boolean;
+
   public securityForm: FormGroup;
-  constructor() {
+
+  
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {
     super();
-  }
+   }
 
   ngOnInit() {
+
+    this.authService
+    .isLoggedIn
+    .subscribe(logged => {
+      this.isLoggedIn = logged;
+    });
+
+  if (!this.isLoggedIn) {
+    this.router.navigate(['/authorization']);
+  }
+
+
     this.initSecurityForm();
     this.securityForm.controls['secretCode'].setValue('JFCEMRBSGJHUUTKV');
   }

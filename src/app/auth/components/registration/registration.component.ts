@@ -93,38 +93,38 @@ export class RegistrationComponent extends BaseLayoutComponent implements OnInit
 			return;
 		}
 
-		this.signUpForm.controls['password']
-			.valueChanges
-			.debounceTime(1000)
-			.subscribe(value => {
+		// this.signUpForm.controls['password']
+		// 	.valueChanges
+		// 	.debounceTime(1000)
+		// 	.subscribe(value => {
 	  
-				if (value.search(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/)){
-					this.passwordErrorText = "Your password is easy!" ;
-					this.signUpForm.controls['password'].setErrors({
-						easy: true
-					});
-					setTimeout(() => {
-						this.signUpForm.controls['password'].setErrors({
-							easy: false
-						});
-					}, 5000);
-				  }
+		// 		if (value.search(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/)){
+		// 			this.passwordErrorText = "Your password is easy!" ;
+		// 			this.signUpForm.controls['password'].setErrors({
+		// 				easy: true
+		// 			});
+		// 			setTimeout(() => {
+		// 				this.signUpForm.controls['password'].setErrors({
+		// 					easy: false
+		// 				});
+		// 			}, 5000);
+		// 		  }
 		  
-				if (value.length < 8){
-				this.passwordErrorText = "Your password is too short!" ;
-				this.signUpForm.controls['password'].setErrors({
-					easy: true
-				});
-				setTimeout(() => {
-					this.signUpForm.controls['password'].setErrors({
-						easy: false
-					});
-				}, 5000);
-				}
-				if (value.search(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/) || (value.length < 8)){
-					return;
-				}
-			});
+		// 		if (value.length < 8){
+		// 		this.passwordErrorText = "Your password is too short!" ;
+		// 		this.signUpForm.controls['password'].setErrors({
+		// 			easy: true
+		// 		});
+		// 		setTimeout(() => {
+		// 			this.signUpForm.controls['password'].setErrors({
+		// 				easy: false
+		// 			});
+		// 		}, 5000);
+		// 		}
+		// 		if (value.search(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/) || (value.length < 8)){
+		// 			return;
+		// 		}
+		// 	});
 		let req :SignUpRequest = {
 			fullName: form.controls['fullName'].value,
 			email: form.controls['email'].value,

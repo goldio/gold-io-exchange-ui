@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { BaseLayoutComponent } from 'src/app/common/components/base.component';
+import { AuthService } from 'src/app/common/services/auth.service';
+import { Router } from '@angular/router';
+import { ApiService } from '../../services/apiKey.service';
+import { ApiKey } from '../../models/apiKey.model';
+import { ApiKeyViewModel } from '../../models/apiKeyView.model';
+import { CreateUpdateKeyRequest } from '../../models/create-update-keyRequest.model';
 
 @Component({
   selector: 'app-api-keys',
@@ -9,31 +14,39 @@ import { BaseLayoutComponent } from 'src/app/common/components/base.component';
 })
 export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
 
-  public settings:boolean = false;
+  public isLoggedIn: boolean;
 
-  public copyText= "JKSlfdsi352dvd5fm3ZXi";
-  public apiForm: FormGroup;
-  constructor() {
+  public thisID:number =-2;
+  public settings = -1;
+  public apiKeys: ApiKey[];
+  // public apiForm: FormGroup;
+  // public forms: {};
+  // public forms: { [key: string] : FormGroup; } = {};
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private apiService: ApiService,
+  ) { 
     super();
   }
 
   ngOnInit() {
-    this.initProfileForm();
-    this.apiForm.controls['api'].setValue(this.copyText);
-    this.apiForm.controls['secretCode'].setValue(this.copyText);
+    this.authService
+			.isLoggedIn
+			.subscribe(logged => {
+				this.isLoggedIn = logged;
+			});
+
+		if (!this.isLoggedIn) {
+			this.router.navigate(['/authorization']);
+    }
+    
+    this.getApiKey();
   }
 
-	private initProfileForm(): void {
-		this.apiForm = new FormGroup({
-			api: new FormControl(),
-			secretCode: new FormControl(),
-			viewAccInfo: new FormControl(),
-			redOrder: new FormControl(),
-			withdrawFunds: new FormControl()
-		});
-	}
 
-  public copyToClipboard(str = this.copyText) {
+  public copyToClipboard(str : string) {
     const el = document.createElement('textarea');
     el.value = str;
     document.body.appendChild(el);
@@ -42,4 +55,60 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
     document.body.removeChild(el);
 
   };
+
+
+
+  public generateNewKey(){
+    let CreateUpdateKeyRequest : CreateUpdateKeyRequest = {
+      accountPermissions: false,
+      ordersPermissions: false,
+      fundsPermissions: false
+    };
+    this.apiService
+    .generateNewKey(CreateUpdateKeyRequest)
+      .subscribe(res => {
+        if(!res.success){
+          alert('error');
+        }
+        this.apiKeys = res.data;
+        console.log( this.apiKeys );
+      })
+  }
+
+  public deleteApiKey(id: number){
+    this.apiService.deleteApiKey(id).subscribe(res =>{
+      if(!res.success){
+
+      }
+      this.apiKeys = res.data;
+    });
+  }
+
+  public getApiKey(){
+    
+    this.apiService
+      .getApi()
+        .subscribe(res => {
+          if(!res.success){
+            alert('error');
+          }
+          this.apiKeys = res.data;
+          console.log( this.apiKeys );
+        })
+       
+  }
+
+  public setValues(){
+    
+  
+  }
+
+  public settingsOpen(id : any){
+    console.log(id + 4);
+    let ID = id + 4;
+    this.thisID = id;
+    // if()
+    // document.getElementById(ID).classList.add('settings-open');
+  }
+
 }
