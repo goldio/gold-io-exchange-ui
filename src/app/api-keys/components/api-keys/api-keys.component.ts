@@ -6,6 +6,7 @@ import { ApiService } from '../../services/apiKey.service';
 import { ApiKey } from '../../models/apiKey.model';
 import { ApiKeyViewModel } from '../../models/apiKeyView.model';
 import { CreateUpdateKeyRequest } from '../../models/create-update-keyRequest.model';
+import { BaseLayoutComponent } from 'src/app/common/components/base.component';
 
 @Component({
   selector: 'app-api-keys',
