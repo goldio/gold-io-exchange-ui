@@ -20,7 +20,7 @@ export class PersonsService extends BaseHttpService {
     }
 
     public updateMe(request: UpdatePersonRequest): Observable<DataResponse<Person>> {
-        return this.post(`${this.apiUrl}/persons/me`, request)
+        return this.post(`${this.apiUrl}/persons/me/update`, request)
             .map(response => response.json());
     }
 }
