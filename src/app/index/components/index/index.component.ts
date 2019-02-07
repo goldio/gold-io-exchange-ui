@@ -25,7 +25,7 @@ import { WalletsService } from 'src/app/common/services/wallets.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CreateOrderRequest } from 'src/app/common/models/request';
 import { ThemeService } from 'src/app/common/services/theme.service';
-import { BaseLayoutComponent } from 'src/app/common/components/base.component';
+import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
 
 // import { runInThisContext } from 'vm';
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/common/services/auth.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { BaseLayoutComponent } from 'src/app/common/components/base.component';
+import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
 
 @Component({
 	selector: 'app-authorization',

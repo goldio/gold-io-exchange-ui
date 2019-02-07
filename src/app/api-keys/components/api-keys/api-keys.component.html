@@ -21,21 +21,22 @@
                     <button type="button"  class="change-btn" (click)="settingsOpen(apiKey.id)"></button>
                     <button type="button" class="delete-btn ml-19" (click)="deleteApiKey(apiKey.id)"></button>
                     <button type="button" class="save-btn ml-19" (click)="setValues(apiKey.id)"></button>
-                    <div class="settings"  id="{{apiKey.id}} +'4'">
+                    <!-- [attr.disabled]="!selectedCoin ? '' : null" -->
+                    <div class="settings"  id="{{apiKey.id}}">
                             <div class="sign-container-checkbox">
-                                <input type="checkbox" id="{{apiKey.id}} +'1'"  [ngModel]="apiKey.accountPermissions" [checked]="apiKey.accountPermissions"/>
+                                <input type="checkbox" id="{{apiKey.id}} +'1'"  (click)="changeAccountValues(apiKey.id)" [ngModel]="apiKey.accountPermissions" [checked]="apiKey.accountPermissions"/>
                                 <label for="{{apiKey.id}} +'1'">
                                     <span></span>View account info
                                 </label>
                             </div>
                             <div class="sign-container-checkbox">
-                                    <input type="checkbox" id="{{apiKey.id}} +'2'" [ngModel]="apiKey.ordersPermissions" [checked]="apiKey.ordersPermissions"/>
+                                    <input type="checkbox" id="{{apiKey.id}} +'2'" (click)="changeOrdersValues(apiKey.id)" [ngModel]="apiKey.ordersPermissions" [checked]="apiKey.ordersPermissions"/>
                                     <label for="{{apiKey.id}} +'2'">
                                         <span></span>Create & edit orders
                                     </label>
                             </div>
                             <div class="sign-container-checkbox">
-                                    <input type="checkbox" id="{{apiKey.id}} +'3'" [ngModel]="apiKey.fundsPermissions"  [checked]="apiKey.fundsPermissions"/>
+                                    <input type="checkbox" id="{{apiKey.id}} +'3'" (click)="changeFundsValues(apiKey.id)" [ngModel]="apiKey.fundsPermissions"  [checked]="apiKey.fundsPermissions"/>
                                     <label for="{{apiKey.id}} +'3'">
                                         <span></span>Withdraw funds
                                     </label>

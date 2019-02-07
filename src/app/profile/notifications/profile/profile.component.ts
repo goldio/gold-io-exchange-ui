@@ -11,7 +11,7 @@ import { ThemeService } from 'src/app/common/services/theme.service';
 import * as moment from 'moment';
 import { MatDatepickerInputEvent } from '@angular/material';
 import { last } from '@angular/router/src/utils/collection';
-import { BaseLayoutComponent } from 'src/app/common/components/base.component';
+import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
 @Component({
 	selector: 'app-profile',
 	templateUrl: './profile.component.html',

@@ -7,6 +7,7 @@ import { ExchangeInfo } from 'src/app/index/models/exchange-info.model';
 import { BaseHttpService } from 'src/app/common/services/base-http.service';
 import { Notifications } from '../models/notifications.model';
 import { NotificationsUpdate } from '../models/notifications-update.model';
+import { DataResponse } from 'src/app/common/models/response';
 
 @Injectable()
 export class NotificationsService extends BaseHttpService {
@@ -16,12 +17,12 @@ export class NotificationsService extends BaseHttpService {
         super(http);
     }
 
-    public getNotifications(): Observable<Notifications> {
+    public getNotifications(): Observable<DataResponse<Notifications>> {
         return this.get(`${this.apiUrl}/persons/me/notifications`)
             .map(response => response.json());
     }  
     
-    public updateNotifications(request: NotificationsUpdate): Observable<Notifications> {
+    public updateNotifications(request: NotificationsUpdate): Observable<DataResponse<Notifications>> {
         return this.post(`${this.apiUrl}/persons/me/notifications/update`, request)
             .map(response => response.json());
     }

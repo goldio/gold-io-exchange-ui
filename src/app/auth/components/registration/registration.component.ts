@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/common/services/auth.service';
 import { Router } from '@angular/router';
-import { BaseLayoutComponent } from 'src/app/common/components/base.component';
 import { SignUpRequest } from 'src/app/common/models/request';
+import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
 
 @Component({
 	selector: 'app-registration',
