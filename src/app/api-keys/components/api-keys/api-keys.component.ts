@@ -6,6 +6,7 @@ import { ApiService } from '../../services/apiKey.service';
 import { ApiKey } from '../../models/apiKey.model';
 import { ApiKeyViewModel } from '../../models/apiKeyView.model';
 import { CreateUpdateKeyRequest } from '../../models/create-update-keyRequest.model';
+import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
 
 @Component({
   selector: 'app-api-keys',
@@ -16,7 +17,7 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
 
   public isLoggedIn: boolean;
 
-  public thisID:number =-2;
+  public thisID:any = -2;
   public settings = -1;
   public apiKeys: ApiKey[];
   // public apiForm: FormGroup;
@@ -98,17 +99,48 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
        
   }
 
-  public setValues(){
-    
-  
+  public changeAccountValues(id : any){
+    this.apiKeys[id].accountPermissions = !this.apiKeys[id].accountPermissions;
+    console.log(this.apiKeys[id].accountPermissions);
+  }
+
+  public changeOrdersValues(id : any){
+    this.apiKeys[id].ordersPermissions = !this.apiKeys[id].ordersPermissions;
+  }
+
+  public changeFundsValues(id : any){
+    this.apiKeys[id].fundsPermissions = !this.apiKeys[id].fundsPermissions;
+  }
+
+  public saveChanges(id : any){
+    let updateKey:CreateUpdateKeyRequest={
+      accountPermissions: this.apiKeys[id].accountPermissions,
+      ordersPermissions: this.apiKeys[id].ordersPermissions,
+      fundsPermissions: this.apiKeys[id].fundsPermissions
+    }
+    this.apiService.updateApi(updateKey).subscribe(res => {
+      if(!res.success){
+        alert('error');
+      }
+      this.apiKeys = res.data;
+      console.log(this.apiKeys);
+    })
   }
 
   public settingsOpen(id : any){
-    console.log(id + 4);
-    let ID = id + 4;
+    console.log(id);
+    
+    if(id != this.thisID && this.thisID!= -2){
+      document.getElementById(this.thisID).classList.remove('settings-open');
+    }
     this.thisID = id;
-    // if()
-    // document.getElementById(ID).classList.add('settings-open');
+    if(document.getElementById(id).classList.contains('settings-open')){
+      document.getElementById(id).classList.remove('settings-open');
+      return;
+    }
+
+    document.getElementById(id).classList.add('settings-open');
+    console.log(document.getElementById(''+ id));
   }
 
 }

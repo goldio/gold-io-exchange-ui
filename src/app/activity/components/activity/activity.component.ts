@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseLayoutComponent } from 'src/app/common/components/base.component';
+import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
 
 @Component({
   selector: 'app-activity',

@@ -6,6 +6,7 @@ import { Wallet } from 'src/app/common/models';
 import { WalletsService } from 'src/app/common/services/wallets.service';
 import { AuthService } from 'src/app/common/services/auth.service';
 import { Router } from '@angular/router';
+import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
 
 @Component({
 	selector: 'app-balance',

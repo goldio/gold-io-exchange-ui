@@ -3,7 +3,7 @@ import { NotificationsService } from '../../services/notifications.service';
 import { Notifications } from '../../models/notifications.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { NotificationsUpdate } from '../../models/notifications-update.model';
-import { BaseLayoutComponent } from 'src/app/common/components/base.component';
+import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
 
 @Component({
   selector: 'app-notifications',
@@ -15,6 +15,10 @@ export class NotificationsComponent extends BaseLayoutComponent implements OnIni
   
   public notifications : Notifications;
   public notifForm: FormGroup;
+
+  public updateRes = false;
+  public updateResText:string;
+
   constructor(
     private notificationsService: NotificationsService
   ) {
@@ -35,7 +39,8 @@ export class NotificationsComponent extends BaseLayoutComponent implements OnIni
         if(!res.success){
           alert('err');
         }
-        this.notifications = res;
+        this.notifications = res.data;
+        
       });
       
   }
@@ -49,22 +54,47 @@ export class NotificationsComponent extends BaseLayoutComponent implements OnIni
 	}
   private submitNotif(form:FormGroup){
     let notificationsUpdateForm :NotificationsUpdate = {
-      emailNews: Boolean(form.controls['news'].value),
-      emailLogins: Boolean(form.controls['loging'].value),
-      emailCoinsRemovals: Boolean(form.controls['coin'].value),
-      emailMarketRemovals: Boolean(form.controls['market'].value)
+      emailNews: this.notifications.emailNews,
+      emailLogins: this.notifications.emailLogins,
+      emailCoinsRemovals: this.notifications.emailCoinsRemovals,
+      emailMarketRemovals: this.notifications.emailMarketRemovals
     }
-    console.log(notificationsUpdateForm);
+    
     
     this.notificationsService
       .updateNotifications(notificationsUpdateForm)
       .subscribe(res =>{
         if(!res.success){
-
+          this.updateResText = res.message;
+          this.updateRes = true;
+				this.updateResText = "Data successfully changed."
+				setTimeout(() => {
+					this.updateRes = false;
+				}, 3000);
         }
-        alert('ok');
+          this.updateResText = 'Data successfully changed.';
+          this.updateRes = true;
+				this.updateResText = "Data successfully changed."
+				setTimeout(() => {
+					this.updateRes = false;
+				}, 3000);
       })
     
+  }
+
+  public change(str: string){
+    if(str == "emailNews"){
+      this.notifications.emailNews = !this.notifications.emailNews;
+    }
+    if(str == "emailLogins"){
+      this.notifications.emailLogins = !this.notifications.emailLogins;
+    }
+    if(str == "emailCoinsRemovals"){
+      this.notifications.emailCoinsRemovals = !this.notifications.emailCoinsRemovals;
+    }
+    if(str == "emailMarketRemovals"){
+      this.notifications.emailMarketRemovals = !this.notifications.emailMarketRemovals;
+    }
   }
 
 }

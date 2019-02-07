@@ -1,26 +1,26 @@
 <form class="profile-narrow login-history notif section" [formGroup]="notifForm" (ngSubmit)="submitNotif(notifForm)" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }">
-    <div class="profile-title notifications-title">
+    <div class="profile-title notifications-title" *ngIf="notifications">
         <h2>Notifications</h2>
         <div class="notifications-item" >
-            <input type="checkbox" id="todo_1" formControlName="news" [checked]="">
+            <input type="checkbox" id="todo_1" formControlName="news" (click)="change('emailNews')" [checked]="notifications.emailNews">
             <label for="todo_1">
                 <span></span>Email me about news
             </label>
         </div>
         <div class="notifications-item">
-            <input type="checkbox" id="todo_2" formControlName="loging" [checked]="">
+            <input type="checkbox" id="todo_2" formControlName="loging" (click)="change('emailLogins')" [checked]="notifications.emailLogins">
             <label for="todo_2">
                 <span></span>Email me about my logins
             </label>
         </div>
         <div class="notifications-item">
-            <input type="checkbox" id="todo_3" formControlName="coin" [checked]="">
+            <input type="checkbox" id="todo_3" formControlName="coin" (click)="change('emailCoinsRemovals')" [checked]="notifications.emailCoinsRemovals">
             <label for="todo_3">
                 <span></span>Email me about coin removals
             </label>
         </div>
         <div class="notifications-item">
-            <input type="checkbox" id="todo_4" formControlName="market" [checked]="">
+            <input type="checkbox" id="todo_4" formControlName="market" (click)="change('emailMarketRemovals')"[checked]="notifications.emailMarketRemovals">
             <label for="todo_4">
                 <span></span>Email me about market removals
             </label>
@@ -28,6 +28,12 @@
     </div>
 
     <div class="notifications-buttons">
-        <button class="main-btn main-btn-hov" type="submit">SAVE</button>
+       
+        <div class="btnTexts">
+                <button class="main-btn main-btn-hov" type="submit">SAVE</button>
+                <div class="some-answer" [ngClass]="{
+                    'some-answer-open': updateRes
+                }"><img src="../../../../assets/images/ready.svg" *ngIf=" updateResText == 'Data successfully changed.'">{{ updateResText }}</div>
+            </div>
     </div>
 </form>
