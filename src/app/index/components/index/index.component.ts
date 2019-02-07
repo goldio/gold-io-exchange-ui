@@ -836,9 +836,6 @@ export class IndexComponent implements OnInit {
 					this.maxQuoteAsset = myWallets.find(x => x.coin.shortName == this.currentSymbol.quoteAsset).balance;
 				}
 			
-		
-	
-		
 		// this.maxBaseAsset = 0.005;
 		// this.maxQuoteAsset = 0.005;
 			
