@@ -14,16 +14,18 @@
             </ul>
         </div>
         <li routerLink="/index" (click)="menuOpen()"><a><i class="ico01"></i>Exchange</a></li>
-        <li><a><i class="ico02"></i>Interest</a></li>
+        <!-- <li><a><i class="ico02"></i>Interest</a></li>
         <li><a><i class="ico03"></i>Margin</a></li>
         <li><a><i class="ico04"></i>Lending</a></li>
-        <li><a><i class="ico05"></i>Trollbox</a></li>
+        <li><a><i class="ico05"></i>Trollbox</a></li> -->
         <span>Account</span>
-        <li routerLink="/profile" (click)="menuOpen()"><a><i class="ico06"></i>Profile</a></li>
-        <li ><a><i class="ico07"></i>Orders</a></li>
-        <li routerLink="/activity" (click)="menuOpen()"><a><i class="ico08"></i>Trade history</a></li>
-        <li routerLink="/balance" (click)="menuOpen()"><a><i class="ico09"></i>Balances</a></li>
-        <li><a><i class="ico10"></i>Sign Up</a></li>
+        <li *ngIf="isLoggedIn" routerLink="/profile" (click)="menuOpen()"><a><i class="ico06"></i>Profile</a></li>
+        <li *ngIf="isLoggedIn" routerLink="/balance" (click)="menuOpen()"><a><i class="ico07"></i>Balances</a></li>
+        <li *ngIf="isLoggedIn" routerLink="/activity" (click)="menuOpen()"><a><i class="ico08"></i>Activity</a></li>
+        <li *ngIf="isLoggedIn" routerLink="/notification" (click)="menuOpen()"><a><i class="ico9"></i>Notification</a></li>
+        <li *ngIf="isLoggedIn" routerLink="/apiKeys" (click)="menuOpen()"><a><i class="ico10"></i>API Keys</a></li>
+        <li *ngIf="isLoggedIn" routerLink="/security" (click)="menuOpen()"><a><i class="ico14"></i>Security</a></li>
+        <li *ngIf="!isLoggedIn" routerLink="/registration"  (click)="menuOpen()"><a><i class="ico10"></i>Sign Up</a></li>
         <span>System</span>
         <li (click)="theme()"><a><i class="ico11"></i>Black&amp;White</a></li>
         <li><a><i class="ico12"></i>Help</a></li>
