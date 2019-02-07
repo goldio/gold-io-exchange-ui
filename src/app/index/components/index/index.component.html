@@ -1,4 +1,4 @@
-<section class="index" *ngIf="currentSymbol">
+<section class="section index" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }">
   <div id="left" style="top: 60px;" [ngClass]="{
         'visible': responciveTabs == 1
     }">

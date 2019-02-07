@@ -1,4 +1,4 @@
-<form class="profile-narrow login-history notif" [formGroup]="notifForm" (ngSubmit)="submitNotif(notifForm)">
+<form class="profile-narrow login-history notif section" [formGroup]="notifForm" (ngSubmit)="submitNotif(notifForm)" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }">
     <div class="profile-title notifications-title">
         <h2>Notifications</h2>
         <div class="notifications-item" >

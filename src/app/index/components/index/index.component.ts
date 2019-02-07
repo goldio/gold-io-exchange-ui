@@ -25,6 +25,7 @@ import { WalletsService } from 'src/app/common/services/wallets.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CreateOrderRequest } from 'src/app/common/models/request';
 import { ThemeService } from 'src/app/common/services/theme.service';
+import { BaseLayoutComponent } from 'src/app/common/components/base.component';
 
 // import { runInThisContext } from 'vm';
 
@@ -38,7 +39,7 @@ declare var Swiper: any;
 })
 
 
-export class IndexComponent implements OnInit {
+export class IndexComponent extends BaseLayoutComponent implements OnInit {
 
 	public isLoggedIn: boolean;
 	
@@ -437,6 +438,8 @@ export class IndexComponent implements OnInit {
 		private walletsService: WalletsService,
 		private themeService: ThemeService
 	) {
+		super();
+		
 		this.themeService
 		.currentState
 		.subscribe(theme => {
@@ -694,6 +697,9 @@ export class IndexComponent implements OnInit {
 
 		this.depthChartOptions = {
 			chart: { type: 'area', zoomType: 'xy', animation: true },
+			rangeSelector: {
+				selected: 1
+			},
 			title: null,
 			credits: { enabled: false },
 			xAxis: {

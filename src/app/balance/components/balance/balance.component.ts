@@ -4,13 +4,14 @@ import 'rxjs/add/operator/debounceTime';
 
 import { Wallet } from 'src/app/common/models';
 import { WalletsService } from 'src/app/common/services/wallets.service';
+import { BaseLayoutComponent } from 'src/app/common/components/base.component';
 
 @Component({
 	selector: 'app-balance',
 	templateUrl: './balance.component.html',
 	styleUrls: ['./balance.component.scss']
 })
-export class BalanceComponent implements OnInit {
+export class BalanceComponent extends BaseLayoutComponent implements OnInit {
 
 	private wallets: Wallet[];
 	public viewWallets: Wallet[];
@@ -18,7 +19,9 @@ export class BalanceComponent implements OnInit {
 
 	constructor(
 		private walletsService: WalletsService
-	) { }
+	) {
+		super();
+	}
 
 	private initSearchForm(): void {
 		this.searchForm = new FormGroup({

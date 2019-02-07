@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { BaseLayoutComponent } from 'src/app/common/components/base.component';
 
 @Component({
   selector: 'app-api-keys',
   templateUrl: './api-keys.component.html',
   styleUrls: ['./api-keys.component.scss']
 })
-export class ApiKeysComponent implements OnInit {
+export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
 
   public settings:boolean = false;
 
   public copyText= "JKSlfdsi352dvd5fm3ZXi";
   public apiForm: FormGroup;
-  constructor() { }
+  constructor() {
+    super();
+  }
 
   ngOnInit() {
     this.initProfileForm();
