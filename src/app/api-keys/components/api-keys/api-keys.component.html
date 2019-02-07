@@ -1,4 +1,4 @@
-<div class="history-narrow api">
+<form class="history-narrow api section" [formGroup]="apiForm" (ngSubmit)="submitApi(apiForm)" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }">
     <div class="api-keys-title">
         <h2><b>API Keys</b></h2>
     </div>

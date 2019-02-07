@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/common/services/auth.service';
   templateUrl: './security.component.html',
   styleUrls: ['./security.component.scss']
 })
-export class SecurityComponent implements OnInit {
+export class SecurityComponent extends BaseLayoutComponent implements OnInit {
 
   public isLoggedIn: boolean;
 
@@ -18,7 +18,9 @@ export class SecurityComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-  ) { }
+  ) {
+    super();
+   }
 
   ngOnInit() {
 

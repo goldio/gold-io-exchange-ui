@@ -12,7 +12,7 @@ import { CreateUpdateKeyRequest } from '../../models/create-update-keyRequest.mo
   templateUrl: './api-keys.component.html',
   styleUrls: ['./api-keys.component.scss']
 })
-export class ApiKeysComponent implements OnInit {
+export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
 
   public isLoggedIn: boolean;
 
@@ -27,7 +27,9 @@ export class ApiKeysComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private apiService: ApiService,
-  ) { }
+  ) { 
+    super();
+  }
 
   ngOnInit() {
     this.authService

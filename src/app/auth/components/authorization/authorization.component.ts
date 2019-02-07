@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/common/services/auth.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { BaseComponent } from 'src/app/common/components/base.component';
+import { BaseLayoutComponent } from 'src/app/common/components/base.component';
 
 @Component({
 	selector: 'app-authorization',
 	templateUrl: './authorization.component.html',
 	styleUrls: ['./authorization.component.scss']
 })
-export class AuthorizationComponent extends BaseComponent implements OnInit {
+export class AuthorizationComponent extends BaseLayoutComponent implements OnInit {
 
 	public emailErrorText: string;
 	public signInForm: FormGroup;

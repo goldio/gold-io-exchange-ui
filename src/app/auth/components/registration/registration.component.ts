@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/common/services/auth.service';
 import { Router } from '@angular/router';
-import { BaseComponent } from 'src/app/common/components/base.component';
+import { BaseLayoutComponent } from 'src/app/common/components/base.component';
 import { SignUpRequest } from 'src/app/common/models/request';
 
 @Component({
@@ -10,7 +10,7 @@ import { SignUpRequest } from 'src/app/common/models/request';
 	templateUrl: './registration.component.html',
 	styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent extends BaseComponent implements OnInit {
+export class RegistrationComponent extends BaseLayoutComponent implements OnInit {
 
 	public checkErr = false;
 

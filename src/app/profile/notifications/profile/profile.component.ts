@@ -11,12 +11,13 @@ import { ThemeService } from 'src/app/common/services/theme.service';
 import * as moment from 'moment';
 import { MatDatepickerInputEvent } from '@angular/material';
 import { last } from '@angular/router/src/utils/collection';
+import { BaseLayoutComponent } from 'src/app/common/components/base.component';
 @Component({
 	selector: 'app-profile',
 	templateUrl: './profile.component.html',
 	styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 	
 	public isLoggedIn: boolean;
 
@@ -176,14 +177,16 @@ export class ProfileComponent implements OnInit {
 		private router: Router,
 		private themeService: ThemeService
 	) { 
+		super();
+		
 		this.themeService
-		.currentState
-		.subscribe(theme => {
-			this.theme = theme;
-			if(this.theme === 0){
-				this.calendarTheme = './light.scss';
-			}
-		});
+			.currentState
+			.subscribe(theme => {
+				this.theme = theme;
+				if(this.theme === 0){
+					this.calendarTheme = './light.scss';
+				}
+			});
 	 }
 
 	ngOnInit() {

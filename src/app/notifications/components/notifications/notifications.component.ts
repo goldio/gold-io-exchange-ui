@@ -3,20 +3,23 @@ import { NotificationsService } from '../../services/notifications.service';
 import { Notifications } from '../../models/notifications.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { NotificationsUpdate } from '../../models/notifications-update.model';
+import { BaseLayoutComponent } from 'src/app/common/components/base.component';
 
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss']
 })
-export class NotificationsComponent implements OnInit {
+export class NotificationsComponent extends BaseLayoutComponent implements OnInit {
   
   
   public notifications : Notifications;
   public notifForm: FormGroup;
   constructor(
     private notificationsService: NotificationsService
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit() {
   

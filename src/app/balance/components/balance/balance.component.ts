@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 	templateUrl: './balance.component.html',
 	styleUrls: ['./balance.component.scss']
 })
-export class BalanceComponent implements OnInit {
+export class BalanceComponent extends BaseLayoutComponent implements OnInit {
 
 	public isLoggedIn: boolean;
 
@@ -24,7 +24,9 @@ export class BalanceComponent implements OnInit {
 		private walletsService: WalletsService,
 		private authService: AuthService,
     private router: Router,
-	) { }
+	) {
+		super();
+	 }
 
 	private initSearchForm(): void {
 		this.searchForm = new FormGroup({

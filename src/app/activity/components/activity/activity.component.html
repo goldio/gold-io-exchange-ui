@@ -1,4 +1,4 @@
-<div class="profile-narrow login-history">
+<div class="profile-narrow login-history section" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }">
     <div class="profile-title">
         <h2 class="fl-row">Activity
             <div class="double-btns" [ngClass]="{
