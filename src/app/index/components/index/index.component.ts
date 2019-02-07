@@ -797,17 +797,19 @@ export class IndexComponent implements OnInit {
 		
 	}
 
-	private getBalance(): void {
-		this.walletsService
-			.getMe()
-			.subscribe(res => {
-				if (!res.success) {
-					alert(res.message);
-					return;
-				}
-				this.MyWallets = res.data;
-				this.calcMaxMyBalance(this.MyWallets);
-			});
+	public getBalance(): void {
+		if(this.isLoggedIn){
+			this.walletsService
+				.getMe()
+				.subscribe(res => {
+					if (!res.success) {
+						alert(res.message);
+						return;
+					}
+					this.MyWallets = res.data;
+					this.calcMaxMyBalance(this.MyWallets);
+				});
+		}
 	}
 
 	public convertToNumber(){
@@ -827,16 +829,14 @@ export class IndexComponent implements OnInit {
 	}
 
 	public calcMaxMyBalance(myWallets :Wallet[]){
-		if(this.isLoggedIn){
-			if(myWallets){
-				if(myWallets.find(x => x.coin.shortName == this.currentSymbol.baseAsset)){
+		
+			
+				if(this.currentSymbol){
 					this.maxBaseAsset = myWallets.find(x => x.coin.shortName == this.currentSymbol.baseAsset).balance;
+					this.maxQuoteAsset = myWallets.find(x => x.coin.shortName == this.currentSymbol.quoteAsset).balance;
 				}
-				if(myWallets.find(x => x.coin.shortName == this.currentSymbol.quoteAsset)){
-				   this.maxQuoteAsset = myWallets.find(x => x.coin.shortName == this.currentSymbol.quoteAsset).balance;
-			   }
-			}
-		}
+			
+		
 	
 		
 		// this.maxBaseAsset = 0.005;
@@ -976,13 +976,35 @@ export class IndexComponent implements OnInit {
 
 		this.orderTotal = this.tradeForm.controls['total'].value;
 		this.baseAsset = this.tradeForm.controls['total'].value;
-		if(this.quoteAsset!=0){
-			this.orderPrice = (this.orderTotal / this.quoteAsset).toFixed(8);
-		}else{
-			this.orderPrice =  this.orderPrice.toFixed(8);
+		if(this.orderType == OrderType.Buy){
+			if(this.baseAsset > this.maxBaseAsset){
+				this.baseAsset = this.maxBaseAsset;
+			}
+			if(this.orderPrice!=0){
+				this.quoteAsset = this.baseAsset / this.orderPrice;
+			}
+			this.orderAmount = this.quoteAsset;
+			this.orderTotal = this.baseAsset;
 		}
+		if(this.quoteAsset!=0){
+			this.orderPrice = (this.orderTotal / this.quoteAsset);
+		}else{
+			this.orderPrice =  this.orderPrice;
+		}
+
+		if(this.orderType == OrderType.Sell){
+			if(this.quoteAsset > this.maxQuoteAsset){
+				this.quoteAsset = this.maxQuoteAsset;
+				this.orderAmount = this.maxQuoteAsset;
+			}
+			this.baseAsset = this.quoteAsset * this.orderPrice;
+			this.orderTotal = this.baseAsset;
+		}
+
 		this.orderAmount = this.quoteAsset;
 		this.baseAsset =  this.baseAsset.toFixed(8);
+		this.orderPrice =  this.orderPrice.toFixed(8);
+		this.orderAmount =  this.orderAmount.toFixed(8);
 		this.quoteAsset =  this.quoteAsset.toFixed(8);
 
 	}
