@@ -24,7 +24,7 @@ export class RegistrationComponent extends BaseLayoutComponent implements OnInit
 			fullName: new FormControl(null, [Validators.required]),
 			password: new FormControl(null, [Validators.required]),
 			email: new FormControl(null, [Validators.required, Validators.email]),
-			agreeBox: new FormControl(null, [Validators.required])
+			agreeBox: new FormControl()
 			
 		});
 	}
@@ -82,27 +82,16 @@ export class RegistrationComponent extends BaseLayoutComponent implements OnInit
 	public submitRegistration(form: FormGroup): void {
 		if (form.invalid) {
 			this.markContolsAsTouched();
-			if (form.controls['fullName'].invalid){
-				alert('1');
-			}
-			if (form.controls['password'].invalid){
-				alert('2');
-			}
-			if (form.controls['email'].invalid){
-				alert('3');
-			}
-			if (form.controls['agreeBox'].invalid){
-				alert('4');
-			}
-			if (form.controls['agreeBox'].invalid) {
-				alert('11');
-				this.checkErr = true;
-				setTimeout(() => {
-					this.checkErr = false;
-				}, 3000);
+			
+			// if (form.controls['agreeBox'].invalid) {
+			// 	alert('11');
+			// 	this.checkErr = true;
+			// 	setTimeout(() => {
+			// 		this.checkErr = false;
+			// 	}, 3000);
 	
-				return;
-			}
+			// 	return;
+			// }
 			return;
 		}
 
