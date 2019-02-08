@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import 'rxjs/add/operator/debounceTime';
 
-import { Wallet } from 'src/app/common/models';
+import { UserWallet } from 'src/app/common/models';
 import { WalletsService } from 'src/app/common/services/wallets.service';
 import { AuthService } from 'src/app/common/services/auth.service';
 import { Router } from '@angular/router';
@@ -17,8 +17,8 @@ export class BalanceComponent extends BaseLayoutComponent implements OnInit {
 
 	public isLoggedIn: boolean;
 
-	private wallets: Wallet[];
-	public viewWallets: Wallet[];
+	private wallets: UserWallet[];
+	public viewWallets: UserWallet[];
 	public searchForm: FormGroup;
 
 	constructor(

@@ -2,7 +2,7 @@ import { BaseModel } from './base.model';
 import { User } from './user.model';
 import { Coin } from './coin.model';
 
-export class Wallet extends BaseModel {
+export class UserWallet extends BaseModel {
     public balance: number;
     public onOrders: number;
     public vtcValue: number;

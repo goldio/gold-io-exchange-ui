@@ -16,16 +16,13 @@ import { DateHelper } from 'src/app/common/helpers';
 import { Symbol } from '../../models/symbol.model';
 import { AuthService } from 'src/app/common/services/auth.service';
 
-import symbols from './symbols';
-import { Pair } from '../../models/pair.model';
 import { TradeService } from 'src/app/common/services/trade.service';
 import { OrderType, Theme } from 'src/app/common/enums';
-import { Coin, Wallet } from 'src/app/common/models';
 import { WalletsService } from 'src/app/common/services/wallets.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CreateOrderRequest } from 'src/app/common/models/request';
 import { ThemeService } from 'src/app/common/services/theme.service';
 import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
+import { UserWallet } from 'src/app/common/models';
 
 // import { runInThisContext } from 'vm';
 
@@ -57,7 +54,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 	
 	public orderTotal:any = 0;
 	public orderType:OrderType = OrderType.Buy;
-	public MyWallets: Wallet[];
+	public MyWallets: UserWallet[];
 
 	public Highcharts = Highcharts;
 	public priceChartOptions: Highcharts.Options;
@@ -841,7 +838,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		this.orderAmount =  this.orderAmount.toFixed(8);
 	}
 
-	public calcMaxMyBalance(myWallets :Wallet[]){
+	public calcMaxMyBalance(myWallets: UserWallet[]){
 		
 			
 				if(this.currentSymbol){

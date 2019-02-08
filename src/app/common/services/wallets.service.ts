@@ -3,7 +3,7 @@ import { BaseHttpService } from 'src/app/common/services/base-http.service';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
 import { DataResponse } from 'src/app/common/models/response';
-import { Wallet } from 'src/app/common/models';
+import { UserWallet } from 'src/app/common/models';
 
 @Injectable()
 export class WalletsService extends BaseHttpService {
@@ -11,7 +11,7 @@ export class WalletsService extends BaseHttpService {
         super(http);
     }
 
-    public getMe(): Observable<DataResponse<Wallet[]>> {
+    public getMe(): Observable<DataResponse<UserWallet[]>> {
         return this.get(`${this.apiUrl}/wallets/me`)
             .map(response => response.json());
     }
