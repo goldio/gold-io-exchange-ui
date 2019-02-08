@@ -18,6 +18,7 @@ export class NotificationsComponent extends BaseLayoutComponent implements OnIni
 
   public updateRes = false;
   public updateResText:string;
+  public successfullyChanged=false;
 
   constructor(
     private notificationsService: NotificationsService
@@ -67,17 +68,20 @@ export class NotificationsComponent extends BaseLayoutComponent implements OnIni
         if(!res.success){
           this.updateResText = res.message;
           this.updateRes = true;
-				this.updateResText = "Data successfully changed."
 				setTimeout(() => {
-					this.updateRes = false;
+          this.updateRes = false;
+          this.updateResText = '';
 				}, 3000);
         }
-          this.updateResText = 'Data successfully changed.';
-          this.updateRes = true;
-				this.updateResText = "Data successfully changed."
+        this.updateResText = res.message;
+        this.updateRes = true;
+        this.successfullyChanged =true;
 				setTimeout(() => {
-					this.updateRes = false;
-				}, 3000);
+          this.updateRes = false;
+          this.successfullyChanged = false;
+          this.updateResText = ""
+        }, 3000);
+        
       })
     
   }

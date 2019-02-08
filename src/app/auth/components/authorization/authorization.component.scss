@@ -136,6 +136,8 @@ input[type=checkbox]:checked + label span::after {
     text-align: center;
     font-size: 15px;
     line-height: 3px;
+    display: flex;
+    flex-direction: column;
 }
 
 

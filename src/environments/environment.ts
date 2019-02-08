@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // apiEndpoint: "http://188.42.172.246:5000/api"
-  apiEndpoint: "http://192.168.0.198:5000/api"
+  apiEndpoint: "http://188.42.172.246:5000/api"
+  // apiEndpoint: "http://192.168.0.198:5000/api"
 };
 
 /*

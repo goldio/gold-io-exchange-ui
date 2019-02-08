@@ -33,7 +33,7 @@
                 <button class="main-btn main-btn-hov" type="submit">SAVE</button>
                 <div class="some-answer" [ngClass]="{
                     'some-answer-open': updateRes
-                }"><img src="../../../../assets/images/ready.svg" *ngIf=" updateResText == 'Data successfully changed.'">{{ updateResText }}</div>
+                }"><img src="../../../../assets/images/ready.svg" *ngIf="successfullyChanged">{{ updateResText }}</div>
             </div>
     </div>
 </form>

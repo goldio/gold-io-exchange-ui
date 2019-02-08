@@ -42,6 +42,7 @@ export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 
 	public updateRes:boolean = false;
 	public updateResText : string;
+	public successfullyChanged = false;
 
 	public dateB:Date;
 	public dateBError = false;
@@ -271,17 +272,22 @@ export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 					alert(res.message);
 					this.updateResText = res.message;
 					this.updateRes = true;
+					this.successfullyChanged = false;
 					setTimeout(() => {
 						this.updateRes = false;
+						this.updateResText = '';
 					}, 3000);
 						return;
 				}
 
 				this.person = res.data;
 				this.updateRes = true;
-				this.updateResText = "Data successfully changed."
+				this.updateResText = res.message;
+				this.successfullyChanged = true;
 				setTimeout(() => {
 					this.updateRes = false;
+					this.successfullyChanged = false;
+					this.updateResText = "";
 				}, 3000);
 			});
 	}

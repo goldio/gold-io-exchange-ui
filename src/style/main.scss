@@ -3852,9 +3852,13 @@ ul.left-top-menu {
   .error {
     .error-text {
       right: 35px;
-      top: -40px;
+      top: -100px;
       max-width: 233px;
       min-height: 47px;
+    }
+    .error-text-open {
+      opacity: 1;
+      top: -40px;
     }
 
     .error-text:after {

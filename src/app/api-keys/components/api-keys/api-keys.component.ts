@@ -20,6 +20,10 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
   public thisID:any = -2;
   public settings = -1;
   public apiKeys: ApiKey[];
+
+  public updateRes:boolean=false;
+  public updateResText:string;
+  public successfullyChanged=false;
   // public apiForm: FormGroup;
   // public forms: {};
   // public forms: { [key: string] : FormGroup; } = {};
@@ -69,19 +73,46 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
     .generateNewKey(CreateUpdateKeyRequest)
       .subscribe(res => {
         if(!res.success){
-          alert('error');
+          this.updateResText = res.message;
+					this.updateRes = true;
+					setTimeout(() => {
+            this.updateRes = false;
+            this.updateResText ="";
+					}, 3000);
+						return;
         }
         this.apiKeys = res.data;
-        console.log( this.apiKeys );
+        this.updateRes = true;
+        this.successfullyChanged =true;
+				this.updateResText = res.message;
+				setTimeout(() => {
+          this.updateRes = false;
+          this.successfullyChanged = false;
+          this.updateResText = ""
+				}, 3000);
       })
   }
 
   public deleteApiKey(id: number){
     this.apiService.deleteApiKey(id).subscribe(res =>{
       if(!res.success){
-
+        this.updateResText = res.message;
+        this.updateRes = true;
+        setTimeout(() => {
+          this.updateRes = false;
+          this.updateResText ="";
+        }, 3000);
+          return;
       }
       this.apiKeys = res.data;
+      this.updateRes = true;
+      this.successfullyChanged =true;
+				this.updateResText = "Data successfully changed."
+				setTimeout(() => {
+          this.updateRes = false;
+          this.successfullyChanged = false;
+          this.updateResText = ""
+				}, 3000);
     });
   }
 
@@ -121,11 +152,25 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
     }
     this.apiService.updateApi(updateKey).subscribe(res => {
       if(!res.success){
-        alert('error');
+        // alert('error');
+        this.updateResText = res.message;
+					this.updateRes = true;
+					setTimeout(() => {
+            this.updateRes = false;
+            this.updateResText ="";
+					}, 3000);
+						return;
       }
-      alert('ok');
+      // alert('ok');
       this.apiKeys = res.data;
-      console.log(this.apiKeys);
+      this.updateRes = true;
+      this.successfullyChanged =true;
+				this.updateResText = res.message;
+				setTimeout(() => {
+          this.updateRes = false;
+          this.successfullyChanged = false;
+          this.updateResText = ""
+				}, 3000);
     })
   }
 
