@@ -31,7 +31,12 @@
                 
                 <div class="security-item-hide">
                    <div class="qr-code">
-
+                    <ngx-qrcode 
+                    class=""
+                    [qrc-value] = "qrContentValue"
+                    qrc-class = "aclass"
+                    qrc-errorCorrectionLevel = "L">
+                  </ngx-qrcode>
                    </div>
                    <div class="df-column">
                     <span class="text1">Secret code</span>
@@ -50,6 +55,12 @@
             </div>
         </div>
         
+
+
+        
+
+
+
         <button type="submit" class="main-btn main-btn-hov">SAVE</button>
     </div>
 </div>

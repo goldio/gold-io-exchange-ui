@@ -1,12 +1,10 @@
 <section class="section index" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }">
-  <div id="left" style="top: 60px;" [ngClass]="{
-        'visible': responciveTabs == 1
-    }">
-    <form class="left-content-block" [formGroup]="tradeForm" (ngSubmit)="submitOrder(tradeForm)">
-      <div class="left-content box-responcive visible1">
+  <div id="left" style="top: 60px" [ngClass]="{ 'visible': responciveTabs == 1 }">
+    <form class="left-content-block" [formGroup]="tradeForm" (ngSubmit)="submitOrder(tradeForm)" *ngIf="currentSymbol">
+      <div class="left-content box-responcive visible1" >
         <div class="left-content-balance">
           <h4>Balance</h4>
-          <div class="left-content-balance-item">
+          <div class="left-content-balance-item" >
             <b>{{ currentSymbol.quoteAsset }}</b>
             {{ quoteAsset }}
             <div class="button-plus" type="button" (click)="calcQuoteAss(false)" *ngIf="isLoggedIn"><span>+</span></div>
@@ -19,7 +17,7 @@
             {{ baseAsset }}
             <div class="button-plus" type="button" (click)="calcBaseAss(false)" *ngIf="isLoggedIn"><span>+</span></div>
             <div class="button-minus" type="button" (click)="calcBaseAss(true)" *ngIf="isLoggedIn"><span>-</span></div>
-            <div class="button-plus" type="button"  *ngIf="!isLoggedIn"><span>+</span></div>
+            <div class="button-plus" type="button" *ngIf="!isLoggedIn"><span>+</span></div>
             <div class="button-minus" type="button" *ngIf="!isLoggedIn"><span>-</span></div>
           </div>
         </div>
@@ -41,12 +39,18 @@
                   <input type="radio" class="radio" id="radio2" name="radio" checked>
                   <label class="radio1" for="radio2">Limit</label>
                 </em>
-                <input  placeholder="1.00000000" type="number" formControlName="price" required [(ngModel)]="orderPrice" (keyup)="calcWithNewPrice()">
+                <input placeholder="1.00000000" type="number" formControlName="price" required [(ngModel)]="orderPrice"
+                  (keyup)="calcWithNewPrice()" *ngIf="isLoggedIn">
+                  <input placeholder="1.00000000" type="number" formControlName="price" required [(ngModel)]="orderPrice"
+                  (keyup)="calcWithNewPrice()" *ngIf="!isLoggedIn" disabled>
                 <b class="input-decor">{{ currentSymbol.quoteAsset }}</b>
               </div>
               <div class="left-content-sell-input">
                 Amount
-                <input  placeholder="1.00000000" type="number" formControlName="amount" required [(ngModel)]="orderAmount"  (keyup)="calcWithNewAmount()">
+                <input placeholder="1.00000000" type="number" formControlName="amount" required [(ngModel)]="orderAmount"
+                  (keyup)="calcWithNewAmount()" *ngIf="isLoggedIn">
+                  <input placeholder="1.00000000" type="number" formControlName="amount" required [(ngModel)]="orderAmount"
+                  (keyup)="calcWithNewAmount()" *ngIf="!isLoggedIn" disabled>
                 <b>{{ currentSymbol.baseAsset }}</b>
               </div>
               <div class="left-content-sell-input percents">
@@ -58,7 +62,10 @@
               </div>
               <div class="left-content-sell-input">
                 Total
-                <input  placeholder="1.00000000" type="number" formControlName="total" required [(ngModel)]="orderTotal"  (keyup)="calcWithNewTotal()">
+                <input placeholder="1.00000000" type="number" formControlName="total" required [(ngModel)]="orderTotal"
+                  (keyup)="calcWithNewTotal()" *ngIf="isLoggedIn">
+                  <input placeholder="1.00000000" type="number" formControlName="total" required [(ngModel)]="orderTotal"
+                  (keyup)="calcWithNewTotal()" *ngIf="!isLoggedIn" disabled>
                 <b>{{ currentSymbol.quoteAsset }}</b>
               </div>
               <button class="transparent-btn" type="submit" *ngIf="isLoggedIn">{{ buyCellBtn }}</button>
@@ -93,7 +100,7 @@
             <span>Base</span>
             <span>Quote</span>
           </div>
-          <div class="top-currency-items-wrapper" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" >
+          <div class="top-currency-items-wrapper" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
             <div class="top-currency-dropdown-item" *ngFor="let viewSymbol of viewSymbols" (click)="setSymbol(viewSymbol)">
               <span><b>{{ viewSymbol.baseAsset }}/{{ viewSymbol.quoteAsset }}</b></span>
               <span>{{ viewSymbol.baseAsset }}</span>
@@ -204,7 +211,7 @@
 
     <div class="content-left box-responcive" [ngClass]="{
             'visible': responciveTabs == 2
-        }">
+        }" *ngIf="currentSymbol">
       <h2>ORDER BOOK</h2>
       <span style="padding-left: 25px;">Price({{ currentSymbol.quoteAsset }})</span>
       <span>Amount({{ currentSymbol.baseAsset }})</span>
@@ -236,7 +243,7 @@
 
     <div class="content-right box-responcive" [ngClass]="{
             'visible': responciveTabs == 3
-        }">
+        }" *ngIf="currentSymbol">
       <h2>TRADE HISTORY</h2>
       <span>Price({{ currentSymbol.quoteAsset }})</span>
       <span>Amount({{ currentSymbol.baseAsset }})</span>
@@ -251,8 +258,7 @@
       </div>
     </div>
 
-    <div class="content-center" malihu-scrollbar [scrollbarOptions]="scrollbarOptions"
-      [ngClass]="{
+    <div class="content-center" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" [ngClass]="{
             'content-center-visible': responciveTabs == 4  || responciveTabs == 6
         }">
       <div class="content-center-chart box-responcive" [ngClass]="{
@@ -289,7 +295,7 @@
           </div>
 
           <div class="depth_chart_control" style="display:none">
-            <button id="depth_plus" class="balances-plus" >+</button>
+            <button id="depth_plus" class="balances-plus">+</button>
 
             <div class="depth_chart_header">
               <div class="mid_price_label">Mid Market Price</div>
@@ -307,7 +313,7 @@
 
       <div class="content-center-orders box-responcive block-orders" [ngClass]="{
                 'visible': responciveTabs == 6 
-            }">
+            }" *ngIf="currentSymbol">
         <div class="box visible">
           <h2>OPEN ORDERS</h2>
           <div class="content-orders">

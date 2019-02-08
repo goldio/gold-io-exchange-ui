@@ -217,3 +217,9 @@ margin-top: 11px;
         background: transparent;
         border: none;
     }
+
+    /deep/ ngx-qrcode{
+        img{
+            width: 100%;
+        }
+    }

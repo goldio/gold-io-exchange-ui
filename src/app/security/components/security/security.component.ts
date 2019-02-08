@@ -12,7 +12,8 @@ import { BaseLayoutComponent } from 'src/app/common/components/base-layout.compo
 export class SecurityComponent extends BaseLayoutComponent implements OnInit {
 
   public isLoggedIn: boolean;
-
+  public qrContent;
+  public qrContentValue: string = "svetlana";
   public securityForm: FormGroup;
 
   

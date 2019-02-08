@@ -15,6 +15,8 @@ import { MalihuScrollbarModule } from 'ngx-malihu-scrollbar';
 
 import { HighchartsChartModule } from 'highcharts-angular';
 
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+
 import { AppComponent } from './app.component';
 import { AuthorizationComponent } from './auth/components/authorization/authorization.component';
 import { RegistrationComponent } from './auth/components/registration/registration.component';
@@ -75,6 +77,7 @@ import { SecurityService } from './security/services/security.service';
 		MatIconModule,
 		MatDatepickerModule,
 		MatFormFieldModule,
+		NgxQRCodeModule,
     	MatInputModule,
 		[MatButtonModule, MatCheckboxModule],
 		MalihuScrollbarModule.forRoot(),

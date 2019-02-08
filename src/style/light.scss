@@ -472,7 +472,18 @@
         background: #f2f2f2;
     }
     .notifications-item input[type=checkbox]:checked+label span::after {
-      background: #CABC5F;
+      width: 16px;
+      height: 16px;
+      left: 0px;
+      top: 0px;
+      flex-shrink: 0;
+      border-radius: 3px;
+      content: '';
+      display: block;
+      position: absolute;
+      background: url(../assets/images/light-check.svg)no-repeat center/16px;
+      transform: scale(0);
+      transition: transform 300ms cubic-bezier(0.3, 0, 0, 1.5);
       box-shadow: 0px 0px 10px rgba(209, 200, 129, 0.3);
     }
   
@@ -891,6 +902,11 @@
     }
   
     .settings::before {
+      content: '';
+      border: 8px solid transparent;
+      position: absolute;
+      bottom: 51px;
+      left: 45%;
       border-bottom: 12px solid #FFFFFF;
     }
     .settings input[type=checkbox]+label {
@@ -1630,3 +1646,58 @@
   }
 
   
+.light{
+  .sign{
+    
+    input[type=checkbox] + label span::after {
+      width: 16px;
+      height: 16px;
+      left: 0px;
+      top: 0px;
+      flex-shrink: 0;
+      border-radius: 3px;
+      content: '';
+      display: block;
+      position: absolute;
+      background: url(../assets/images/light-check.svg)no-repeat center/16px;
+      transform: scale(0);
+      transition: transform 300ms cubic-bezier(0.3, 0, 0, 1.5);
+    }
+  }
+}
+
+.light .settings {
+  box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.1);
+  input[type=checkbox] + label span::after {
+    width: 16px;
+    height: 16px;
+    left: 0px;
+    top: 0px;
+    flex-shrink: 0;
+    border-radius: 3px;
+    content: '';
+    display: block;
+    position: absolute;
+    background: url(../assets/images/light-check.svg)no-repeat center/16px;
+    transform: scale(0);
+    transition: transform 300ms cubic-bezier(0.3, 0, 0, 1.5);
+  }
+}
+
+.light{
+  .api{
+    .save-btn-api{
+        background: transparent url(../assets/images/save-btn-2-light.svg) no-repeat center/15px;
+    }
+  }
+}
+
+.light 
+.settings::before{
+  content: '';
+  border: 8px solid transparent;
+  position: absolute;
+  bottom: 51px;
+  left: 45%;
+  border-bottom: 12px solid #FFFFFF;
+}

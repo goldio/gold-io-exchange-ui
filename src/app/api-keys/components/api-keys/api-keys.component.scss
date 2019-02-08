@@ -85,13 +85,6 @@
   // margin-left: 20px;
 }
 
-.settings::before {
-  content: '';
-  border: 8px solid transparent;
-  position: absolute;
-  bottom: 51px;
-  left: 45%;
-}
 
 .api-keys-item b {
   font-weight: 400;
@@ -186,24 +179,21 @@ input[type=checkbox]+label span {
 
 
 input[type=checkbox]+label span::after {
-  width: 11px;
-  height: 11px;
-  left: 2.6px;
-  top: 2.4px;
+  width: 16px;
+  height: 16px;
+  left: 0px;
+  top: 0px;
   flex-shrink: 0;
   border-radius: 3px;
   content: '';
   display: block;
   position: absolute;
-  background-size: 13px auto;
+  // background: url(../../../../assets/images/blak-check.svg)no-repeat center/16px;
   transform: scale(0);
   transition: transform 300ms cubic-bezier(0.3, 0, 0, 1.5);
 }
 
-input[type=checkbox]+label .sup-lable::after {
-  left: 2.6px;
-  top: 2.4px;
-}
+
 
 input[type=checkbox]:checked+label span::after {
   transform: scale(1);
@@ -326,20 +316,7 @@ input[type=checkbox]:checked+label span::after {
 
 
 
-.save-btn{
-  width: 27px;
-    height: 27px;
-    box-sizing: border-box;
-    border-radius: 3px;
-    border: 1px solid #7FDB6F;
-    background: transparent url(../../../../assets/images/save-btn-2.svg) no-repeat center/15px;
-}
-.save-btn:hover{
-  border: 1px solid #B5FF79;
-}
-.save-btn:active{
-  border: 1px solid #48A43E;
-}
+
 
 
 

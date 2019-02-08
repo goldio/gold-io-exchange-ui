@@ -54,11 +54,9 @@ export class HeaderComponent implements OnInit {
 			var div = $("#header"); // тут указываем ID элемента
 			if (!div.is(e.target) // если клик был не по нашему блоку
 				&& div.has(e.target).length === 0) { 
-				if(document.getElementById('popup').classList.contains('left-top-menu-open')){
+				if(document.getElementById('popup') && document.getElementById('popup').classList.contains('left-top-menu-open')){
 					document.getElementById('popup').classList.remove('left-top-menu-open');
-					
 				}
-				
 			}
 		});
 		

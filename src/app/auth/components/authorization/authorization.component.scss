@@ -49,20 +49,6 @@ input[type=checkbox] + label span {
 }
 
 
-input[type=checkbox] + label span::after {
-    width: 11px;
-    height: 11px;
-    left: 2.8px;
-    top: 2.2px;
-    flex-shrink: 0;
-    border-radius: 3px;
-    content: '';
-    display: block;
-    position: absolute;
-    background-size: 13px auto;
-    transform: scale(0);
-    transition: transform 300ms cubic-bezier(0.3, 0, 0, 1.5);
-}
 input[type=checkbox] + label .sup-lable::after{
     left: 2.6px;
     top: 2.4px;

@@ -22,17 +22,17 @@ export class ApiService extends BaseHttpService {
     }
 
     public updateApi(request: CreateUpdateKeyRequest): Observable<DataResponse<ApiKey[]>> {
-        return this.post(`${this.apiUrl}/persons/me`, request)
+        return this.put(`${this.apiUrl}/apiKeys`, request)
             .map(response => response.json());
     }
 
     public generateNewKey(request: CreateUpdateKeyRequest): Observable<DataResponse<ApiKey[]>> {
-        return this.post(`${this.apiUrl}/persons/me`, request)
+        return this.post(`${this.apiUrl}/apiKeys`, request)
             .map(response => response.json());
     }
 
-    public deleteApiKey(request: number): Observable<DataResponse<ApiKey[]>> {
-        return this.post(`${this.apiUrl}/apiKeys/delete`, request)
+    public deleteApiKey(id: number): Observable<DataResponse<ApiKey[]>> {
+        return this.delete(`${this.apiUrl}/apiKeys?id=${id}`)
             .map(response => response.json());
     }
 }

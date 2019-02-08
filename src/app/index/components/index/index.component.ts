@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 
 /* import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts"; */
@@ -39,7 +39,7 @@ declare var Swiper: any;
 })
 
 
-export class IndexComponent extends BaseLayoutComponent implements OnInit {
+export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDestroy {
 
 	public isLoggedIn: boolean;
 	
@@ -473,10 +473,17 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 					x.symbol.toLowerCase().includes(`${value}`.toLowerCase()) ||
 					x.symbol.toLowerCase().includes(`${value}`.toLowerCase()));
 		});
+
+		if(!this.isLoggedIn){
+			
+		}
 		
 	}
 
-		
+	ngOnDestroy(){
+		this.websocketService.closeDepthStream();
+		this.websocketService.closeLocalDepthStream();
+	}
 
 	private async getCandlestickData() {
 		const symbol = this.currentSymbol.symbol;
