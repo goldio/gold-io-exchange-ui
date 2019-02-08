@@ -20,7 +20,7 @@
                 <div class="column column3">
                     <button type="button"  class="change-btn" (click)="settingsOpen(apiKey.id)"></button>
                     <button type="button" class="delete-btn ml-19" (click)="deleteApiKey(apiKey.id)"></button>
-                    <button type="button" class="save-btn ml-19" (click)="setValues(apiKey.id)"></button>
+                    <button type="button" class="save-btn-api ml-19" (click)="saveChanges(apiKey.id)"></button>
                     <!-- [attr.disabled]="!selectedCoin ? '' : null" -->
                     <div class="settings"  id="{{apiKey.id}}">
                             <div class="sign-container-checkbox">

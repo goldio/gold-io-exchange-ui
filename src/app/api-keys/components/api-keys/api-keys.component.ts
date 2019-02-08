@@ -113,6 +113,7 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
   }
 
   public saveChanges(id : any){
+    alert(id);
     let updateKey:CreateUpdateKeyRequest={
       accountPermissions: this.apiKeys[id].accountPermissions,
       ordersPermissions: this.apiKeys[id].ordersPermissions,
@@ -122,6 +123,7 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
       if(!res.success){
         alert('error');
       }
+      alert('ok');
       this.apiKeys = res.data;
       console.log(this.apiKeys);
     })
@@ -143,4 +145,7 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
     console.log(document.getElementById(''+ id));
   }
 
+  public touch(id : any){
+    
+  }
 }

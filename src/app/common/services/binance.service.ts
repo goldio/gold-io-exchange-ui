@@ -6,6 +6,7 @@ import { TradeHistoryItem } from 'src/app/index/models';
 import { ExchangeInfo } from 'src/app/index/models/exchange-info.model';
 import { OrderBookResponse } from '../models/binance/order-book-response.model';
 import { BaseHttpService } from './base-http.service';
+import { RequestHelper } from '../helpers';
 
 @Injectable()
 export class BinanceService extends BaseHttpService {
@@ -26,7 +27,10 @@ export class BinanceService extends BaseHttpService {
     }   
 
     public getExchangeInfo(): Observable<ExchangeInfo> {
-        return this.get(`/binance/api/v1/exchangeInfo`)
+        const options = RequestHelper.constructRequestOptions();
+        options.headers.set('X-MBX-APIKEY', 'ryHIGtf0risXmrDLlsorJgtCCp395HGtEWdRIOETMcLJq45AbK5hFx4xDYt8p0aE');
+
+        return this.get(`/binance/api/v1/exchangeInfo`, options)
             .map(response => response.json());
     }
 
