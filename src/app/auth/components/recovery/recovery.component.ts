@@ -15,6 +15,9 @@ export class RecoveryComponent implements OnInit {
 	public key:string;
 	public passwordErrorText:string;
 
+	public easy= false;
+	public short = false;
+
 	private initRecoveryPassForm(): void {
 		this.recoveryPassForm = new FormGroup({
 			password: new FormControl(null, [Validators.required]),
@@ -40,7 +43,43 @@ export class RecoveryComponent implements OnInit {
 		this.checkKey();
 		this.initRecoveryPassForm();
 
+		this.recoveryPassForm.controls['password']
+			.valueChanges
+			.debounceTime(1000)
+			.subscribe(value => {
+	  
+				if (value.search(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)){
+					this.passwordErrorText = "Your password is easy!" ;
+					// this.signUpForm.controls['password'].setErrors({
+					// 	easy: true
+					// });
+					this.easy = true;
+					// setTimeout(() => {
+					// 	// this.signUpForm.controls['password'].setErrors({
+					// 	// 	easy: false
+					// 	// });
+					// 	this.easy = false;
+					// }, 5000);
+				}else{
+					this.easy = false;
+				}
 		
+				if (value.length < 8){
+					this.passwordErrorText = "Your password is too short!" ;
+					// this.signUpForm.controls['password'].setErrors({
+					// 	short: true
+					// });
+					this.short = true;
+					// setTimeout(() => {
+					// 	// this.signUpForm.controls['password'].setErrors({
+					// 	// 	short: false
+					// 	// });
+					// 	this.short = false;
+					// }, 5000);
+				}else{
+					this.short = false;
+				}
+			});
 	}
 
 	public submitRecoveryPassForm(form: FormGroup): void {
@@ -48,15 +87,13 @@ export class RecoveryComponent implements OnInit {
 			this.markControlsAsTouched();
 			return;
 		}
-		this.recoveryPassForm.controls['password']
-			.valueChanges
-			.debounceTime(1000)
-			.subscribe(value => {
-	  
-				if (value.search(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/)|| (value.length < 8)){
-				return
-				}
-			});
+		
+		if(this.easy || this.short){
+			return;
+		}
+
+
+
 		if (form.value.password !== form.value.confirmPassword) {
 			form.controls['confirmPassword'].setErrors({
 				doNotMatch: true

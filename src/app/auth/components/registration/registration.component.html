@@ -26,7 +26,10 @@
                                 'error-text-open' : signUpForm.controls.password.hasError('required') && signUpForm.controls.password.touched
                             }">Сan't be empty!</div>
                             <div class="error-text" [ngClass]="{
-                                'error-text-open' : signUpForm.controls.password.hasError('easy') && signUpForm.controls.password.touched
+                                'error-text-open' : easy && signUpForm.controls.password.touched && (!signUpForm.controls.password.hasError('required'))
+                            }">{{ passwordErrorText }}</div>
+                            <div class="error-text" [ngClass]="{
+                                'error-text-open' : short && signUpForm.controls.password.touched && (!signUpForm.controls.password.hasError('required'))
                             }">{{ passwordErrorText }}</div>
                         </div>
         
@@ -49,7 +52,7 @@
                         <div class="sign-container-checkbox error" [ngClass]="{
                             'error-open' :  checkErr
                         }">
-                            <input type="checkbox" id="todo_1" formControlName="agreeBox" >
+                            <input type="checkbox" id="todo_1" formControlName="agreeBox" required>
                             <label for="todo_1">
                                 <span class="sup-lable"></span>I agree to the <a href="">Terms and conditions</a>
                             </label>
