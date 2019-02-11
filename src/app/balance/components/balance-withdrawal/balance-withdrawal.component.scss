@@ -1,0 +1,179 @@
+h2 {
+  position: relative;
+}
+
+label {
+  cursor: pointer;
+}
+
+.back-btn {
+  position: absolute;
+  background: url(../../../../assets/images/back-arrow-dark.svg)no-repeat center;
+  width: 17px;
+  height: 8px;
+  left: -30px;
+  top: 9px;
+
+}
+
+.deposit-information {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+
+  span {
+    font-size: 14px;
+    color: #686D7A;
+    display: block;
+  }
+
+  span:nth-child(1) {
+    margin-bottom: 15px;
+
+  }
+
+  a {
+    cursor: default;
+  }
+
+  a:nth-child(1) {
+    text-decoration: none;
+  }
+
+}
+
+.history-narrow {
+  max-width: 1056px;
+}
+
+.balance-table {
+    width: 632px;
+  }
+  
+  .balance-table-title span:nth-child(1) {
+    width: 70%;
+  }
+  
+  .balance-table-title span:nth-child(2) {
+    width: 30%;
+  }
+  
+  .balance-table-item span:nth-child(1) {
+    width: 70%;
+  }
+  
+  .balance-table-item span:nth-child(2) {
+    width: 30%;
+  }
+.balance-table-form {
+  .balance-table-title {
+    border-bottom: none;
+  }
+
+  width: 731px;
+
+  .balance-table-title span:nth-child(1) {
+    width: 67%;
+  }
+
+  .balance-table-title span:nth-child(2) {
+    width: 33%;
+    padding-left: 22px;
+    box-sizing: border-box;
+  }
+
+  .balance-table-item span:nth-child(1) {
+    width: 67%;
+
+    input {
+      border: none;
+      border-radius: 4px;
+      width: 490px;
+      height: 36px;
+    }
+  }
+
+  .balance-table-item span:nth-child(2) {
+    width: 33%;
+    padding-left: 22px;
+    box-sizing: border-box;
+
+    input {
+      border: none;
+      border-radius: 4px;
+      width: 219px;
+      height: 36px;
+    }
+
+    b {
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      display: block;
+      width: 52px;
+      height: 36px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 41px;
+      // z-index: -1;
+      border-radius: 0px 4px 4px 0px;
+    }
+  }
+
+  .balance-inp {
+    input {
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 400;
+      border: 1px solid transparent;
+      box-sizing: border-box;
+      padding: 0 48px 0 14px;
+    }
+
+    input:focus {
+    }
+
+    input:focus~b {
+      bottom: 1px;
+      right: 1px;
+      height: 34.5px;
+      width: 51px;
+      line-height: 39px;
+    }
+  }
+}
+.res-information{
+    display: flex;
+    flex-direction: column;
+    margin-top: 23px;
+    margin-bottom: 14px;
+    span{
+      line-height: 30px;
+      font-size: 14px;
+    }
+}
+.submit-btn{
+    width: 142px;
+    height: 48px;
+    margin: 0;
+}
+.main-btn-hov{
+    overflow: hidden;
+    padding-top: 15px !important;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 900;
+    transition: none;
+    overflow: hidden;
+}
+.main-btn-hov::after {
+    content: 'SUBMIT';
+    height: 48px;
+    display: block;
+    transition: .3s;
+    top: -33px;
+    padding-top: 14.5px;
+    box-sizing: border-box;
+    border-radius: 4px;
+}

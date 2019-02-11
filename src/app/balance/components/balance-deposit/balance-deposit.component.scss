@@ -1,0 +1,127 @@
+/deep/ ngx-qrcode {
+
+  img {
+    width: 100%;
+  }
+}
+
+h2 {
+  position: relative;
+}
+
+label {
+  cursor: pointer;
+}
+
+.back-btn {
+  position: absolute;
+  width: 17px;
+  height: 8px;
+  left: -30px;
+  top: 9px;
+
+}
+
+.history-narrow {
+  max-width: 1056px;
+}
+
+.balance-table {
+  width: 632px;
+}
+
+.balance-table-title span:nth-child(1) {
+  width: 70%;
+}
+
+.balance-table-title span:nth-child(2) {
+  width: 30%;
+}
+
+.balance-table-item span:nth-child(1) {
+  width: 70%;
+}
+
+.balance-table-item span:nth-child(2) {
+  width: 30%;
+}
+
+.profile-right {
+  margin: 0;
+  margin-left: 39px;
+}
+
+.profile-right-title {
+  font-size: 16px;
+  padding-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.copy-btn-balance {
+  border: none;
+  width: 16px;
+  height: 16px;
+}
+
+.profile-right {
+  padding: 25px 28px 25px 31px;
+}
+
+.profile-right-content {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 27px;
+
+  .qr {
+    width: 128px;
+    height: 128px;
+  }
+
+  .qr-text {
+    margin-left: 27px;
+    margin-top: 20px;
+
+    div {
+      width: 26px;
+      height: 23px;
+      opacity: 0.05;
+    }
+
+    span {
+      font-size: 14px;
+    }
+  }
+}
+
+.qr-text-gold {
+  span {
+    font-size: 14px;
+    word-wrap: break-word;
+  }
+}
+
+.deposit-information {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+
+  span {
+    font-size: 14px;
+    display: block;
+  }
+  span:nth-child(1) {
+    margin-bottom: 15px;
+
+  }
+  a {
+    cursor: default;
+  }
+  a:nth-child(1){
+      text-decoration: none;
+  }
+
+}
+
+

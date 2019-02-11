@@ -50,7 +50,10 @@
                 <div class="swiper-slide">
 
                     <li routerLinkActive="exchanger-header-nav-active" routerLink="/profile"><a>My profile</a></li>
-                    <li routerLinkActive="exchanger-header-nav-active" routerLink="/balance"><a>Balance</a></li>
+                    <li  routerLink="/balance"
+                    [ngClass]="{
+                        'exchanger-header-nav-active': (router.url == '/balanceDeposit') || (router.url == '/balanceWithdrawal') || (router.url == '/balance')
+                    }"><a>Balance</a></li>
                     <li routerLinkActive="exchanger-header-nav-active" routerLink="/activity"><a>Activity</a></li>
                     <li routerLinkActive="exchanger-header-nav-active" routerLink="/notification"><a>Notifications</a></li>
                     <li routerLinkActive="exchanger-header-nav-active" routerLink="/apiKeys"><a>API Keys</a></li>

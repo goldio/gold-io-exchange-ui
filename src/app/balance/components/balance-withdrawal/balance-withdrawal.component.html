@@ -1,0 +1,55 @@
+<div class="history-narrow withdrawal section" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }">
+  <div class="balance-title">
+    <label for="back">
+      <h2>
+        <button class="back-btn" id="back" (click)="back()"></button>
+        <b>Withdrawal</b>
+      </h2>
+    </label>
+  </div>
+  <div class="profile-left">
+      <div class="balance-table" >
+          <div class="balance-table-title">
+              <span>Coin</span>
+              <span>Balance</span>
+          </div>
+  
+          <div class="balance-table-item" >
+              <span>
+                  <img src="../../../../assets/images/btc-green.svg" alt="">
+                  <b>BTC – Bitcoin</b>
+              </span>
+              <span >3.0049245</span>
+          </div>
+      </div>
+      <div class="deposit-information">
+        <span>– Once you have submitted your withdrawal request, we will send a confirmation email </span>
+        <span>– Minimum withdrawal <a>0.2 BTC</a></span>
+      </div>
+
+      <form>
+          <div class="balance-table balance-table-form" >
+              <div class="balance-table-title">
+                  <span>BTC Withdrawal Address</span>
+                  <span>Amount</span>
+              </div>
+      
+              <div class="balance-table-item" >
+                <span class="balance-inp">
+                  <input type="text" class="walet-inp">
+                  
+                </span>
+                <span class="balance-inp">
+                  <input type="text" class="amount-inp">
+                  <b>BTC</b>
+                  </span>
+              </div>
+          </div>
+          <div class="res-information">
+            <span class="res-info">Transaction Fee: 0.00000000 </span>
+            <span class="res-info">You will get: 0.00000000</span>
+          </div>
+          <button type="submit" class="main-btn submit-btn main-btn-hov">SUBMIT</button>
+      </form>
+  </div>
+</div>

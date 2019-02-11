@@ -45,6 +45,10 @@ import { NotificationsService } from './notifications/services/notifications.ser
 import { ApiService } from './api-keys/services/apiKey.service';
 import { SecurityService } from './security/services/security.service';
 import { ActivityService } from './activity/components/activity/services/activity.service';
+import { BalanceDepositComponent } from './balance/components/balance-deposit/balance-deposit.component';
+import { BalanceWithdrawalComponent } from './balance/components/balance-withdrawal/balance-withdrawal.component';
+import { BalaceHistoryComponent } from './balance/components/balace-history/balace-history.component';
+import { StorageService } from './common/services/storage.service';
 
 @NgModule({
 	declarations: [
@@ -63,6 +67,9 @@ import { ActivityService } from './activity/components/activity/services/activit
 		RecoveryComponent,
 		ActivationComponent,
 		ChangePasswordComponent,
+		BalanceDepositComponent,
+		BalanceWithdrawalComponent,
+		BalaceHistoryComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -107,6 +114,9 @@ import { ActivityService } from './activity/components/activity/services/activit
 				{ path: 'security', component: SecurityComponent },
 				{ path: 'index', component: IndexComponent },
 				{ path: 'activation', component: ActivationComponent },
+				{ path: 'balanceDeposit', component: BalanceDepositComponent },
+				{ path: 'balanceWithdrawal', component: BalanceWithdrawalComponent },
+				{ path: 'balaceHistory', component: BalaceHistoryComponent },
 				{
 					path: 'sucessfull', component: SucessfullComponent,
 					data: {
@@ -145,6 +155,7 @@ import { ActivityService } from './activity/components/activity/services/activit
 		ApiService,
 		SecurityService,
 		ActivityService,
+		StorageService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy }
 	],
 	bootstrap: [AppComponent]

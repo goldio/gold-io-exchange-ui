@@ -1,0 +1,26 @@
+.coin-btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    .coin-btn{
+        box-sizing: border-box;
+        border-radius: 3px;
+        box-sizing: border-box;
+        font-size: 10px;
+        background: transparent;
+        cursor: pointer;
+        text-align: center;
+        line-height: 19px;
+    }
+    .first-coin-btn{
+        width: 49px;
+        height: 21px;
+        margin-right: 19px;
+        // padding: 4px 6px;
+    }
+    .second-coin-btn{
+        width: 64px;
+        height: 21px;
+        // padding: 4px 6px;
+    }
+}

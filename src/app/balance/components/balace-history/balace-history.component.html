@@ -1,0 +1,46 @@
+<!-- <div class="history-narrow section" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }">
+    <div class="balance-all">
+        <div class="balance-title">
+            <h2><b>Balance</b></h2>
+    
+            <div class="balance-title-search">
+                <form [formGroup]="searchForm">
+                    <input type="text" placeholder="Search coin..." formControlName="search">
+                    <button type="submit"></button>
+                </form>
+            </div>
+        </div>
+    
+        <div class="balance-table" *ngIf="viewWallets">
+            <div class="balance-table-title">
+                <span>Coin</span>
+                <span>Balance</span>
+                <span>On orders</span>
+                <span>VTC Value</span>
+                <span></span>
+            </div>
+    
+            <div class="balance-table-item" *ngFor="let wallet of viewWallets">
+                <span>
+                    <img src="{{ wallet.coin.icon.url }}" alt="">
+                    <b>{{ wallet.coin.name }}</b>
+                </span>
+    
+                <span before="Total balance">{{ wallet.balance.toFixed(8) }}</span>
+                <span before="On orders">{{ wallet.onOrders.toFixed(8) }}</span>
+                <span before="VTC Value">{{ wallet.vtcValue.toFixed(8) }}</span>
+                <span>
+                    <div class="coin-btns">
+                        <div class="coin-btn first-coin-btn">Deposit</div>
+                        <div class="coin-btn second-coin-btn">Withdrawal</div>
+                    </div>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="balance-deposit">
+
+    </div>
+    <div class="balance-withdrawal"></div>
+    <div class="balance-history"></div>
+</div> -->

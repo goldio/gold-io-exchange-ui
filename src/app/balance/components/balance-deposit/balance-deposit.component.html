@@ -1,0 +1,56 @@
+<div class="history-narrow deposit section" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }">
+    <div class="balance-title">
+        <label for="back">
+          <h2>
+              <button class="back-btn" id="back" (click)="back()"></button>
+              <b>Deposit</b>
+            </h2>
+          </label>
+    </div>  
+    
+    <div class="profile-right">
+        <div class="profile-right-title">Bitcoin deposit address<button class="copy-btn-balance" (click)="copyToClipboard(DdzFFzCqnKnaHu1V5q)"></button></div>
+
+        <div class="profile-right-content">
+          <div class="qr">
+              <ngx-qrcode 
+              class=""
+              [qrc-value] = "qrContentValue"
+              qrc-class = "aclass"
+              qrc-errorCorrectionLevel = "L">
+            </ngx-qrcode>
+          </div>
+          <div class="qr-text">
+              <div></div>
+              <span>Send only BTC to this<br> deposit address.</span>
+          </div>
+        </div>
+        <div class="qr-text-gold">
+            <span>DdzFFzCqrht39ggvLPvKBxZTRrGUbD7ug3FpKswRFb2kFBU79daKE7zywFUfhj1KFjVRd8VAATBeimkHwZuP7mk3keU8fmnKnaHu1V5q</span>
+        </div>
+    </div>
+
+    <div class="profile-left">
+        <div class="balance-table" >
+            <div class="balance-table-title">
+                <span>Coin</span>
+                <span>Balance</span>
+            </div>
+    
+            <div class="balance-table-item" >
+                <span>
+                    <img src="../../../../assets/images/btc-green.svg" alt="">
+                    <b>BTC – Bitcoin</b>
+                </span>
+                <span >3.0049245</span>
+            </div>
+        </div>
+        <div class="deposit-information">
+          <span>– Coins will be deposited immediately after <a>2 network confirmations</a></span>
+          <span>– After making a deposit, you can track its progress on the <a>history page</a></span>
+        </div>
+    </div>
+       
+    
+    
+</div>

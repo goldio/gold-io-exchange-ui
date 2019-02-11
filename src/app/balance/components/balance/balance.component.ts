@@ -7,6 +7,7 @@ import { WalletsService } from 'src/app/common/services/wallets.service';
 import { AuthService } from 'src/app/common/services/auth.service';
 import { Router } from '@angular/router';
 import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
+import { StorageService } from 'src/app/common/services/storage.service';
 
 @Component({
 	selector: 'app-balance',
@@ -24,7 +25,8 @@ export class BalanceComponent extends BaseLayoutComponent implements OnInit {
 	constructor(
 		private walletsService: WalletsService,
 		private authService: AuthService,
-    private router: Router,
+		private router: Router,
+		private storageService: StorageService,
 	) {
 		super();
 	 }
@@ -85,11 +87,20 @@ export class BalanceComponent extends BaseLayoutComponent implements OnInit {
 			this.isLoggedIn = logged;
 		});
 
-	if (!this.isLoggedIn) {
-		this.router.navigate(['/authorization']);
-}
+		if (!this.isLoggedIn) {
+			this.router.navigate(['/authorization']);
+		}
 
-		this.loadWallets();
-		this.initSearchForm();
+			this.loadWallets();
+			this.initSearchForm();
+	}
+
+	public routeToDeposit(id: any) {
+		this.storageService.changeUserWallet(id);
+		this.router.navigate(['/balanceDeposit']);
+	}
+	public routeToWithdrawal(id: any) {
+		this.storageService.changeUserWallet(id);
+		this.router.navigate(['/balanceWithdrawal']);
 	}
 }

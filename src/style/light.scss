@@ -2,7 +2,7 @@
 // main light
 .light {
     // background: linear-gradient(180deg, #F0EFEA 0%, #F8F7F5 100%);
-    background: #fff;
+    background: #FBFBFB;
     input::-webkit-input-placeholder { color: #C0C1C4; }
     input::-moz-placeholder          { color: #C0C1C4; }
     input:-moz-placeholder           { color: #C0C1C4; }
@@ -267,6 +267,9 @@
     }
   
     .balance-table-item span:nth-child(4) {
+      color: #686D7A;
+    }
+    .balance-table-item span:nth-child(5) {
       color: #686D7A;
     }
   
@@ -1700,4 +1703,111 @@
   bottom: 51px;
   left: 45%;
   border-bottom: 12px solid #FFFFFF;
+}
+
+.light{
+  .coin-btns {
+    .coin-btn {
+      border: 1px solid #F6F6F6;
+      color: #CABC5F;
+    }
+
+    .coin-btn:hover {
+      border: 1px solid #D1C881;
+    }
+
+    .coin-btn:active {
+      border: 1px solid #DFDFDF;
+    }
+  }
+  .deposit, .withdrawal{
+    .back-btn{
+      background: url(../assets/images/bac-arrow-light.svg)no-repeat center;
+    }
+  }
+  .deposit{
+    .profile-right-title {
+      border-bottom: 0.5px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .copy-btn-balance {
+      background: url(../assets/images/copy-light.svg)no-repeat center/13px;
+    }
+    .profile-right-content {
+      .qr-text {
+        div {
+          background: url(../assets/images/warning-light.svg)no-repeat center/22px;
+        }
+        span {
+          color: #686D7A;
+        }
+      }
+    }
+    
+    .qr-text-gold {
+      span {
+        color: #C8BC6C;
+      }
+    }
+    
+    .deposit-information {
+      span {
+        color: #686D7A;
+      }
+      a {
+        color: #C8BC6C;
+      }
+    }
+  }
+  .withdrawal {
+    .deposit-information {
+      span {
+        color: #686D7A;
+      }
+      a {
+        color: #C8BC6C;
+      }
+    }
+    .balance-table-form {
+      .balance-table-item span:nth-child(1) {
+        input {
+          background: #fff;
+          border: 1.5px solid #F6F6F6!important;
+        }
+      }
+
+      .balance-table-item span:nth-child(2) {
+
+        input {
+          background: #fff;
+          border: 1.5px solid #F6F6F6!important;
+        }
+
+        b {
+          color: rgba(#000000, 0.25);
+          background: #fff;
+          border-left: 1.5px solid #F6F6F6!important;
+        }
+      }
+
+      .balance-inp {
+        input {
+          caret-color: #CABC5F;
+          background: #FDFDFD;
+          color: #000000;
+           
+        }
+
+        input:focus {
+          border: 1px solid #CABC5F!important;
+        }
+      }
+    }
+
+    .res-information {
+      span {
+        color: #686D7A;
+      }
+    }
+  }
 }
