@@ -44,6 +44,7 @@ import { ChangePasswordComponent } from './auth/components/change-password/chang
 import { NotificationsService } from './notifications/services/notifications.service';
 import { ApiService } from './api-keys/services/apiKey.service';
 import { SecurityService } from './security/services/security.service';
+import { ActivityService } from './activity/components/activity/services/activity.service';
 
 @NgModule({
 	declarations: [
@@ -143,6 +144,7 @@ import { SecurityService } from './security/services/security.service';
 		NotificationsService,
 		ApiService,
 		SecurityService,
+		ActivityService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy }
 	],
 	bootstrap: [AppComponent]

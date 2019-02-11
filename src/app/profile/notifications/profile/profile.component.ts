@@ -45,6 +45,7 @@ export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 	public successfullyChanged = false;
 
 	public dateB:Date;
+	public dateView: any;
 	public dateBError = false;
 	
 	public windowWidth:boolean= false;
@@ -62,6 +63,10 @@ export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 				}
 
 				this.person = res.data;
+				this.dateB = res.data.birthDate;
+				if(this.dateB.toString() !='0001-01-01T00:00:00'){
+					this.dateView = new Date(this.dateB).toISOString();
+				}
 				this.passPersonToForm();
 			});
 	}
@@ -241,22 +246,24 @@ export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 	
 
 	public addEvent(event: MatDatepickerInputEvent<Date>) {
-	  this.dateB = new Date(event.value);
+		this.dateB = new Date(Date.UTC(event.value.getFullYear(), event.value.getMonth(), event.value.getDate()));
+		
 	}
 	public submitProfile(form: FormGroup): void {
+		
+		if (form.invalid) {
+			this.markContolsAsTouched() ;
+			
+			return;
+		}
+		
 		if(!this.dateB){
 			this.dateBError = true;
 			setTimeout(() => {
 				this.dateBError = false;
 			}, 3000);
-			alert('error');
-		}
-		if (form.invalid) {
-			this.markContolsAsTouched() ;
-			alert('error');
 			return;
 		}
-		
 		const req = new UpdatePersonRequest();
 		req.fullName = form.value['fullName'];
 		req.birthDate = this.dateB;
@@ -264,11 +271,12 @@ export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 		req.phoneNumber = form.value['phoneNumber'];
 		req.cityID = form.value['cityID'];
 		req.address = form.value['address'];
-
+		console.log(req);
 		this.personsService
 			.updateMe(req)
 			.subscribe(res => {
 				if (!res.success) {
+					alert('error');
 					alert(res.message);
 					this.updateResText = res.message;
 					this.updateRes = true;
@@ -279,8 +287,10 @@ export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 					}, 3000);
 						return;
 				}
-
+				console.log(res.data);
 				this.person = res.data;
+				this.dateB = new Date(res.data.birthDate);
+				this.dateView = new Date(this.dateB).toISOString();
 				this.updateRes = true;
 				this.updateResText = res.message;
 				this.successfullyChanged = true;

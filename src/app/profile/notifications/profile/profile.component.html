@@ -38,13 +38,13 @@
                 }">
                     <span>Birth date</span>
                     <mat-form-field class="fl-col calendar"  *ngIf='!windowWidth'>
-                        <input matInput [matDatepicker]="dp" [max]="maxDate"  (dateChange)="addEvent($event)" required disabled>
+                        <input matInput [matDatepicker]="dp" [max]="maxDate" [value]="dateView" (dateChange)="addEvent($event)" required disabled>
                         <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                         <mat-datepicker #dp disabled="false"></mat-datepicker>
                         </mat-form-field>
 
                         <mat-form-field  class="fl-col calendar"  *ngIf='windowWidth'>
-                            <input matInput [matDatepicker]="picker" [max]="maxDate"  (dateChange)="addEvent($event)" required disabled>
+                            <input matInput [matDatepicker]="picker" [max]="maxDate" [value]="dateView" (dateChange)="addEvent($event)" required disabled>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker touchUi disabled="false" #picker></mat-datepicker>
                           </mat-form-field>
