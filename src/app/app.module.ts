@@ -25,7 +25,6 @@ import { BalanceComponent } from './balance/components/balance/balance.component
 import { NotificationsComponent } from './notifications/components/notifications/notifications.component';
 import { IndexComponent } from './index/components/index/index.component';
 import { ApiKeysComponent } from './api-keys/components/api-keys/api-keys.component';
-import { ProfileComponent } from './profile/notifications/profile/profile.component';
 import { SecurityComponent } from './security/components/security/security.component';
 import { ActivityComponent } from './activity/components/activity/activity.component';
 import { WebsocketService } from './common/services/websocket.service';
@@ -49,6 +48,7 @@ import { BalanceDepositComponent } from './balance/components/balance-deposit/ba
 import { BalanceWithdrawalComponent } from './balance/components/balance-withdrawal/balance-withdrawal.component';
 import { BalaceHistoryComponent } from './balance/components/balace-history/balace-history.component';
 import { StorageService } from './common/services/storage.service';
+import { ProfileComponent } from './profile/components/profile/profile.component';
 
 @NgModule({
 	declarations: [

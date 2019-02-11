@@ -1,17 +1,17 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { AuthService } from 'src/app/common/services/auth.service';
 import { Router } from '@angular/router';
 import { PersonsService } from '../../services/persons.service';
-import { Person, Country, City } from 'src/app/common/models';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CountriesService } from '../../services/countries.service';
-import { UpdatePersonRequest } from 'src/app/common/models/request';
-import { Theme } from 'src/app/common/enums';
-import { ThemeService } from 'src/app/common/services/theme.service';
 import * as moment from 'moment';
 import { MatDatepickerInputEvent } from '@angular/material';
 import { last } from '@angular/router/src/utils/collection';
 import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
+import { Country, City, Person } from 'src/app/common/models';
+import { Theme } from 'src/app/common/enums';
+import { AuthService } from 'src/app/common/services/auth.service';
+import { ThemeService } from 'src/app/common/services/theme.service';
+import { UpdatePersonRequest } from 'src/app/common/models/request';
 @Component({
 	selector: 'app-profile',
 	templateUrl: './profile.component.html',
