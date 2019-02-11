@@ -249,6 +249,7 @@ export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 		this.dateB = new Date(Date.UTC(event.value.getFullYear(), event.value.getMonth(), event.value.getDate()));
 		
 	}
+
 	public submitProfile(form: FormGroup): void {
 		
 		if (form.invalid) {
@@ -302,7 +303,6 @@ export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 			});
 	}
 
-
 	public markContolsAsTouched() {
 		this.profileForm.controls['fullName'].markAsTouched();
 		this.profileForm.controls['email'].markAsTouched();
@@ -310,5 +310,14 @@ export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 		this.profileForm.controls['country'].markAsTouched();
 		this.profileForm.controls['city'].markAsTouched();
 		this.profileForm.controls['address'].markAsTouched();
-	  }
+	}
+
+	public _keyUp(event: any) {
+		const pattern = /[0-9\+\ ]/;
+		let inputChar = String.fromCharCode(event.charCode);
+		if (!pattern.test(inputChar)) {
+		  event.preventDefault();
+		}
+	}
+
 }

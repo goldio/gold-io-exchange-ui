@@ -69,7 +69,7 @@
                 }" >
 
                     <span>Phone number</span>
-                    <input class="w-271" type="number" placeholder="+1 492 82 39 667" formControlName="phoneNumber" required>
+                    <input class="w-271" type="number" placeholder="+1 492 82 39 667" (keyup)="_keyUp($event)" formControlName="phoneNumber" required>
                     <div class="error-text"[ngClass]="{
                         'error-text-open' : profileForm.controls.phoneNumber.hasError('required') && profileForm.controls.phoneNumber.touched
                     }">Сan't be empty!</div>
