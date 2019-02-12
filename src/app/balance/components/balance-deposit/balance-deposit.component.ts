@@ -43,8 +43,10 @@ export class BalanceDepositComponent extends BaseLayoutComponent implements OnIn
 			.subscribe(Id => {
 				if (!Id)
 					return;
-
-        this.depositID = Id.id;
+          this.depositID = Id.id;
+          if(!this.depositID){
+            this.router.navigate(['/balance']);
+          }
 			},
 				error => console.log(error),
       );

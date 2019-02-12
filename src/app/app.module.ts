@@ -46,10 +46,10 @@ import { SecurityService } from './security/services/security.service';
 import { ActivityService } from './activity/components/activity/services/activity.service';
 import { BalanceDepositComponent } from './balance/components/balance-deposit/balance-deposit.component';
 import { BalanceWithdrawalComponent } from './balance/components/balance-withdrawal/balance-withdrawal.component';
-import { BalaceHistoryComponent } from './balance/components/balace-history/balace-history.component';
 import { StorageService } from './common/services/storage.service';
 import { ProfileComponent } from './profile/components/profile/profile.component';
 import { BalanceService } from './balance/services/balance.service';
+import { BalaceHistoryComponent } from './balance/components/balace-history/balace-history.component';
 
 @NgModule({
 	declarations: [

@@ -56,10 +56,13 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
 
 		this.storageService.currentUserWallet
 			.subscribe(Id => {
-				if (!Id)
-					return;
-
+        if (!Id){
+            return;
+        }
         this.withdrawalID = Id.id;
+        if(!this.withdrawalID){
+          this.router.navigate(['/balance']);
+        }
 			},
 				error => console.log(error),
       );
@@ -86,7 +89,10 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
 		if (form.invalid) {
 			this.markContolsAsTouched() ;
 			return;
-		}
+    }
+    if(!this.amountError || !this.fewAmountError){
+      return;
+    }
 		
 		
 		const req = new WithdrawlRequest();
@@ -133,8 +139,9 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
     }else{
       this.fewAmountError = false;
     }
-
-    this.getAmount = (this.withdrawalForm.controls['amount'].value - 0.00005000).toFixed(8);
+    if(this.withdrawalForm.controls['amount'].value!=0){
+      this.getAmount = (this.withdrawalForm.controls['amount'].value-0.00005000).toFixed(8);
+    }
   }
   
 }

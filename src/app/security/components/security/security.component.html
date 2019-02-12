@@ -1,70 +1,92 @@
-<div class="profile-narrow secur section" [formGroup]="securityForm" (ngSubmit)="submitSecurity(securityForm)" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }">
-    <div class="profile-right security-right">
-        <div class="profile-right-title">Security level</div>
-        <div class="profile-right-content">
-            <span class="gold-text">High<div class="gold-text-img"></div></span>
-            <div class="profile-right-progress"><span style="width: 73%;"></span></div>
-            <span>
-                    Enable Two-factor authentication increases security. 
-                    Download Google Authenticator on mobile and scan the QRCode.<br><br>
-                    Download Google Authenticator:
-            </span>
-            <div class="df-ro mt-11">
-                <a href="" class="mr-24"><img src="../../../../assets/images/AppStore.svg"></a>
-                <a href=""><img src="../../../../assets/images/GooglePlay.svg"></a>
-            </div>
-        </div>
+<div class="profile-narrow secur section" 
+  [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }">
+  <div class="profile-right security-right">
+    <div class="profile-right-title">Security level</div>
+    <div class="profile-right-content">
+      <span class="gold-text">High<div class="gold-text-img"></div></span>
+      <div class="profile-right-progress"><span style="width: 73%;"></span></div>
+      <span>
+        Enable Two-factor authentication increases security.
+        Download Google Authenticator on mobile and scan the QRCode.<br><br>
+        Download Google Authenticator:
+      </span>
+      <div class="df-ro mt-11">
+        <a href="" class="mr-24"><img src="../../../../assets/images/AppStore.svg"></a>
+        <a href=""><img src="../../../../assets/images/GooglePlay.svg"></a>
+      </div>
     </div>
-    
-    <div class="profile-left">
-        <div class="profile-title">
-            <h2>Security</h2>
-            <div class="security-item">
-                    <input type="checkbox" id="1" formControlName="verification">
-                    <label for="1">
-                        <em>
-                            <b>Two-step verification</b>
-                            Require a security key or code in addition to your password.
-                        </em>
-                        <span></span>
-                    </label>
+  </div>
+
+  <form class="profile-left" [formGroup]="securityForm" (ngSubmit)="submitSecurityForm(securityForm)">
+    <div class="profile-title">
+      <h2>Security</h2>
+      <div class="security-item">
+        <input type="checkbox" id="1">
+        <label for="1">
+          <em>
+            <b>Two-step verification</b>
+            Require a security key or code in addition to your password.
+          </em>
+          <span></span>
+        </label>
+
+        <div class="security-item-hide">
+          <div class="qr-code">
+            <ngx-qrcode class="" [qrc-value]="qrContentValue" qrc-class="aclass" qrc-errorCorrectionLevel="L">
+            </ngx-qrcode>
+          </div>
+          <div class="df-column">
+            <span class="text1">Secret code</span>
+            <span class=""><input class="text2 invisibleInp" type="text" disabled></span>
+            <input type="text" class="authenticator-code" placeholder="Authenticator code">
+          </div>
+        </div>
+      </div>
+      <div class="security-item">
+        <h2 class="title">Change password</h2>
+        <div class="df-row mt-20">
+          <div class="error" [ngClass]="{
+                                'error-open' : securityForm.controls.lastPassword.hasError('required')&& securityForm.controls.lastPassword.touched}">
+            <input class="pass-inp mr-27" type="password" placeholder="Old password" formControlName="lastPassword">
+            <div class="error-text" [ngClass]="{'error-text-open' : securityForm.controls.lastPassword.hasError('required') && securityForm.controls.lastPassword.touched}">Сan't be empty!</div>
+          </div>
+          <div class="error" 
+            [ngClass]="{'error-open' : securityForm.controls.newPassword.hasError('required')&& securityForm.controls.newPassword.touched}">
+            <input  class="pass-inp mr-27" type="password" placeholder="New password" (keyup)="hardPassword()" formControlName="newPassword">
+                <div style="width: max-content;" class="error-text" 
                 
-                <div class="security-item-hide">
-                   <div class="qr-code">
-                    <ngx-qrcode 
-                    class=""
-                    [qrc-value] = "qrContentValue"
-                    qrc-class = "aclass"
-                    qrc-errorCorrectionLevel = "L">
-                  </ngx-qrcode>
-                   </div>
-                   <div class="df-column">
-                    <span class="text1">Secret code</span>
-                    <span class="" ><input class="text2 invisibleInp" type="text" formControlName="secretCode" disabled ></span>
-                   <input type="text" class="authenticator-code" placeholder="Authenticator code" formControlName="authenticator">
-                   </div>
-                </div>
-            </div>
-            <div class="security-item">
-                    <h2 class="title">Change password</h2>  
-                    <div class="df-row mt-20">
-                        <input class="pass-inp mr-27" type="text" placeholder="Old password" formControlName="lastPassword">
-                        <input class="pass-inp mr-27" type="text" placeholder="New password" formControlName="newPassword">
-                        <input class="pass-inp" type="text" placeholder="Again" formControlName="confirmNewPassword">
-                    </div>
-            </div>
+                [ngClass]="{'error-text-open' : securityForm.controls.newPassword.hasError('required') && securityForm.controls.newPassword.touched}">Сan't be empty!</div>
+                <div style="width: max-content;" class="error-text" [ngClass]="{
+                    'error-text-open' : easy &&  (!securityForm.controls.newPassword.hasError('required'))
+                
+                }">{{ passwordErrorText }}</div>
+                <div style="width: max-content;" class="error-text" [ngClass]="{
+                    'error-text-open' : short &&  (!securityForm.controls.newPassword.hasError('required'))
+                }">{{ passwordErrorText }}</div>
+
+          </div>
+
+          <div class="error" [ngClass]="{'error-open' : securityForm.controls.confirmNewPassword.hasError('required')&& securityForm.controls.confirmNewPassword.touched}">
+            <input class="pass-inp" type="password" placeholder="Again" (keyup)="checkPasswords()" formControlName="confirmNewPassword">
+            <div style="width: fit-content;" class="error-text" 
+            [ngClass]="{'error-text-open' : securityForm.controls.confirmNewPassword.hasError('required') && securityForm.controls.confirmNewPassword.touched}">Сan'tbe empty!</div>
+
+            <div style="width: max-content;" class="error-text" 
+            [ngClass]="{'error-text-open' : wrongPassword &&(!securityForm.controls.confirmNewPassword.hasError('required'))}">Passwords do not match</div>
+
+          </div>
+
+
         </div>
-        
-
-
-        
-
-
-
-        <button type="submit" class="main-btn main-btn-hov">SAVE</button>
+      </div>
     </div>
+
+    <div class="btnTexts">
+      <button type="submit" class="main-btn main-btn-hov">SAVE</button>
+      <div class="some-answer " [ngClass]="{
+                    'some-answer-open': updateRes
+                }"><img
+          src="../../../../assets/images/ready.svg" alt="" *ngIf="successfullyChanged">{{ updateResText }}</div>
+    </div>
+  </form>
 </div>
-
-
-
-

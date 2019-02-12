@@ -24,3 +24,15 @@
         // padding: 4px 6px;
     }
 }
+
+@media screen and (max-width: 600px) {
+    .balance-table-item span:nth-child(5),
+    .balance-table-item span:nth-child(6){
+        width: 70%;
+    }
+    .coin-btns{
+       justify-content: flex-start;
+       margin: 15px 0px 0px;
+    }
+  }
+  
