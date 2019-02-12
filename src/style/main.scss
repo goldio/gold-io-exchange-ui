@@ -1073,7 +1073,6 @@ ul.left-top-menu {
   font-weight: 700;
 }
 
-.history-table-title span a {}
 
 
 
@@ -4255,10 +4254,12 @@ ul.left-top-menu {
       span {
         color: #686D7A;
       }
+
       a {
         color: #EDDC83;
       }
     }
+
     .balance-table-form {
       .balance-table-item span:nth-child(1) {
 
@@ -4297,8 +4298,17 @@ ul.left-top-menu {
         color: #686D7A;
       }
     }
+
     a {
       color: #EDDC83;
+    }
+  }
+}
+
+.dark {
+  @media screen and (max-width: 600px) {
+    .balance-table-item {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
   }
 }

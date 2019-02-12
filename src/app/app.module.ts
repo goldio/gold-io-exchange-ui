@@ -49,6 +49,7 @@ import { BalanceWithdrawalComponent } from './balance/components/balance-withdra
 import { BalaceHistoryComponent } from './balance/components/balace-history/balace-history.component';
 import { StorageService } from './common/services/storage.service';
 import { ProfileComponent } from './profile/components/profile/profile.component';
+import { BalanceService } from './balance/services/balance.service';
 
 @NgModule({
 	declarations: [
@@ -156,6 +157,7 @@ import { ProfileComponent } from './profile/components/profile/profile.component
 		SecurityService,
 		ActivityService,
 		StorageService,
+		BalanceService,
 		{ provide: LocationStrategy, useClass: HashLocationStrategy }
 	],
 	bootstrap: [AppComponent]

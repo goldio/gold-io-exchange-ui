@@ -3,6 +3,10 @@ import { StorageService } from 'src/app/common/services/storage.service';
 import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
+import { WalletsService } from 'src/app/common/services/wallets.service';
+import { UserWallet } from 'src/app/common/models';
+import { DepositResponse } from '../../models/deposit-response.model';
+import { BalanceService } from '../../services/balance.service';
 
 @Component({
   selector: 'app-balance-deposit',
@@ -14,25 +18,33 @@ export class BalanceDepositComponent extends BaseLayoutComponent implements OnIn
   public depositID: number;
   public qrContent;
   public qrContentValue: string = "svetlana";
-  
+  public viewBalance:string = "";
+  public wallet: UserWallet;
+  public deposit: string;
+
   constructor(
     private storageService: StorageService,
-    private router:Router
+    private router:Router,
+    private walletsService: WalletsService,
+    private balanceService:BalanceService
   ) {
     super();
   }
 
   ngOnInit() {
+    this.loadDepositID();
+    this.loadWallets();
     this.loadDeposit();
+    
   }
-  private loadDeposit() {
+  private loadDepositID() {
 
 		this.storageService.currentUserWallet
 			.subscribe(Id => {
 				if (!Id)
 					return;
 
-				this.depositID = Id.id;
+        this.depositID = Id.id;
 			},
 				error => console.log(error),
       );
@@ -51,6 +63,32 @@ export class BalanceDepositComponent extends BaseLayoutComponent implements OnIn
     document.execCommand('copy');
     document.body.removeChild(el);
 
-  };
+  }
+
+  private loadWallets(): void {
+		this.walletsService
+			.getMe()
+			.subscribe(res => {
+				if (!res.success) {
+					alert(res.message);
+					return;
+				}
+
+        this.wallet = res.data.find(x=> x.id == this.depositID);
+        this.viewBalance = this.wallet.balance.toFixed(8);
+        console.log(this.wallet);
+			});
+	}
   
+  public loadDeposit(){
+    this.balanceService
+    .getDeposit(this.depositID)
+    .subscribe(res => {
+      if (!res.success) {
+        alert(res.message);
+        return;
+      }
+      this.deposit = res.address;
+    });
+  }
 }

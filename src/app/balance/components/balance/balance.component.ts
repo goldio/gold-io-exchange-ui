@@ -95,12 +95,12 @@ export class BalanceComponent extends BaseLayoutComponent implements OnInit {
 			this.initSearchForm();
 	}
 
-	public routeToDeposit(id: any) {
-		this.storageService.changeUserWallet(id);
+	public routeToDeposit(wallet: UserWallet) {
+		this.storageService.changeUserWallet(wallet);
 		this.router.navigate(['/balanceDeposit']);
 	}
-	public routeToWithdrawal(id: any) {
-		this.storageService.changeUserWallet(id);
+	public routeToWithdrawal(wallet: UserWallet) {
+		this.storageService.changeUserWallet(wallet);
 		this.router.navigate(['/balanceWithdrawal']);
 	}
 }

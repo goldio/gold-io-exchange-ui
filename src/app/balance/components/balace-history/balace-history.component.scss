@@ -120,14 +120,24 @@ label {
   }
 
 }
-@media screen and (max-width: 640px) {
-  
 
-}
 
 @media screen and (max-width: 600px) {
   .balance-title{
     text-align: left;
   }
-
+  .balance-table-item span{
+    // margin: 0;
+    // padding: 0;
+  }
+  .balance-table-item span:nth-child(1){
+    border: none;
+    margin: 0;
+  }
+  .balance-table-item span{
+    width: 100%!important;
+  }
+  .double-btns{
+    margin-bottom: 10px;
+  }
 }

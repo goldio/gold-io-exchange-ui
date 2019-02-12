@@ -1,4 +1,4 @@
-<div class="history-narrow deposit section" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }">
+<div class="history-narrow deposit section" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }" *ngIf="wallet">
     <div class="balance-title">
         <label for="back">
           <h2>
@@ -9,13 +9,13 @@
     </div>  
     
     <div class="profile-right">
-        <div class="profile-right-title">Bitcoin deposit address<button class="copy-btn-balance" (click)="copyToClipboard(DdzFFzCqnKnaHu1V5q)"></button></div>
+        <div class="profile-right-title">Bitcoin deposit address<button class="copy-btn-balance" (click)="copyToClipboard(deposit)"></button></div>
 
         <div class="profile-right-content">
           <div class="qr">
               <ngx-qrcode 
               class=""
-              [qrc-value] = "qrContentValue"
+              [qrc-value] = "deposit"
               qrc-class = "aclass"
               qrc-errorCorrectionLevel = "L">
             </ngx-qrcode>
@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="qr-text-gold">
-            <span>DdzFFzCqrht39ggvLPvKBxZTRrGUbD7ug3FpKswRFb2kFBU79daKE7zywFUfhj1KFjVRd8VAATBeimkHwZuP7mk3keU8fmnKnaHu1V5q</span>
+            <span>{{ deposit }}</span>
         </div>
     </div>
 
@@ -40,14 +40,13 @@
             <div class="balance-table-item" >
                 <span>
                     <img src="../../../../assets/images/btc-green.svg" alt="">
-                    <b>BTC – Bitcoin</b>
+                    <b>{{ wallet.coin.shortName }} – {{ wallet.coin.name }}</b>
                 </span>
-                <span >3.0049245</span>
+                <span *ngIf="viewBalance">{{ viewBalance }}</span>
             </div>
         </div>
         <div class="deposit-information">
           <span>– Coins will be deposited immediately after <a>2 network confirmations</a></span>
-          <span>– After making a deposit, you can track its progress on the <a routerLink="balaceHistory">history page</a></span>
         </div>
     </div>
        

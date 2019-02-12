@@ -1924,3 +1924,10 @@
   }
 }
 
+.light {
+  @media screen and (max-width: 600px) {
+    .balance-table-item {
+      border-bottom: 1px solid #edf1f6;
+    }
+  }
+}

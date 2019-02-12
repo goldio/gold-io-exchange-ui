@@ -1,4 +1,4 @@
-<div class="history-narrow withdrawal section" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }">
+<div class="history-narrow withdrawal section" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }" *ngIf="wallet">
   <div class="balance-title">
     <label for="back">
       <h2>
@@ -8,6 +8,7 @@
     </label>
   </div>
   <div class="profile-left">
+
       <div class="balance-table" >
           <div class="balance-table-title">
               <span>Coin</span>
@@ -15,19 +16,19 @@
           </div>
   
           <div class="balance-table-item" >
-              <span>
+              <span before="Coin">
                   <img src="../../../../assets/images/btc-green.svg" alt="">
-                  <b>BTC – Bitcoin</b>
+                  <b>{{ wallet.coin.shortName }} – {{ wallet.coin.name }}</b>
               </span>
-              <span >3.0049245</span>
+              <span before="Balance">{{ viewBalance }}</span>
           </div>
       </div>
       <div class="deposit-information">
         <span>– Once you have submitted your withdrawal request, we will send a confirmation email </span>
-        <span>– Minimum withdrawal <a>0.2 BTC</a></span>
+        <span>– Minimum withdrawal <a>0.2 {{ wallet.coin.shortName }}</a></span>
       </div>
 
-      <form>
+      <form [formGroup]="withdrawalForm" (ngSubmit)="submitWithdrawalForm(withdrawalForm)">
           <div class="balance-table balance-table-form" >
               <div class="balance-table-title">
                   <span>BTC Withdrawal Address</span>
@@ -35,21 +36,36 @@
               </div>
       
               <div class="balance-table-item" >
-                <span class="balance-inp">
-                  <input type="text" class="walet-inp">
-                  
+                <span class="balance-inp error" [ngClass]="{
+                  'error-open' : withdrawalForm.controls.address.hasError('required') && withdrawalForm.controls.address.touched }">
+                  <input type="text" class="walet-inp" formControlName="address" required>
+                  <div class="error-text"[ngClass]="{
+                    'error-text-open' : withdrawalForm.controls.address.hasError('required') && withdrawalForm.controls.address.touched }">Сan't be empty!</div>
                 </span>
-                <span class="balance-inp">
-                  <input type="text" class="amount-inp">
+                <span class="balance-inp error" [ngClass]="{
+                  'error-open' : withdrawalForm.controls.amount.hasError('required') && withdrawalForm.controls.amount.touched }">
+                  <input type="text" class="amount-inp" formControlName="amount" (keyup)="checkAmount()" required>
+                  <div class="error-text"[ngClass]="{
+                    'error-text-open' : withdrawalForm.controls.amount.hasError('required') && withdrawalForm.controls.amount.touched }">Сan't be empty!</div>
+                    <div class="error-text"[ngClass]="{
+                      'error-text-open' : amountError && (!withdrawalForm.controls.amount.hasError('required')) && !fewAmountError }">Minimum withdrawal 0.2 {{ wallet.coin.shortName }}</div>
+                      <div class="error-text"[ngClass]="{
+                        'error-text-open' : fewAmountError && (!withdrawalForm.controls.amount.hasError('required')) && !amountError }">insufficient funds</div>
                   <b>BTC</b>
                   </span>
               </div>
           </div>
           <div class="res-information">
-            <span class="res-info">Transaction Fee: 0.00000000 </span>
-            <span class="res-info">You will get: 0.00000000</span>
+            <span class="res-info">Transaction Fee: 0.00005000 </span>
+            <span class="res-info">You will get: {{ getAmount }}</span>
           </div>
-          <button type="submit" class="main-btn submit-btn main-btn-hov">SUBMIT</button>
+          
+          <div class="btnTexts">
+              <button type="submit" class="main-btn submit-btn main-btn-hov">SUBMIT</button>
+              <div class="some-answer" [ngClass]="{
+                  'some-answer-open': updateRes
+              }"><img src="../../../../assets/images/ready.svg" alt="" *ngIf="successfullyChanged">{{ updateResText }}</div>
+          </div>
       </form>
   </div>
 </div>
