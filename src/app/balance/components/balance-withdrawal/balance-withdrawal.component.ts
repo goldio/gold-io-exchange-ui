@@ -7,6 +7,7 @@ import { UserWallet } from 'src/app/common/models';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { BalanceService } from '../../services/balance.service';
 import { WithdrawlRequest } from '../../models/withdrawl-request.model';
+import { AuthService } from 'src/app/common/services/auth.service';
 
 @Component({
   selector: 'app-balance-withdrawal',
@@ -15,6 +16,8 @@ import { WithdrawlRequest } from '../../models/withdrawl-request.model';
 })
 export class BalanceWithdrawalComponent extends BaseLayoutComponent implements OnInit {
 
+  public isLoggedIn: boolean;
+  
   public withdrawalID:number;
   public wallet: UserWallet;
   public viewBalance:string = "";
@@ -33,7 +36,8 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
     private storageService: StorageService,
     private router:Router,
     private walletsService: WalletsService,
-    private balanceService:BalanceService
+    private balanceService:BalanceService,
+    private authService:AuthService
 
   ) {
     super();
@@ -53,7 +57,15 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
  
   
   private loadDepositID() {
+    this.authService
+		.isLoggedIn
+		.subscribe(logged => {
+			this.isLoggedIn = logged;
+		});
 
+		if (!this.isLoggedIn) {
+			this.router.navigate(['/authorization']);
+    }
 		this.storageService.currentUserWallet
 			.subscribe(Id => {
         if (!Id){

@@ -166,5 +166,11 @@
 
 }
 
-
+.col3{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 15px;
+  box-sizing: border-box;
+}
 

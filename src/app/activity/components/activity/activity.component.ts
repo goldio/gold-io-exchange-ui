@@ -5,6 +5,7 @@ import { WallenOperation } from '../../models/wallet-operation.model';
 import { ActivityService } from './services/activity.service';
 import { AuthService } from 'src/app/common/services/auth.service';
 import { Router } from '@angular/router';
+import { ActivityType } from 'src/app/common/enums/activity-type.enum';
 
 @Component({
   selector: 'app-activity',
@@ -12,9 +13,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./activity.component.scss']
 })
 export class ActivityComponent extends BaseLayoutComponent implements OnInit {
-  public activity:boolean = true; 
+  // public activity:boolean = true; 
   public isLoggedIn: boolean;
-  public userSession: UserSession[];
+  public userSessions: UserSession[];
   public wallenOperation: WallenOperation[];
 
   constructor(
@@ -36,28 +37,17 @@ export class ActivityComponent extends BaseLayoutComponent implements OnInit {
 			this.router.navigate(['/authorization']);
     }
     
-
-    this.getWallets();
     this.getSessions();
   }
 
-  public getWallets(){
-    this.activityService.getOperations().subscribe(res => {
-      if(!res.success){
-        alert('error');
-      }
-      this.wallenOperation = res.data;
-      console.log(this.wallenOperation);
-    })
-  }
 
   public getSessions(){
     this.activityService.getlogin().subscribe(res => {
       if(!res.success){
         alert('error');
       }
-      this.userSession = res.data;
-      console.log(this.userSession);
+      this.userSessions = res.data;
+      
     })
   }
 

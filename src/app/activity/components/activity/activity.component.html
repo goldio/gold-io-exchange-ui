@@ -1,101 +1,29 @@
 <div class="profile-narrow login-history section" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }">
-    <div class="profile-title">
-        <h2 class="fl-row">Activity
-            <div class="double-btns" [ngClass]="{
-                'change-double-btn': !activity
-            }">
-                <div class="choose"></div>
-                <button (click)="activity = true">login</button>
-                <button (click)="activity = false">operations</button>
-            </div>
-            <!-- <div class="btn-line">
-                <button class="login" (click)="activity = true" [ngClass]="{
-                    'active': activity
-                }">login</button>
-                <button class="operations"   (click)="activity = false" [ngClass]="{
-                    'active': !activity
-                }">operations</button> 
-            </div> -->
-        </h2>
+  <div class="profile-title">
+    <h2 class="fl-row">Activity</h2>
+  </div>
+  <div>
+    <div class="login-history-table">
+      <div class="login-history-table-title">
+        <span>Time</span>
+        <span>IP</span>
+        <span>Agent</span>
+        <span>Activity</span>
+      </div>
+      <div class="login-history-item" *ngFor ="let userSession of userSessions">
+        <span class="col1">{{ userSession.time | date: 'dd/MM/yy' }} — {{ userSession.time | date: 'hh:mm' }}</span>
+        <span class="col2">{{ userSession.ipAddress }}</span>
+        <span class="col3">{{ userSession.userAgent }}</span>
+        <span class="col4" *ngIf="userSession.type == 0">Log in</span>
+      </div>
     </div>
-    <div *ngIf="activity">
-        <div class="login-history-table">
-                    <div class="login-history-table-title">
-                        <span>Time</span>
-                        <span>IP</span>
-                        <span>Agent</span>
-                        <span>Activity</span>
-                    </div>
-                    <div class="login-history-item">
-                        <span class="col1">12/12/18 — 05:57 </span>
-                        <span class="col2">192.168.1.1</span>
-                        <span class="col3">Safari 9.1.2</span>
-                        <span class="col4">Log In</span>
-                    </div>
-                    <div class="login-history-item">
-                        <span class="col1">12/12/18 — 05:57 </span>
-                        <span class="col2">192.168.1.1</span>
-                        <span class="col3">Safari 9.1.2</span>
-                        <span class="col4">Log In</span>
-                    </div>
-        </div>
-        <div class="navigate-buttons">
-                <button class="page-nav mr-24">Prev</button>
-                <button class="page-numb active mr-14">1</button>
-                <button class="page-numb mr-14">2</button>
-                <button class="page-numb mr-24">3</button>
-                <button class="page-nav">Next</button>
-        </div>
-    </div>
-    <div *ngIf="!activity">
-        <div class="history-table">
-            <div class="login-history-table-title">
-                <span>Coin</span>
-                <span>Date</span>
-                <span>Confirmations</span>
-                <span>Amount</span>
-            </div>
-            <!-- canceled  complete expectation-->
-            <div class="login-history-item canceled">
-                <span class="col5" style="align-items: center;display: flex;">
-                    <img src="../../../assets/images/btc.svg" alt="" style="margin-right: 10px;">
-                    <span>Bitcoin</span>
-                </span>
-                <span class="col6" >12/12/18 — 05:57</span>
-                <span class="col7 history-item-refresh confirmation"><div></div>Canceled</span>
-                <span class="col8 history-item-green amount">+0.03465300</span>
-            </div>
-            <div class="login-history-item complete">
-                    <span class="col5" style="align-items: center;display: flex;">
-                        <img src="../../../assets/images/btc.svg" alt="" style="margin-right: 10px;">
-                        <span>Bitcoin</span>
-                    </span>
-                    <span class="col6">12/12/18 — 05:57</span>
-                    <span class="col7 history-item-refresh confirmation"><div></div>Complete</span>
-                    <span class="col8 history-item-green amount-green">+0.03465300</span>
-            </div>
-            <div class="login-history-item expectation">
-                    <span class="col5" style="align-items: center;display: flex;">
-                        <img src="../../../assets/images/btc.svg" alt="" style="margin-right: 10px;">
-                        <span>Bitcoin</span>
-                    </span>
-                    <span class="col6">12/12/18 — 05:57</span>
-                    <span class="col7 history-item-refresh confirmation"><div></div>1 of 3</span>
-                    <span class="col8 history-item-green amount-red">+0.03465300</span>
-            </div>
-        </div>
-        <div class="navigate-buttons">
-            <button class="page-nav mr-24">Prev</button>
-            <button class="page-numb active mr-14">1</button>
-            <button class="page-numb mr-14">2</button>
-            <button class="page-numb mr-24">3</button>
-            <button class="page-nav">Next</button>
-        </div>
-    </div>
+    <!-- <div class="navigate-buttons">
+      <button class="page-nav mr-24">Prev</button>
+      <button class="page-numb active mr-14">1</button>
+      <button class="page-numb mr-14">2</button>
+      <button class="page-numb mr-24">3</button>
+      <button class="page-nav">Next</button>
+    </div> -->
+  </div>
 </div>
 
-
-
-<!-- <script src="js/jquery-1.12.0.min.js"></script>
-<script src="js/swiper.min.js"></script>
-<script src="js/history.js"></script> -->

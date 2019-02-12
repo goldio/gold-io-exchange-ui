@@ -4312,3 +4312,15 @@ ul.left-top-menu {
     }
   }
 }
+
+
+.dark {
+  .empty-item {
+    .empty-img {
+      background: url(../assets/images/empty-dark.svg)no-repeat center;
+    }
+    span {
+      color: #3B3E47;
+    }
+  }
+}

@@ -7,6 +7,7 @@ import { WalletsService } from 'src/app/common/services/wallets.service';
 import { UserWallet } from 'src/app/common/models';
 import { DepositResponse } from '../../models/deposit-response.model';
 import { BalanceService } from '../../services/balance.service';
+import { AuthService } from 'src/app/common/services/auth.service';
 
 @Component({
   selector: 'app-balance-deposit',
@@ -15,6 +16,8 @@ import { BalanceService } from '../../services/balance.service';
 })
 export class BalanceDepositComponent extends BaseLayoutComponent implements OnInit {
 
+  public isLoggedIn: boolean;
+  
   public depositID: number;
   public qrContent;
   public qrContentValue: string = "svetlana";
@@ -26,7 +29,8 @@ export class BalanceDepositComponent extends BaseLayoutComponent implements OnIn
     private storageService: StorageService,
     private router:Router,
     private walletsService: WalletsService,
-    private balanceService:BalanceService
+    private balanceService:BalanceService,
+    private authService:AuthService
   ) {
     super();
   }
@@ -38,7 +42,16 @@ export class BalanceDepositComponent extends BaseLayoutComponent implements OnIn
     
   }
   private loadDepositID() {
+    this.authService
+		.isLoggedIn
+		.subscribe(logged => {
+			this.isLoggedIn = logged;
+		});
 
+		if (!this.isLoggedIn) {
+			this.router.navigate(['/authorization']);
+    }
+    
 		this.storageService.currentUserWallet
 			.subscribe(Id => {
 				if (!Id)

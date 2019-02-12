@@ -1931,3 +1931,15 @@
     }
   }
 }
+
+
+.light {
+  .empty-item {
+    .empty-img {
+      background: url(../assets/images/empty-light.svg)no-repeat center;
+    }
+    span {
+      color: rgba(0, 0, 0, 0.15);
+    }
+  }
+}

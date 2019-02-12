@@ -17,27 +17,8 @@ export class ActivityService extends BaseHttpService {
     }
 
     public getlogin(): Observable<DataResponse<UserSession[]>> {
-        return this.get(`${this.apiUrl}/activity`)
+        return this.get(`${this.apiUrl}/users/me/activity`)
             .map(response => response.json());
     }
 
-    public getOperations(): Observable<DataResponse<WallenOperation[]>> {
-        return this.get(`${this.apiUrl}/activity`)
-            .map(response => response.json());
-    }
-
-    // public updateApi(request: CreateUpdateKeyRequest): Observable<DataResponse<ApiKey[]>> {
-    //     return this.put(`${this.apiUrl}/apiKeys`, request)
-    //         .map(response => response.json());
-    // }
-
-    // public generateNewKey(request: CreateUpdateKeyRequest): Observable<DataResponse<ApiKey[]>> {
-    //     return this.post(`${this.apiUrl}/apiKeys`, request)
-    //         .map(response => response.json());
-    // }
-
-    // public deleteApiKey(id: number): Observable<DataResponse<ApiKey[]>> {
-    //     return this.delete(`${this.apiUrl}/apiKeys?id=${id}`)
-    //         .map(response => response.json());
-    // }
 }
