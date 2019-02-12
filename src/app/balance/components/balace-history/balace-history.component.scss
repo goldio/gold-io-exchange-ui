@@ -1,0 +1,133 @@
+h2 {
+  position: relative;
+}
+
+label {
+  cursor: pointer;
+}
+
+.back-btn {
+  position: absolute;
+  width: 17px;
+  height: 8px;
+  left: -30px;
+  top: 9px;
+
+}
+
+
+.history-narrow {
+  max-width: 700px;
+}
+
+.balance-table {
+  max-width: 669px;
+}
+
+.balance-table-title span:nth-child(1) {
+  width: 20%;
+}
+
+.balance-table-title span:nth-child(2) {
+  width: 34%;
+}
+
+.balance-table-title span:nth-child(3) {
+  width: 25%;
+}
+
+.balance-table-title span:nth-child(4) {
+  width: 21%;
+}
+
+.balance-table-item span:nth-child(1) {
+  width: 20%;
+}
+
+.balance-table-item span:nth-child(2) {
+  width: 34%;
+}
+
+.balance-table-item span:nth-child(3) {
+  width: 25%;
+}
+
+.balance-table-item span:nth-child(4) {
+  width: 21%;
+}
+
+.balance-table-item span:nth-child(2) {
+  font-size: 13px;
+  line-height: 14px;
+}
+
+.balance-table-item span:nth-child(2) b {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 16px;
+}
+
+.balance-table-item span:nth-child(2) img {
+  position: relative;
+  top: -1px;
+  float: left;
+  width: 17px;
+  height: 17px;
+  margin: 0 10px 0 1px;
+}
+.double-btns{
+    width: 175px;
+    margin-bottom: 28px;
+    
+}
+
+.double-btns button:nth-child(1){
+    width: 75px;
+    height: 25px;
+}
+.double-btns button:nth-child(2){
+    width: 100px;
+    height: 25px;
+}
+
+.w-1{
+    .choose{
+        width: 75px;
+        top: -1px;
+    }
+}
+.w-2{
+    .choose{
+        width: 99px;
+        top: -1px;
+    }
+}
+.double-btns .choose{
+    left: -1px;
+}
+.change-double-btn .choose{
+    left: 75px;
+}
+
+@media screen and (max-width: 1060px) {
+  .balance-title{
+    .back-btn{
+      left: -3px;
+    }
+    b{
+      margin-left: 27px;
+    }
+  }
+
+}
+@media screen and (max-width: 640px) {
+  
+
+}
+
+@media screen and (max-width: 600px) {
+  .balance-title{
+    text-align: left;
+  }
+
+}

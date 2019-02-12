@@ -2143,7 +2143,7 @@ ul.left-top-menu {
   }
 
   .balance-table-item span:nth-child(1) {
-    color: #757c8c;
+    color: #686D7A;
   }
 
   .balance-table-item span:nth-child(1) b {
@@ -4204,7 +4204,8 @@ ul.left-top-menu {
   }
 
   .deposit,
-  .withdrawal {
+  .withdrawal,
+  .balance-history {
     .back-btn {
       background: url(../assets/images/back-arrow-dark.svg)no-repeat center;
     }

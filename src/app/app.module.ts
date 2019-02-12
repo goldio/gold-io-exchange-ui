@@ -116,7 +116,7 @@ import { ProfileComponent } from './profile/components/profile/profile.component
 				{ path: 'activation', component: ActivationComponent },
 				{ path: 'balanceDeposit', component: BalanceDepositComponent },
 				{ path: 'balanceWithdrawal', component: BalanceWithdrawalComponent },
-				{ path: 'balaceHistory', component: BalaceHistoryComponent },
+				{ path: 'balanceHistory', component: BalaceHistoryComponent },
 				{
 					path: 'sucessfull', component: SucessfullComponent,
 					data: {

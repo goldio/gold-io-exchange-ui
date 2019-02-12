@@ -1,46 +1,37 @@
-<!-- <div class="history-narrow section" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }">
-    <div class="balance-all">
-        <div class="balance-title">
-            <h2><b>Balance</b></h2>
-    
-            <div class="balance-title-search">
-                <form [formGroup]="searchForm">
-                    <input type="text" placeholder="Search coin..." formControlName="search">
-                    <button type="submit"></button>
-                </form>
-            </div>
+<div class="history-narrow balance-history section" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }">
+    <div class="balance-title">
+        <label for="back">
+          <h2>
+              <button class="back-btn" id="back" (click)="back()"></button>
+              <b>History</b>
+            </h2>
+          </label>
+    </div> 
+    <ul class="double-btns" [ngClass]="{
+        'change-double-btn': changeHistory,
+        'w-1': !changeHistory,
+        'w-2': changeHistory
+        }">
+    <button (click)="changeHistory = false">Deposit</button>
+    <button (click)="changeHistory = true">Withdrawal</button>
+    <div class="choose"></div>
+    </ul>
+    <div class="balance-table" >
+        <div class="balance-table-title">
+            <span>Status</span>
+            <span>Coin</span>
+            <span>Amount</span>
+            <span>Time</span>
         </div>
-    
-        <div class="balance-table" *ngIf="viewWallets">
-            <div class="balance-table-title">
-                <span>Coin</span>
-                <span>Balance</span>
-                <span>On orders</span>
-                <span>VTC Value</span>
-                <span></span>
-            </div>
-    
-            <div class="balance-table-item" *ngFor="let wallet of viewWallets">
-                <span>
-                    <img src="{{ wallet.coin.icon.url }}" alt="">
-                    <b>{{ wallet.coin.name }}</b>
-                </span>
-    
-                <span before="Total balance">{{ wallet.balance.toFixed(8) }}</span>
-                <span before="On orders">{{ wallet.onOrders.toFixed(8) }}</span>
-                <span before="VTC Value">{{ wallet.vtcValue.toFixed(8) }}</span>
-                <span>
-                    <div class="coin-btns">
-                        <div class="coin-btn first-coin-btn">Deposit</div>
-                        <div class="coin-btn second-coin-btn">Withdrawal</div>
-                    </div>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="balance-deposit">
 
+        <div class="balance-table-item" >
+            <span before="Status">Pending</span>
+            <span>
+                <img src="../../../../assets/images/btc-green.svg" alt="">
+                <b>BTC-HZ</b>
+            </span>
+            <span before="Amount">3.0049245 </span>
+            <span before="Time">19:27 02.08.2019</span>
+        </div>
     </div>
-    <div class="balance-withdrawal"></div>
-    <div class="balance-history"></div>
-</div> -->
+</div>

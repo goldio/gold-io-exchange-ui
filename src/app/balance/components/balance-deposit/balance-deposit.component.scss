@@ -111,17 +111,18 @@ label {
     font-size: 14px;
     display: block;
   }
+
   span:nth-child(1) {
     margin-bottom: 15px;
 
   }
+
   a {
     cursor: default;
   }
-  a:nth-child(1){
-      text-decoration: none;
+
+  a:nth-child(1) {
+    text-decoration: none;
   }
 
 }
-
-
