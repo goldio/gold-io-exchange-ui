@@ -10,20 +10,20 @@
         <span>Agent</span>
         <span>Activity</span>
       </div>
-      <div class="login-history-item" *ngFor ="let userSession of userSessions">
-        <span class="col1">{{ userSession.time | date: 'dd/MM/yy' }} — {{ userSession.time | date: 'hh:mm' }}</span>
-        <span class="col2">{{ userSession.ipAddress }}</span>
-        <span class="col3">{{ userSession.userAgent }}</span>
-        <span class="col4" *ngIf="userSession.type == 0">Log in</span>
+      <div class="login-history-item" *ngFor ="let userViewSession of userViewSessions">
+        <span class="col1">{{ userViewSession.time | date: 'dd/MM/yy' }} — {{ userViewSession.time | date: 'hh:mm' }}</span>
+        <span class="col2">{{ userViewSession.ipAddress }}</span>
+        <span class="col3">{{ userViewSession.userAgent }}</span>
+        <span class="col4" *ngIf="userViewSession.type == 0">Log in</span>
       </div>
+      
+     
     </div>
-    <!-- <div class="navigate-buttons">
-      <button class="page-nav mr-24">Prev</button>
-      <button class="page-numb active mr-14">1</button>
-      <button class="page-numb mr-14">2</button>
-      <button class="page-numb mr-24">3</button>
-      <button class="page-nav">Next</button>
-    </div> -->
+    <div class="navigate-buttons" *ngIf="pagesNumber > 1">
+      <button class="page-nav mr-24" (click)="prevPage()">Prev</button>
+      <button class="page-numb active mr-14" *ngFor="let page of pages" (click)="changePage(page)">{{ page }}</button>
+      <button class="page-nav" (click)="nextPage()">Next</button>
+    </div>
   </div>
 </div>
 

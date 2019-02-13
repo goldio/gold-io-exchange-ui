@@ -23,19 +23,39 @@
             <span>Amount</span>
             <span>Time</span>
         </div>
-
-        <div class="balance-table-item" >
-            <span before="Status">Pending</span>
-            <span before="Coin">
-                <img src="../../../../assets/images/btc-green.svg" alt="">
-                <b>BTC-HZ</b>
-            </span>
-            <span before="Amount">3.0049245 </span>
-            <span before="Time">19:27 02.08.2019</span>
-        </div>
-        <div class="balance-table-item empty-item" >
-            <div class="empty-img"></div>
-            <span>You have no deposit history.</span>
+        <div class="deposit-info" *ngIf="!changeHistory">
+            <div class="balance-table-item" *ngIf="viewDeposit">
+                <span before="Status" *ngIf="viewDeposit.userWalletOperationStatus == 0">InProgress</span>
+                <span before="Status" *ngIf="viewDeposit.userWalletOperationStatus == 1">Completed</span>
+                <span before="Status" *ngIf="viewDeposit.userWalletOperationStatus == 2">Canceled</span>
+                <span before="Coin">
+                    <img src="{{ viewDeposit.userWallet.coin.icon.url }}" alt="">
+                    <b>{{ viewDeposit.userWallet.coin.shortName }} - {{ viewDeposit.userWallet.coin.name }}</b>
+                </span>
+                <span before="Amount">{{ viewDeposit.amount }}</span>
+                <span before="Time">{{ viewDeposit.time | date: 'hh:mm' }} — {{ viewDeposit.time | date: 'dd/MM/yy' }}</span>
             </div>
+            <div class="balance-table-item empty-item" *ngIf="!ViewDeposit">
+                <div class="empty-img"></div>
+                <span>You have no deposit history.</span>
+            </div>
+        </div>
+        <div  class="withdrawal-info"  *ngIf="changeHistory">
+            <div class="balance-table-item" *ngIf="viewWithdrawal">
+                <span before="Status" *ngIf="viewWithdrawal.userWalletOperationStatus == 0">InProgress</span>
+                <span before="Status" *ngIf="viewWithdrawal.userWalletOperationStatus == 1">Completed</span>
+                <span before="Status" *ngIf="viewWithdrawal.userWalletOperationStatus == 2">Canceled</span>
+                <span before="Coin">
+                    <img src="{{ viewWithdrawal.userWallet.coin.icon.url }}" alt="">
+                    <b>{{ viewWithdrawal.userWallet.coin.shortName }} - {{ viewWithdrawal.userWallet.coin.name }}</b>
+                </span>
+                <span before="Amount">{{ viewWithdrawal.amount }}</span>
+                <span before="Time">{{ viewWithdrawal.time | date: 'hh:mm' }} — {{ viewWithdrawal.time | date: 'dd/MM/yy' }}</span>
+            </div>
+            <div class="balance-table-item empty-item" *ngIf="!viewWithdrawal">
+                <div class="empty-img"></div>
+                <span>You have no deposit history.</span>
+            </div>
+        </div>
         </div>
 </div>

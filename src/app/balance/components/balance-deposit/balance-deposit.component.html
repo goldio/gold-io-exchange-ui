@@ -39,7 +39,7 @@
     
             <div class="balance-table-item" >
                 <span  before="Coin">
-                    <img src="../../../../assets/images/btc-green.svg" alt="">
+                    <img src="{{ wallet.coin.icon.url }}" alt="">
                     <b>{{ wallet.coin.shortName }} – {{ wallet.coin.name }}</b>
                 </span>
                 <span  before="Balance" *ngIf="viewBalance">{{ viewBalance }}</span>

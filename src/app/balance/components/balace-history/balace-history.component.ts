@@ -3,6 +3,9 @@ import { BaseLayoutComponent } from 'src/app/common/components/base-layout.compo
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AuthService } from 'src/app/common/services/auth.service';
+import { BalanceService } from '../../services/balance.service';
+import { BalanceHistory } from '../../models/history.model';
+import { WalletOperationType } from 'src/app/common/enums/wallet-operation-type.model';
 
 @Component({
   selector: 'app-balace-history',
@@ -12,11 +15,15 @@ import { AuthService } from 'src/app/common/services/auth.service';
 export class BalaceHistoryComponent extends BaseLayoutComponent implements OnInit {
 
   public isLoggedIn: boolean;
-  
+
+  public viewDeposit:BalanceHistory[];
+  public viewWithdrawal:BalanceHistory[];
+
   constructor(
     private router: Router,
     private location: Location,
-    private authService:AuthService
+    private authService:AuthService,
+    private balanceService:BalanceService
   ) { 
     super();
   }
@@ -31,6 +38,8 @@ export class BalaceHistoryComponent extends BaseLayoutComponent implements OnIni
 		if (!this.isLoggedIn) {
 			this.router.navigate(['/authorization']);
     }
+    this.getInfoDeposit();
+    this.getInfoWithdrawal();
   }
 
   public back(){
@@ -38,4 +47,26 @@ export class BalaceHistoryComponent extends BaseLayoutComponent implements OnIni
     this.location.back();
   }
 
+  public getInfoDeposit(){
+    this.balanceService.getHistoryDeposit().subscribe(res => {
+      if (!res.success) {
+        alert(res.message);
+        return;
+      }
+      this.viewDeposit = res.data;
+      console.log(this.viewDeposit);
+      
+    });
+  }
+
+  public getInfoWithdrawal(){
+    this.balanceService.getHistoryWithdrawal().subscribe(res => {
+      if (!res.success) {
+        alert(res.message);
+        return;
+      }
+      this.viewWithdrawal = res.data;
+      console.log(this.viewWithdrawal);
+    });
+  }
 }

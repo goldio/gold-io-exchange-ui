@@ -8,6 +8,7 @@ import { UpdatePersonRequest } from 'src/app/common/models/request';
 import { DepositResponse } from '../models/deposit-response.model';
 import { WallenOperation } from 'src/app/activity/models/wallet-operation.model';
 import { WithdrawlRequest } from '../models/withdrawl-request.model';
+import { BalanceHistory } from '../models/history.model';
 
 @Injectable()
 export class BalanceService extends BaseHttpService {
@@ -28,4 +29,13 @@ export class BalanceService extends BaseHttpService {
             .map(response => response.json());
     }
 
+    public getHistoryDeposit(): Observable<DataResponse<BalanceHistory[]>> {
+        return this.get(`${this.apiUrl}/wallets/me/history/deposit`)
+            .map(response => response.json());
+    }
+
+    public getHistoryWithdrawal(): Observable<DataResponse<BalanceHistory[]>> {
+        return this.get(`${this.apiUrl}/wallets/me/history/withdraw`)
+            .map(response => response.json());
+    }
 }
