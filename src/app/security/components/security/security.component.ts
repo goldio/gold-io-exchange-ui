@@ -120,12 +120,7 @@ export class SecurityComponent extends BaseLayoutComponent implements OnInit {
 				// 	this.easy = false;
 				// }
 		
-				// if (this.securityForm.controls['newPassword'].value.length < 8){
-				// 	this.passwordErrorText = "Your password is too short!" ;
-				// 	this.short = true;
-				// }else{
-				// 	this.short = false;
-				// }
+				 
 			
     }
   

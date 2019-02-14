@@ -56,10 +56,10 @@
                 <div style="width: max-content;" class="error-text" 
                 
                 [ngClass]="{'error-text-open' : securityForm.controls.newPassword.hasError('required') && securityForm.controls.newPassword.touched}">Сan't be empty!</div>
-                <div style="width: max-content;" class="error-text" [ngClass]="{
+                <!-- <div style="width: max-content;" class="error-text" [ngClass]="{
                     'error-text-open' : easy &&  (!securityForm.controls.newPassword.hasError('required'))
                 
-                }">{{ passwordErrorText }}</div>
+                }">{{ passwordErrorText }}</div> -->
                 <div style="width: max-content;" class="error-text" [ngClass]="{
                     'error-text-open' : short &&  (!securityForm.controls.newPassword.hasError('required'))
                 }">{{ passwordErrorText }}</div>
