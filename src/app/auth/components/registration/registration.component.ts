@@ -19,7 +19,7 @@ export class RegistrationComponent extends BaseLayoutComponent implements OnInit
 	public emailErrorText: string;
 	public passwordErrorText: string;
 
-	public easy = false;
+	// public easy = false;
 	public short = false;
 
 	private initSignUpForm(): void {
@@ -51,43 +51,7 @@ export class RegistrationComponent extends BaseLayoutComponent implements OnInit
 				}
 			});
 
-			this.signUpForm.controls['password']
-			.valueChanges
-			.debounceTime(1000)
-			.subscribe(value => {
-	  
-				if (value.search(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)){
-					this.passwordErrorText = "Your password is easy!" ;
-					// this.signUpForm.controls['password'].setErrors({
-					// 	easy: true
-					// });
-					this.easy = true;
-					// setTimeout(() => {
-					// 	// this.signUpForm.controls['password'].setErrors({
-					// 	// 	easy: false
-					// 	// });
-					// 	this.easy = false;
-					// }, 5000);
-				}else{
-					this.easy = false;
-				}
-		
-				if (value.length < 8){
-					this.passwordErrorText = "Your password is too short!" ;
-					// this.signUpForm.controls['password'].setErrors({
-					// 	short: true
-					// });
-					this.short = true;
-					// setTimeout(() => {
-					// 	// this.signUpForm.controls['password'].setErrors({
-					// 	// 	short: false
-					// 	// });
-					// 	this.short = false;
-					// }, 5000);
-				}else{
-					this.short = false;
-				}
-			});
+			
 	}
 
 	public submitRegistration(form: FormGroup): void {
@@ -106,43 +70,9 @@ export class RegistrationComponent extends BaseLayoutComponent implements OnInit
 			}
 			return;
 		}
-		if(this.easy || this.short){
-			
+		if(this.short){
 			return;
 		}
-
-		// this.signUpForm.controls['password']
-		// 	.valueChanges
-		// 	.debounceTime(1000)
-		// 	.subscribe(value => {
-	  
-		// 		if (value.search(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/)){
-		// 			this.passwordErrorText = "Your password is easy!" ;
-		// 			this.signUpForm.controls['password'].setErrors({
-		// 				easy: true
-		// 			});
-		// 			setTimeout(() => {
-		// 				this.signUpForm.controls['password'].setErrors({
-		// 					easy: false
-		// 				});
-		// 			}, 5000);
-		// 		  }
-		  
-		// 		if (value.length < 8){
-		// 		this.passwordErrorText = "Your password is too short!" ;
-		// 		this.signUpForm.controls['password'].setErrors({
-		// 			easy: true
-		// 		});
-		// 		setTimeout(() => {
-		// 			this.signUpForm.controls['password'].setErrors({
-		// 				easy: false
-		// 			});
-		// 		}, 5000);
-		// 		}
-		// 		if (value.search(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/) || (value.length < 8)){
-		// 			return;
-		// 		}
-		// 	});
 		let req :SignUpRequest = {
 			fullName: form.controls['fullName'].value,
 			email: form.controls['email'].value,
@@ -176,5 +106,14 @@ export class RegistrationComponent extends BaseLayoutComponent implements OnInit
 		this.signUpForm.controls['agreeBox'].markAsTouched();
 	}
 
+	public chekPassLehght(){
+			if (this.signUpForm.controls['password'].value.length < 8){
+				this.passwordErrorText = "Your password is too short!" ;
+				this.short = true;
+			}else{
+				this.short = false;
+			}
+		
+	}
 	
 }
