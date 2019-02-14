@@ -21,8 +21,8 @@ export class ApiService extends BaseHttpService {
             .map(response => response.json());
     }
 
-    public updateApi(request: CreateUpdateKeyRequest): Observable<DataResponse<ApiKey[]>> {
-        return this.put(`${this.apiUrl}/apiKeys`, request)
+    public updateApi(request: CreateUpdateKeyRequest, id: number): Observable<DataResponse<ApiKey[]>> {
+        return this.put(`${this.apiUrl}/apiKeys/${id}/update`, request )
             .map(response => response.json());
     }
 
@@ -32,7 +32,7 @@ export class ApiService extends BaseHttpService {
     }
 
     public deleteApiKey(id: number): Observable<DataResponse<ApiKey[]>> {
-        return this.delete(`${this.apiUrl}/apiKeys?id=${id}`)
+        return this.post(`${this.apiUrl}/apiKeys/${id}/delete`, id)
             .map(response => response.json());
     }
 }

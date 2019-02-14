@@ -50,7 +50,7 @@
         <!-- <button  class="main-btn main-btn-hov" type="submit">SAVE</button> -->
         <!-- <button type="button" class="transparent-btn">GENERATE NEW KEY</button> -->
         <div class="btnTexts">
-            <button type="button" class="transparent-btn">GENERATE NEW KEY</button>
+            <button type="button" class="transparent-btn" (click)="generateNewKey()">GENERATE NEW KEY</button>
             <div class="some-answer" [ngClass]="{'some-answer-open': updateRes}">
                 <img src="../../../../assets/images/ready.svg" alt="" *ngIf="successfullyChanged">
                 {{ updateResText }}

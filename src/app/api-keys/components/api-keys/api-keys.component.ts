@@ -131,28 +131,27 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
   }
 
   public changeAccountValues(id : any){
-    this.apiKeys[id].accountPermissions = !this.apiKeys[id].accountPermissions;
-    console.log(this.apiKeys[id].accountPermissions);
+    this.apiKeys.find(x=>x.id == id).accountPermissions = !this.apiKeys.find(x=>x.id == id).accountPermissions;
   }
 
   public changeOrdersValues(id : any){
-    this.apiKeys[id].ordersPermissions = !this.apiKeys[id].ordersPermissions;
+    this.apiKeys.find(x=>x.id == id).ordersPermissions = !this.apiKeys.find(x=>x.id == id).ordersPermissions;
   }
 
   public changeFundsValues(id : any){
-    this.apiKeys[id].fundsPermissions = !this.apiKeys[id].fundsPermissions;
+    this.apiKeys.find(x=>x.id == id).fundsPermissions = !this.apiKeys.find(x=>x.id == id).fundsPermissions;
   }
 
   public saveChanges(id : any){
     alert(id);
     let updateKey:CreateUpdateKeyRequest={
-      accountPermissions: this.apiKeys[id].accountPermissions,
-      ordersPermissions: this.apiKeys[id].ordersPermissions,
-      fundsPermissions: this.apiKeys[id].fundsPermissions
+      accountPermissions: this.apiKeys.find(x=>x.id == id).accountPermissions,
+      ordersPermissions: this.apiKeys.find(x=>x.id == id).ordersPermissions,
+      fundsPermissions: this.apiKeys.find(x=>x.id == id).fundsPermissions
     }
-    this.apiService.updateApi(updateKey).subscribe(res => {
+    console.log(updateKey);
+    this.apiService.updateApi(updateKey,id).subscribe(res => {
       if(!res.success){
-        // alert('error');
         this.updateResText = res.message;
 					this.updateRes = true;
 					setTimeout(() => {
@@ -190,7 +189,5 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
     console.log(document.getElementById(''+ id));
   }
 
-  public touch(id : any){
-    
-  }
+
 }

@@ -65,7 +65,7 @@ export class SecurityComponent extends BaseLayoutComponent implements OnInit {
 			this.markContolsAsTouched() ;
 			return;
     }
-    if (this.short || this.easy || this.wrongPassword) {
+    if (this.wrongPassword) {
 			return;
     }
 		
@@ -113,19 +113,19 @@ export class SecurityComponent extends BaseLayoutComponent implements OnInit {
 
     public hardPassword(){
      
-				if (this.securityForm.controls['newPassword'].value.search(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)){
-					this.passwordErrorText = "Your password is easy!" ;
-					this.easy = true;
-				}else{
-					this.easy = false;
-				}
+				// if (this.securityForm.controls['newPassword'].value.search(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)){
+				// 	this.passwordErrorText = "Your password is easy!" ;
+				// 	this.easy = true;
+				// }else{
+				// 	this.easy = false;
+				// }
 		
-				if (this.securityForm.controls['newPassword'].value.length < 8){
-					this.passwordErrorText = "Your password is too short!" ;
-					this.short = true;
-				}else{
-					this.short = false;
-				}
+				// if (this.securityForm.controls['newPassword'].value.length < 8){
+				// 	this.passwordErrorText = "Your password is too short!" ;
+				// 	this.short = true;
+				// }else{
+				// 	this.short = false;
+				// }
 			
     }
   
