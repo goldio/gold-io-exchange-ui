@@ -15,6 +15,9 @@ export class RecoveryComponent implements OnInit {
 	public key:string;
 	public passwordErrorText:string;
 
+	public errorTextRest="";
+	public showPassMessage=false;
+
 	public easy= false;
 	public short = false;
 
@@ -48,21 +51,21 @@ export class RecoveryComponent implements OnInit {
 			.debounceTime(1000)
 			.subscribe(value => {
 	  
-				if (value.search(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)){
-					this.passwordErrorText = "Your password is easy!" ;
-					// this.signUpForm.controls['password'].setErrors({
-					// 	easy: true
-					// });
-					this.easy = true;
-					// setTimeout(() => {
-					// 	// this.signUpForm.controls['password'].setErrors({
-					// 	// 	easy: false
-					// 	// });
-					// 	this.easy = false;
-					// }, 5000);
-				}else{
-					this.easy = false;
-				}
+				// if (value.search(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)){
+				// 	this.passwordErrorText = "Your password is easy!" ;
+				// 	// this.signUpForm.controls['password'].setErrors({
+				// 	// 	easy: true
+				// 	// });
+				// 	this.easy = true;
+				// 	// setTimeout(() => {
+				// 	// 	// this.signUpForm.controls['password'].setErrors({
+				// 	// 	// 	easy: false
+				// 	// 	// });
+				// 	// 	this.easy = false;
+				// 	// }, 5000);
+				// }else{
+				// 	this.easy = false;
+				// }
 		
 				if (value.length < 8){
 					this.passwordErrorText = "Your password is too short!" ;
@@ -88,7 +91,7 @@ export class RecoveryComponent implements OnInit {
 			return;
 		}
 		
-		if(this.easy || this.short){
+		if(this.short){
 			return;
 		}
 
@@ -107,13 +110,19 @@ export class RecoveryComponent implements OnInit {
 		}
 		let changPpass:ChangeRecoveryPasswordRequest ={
 			password: form.value['password'],
-			key: this.key
+			repeatPassword:form.value['confirmPassword'],
+			 key: this.key
 		}
 		this.authService
 			.recoveryPassword(changPpass)
 			.subscribe(res =>{
 				if (!res.success) {
-					this.router.navigate(['/authorization'], { queryParams: { passwordChanged: false } });
+					this.errorTextRest = res.message;
+					this.showPassMessage = true;
+					setTimeout(() => {
+						this.showPassMessage= false;
+					}, 3000);
+					// this.router.navigate(['/authorization'], { queryParams: { passwordChanged: false } });
 					return;
 				}
 
@@ -141,17 +150,17 @@ export class RecoveryComponent implements OnInit {
 			.debounceTime(1000)
 			.subscribe(value => {
 	  
-				if (value.search(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/)){
-					this.passwordErrorText = "Your password is easy!" ;
-					this.recoveryPassForm.controls['password'].setErrors({
-						easy: true
-					});
-					setTimeout(() => {
-						this.recoveryPassForm.controls['password'].setErrors({
-							easy: false
-						});
-					}, 5000);
-				  }
+				// if (value.search(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/)){
+				// 	this.passwordErrorText = "Your password is easy!" ;
+				// 	this.recoveryPassForm.controls['password'].setErrors({
+				// 		easy: true
+				// 	});
+				// 	setTimeout(() => {
+				// 		this.recoveryPassForm.controls['password'].setErrors({
+				// 			easy: false
+				// 		});
+				// 	}, 5000);
+				//   }
 		  
 				if (value.length < 8){
 				this.passwordErrorText = "Your password is too short!" ;

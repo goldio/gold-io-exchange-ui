@@ -50,6 +50,7 @@ import { StorageService } from './common/services/storage.service';
 import { ProfileComponent } from './profile/components/profile/profile.component';
 import { BalanceService } from './balance/services/balance.service';
 import { BalaceHistoryComponent } from './balance/components/balace-history/balace-history.component';
+import { SucessfullSentEmailPasswordComponent } from './auth/components/sucessfull-sent-email-password/sucessfull-sent-email-password.component';
 
 @NgModule({
 	declarations: [
@@ -71,6 +72,7 @@ import { BalaceHistoryComponent } from './balance/components/balace-history/bala
 		BalanceDepositComponent,
 		BalanceWithdrawalComponent,
 		BalaceHistoryComponent,
+		SucessfullSentEmailPasswordComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -118,6 +120,12 @@ import { BalaceHistoryComponent } from './balance/components/balace-history/bala
 				{ path: 'balanceDeposit', component: BalanceDepositComponent },
 				{ path: 'balanceWithdrawal', component: BalanceWithdrawalComponent },
 				{ path: 'balanceHistory', component: BalaceHistoryComponent },
+				{ path: 'EmailPass', component: SucessfullSentEmailPasswordComponent ,
+					data: {
+						noHeader: true,
+						noSidebar: true
+					}
+				},
 				{
 					path: 'sucessfull', component: SucessfullComponent,
 					data: {

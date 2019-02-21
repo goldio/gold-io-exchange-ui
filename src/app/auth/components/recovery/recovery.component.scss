@@ -309,3 +309,33 @@ input[type=checkbox] + label span
 //         }
 //       }
 // }
+
+
+
+form{
+    position: relative;
+}
+.showPassMessage{
+    position: absolute;
+    max-width: 100%;
+    width: 100%;
+    max-height: max-content;
+    box-sizing: border-box;
+    padding: 15px;
+    background: rgba(14, 17, 26, 0.9);
+    border-radius: 4px;
+    text-align: center;
+    left: 0;
+    bottom: -15px;
+    transition: 1.5s;
+    opacity: 0;
+    display: block;
+    span{
+        color: #D1C881;
+        font-size: 14px;
+    }
+}
+.showPassMessage-open{
+    opacity: 1;
+    bottom: 15px;
+}
