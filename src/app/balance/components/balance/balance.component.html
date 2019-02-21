@@ -30,8 +30,8 @@
             <span before="VTC Value">{{ wallet.vtcValue.toFixed(8) }}</span>
             <span>
                 <div class="coin-btns">
-                    <div class="coin-btn first-coin-btn" (click)="routeToDeposit(wallet)">Deposit</div>
-                    <div class="coin-btn second-coin-btn" (click)="routeToWithdrawal(wallet)">Withdrawal</div>
+                    <div class="coin-btn first-coin-btn" *ngIf="wallet.coin.shortName != 'EOS' && wallet.coin.shortName != 'GIO'" (click)="routeToDeposit(wallet)">Deposit</div>
+                    <div class="coin-btn second-coin-btn" *ngIf="wallet.coin.shortName != 'EOS' && wallet.coin.shortName != 'GIO'" (click)="routeToDeposit(wallet)" (click)="routeToWithdrawal(wallet)">Withdrawal</div>
                 </div>
             </span>
         </div>

@@ -9,3 +9,4 @@ export * from './coin.model';
 export * from './security-token.model';
 export * from './order.model';
 export * from './user-wallet.model';
+export * from './coin-address.model';

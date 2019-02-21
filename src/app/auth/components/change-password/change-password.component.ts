@@ -4,38 +4,38 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/common/services/auth.service';
 
 @Component({
-  selector: 'app-change-password',
-  templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.scss']
+	selector: 'app-change-password',
+	templateUrl: './change-password.component.html',
+	styleUrls: ['./change-password.component.scss']
 })
 export class ChangePasswordComponent implements OnInit {
 
-  public emailErrorText: string;
+	public emailErrorText: string;
 
-  public recoveryEmailForm: FormGroup;
-  private initRecoveryEmailForm(): void {
+	public recoveryEmailForm: FormGroup;
+	private initRecoveryEmailForm(): void {
 		this.recoveryEmailForm = new FormGroup({
-			email: new FormControl(null, [Validators.required, Validators.email])
+			login: new FormControl(null, [Validators.required, Validators.email])
 		});
-  }
-  constructor(
-    private authService: AuthService,
-    private router: Router
-    ) { }
+	}
+	constructor(
+		private authService: AuthService,
+		private router: Router
+	) { }
 
-  ngOnInit() {
-    this.initRecoveryEmailForm();
-    this.authService
+	ngOnInit() {
+		this.initRecoveryEmailForm();
+		this.authService
 			.isLoggedIn
 			.subscribe(logged => {
 				if (logged) {
 					this.router.navigate(['/index']);
-					return;	
+					return;
 				}
 			});
-  }
+	}
 
-  public submitEmailForm(form: FormGroup): void {
+	public submitEmailForm(form: FormGroup): void {
 		if (form.invalid) {
 			this.markControlsAsTouched();
 			return;
@@ -45,13 +45,13 @@ export class ChangePasswordComponent implements OnInit {
 			.recoveryEmail(form.value)
 			.subscribe(res => {
 				if (!res.success) {
-          this.emailErrorText = res.message ;
-					form.controls['emailError'].setErrors({
-						email: true
+					this.emailErrorText = res.message;
+					form.controls['email'].setErrors({
+						emailError: true
 					});
 					setTimeout(() => {
-						form.controls['emailError'].setErrors({
-							email: false
+						form.controls['email'].setErrors({
+							emailError: false
 						});
 					}, 3000);
 					return;
@@ -59,10 +59,10 @@ export class ChangePasswordComponent implements OnInit {
 
 				this.router.navigate(['/sucessfull']);
 			});
-  }
-   
-  public markControlsAsTouched() {
-    this.recoveryEmailForm.controls['email'].markAsTouched();
-  }
+	}
+
+	public markControlsAsTouched() {
+		this.recoveryEmailForm.controls['email'].markAsTouched();
+	}
 
 }

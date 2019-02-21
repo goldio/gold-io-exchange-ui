@@ -107,7 +107,7 @@ export class RecoveryComponent implements OnInit {
 		}
 		let changPpass:ChangeRecoveryPasswordRequest ={
 			password: form.value['password'],
-			 key: this.key
+			key: this.key
 		}
 		this.authService
 			.recoveryPassword(changPpass)
