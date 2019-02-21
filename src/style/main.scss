@@ -1759,6 +1759,7 @@ ul.left-top-menu {
 
   .exchanger-header-profile-nav {
     display: block;
+    margin-bottom: 30px;
   }
 
   .exchanger-header-profile {
@@ -1767,7 +1768,7 @@ ul.left-top-menu {
   }
 
   .exchanger-header-profile span {
-    padding: 0 0 40px 30px;
+    padding: 0 0 14px 30px;
     font-weight: 400;
   }
 
@@ -4323,4 +4324,9 @@ ul.left-top-menu {
       color: #3B3E47;
     }
   }
+}
+
+
+.mCSB_outside + .mCS-minimal.mCSB_scrollTools_vertical, .mCSB_outside , .mCS-minimal-dark.mCSB_scrollTools_vertical{
+z-index: 4;
 }

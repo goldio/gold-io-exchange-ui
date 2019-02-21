@@ -38,7 +38,11 @@
                                     
                                 </div>
                             <button class="main-btn main-btn-hov save-btn" type="submit">SAVE</button>
-                            
+                            <div class="showPassMessage" [ngClass]="{
+                                'showPassMessage-open': showPassMessage
+                            }">
+                                <span class="showPassMessageText">{{ showPassMessageText }}</span>
+                            </div>
                         </form>
                 </div>
             </div>

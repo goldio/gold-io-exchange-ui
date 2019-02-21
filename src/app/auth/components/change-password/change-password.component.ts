@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/common/services/auth.service';
+import { RecoveryRequest } from 'src/app/common/models/request/recovery-requers.model';
 
 @Component({
   selector: 'app-change-password',
@@ -11,7 +12,7 @@ import { AuthService } from 'src/app/common/services/auth.service';
 export class ChangePasswordComponent implements OnInit {
 
   public emailErrorText: string;
-
+	public errorResp=false;
   public recoveryEmailForm: FormGroup;
   private initRecoveryEmailForm(): void {
 		this.recoveryEmailForm = new FormGroup({
@@ -40,24 +41,23 @@ export class ChangePasswordComponent implements OnInit {
 			this.markControlsAsTouched();
 			return;
 		}
-
+		let formReq: RecoveryRequest={
+			login: form.controls['email'].value
+		}
 		this.authService
-			.recoveryEmail(form.value)
+			.recoveryEmail(formReq)
 			.subscribe(res => {
 				if (!res.success) {
           this.emailErrorText = res.message ;
-					form.controls['emailError'].setErrors({
-						email: true
-					});
+					this.errorResp = true;
 					setTimeout(() => {
-						form.controls['emailError'].setErrors({
-							email: false
-						});
+						this.errorResp = false;
 					}, 3000);
+					
 					return;
 				}
 
-				this.router.navigate(['/sucessfull']);
+				this.router.navigate(['/EmailPass']);
 			});
   }
    
