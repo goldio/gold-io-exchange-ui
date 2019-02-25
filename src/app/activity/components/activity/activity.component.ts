@@ -66,7 +66,7 @@ export class ActivityComponent extends BaseLayoutComponent implements OnInit {
         alert('error');
       }
       this.userSessions = res.data;
-      console.log(this.userSessions);
+      // console.log(this.userSessions);
       this.calcMass();
     })
   }
@@ -81,7 +81,7 @@ export class ActivityComponent extends BaseLayoutComponent implements OnInit {
     while (start <= this.pagesNumber) {
       this.pages.push(start++);
     }
-    console.log(this.pages);
+    // console.log(this.pages);
     this.calcMassData();
   }
 
@@ -110,7 +110,7 @@ export class ActivityComponent extends BaseLayoutComponent implements OnInit {
 
   public calcMassData(){
     this.userViewSessions= [];
-    console.log(this.userViewSessions);
+    // console.log(this.userViewSessions);
     var pageNumb =(this.currentPage - 1)*10;
     var start=0;
     var nowPageLenght;
@@ -127,7 +127,7 @@ export class ActivityComponent extends BaseLayoutComponent implements OnInit {
       start++;
       pageNumb++;
     }
-    console.log(this.userViewSessions);
+    // console.log(this.userViewSessions);
   }
 
 }

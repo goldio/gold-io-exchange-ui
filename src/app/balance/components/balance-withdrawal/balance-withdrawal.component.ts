@@ -92,7 +92,7 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
 
         this.wallet = res.data.find(x=> x.id == this.withdrawalID);
         this.viewBalance = this.wallet.balance.toFixed(8);
-        console.log(this.wallet);
+        // console.log(this.wallet);
 			});
   }
 

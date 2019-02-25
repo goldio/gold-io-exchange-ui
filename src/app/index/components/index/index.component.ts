@@ -367,7 +367,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 	}
 
 	public submitOrder(form: FormGroup): void {
-		console.log(form);
+		// console.log(form);
 		if (form.invalid) {
 			alert('form invalid');
 			return;

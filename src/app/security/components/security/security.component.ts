@@ -13,6 +13,7 @@ import { SecurityService } from '../../services/security.service';
 })
 export class SecurityComponent extends BaseLayoutComponent implements OnInit {
 
+ 
   public isLoggedIn: boolean;
   public qrContent;
   public qrContentValue: string = "svetlana";
@@ -50,6 +51,10 @@ export class SecurityComponent extends BaseLayoutComponent implements OnInit {
   }
   this.initSecurityForm();
     
+  }
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
   }
   private initSecurityForm(): void {
 		this.securityForm = new FormGroup({

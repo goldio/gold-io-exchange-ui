@@ -80,7 +80,7 @@ export class AuthorizationComponent extends BaseLayoutComponent implements OnIni
 
 		this.activatedRoute.queryParams
 			.subscribe((params: Params) => {
-				console.log(params);
+				// console.log(params);
 				if (params.passwordChanged == "true") {
 					this.showPassMessage = true;
 					this.showPassMessageText  = 'password successfully changed';

@@ -125,7 +125,7 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
             alert('error');
           }
           this.apiKeys = res.data;
-          console.log( this.apiKeys );
+          // console.log( this.apiKeys );
         })
        
   }
@@ -149,7 +149,7 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
       ordersPermissions: this.apiKeys.find(x=>x.id == id).ordersPermissions,
       fundsPermissions: this.apiKeys.find(x=>x.id == id).fundsPermissions
     }
-    console.log(updateKey);
+    // console.log(updateKey);
     this.apiService.updateApi(updateKey,id).subscribe(res => {
       if(!res.success){
         this.updateResText = res.message;
@@ -174,7 +174,7 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
   }
 
   public settingsOpen(id : any){
-    console.log(id);
+    // console.log(id);
     
     if(id != this.thisID && this.thisID!= -2){
       document.getElementById(this.thisID).classList.remove('settings-open');
@@ -186,7 +186,7 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
     }
 
     document.getElementById(id).classList.add('settings-open');
-    console.log(document.getElementById(''+ id));
+    // console.log(document.getElementById(''+ id));
   }
 
 

@@ -53,7 +53,7 @@ export class BalaceHistoryComponent extends BaseLayoutComponent implements OnIni
         return;
       }
       this.viewDeposit = res.data;
-      console.log(this.viewDeposit);
+      // console.log(this.viewDeposit);
       
     });
   }
@@ -65,7 +65,7 @@ export class BalaceHistoryComponent extends BaseLayoutComponent implements OnIni
         return;
       }
       this.viewWithdrawal = res.data;
-      console.log(this.viewWithdrawal);
+      // console.log(this.viewWithdrawal);
     });
   }
 }

@@ -272,7 +272,7 @@ export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 		req.phoneNumber = form.value['phoneNumber'];
 		req.cityID = form.value['cityID'];
 		req.address = form.value['address'];
-		console.log(req);
+		// console.log(req);
 		this.personsService
 			.updateMe(req)
 			.subscribe(res => {
@@ -288,7 +288,7 @@ export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 					}, 3000);
 						return;
 				}
-				console.log(res.data);
+				// console.log(res.data);
 				this.person = res.data;
 				this.dateB = new Date(res.data.birthDate);
 				this.dateView = new Date(this.dateB).toISOString();
