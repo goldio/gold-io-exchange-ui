@@ -5,7 +5,6 @@ import { Location } from '@angular/common';
 import { AuthService } from 'src/app/common/services/auth.service';
 import { BalanceService } from '../../services/balance.service';
 import { BalanceHistory } from '../../models/history.model';
-import { WalletOperationType } from 'src/app/common/enums/wallet-operation-type.model';
 
 @Component({
   selector: 'app-balace-history',
