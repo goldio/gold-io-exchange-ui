@@ -1,11 +1,11 @@
-import { WalletOperationType } from 'src/app/common/enums/wallet-operation-type.model';
-import { Coin } from 'src/app/common/models';
+import { Coin, CoinAddress } from 'src/app/common/models';
+import { WalletOperationStatus } from 'src/app/common/enums/wallet-operation-status.model';
 
 export class WallenOperation{
-    public coin: Coin;
-    public date: Date;
+    public address: CoinAddress;
+    public time: Date;
     public confirmations: number;
     public amount: number;
-    public type:  WalletOperationType;
+    public status:  WalletOperationStatus;
 }
 
