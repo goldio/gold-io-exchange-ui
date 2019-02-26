@@ -18,7 +18,7 @@ import { UpdatePersonRequest } from 'src/app/common/models/request';
 	styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent extends BaseLayoutComponent implements OnInit {
-	
+	public loader = false;
 	public isLoggedIn: boolean;
 
 	public scrollbarOptions = { axis: 'yx', theme: 'minimal' };
@@ -265,6 +265,7 @@ export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 			}, 3000);
 			return;
 		}
+		this.loader = true;
 		const req = new UpdatePersonRequest();
 		req.fullName = form.value['fullName'];
 		req.birthDate = this.dateB;
@@ -286,6 +287,7 @@ export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 						this.updateRes = false;
 						this.updateResText = '';
 					}, 3000);
+					this.loader = false;
 						return;
 				}
 				// console.log(res.data);
@@ -299,6 +301,7 @@ export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 					this.updateRes = false;
 					this.successfullyChanged = false;
 					this.updateResText = "";
+					this.loader = false;
 				}, 3000);
 			});
 	}

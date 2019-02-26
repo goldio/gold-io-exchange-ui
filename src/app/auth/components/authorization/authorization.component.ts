@@ -11,6 +11,10 @@ import { SignInRequest } from 'src/app/common/models/request';
 	styleUrls: ['./authorization.component.scss']
 })
 export class AuthorizationComponent extends BaseLayoutComponent implements OnInit {
+
+	public loader = false;
+
+	public emailError=false;
 	public remember = false;
 	public emailErrorText: string;
 	public signInForm: FormGroup;
@@ -52,23 +56,20 @@ export class AuthorizationComponent extends BaseLayoutComponent implements OnIni
 		}
 		if (form.invalid) {
 			this.markContolsAsTouched();
+			console.log(form);
 			return;
 		}
-
+		this.loader = true;
 		this.authService
 			.authorization(auth)
 			.subscribe(res => {
 				if (!res.success) {
 					this.emailErrorText = res.message ;
-					form.controls['login'].setErrors({
-						emailError: true
-					});
+					this.emailError = true;
 					setTimeout(() => {
-						form.controls['login'].setErrors({
-							emailError: false
-						});
+						this.emailError = false;
 					}, 3000);
-					
+					this.loader = false;
 					// this.showError(res.message, this.signInForm.controls['email'], 'email' );
 					return;
 				}

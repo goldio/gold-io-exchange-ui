@@ -34,7 +34,7 @@
                         </div>
         
                         <div class="sign-container-input error"[ngClass]="{
-                            'error-open' : (signUpForm.controls.email.hasError('required')&& signUpForm.controls.email.touched) || (signUpForm.controls.email.hasError('errorError') && signUpForm.controls.email.touched) || (signUpForm.controls.email.hasError('email') && signUpForm.controls.email.touched)
+                            'error-open' : (signUpForm.controls.email.hasError('required')&& signUpForm.controls.email.touched) || (emailError && signUpForm.controls.email.touched) || (signUpForm.controls.email.hasError('email') && signUpForm.controls.email.touched)
                         }">
                             <span>Email</span>
                             <input class="sign-place" type="email" placeholder="sample@gmail.com" formControlName="email" required>
@@ -42,7 +42,7 @@
                                 'error-text-open' : signUpForm.controls.email.hasError('required') && signUpForm.controls.email.touched
                             }">Сan't be empty!</div>
                             <div class="error-text" [ngClass]="{
-                                'error-text-open' : signUpForm.controls.email.hasError('errorError') && signUpForm.controls.email.touched
+                                'error-text-open' : emailError && signUpForm.controls.email.touched
                             }">{{emailErrorText}}</div>
                             <div class="error-text" [ngClass]="{
                                 'error-text-open' : signUpForm.controls.email.hasError('email') && signUpForm.controls.email.touched
@@ -61,7 +61,11 @@
                             }">Confirm consent!</div>
                         </div>
                         
-                        <button type="submit" class="main-btn main-btn-hov">CREATE ACCOUNT</button>
+                        <button type="submit" class="main-btn main-btn-hov" [attr.disabled]="loader ? true : null">CREATE ACCOUNT
+                                <div class="loader" [ngClass]="{'loader-open':loader}">
+                                        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                                    </div>
+                        </button>
                     </form>
         
                     <div class="sign-links">

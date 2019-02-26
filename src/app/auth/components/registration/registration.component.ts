@@ -11,9 +11,10 @@ import { BaseLayoutComponent } from 'src/app/common/components/base-layout.compo
 	styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent extends BaseLayoutComponent implements OnInit {
+	public loader = false;
 
 	public checkErr = false;
-
+	public emailError = false;
 	public signUpForm: FormGroup;
 
 	public emailErrorText: string;
@@ -78,19 +79,17 @@ export class RegistrationComponent extends BaseLayoutComponent implements OnInit
 			email: form.controls['email'].value,
 			password: form.controls['password'].value,
 		};
+		this.loader = true;
 		this.authService
 			.registration(req)
 			.subscribe(res => {
 				if (!res.success) {
 					this.emailErrorText = res.message ;
-					form.controls['email'].setErrors({
-						errorError: true
-					});
+					this.emailError = true;
 					setTimeout(() => {
-						form.controls['email'].setErrors({
-							errorError: false
-						});
+						this.emailError = false;
 					}, 3000);
+					this.loader = false;
 					return;
 				}
 

@@ -13,7 +13,7 @@ import { SecurityService } from '../../services/security.service';
 })
 export class SecurityComponent extends BaseLayoutComponent implements OnInit {
 
- 
+  public loader = false;
   public isLoggedIn: boolean;
   public qrContent;
   public qrContentValue: string = "svetlana";
@@ -73,7 +73,7 @@ export class SecurityComponent extends BaseLayoutComponent implements OnInit {
     if (this.wrongPassword) {
 			return;
     }
-		
+    this.loader = true;
 		const req = new ChangePassword();
 		req.oldPassword = form.value['lastPassword'];
 		req.newPassword = form.value['newPassword'];
@@ -87,7 +87,8 @@ export class SecurityComponent extends BaseLayoutComponent implements OnInit {
 					this.successfullyChanged = false;
 					setTimeout(() => {
 						this.updateRes = false;
-						this.updateResText = '';
+            this.updateResText = '';
+            this.loader = false;
 					}, 3000);
 						return;
 				}
@@ -97,7 +98,8 @@ export class SecurityComponent extends BaseLayoutComponent implements OnInit {
 				setTimeout(() => {
 					this.updateRes = false;
 					this.successfullyChanged = false;
-					this.updateResText = "";
+          this.updateResText = "";
+          this.loader = false;
 				}, 3000);
 			});
 	}

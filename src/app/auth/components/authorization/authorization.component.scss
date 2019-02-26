@@ -228,6 +228,7 @@ input[type=checkbox] + label span
     transition: 1.5s;
     opacity: 0;
     display: block;
+    pointer-events: none;
     span{
         color: #D1C881;
         font-size: 14px;
