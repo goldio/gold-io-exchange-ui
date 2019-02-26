@@ -11,10 +11,11 @@ import { RecoveryRequest } from 'src/app/common/models/request/recovery-requers.
 })
 export class ChangePasswordComponent implements OnInit {
 
-  public emailErrorText: string;
-	public errorResp=false;
-  public recoveryEmailForm: FormGroup;
-  private initRecoveryEmailForm(): void {
+	public loader = false;
+	public emailErrorText: string;
+	public errorResp = false;
+	public recoveryEmailForm: FormGroup;
+	private initRecoveryEmailForm(): void {
 		this.recoveryEmailForm = new FormGroup({
 			login: new FormControl(null, [Validators.required, Validators.email])
 		});
@@ -41,19 +42,20 @@ export class ChangePasswordComponent implements OnInit {
 			this.markControlsAsTouched();
 			return;
 		}
-		let formReq: RecoveryRequest={
-			login: form.controls['email'].value
+		let formReq: RecoveryRequest = {
+			login: form.controls['login'].value
 		}
+		this.loader = true;
 		this.authService
 			.recoveryEmail(formReq)
 			.subscribe(res => {
 				if (!res.success) {
-          this.emailErrorText = res.message ;
+					this.emailErrorText = res.message;
 					this.errorResp = true;
 					setTimeout(() => {
 						this.errorResp = false;
 					}, 3000);
-					
+					this.loader = false;
 					return;
 				}
 
@@ -62,7 +64,7 @@ export class ChangePasswordComponent implements OnInit {
 	}
 
 	public markControlsAsTouched() {
-		this.recoveryEmailForm.controls['email'].markAsTouched();
+		this.recoveryEmailForm.controls['login'].markAsTouched();
 	}
 
 }

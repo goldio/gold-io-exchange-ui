@@ -38,7 +38,7 @@
           <div class="df-column">
             <span class="text1">Secret code</span>
             <span class=""><input class="text2 invisibleInp" type="text" disabled></span>
-            <input type="text" class="authenticator-code" placeholder="Authenticator code">
+            <input type="text" class="authenticator-code"  readonly onfocus="this.removeAttribute('readonly')" placeholder="Authenticator code">
           </div>
         </div>
       </div>
@@ -82,7 +82,16 @@
     </div>
 
     <div class="btnTexts">
-      <button type="submit" class="main-btn main-btn-hov">SAVE</button>
+      <button type="submit" class="main-btn main-btn-hov"  [attr.disabled]="loader ? true : null">SAVE
+          <div class="loader" [ngClass]="{'loader-open':loader}">
+              <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+      </button>
       <div class="some-answer " [ngClass]="{
                     'some-answer-open': updateRes
                 }"><img

@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/common/services/auth.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
+import { SignInRequest } from 'src/app/common/models/request';
 
 @Component({
 	selector: 'app-authorization',
@@ -11,6 +12,10 @@ import { BaseLayoutComponent } from 'src/app/common/components/base-layout.compo
 })
 export class AuthorizationComponent extends BaseLayoutComponent implements OnInit {
 
+	public loader = false;
+
+	public emailError=false;
+	public remember = false;
 	public emailErrorText: string;
 	public signInForm: FormGroup;
 	public showPassMessage: boolean= false;
@@ -44,25 +49,27 @@ export class AuthorizationComponent extends BaseLayoutComponent implements OnIni
 	}
 
 	public submitAuthorization(form: FormGroup): void {
+		let auth:SignInRequest={
+			login:form.controls['login'].value,
+			password:form.controls['password'].value,
+			remember: this.remember
+		}
 		if (form.invalid) {
 			this.markContolsAsTouched();
+			console.log(form);
 			return;
 		}
-
+		this.loader = true;
 		this.authService
-			.authorization(form.value)
+			.authorization(auth)
 			.subscribe(res => {
 				if (!res.success) {
 					this.emailErrorText = res.message ;
-					form.controls['login'].setErrors({
-						emailError: true
-					});
+					this.emailError = true;
 					setTimeout(() => {
-						form.controls['login'].setErrors({
-							emailError: false
-						});
+						this.emailError = false;
 					}, 3000);
-					
+					this.loader = false;
 					// this.showError(res.message, this.signInForm.controls['email'], 'email' );
 					return;
 				}
@@ -80,7 +87,7 @@ export class AuthorizationComponent extends BaseLayoutComponent implements OnIni
 
 		this.activatedRoute.queryParams
 			.subscribe((params: Params) => {
-				console.log(params);
+				// console.log(params);
 				if (params.passwordChanged == "true") {
 					this.showPassMessage = true;
 					this.showPassMessageText  = 'password successfully changed';
@@ -117,5 +124,7 @@ export class AuthorizationComponent extends BaseLayoutComponent implements OnIni
 			});
 	}
 
-
+	public rememberChange(){
+		this.remember = !this.remember;
+	}
 }

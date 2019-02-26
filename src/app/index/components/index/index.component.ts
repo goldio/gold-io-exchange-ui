@@ -37,7 +37,7 @@ declare var Swiper: any;
 
 
 export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDestroy {
-
+	public loader = false;
 	public isLoggedIn: boolean;
 	
 	public scrollbarOptions = { axis: 'yx', theme: 'minimal' };
@@ -367,22 +367,25 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 	}
 
 	public submitOrder(form: FormGroup): void {
-		console.log(form);
+		// console.log(form);
 		if (form.invalid) {
 			alert('form invalid');
 			return;
 		}
 		alert('form valid');
 		
+		this.loader = true;
 		this.tradeService
 			.createOrder(form.value)
 			.subscribe(res => {
 				if (!res.success) {
 					alert(res.message);
+					this.loader = false;
 				}
 
 				this.loadOrderBook();
 				this.loadTrades();
+				this.loader = false;
 			});
 	}
 

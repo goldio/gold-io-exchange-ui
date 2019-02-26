@@ -68,7 +68,16 @@
                   (keyup)="calcWithNewTotal()" *ngIf="!isLoggedIn" disabled>
                 <b>{{ currentSymbol.quoteAsset }}</b>
               </div>
-              <button class="transparent-btn" type="submit" *ngIf="isLoggedIn">{{ buyCellBtn }}</button>
+              <button class="transparent-btn" type="submit" *ngIf="isLoggedIn" [attr.disabled]="loader ? true : null">{{ buyCellBtn }}
+                  <div class="loader" [ngClass]="{'loader-open':loader}">
+                      <div class="lds-ellipsis">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                      </div>
+                    </div>
+              </button>
             </div>
           </div>
         </div>

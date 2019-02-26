@@ -30,7 +30,11 @@
     <div class="notifications-buttons">
        
         <div class="btnTexts">
-                <button class="main-btn main-btn-hov" type="submit">SAVE</button>
+                <button class="main-btn main-btn-hov" type="submit" [attr.disabled]="loader ? true : null">SAVE
+                        <div class="loader" [ngClass]="{'loader-open':loader}">
+                                <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                            </div>
+                </button>
                 <div class="some-answer" [ngClass]="{
                     'some-answer-open': updateRes
                 }"><img src="../../../../assets/images/ready.svg" *ngIf="successfullyChanged">{{ updateResText }}</div>

@@ -12,7 +12,8 @@ import { BaseLayoutComponent } from 'src/app/common/components/base-layout.compo
 })
 export class NotificationsComponent extends BaseLayoutComponent implements OnInit {
   
-  
+  public loader = false;
+
   public notifications : Notifications;
   public notifForm: FormGroup;
 
@@ -61,7 +62,7 @@ export class NotificationsComponent extends BaseLayoutComponent implements OnIni
       emailMarketRemovals: this.notifications.emailMarketRemovals
     }
     
-    
+    this.loader = true;
     this.notificationsService
       .updateNotifications(notificationsUpdateForm)
       .subscribe(res =>{
@@ -71,6 +72,7 @@ export class NotificationsComponent extends BaseLayoutComponent implements OnIni
 				setTimeout(() => {
           this.updateRes = false;
           this.updateResText = '';
+          this.loader = false;
 				}, 3000);
         }
         this.updateResText = res.message;
@@ -79,7 +81,8 @@ export class NotificationsComponent extends BaseLayoutComponent implements OnIni
 				setTimeout(() => {
           this.updateRes = false;
           this.successfullyChanged = false;
-          this.updateResText = ""
+          this.updateResText = "";
+          this.loader = false;
         }, 3000);
         
       })

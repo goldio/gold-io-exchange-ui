@@ -14,7 +14,7 @@ import { BaseLayoutComponent } from 'src/app/common/components/base-layout.compo
   styleUrls: ['./api-keys.component.scss']
 })
 export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
-
+  public loader = false;
   public isLoggedIn: boolean;
 
   public thisID:any = -2;
@@ -69,6 +69,7 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
       ordersPermissions: false,
       fundsPermissions: false
     };
+    this.loader = true;
     this.apiService
     .generateNewKey(CreateUpdateKeyRequest)
       .subscribe(res => {
@@ -78,6 +79,7 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
 					setTimeout(() => {
             this.updateRes = false;
             this.updateResText ="";
+            this.loader = false;
 					}, 3000);
 						return;
         }
@@ -88,19 +90,23 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
 				setTimeout(() => {
           this.updateRes = false;
           this.successfullyChanged = false;
-          this.updateResText = ""
+          this.updateResText = "";
+          this.loader = false;
 				}, 3000);
       })
   }
 
   public deleteApiKey(id: number){
+    this.loader = true;
     this.apiService.deleteApiKey(id).subscribe(res =>{
       if(!res.success){
         this.updateResText = res.message;
         this.updateRes = true;
+       
         setTimeout(() => {
           this.updateRes = false;
           this.updateResText ="";
+          this.loader = false;
         }, 3000);
           return;
       }
@@ -111,7 +117,8 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
 				setTimeout(() => {
           this.updateRes = false;
           this.successfullyChanged = false;
-          this.updateResText = ""
+          this.updateResText = "";
+          this.loader = false;
 				}, 3000);
     });
   }
@@ -125,7 +132,7 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
             alert('error');
           }
           this.apiKeys = res.data;
-          console.log( this.apiKeys );
+          // console.log( this.apiKeys );
         })
        
   }
@@ -149,14 +156,16 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
       ordersPermissions: this.apiKeys.find(x=>x.id == id).ordersPermissions,
       fundsPermissions: this.apiKeys.find(x=>x.id == id).fundsPermissions
     }
-    console.log(updateKey);
+    this.loader = true;
+    // console.log(updateKey);
     this.apiService.updateApi(updateKey,id).subscribe(res => {
       if(!res.success){
         this.updateResText = res.message;
-					this.updateRes = true;
+          this.updateRes = true;
 					setTimeout(() => {
             this.updateRes = false;
             this.updateResText ="";
+            this.loader = false;
 					}, 3000);
 						return;
       }
@@ -168,13 +177,14 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
 				setTimeout(() => {
           this.updateRes = false;
           this.successfullyChanged = false;
-          this.updateResText = ""
+          this.updateResText = "";
+          this.loader = false;
 				}, 3000);
     })
   }
 
   public settingsOpen(id : any){
-    console.log(id);
+    // console.log(id);
     
     if(id != this.thisID && this.thisID!= -2){
       document.getElementById(this.thisID).classList.remove('settings-open');
@@ -186,7 +196,7 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
     }
 
     document.getElementById(id).classList.add('settings-open');
-    console.log(document.getElementById(''+ id));
+    // console.log(document.getElementById(''+ id));
   }
 
 

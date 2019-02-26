@@ -11,10 +11,12 @@ import { ChangeRecoveryPasswordRequest } from 'src/app/common/models/request/cha
 })
 export class RecoveryComponent implements OnInit {
 
+	public loader=false;
+
 	public recoveryPassForm: FormGroup;
 	public key:string;
 	public passwordErrorText:string;
-
+	public doNotMatch = false;
 	public errorTextRest="";
 	public showPassMessage=false;
 
@@ -98,16 +100,13 @@ export class RecoveryComponent implements OnInit {
 
 
 		if (form.value.password !== form.value.confirmPassword) {
-			form.controls['confirmPassword'].setErrors({
-				doNotMatch: true
-			});
+			this.doNotMatch = true;
 			setTimeout(() => {
-				form.controls['confirmPassword'].setErrors({
-					doNotMatch: false
-				});
+				this.doNotMatch = false;
 			}, 3000);
 			return;
 		}
+		this.loader = true;
 		let changPpass:ChangeRecoveryPasswordRequest ={
 			password: form.value['password'],
 			repeatPassword:form.value['confirmPassword'],
@@ -121,8 +120,10 @@ export class RecoveryComponent implements OnInit {
 					this.showPassMessage = true;
 					setTimeout(() => {
 						this.showPassMessage= false;
+						this.loader = false;
 					}, 3000);
 					// this.router.navigate(['/authorization'], { queryParams: { passwordChanged: false } });
+					
 					return;
 				}
 

@@ -15,7 +15,7 @@ import { AuthService } from 'src/app/common/services/auth.service';
   styleUrls: ['./balance-withdrawal.component.scss']
 })
 export class BalanceWithdrawalComponent extends BaseLayoutComponent implements OnInit {
-
+  public loader = false;
   public isLoggedIn: boolean;
   
   public withdrawalID:number;
@@ -92,7 +92,7 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
 
         this.wallet = res.data.find(x=> x.id == this.withdrawalID);
         this.viewBalance = this.wallet.balance.toFixed(8);
-        console.log(this.wallet);
+        // console.log(this.wallet);
 			});
   }
 
@@ -106,7 +106,7 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
       return;
     }
 		
-		
+		this.loader = true;
 		const req = new WithdrawlRequest();
 		req.address = form.value['address'];
 		req.amount = form.value['amount'];
@@ -114,7 +114,8 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
 			.withdrawlRequest(req, this.withdrawalID)
 			.subscribe(res => {
 				if (!res.success) {
-					alert('error');
+          alert('error');
+          this.loader = false;
 				}
 				this.updateRes = true;
 				this.updateResText = res.message;
@@ -122,7 +123,8 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
 				setTimeout(() => {
 					this.updateRes = false;
 					this.successfullyChanged = false;
-					this.updateResText = "";
+          this.updateResText = "";
+          this.loader = false;
         }, 3000);
         this.withdrawalForm.reset();
 			});

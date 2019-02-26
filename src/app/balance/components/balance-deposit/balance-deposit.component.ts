@@ -91,7 +91,7 @@ export class BalanceDepositComponent extends BaseLayoutComponent implements OnIn
 
         this.wallet = res.data.find(x=> x.id == this.depositID);
         this.viewBalance = this.wallet.balance.toFixed(8);
-        console.log(this.wallet);
+        // console.log(this.wallet);
 			});
 	}
   
