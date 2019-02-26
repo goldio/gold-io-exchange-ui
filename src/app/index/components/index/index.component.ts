@@ -865,8 +865,8 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		this.convertToFloat();
 	}
 
-	private calcWithNewPrice(){
-		this.convertToNumber();
+	private calcWithNewPrice() {
+		/* this.convertToNumber();
 		this.orderPrice = this.tradeForm.controls['price'].value;
 		this.baseAsset = (this.quoteAsset * this.orderPrice);
 		if(this.orderPrice!=0){
@@ -877,10 +877,10 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		this.baseAsset =  this.baseAsset.toFixed(8);
 		this.quoteAsset =  this.quoteAsset.toFixed(8);
 		this.orderAmount = this.orderAmount.toFixed(8);
-		this.orderTotal =  this.orderTotal.toFixed(8);
+		this.orderTotal =  this.orderTotal.toFixed(8); */
 	}
 
-	public calcBaseAss(decr?: boolean){
+	public calcBaseAss(decr?: boolean) {
 		this.convertToNumber();
 		if(!decr){
 			this.baseAsset += 0.001;
@@ -945,7 +945,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 	}
 
 	public  calcWithNewAmount(){
-		this.convertToNumber();
+		/* this.convertToNumber();
 		this.quoteAsset = this.tradeForm.controls['amount'].value;
 		this.orderAmount = this.tradeForm.controls['amount'].value;
 		this.baseAsset = this.quoteAsset * this.orderPrice;
@@ -974,12 +974,12 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		this.baseAsset = this.baseAsset.toFixed(8);
 		this.quoteAsset =  this.quoteAsset.toFixed(8);
 		this.orderTotal =  this.orderTotal.toFixed(8);
-		this.orderAmount = this.orderAmount.toFixed(8);
+		this.orderAmount = this.orderAmount.toFixed(8); */
 	}
 
-	public  calcWithNewTotal(){
+	public calcWithNewTotal() {
 
-		this.convertToNumber();
+		/* this.convertToNumber();
 
 		this.orderTotal = this.tradeForm.controls['total'].value;
 		this.baseAsset = this.tradeForm.controls['total'].value;
@@ -1012,7 +1012,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		this.baseAsset =  this.baseAsset.toFixed(8);
 		this.orderPrice =  this.orderPrice.toFixed(8);
 		this.orderAmount =  this.orderAmount.toFixed(8);
-		this.quoteAsset =  this.quoteAsset.toFixed(8);
+		this.quoteAsset =  this.quoteAsset.toFixed(8); */
 
 	}
 
