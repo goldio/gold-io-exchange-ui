@@ -23,7 +23,7 @@
                         }">Wrong Email</div>
                        
                         <div class="error-text" [ngClass]="{
-                            'error-text-open' : signInForm.controls.login.hasError('emailError')  && signInForm.controls.login.touched
+                            'error-text-open' : emailError  && signInForm.controls.login.touched
                         }">{{emailErrorText}}</div>
                         
                     </div>
@@ -48,7 +48,11 @@
                         <!-- <a href="" class="sign-container-fgtpss">Forgot password?</a> -->
                     </div>
     
-                    <button class="main-btn main-btn-hov" type="submit">LOGIN</button>
+                    <button class="main-btn main-btn-hov" type="submit"[attr.disabled]="loader ? true : null">LOGIN
+                        <div class="loader" [ngClass]="{'loader-open':loader}">
+                            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                        </div>
+                    </button>
                     <div class="sign-links">
                         <a routerLink="/changePassword" style="margin-bottom: 25px">Forgot password?</a>
                         <a routerLink="/registration">Create account</a>

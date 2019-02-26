@@ -23,7 +23,7 @@
 
                             </div>
                             <div class="sign-container-input error " [ngClass]="{
-                                'error-open' : (recoveryPassForm.controls.confirmPassword.hasError('required')&& recoveryPassForm.controls.confirmPassword.touched) || (recoveryPassForm.controls.confirmPassword.hasError('doNotMatch') && recoveryPassForm.controls.confirmPassword.touched)
+                                'error-open' : (recoveryPassForm.controls.confirmPassword.hasError('required')&& recoveryPassForm.controls.confirmPassword.touched) || (doNotMatch && recoveryPassForm.controls.confirmPassword.touched)
                             }">
                                     <span>Again</span>
                                     <input class="sign-place" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" formControlName="confirmPassword" required>
@@ -32,16 +32,20 @@
                                     }" 
                                     >Сan't be empty!</div>
                                     <div class="error-text" [ngClass]="{
-                                        'error-text-open' : recoveryPassForm.controls.confirmPassword.hasError('doNotMatch') && recoveryPassForm.controls.confirmPassword.touched
+                                        'error-text-open' : doNotMatch && recoveryPassForm.controls.confirmPassword.touched
                                     }" 
                                     >Passwords do not match!</div>
                                     
                                 </div>
-                            <button class="main-btn main-btn-hov save-btn" type="submit">SAVE</button>
+                            <button class="main-btn main-btn-hov save-btn" type="submit" [attr.disabled]="loader ? true : null">SAVE
+                                    <div class="loader" [ngClass]="{'loader-open':loader}">
+                                            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                                        </div>
+                            </button>
                             <div class="showPassMessage" [ngClass]="{
                                 'showPassMessage-open': showPassMessage
                             }">
-                                <span class="showPassMessageText">{{ showPassMessageText }}</span>
+                                <span class="showPassMessageText">{{ errorTextRest }}</span>
                             </div>
                         </form>
                 </div>

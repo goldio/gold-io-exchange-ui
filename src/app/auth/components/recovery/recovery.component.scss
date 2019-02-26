@@ -316,6 +316,8 @@ form{
     position: relative;
 }
 .showPassMessage{
+    pointer-events: none;
+    z-index: 9999;
     position: absolute;
     max-width: 100%;
     width: 100%;
