@@ -62,7 +62,7 @@ export class ChangePasswordComponent implements OnInit {
 	}
 
 	public markControlsAsTouched() {
-		this.recoveryEmailForm.controls['email'].markAsTouched();
+		// this.recoveryEmailForm.controls['email'].markAsTouched();
 	}
 
 }
