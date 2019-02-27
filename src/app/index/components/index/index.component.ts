@@ -53,7 +53,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 	public maxQuoteAsset:any = 0;
 	
 	public orderTotal:any = 0;
-	public orderType:OrderType = OrderType.Buy;
+	public orderType: OrderType = OrderType.Buy;
 	public MyWallets: UserWallet[];
 
 	public Highcharts = Highcharts;
