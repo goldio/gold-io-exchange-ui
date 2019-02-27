@@ -23,6 +23,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ThemeService } from 'src/app/common/services/theme.service';
 import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
 import { UserWallet } from 'src/app/common/models';
+import symbols from './symbols';
 
 // import { runInThisContext } from 'vm';
 
@@ -165,6 +166,14 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 				this.symbols = res.symbols;
 				this.viewSymbols = this.symbols;
 				const coins = ["BTC", "ETH", "EOS"];
+
+				/* let btcethSymbol = new Symbol();
+				btcethSymbol.baseAsset = "BTC";
+				btcethSymbol.quoteAsset = "ETH";
+				btcethSymbol.symbol = "BTCETH";
+				btcethSymbol.gio = true;
+
+				this.symbols.unshift(btcethSymbol); */
 
 				coins.forEach(coin => {
 					let symbol = new Symbol();
