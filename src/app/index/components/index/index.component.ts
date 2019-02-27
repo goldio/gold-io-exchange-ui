@@ -37,6 +37,8 @@ declare var Swiper: any;
 
 
 export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDestroy {
+	OrderType = OrderType;
+
 	public loader = false;
 	public isLoggedIn: boolean;
 	
@@ -53,7 +55,6 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 	public maxQuoteAsset:any = 0;
 	
 	public orderTotal:any = 0;
-	public orderType: OrderType = OrderType.Buy;
 	public MyWallets: UserWallet[];
 
 	public Highcharts = Highcharts;
@@ -191,11 +192,12 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 			this.currentSymbol = symbol;
 			this.loadPrice(symbol.baseAsset, symbol.quoteAsset);
 		}
-
-		this.initPriceChart().finally(() => this.initDepthChart().finally(() => this.openDepthStream()));
-
+		
 		this.loadTrades();
 		this.loadOrderBook();
+		this.getBalance();
+
+		this.initPriceChart().finally(() => this.initDepthChart().finally(() => this.openDepthStream()));
 
 		this.initTradeForm();
 
@@ -360,7 +362,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		this.tradeForm = new FormGroup({
 			baseAsset: new FormControl(this.currentSymbol.baseAsset, [Validators.required]),
 			quoteAsset: new FormControl(this.currentSymbol.quoteAsset, [Validators.required]),
-			type: new FormControl(this.orderType, [Validators.required]),
+			type: new FormControl(OrderType.Buy, [Validators.required]),
 			price: new FormControl(this.orderPrice, [Validators.required]),
 			amount: new FormControl(this.orderAmount, [Validators.required]),
 			total: new FormControl(this.orderTotal, [Validators.required]),
@@ -457,7 +459,6 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		
 		this.initSearchForm();
 		this.convertToFloat();
-		this.getBalance();
 		
 		this.searchForm
 		.controls['search']
@@ -823,7 +824,9 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 						return;
 					}
 					this.MyWallets = res.data;
-					this.calcMaxMyBalance(this.MyWallets);
+					this.baseAsset = this.MyWallets.find(x => x.coin.shortName == this.currentSymbol.baseAsset).balance.toFixed(8);
+					this.quoteAsset = this.MyWallets.find(x => x.coin.shortName == this.currentSymbol.quoteAsset).balance.toFixed(8);
+					//this.calcMaxMyBalance(this.MyWallets);
 				});
 		}
 	}
@@ -847,10 +850,10 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 	public calcMaxMyBalance(myWallets: UserWallet[]){
 		
 			
-				if(this.currentSymbol){
-					this.maxBaseAsset = myWallets.find(x => x.coin.shortName == this.currentSymbol.baseAsset).balance;
-					this.maxQuoteAsset = myWallets.find(x => x.coin.shortName == this.currentSymbol.quoteAsset).balance;
-				}
+				//if(this.currentSymbol){
+				//	this.maxBaseAsset = myWallets.find(x => x.coin.shortName == this.currentSymbol.baseAsset).balance;
+				//	this.maxQuoteAsset = myWallets.find(x => x.coin.shortName == this.currentSymbol.quoteAsset).balance;
+			//	}
 			
 		// this.maxBaseAsset = 0.005;
 		// this.maxQuoteAsset = 0.005;
@@ -872,7 +875,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 	}
 
 	private calcWithNewPrice() {
-		/* this.convertToNumber();
+		this.convertToNumber();
 		this.orderPrice = this.tradeForm.controls['price'].value;
 		this.baseAsset = (this.quoteAsset * this.orderPrice);
 		if(this.orderPrice!=0){
@@ -883,25 +886,25 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		this.baseAsset =  this.baseAsset.toFixed(8);
 		this.quoteAsset =  this.quoteAsset.toFixed(8);
 		this.orderAmount = this.orderAmount.toFixed(8);
-		this.orderTotal =  this.orderTotal.toFixed(8); */
+		this.orderTotal =  this.orderTotal.toFixed(8);
 	}
 
 	public calcBaseAss(decr?: boolean) {
 		this.convertToNumber();
 		if(!decr){
 			this.baseAsset += 0.001;
-			if(this.orderType == OrderType.Buy){
-				if(this.baseAsset > this.maxBaseAsset){
-					this.baseAsset = this.maxBaseAsset;
-				}
-			}
+			// if(this.orderType == OrderType.Buy){
+			// 	if(this.baseAsset > this.maxBaseAsset){
+			// 		this.baseAsset = this.maxBaseAsset;
+			// 	}
+			// }
 		} else{
 			this.baseAsset -= 0.001;
 			if(this.baseAsset < 0.00000001){
 				this.baseAsset = 0;
 			}
 		}
-		if(this.orderType == OrderType.Sell){
+		if(this.tradeForm.value['type'] == OrderType.Sell){
 			if(this.orderPrice!=0){
 				this.quoteAsset = (this.baseAsset / this.orderPrice);
 				this.orderAmount = this.quoteAsset;
@@ -910,14 +913,14 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 			if(this.orderPrice == 0){
 				this.orderTotal = 0;
 			}
-			if(this.quoteAsset > this.maxQuoteAsset){
-				this.quoteAsset = this.maxQuoteAsset;
-				this.baseAsset = (this.quoteAsset * this.orderPrice);
-				this.orderAmount = this.quoteAsset;
-				this.orderTotal = this.orderPrice* this.baseAsset;
-				this.convertToFloat();
-				return;
-			}
+			//if(this.quoteAsset > this.maxQuoteAsset){
+			//	this.quoteAsset = this.maxQuoteAsset;
+			//	this.baseAsset = (this.quoteAsset * this.orderPrice);
+			//	this.orderAmount = this.quoteAsset;
+			//	this.orderTotal = this.orderPrice* this.baseAsset;
+			//	this.convertToFloat();
+			//	return;
+			//}
 		}
 		this.convertToFloat();
 		this.calcAccets();
@@ -927,11 +930,11 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		this.convertToNumber();
 		if(!decr){
 			this.quoteAsset += 0.001;
-			if(this.orderType == OrderType.Sell){
-				if(this.quoteAsset > this.maxQuoteAsset){
-					this.quoteAsset = this.maxQuoteAsset;
-				}
-			}
+			//if(this.orderType == OrderType.Sell){
+			//	if(this.quoteAsset > this.maxQuoteAsset){
+			//		this.quoteAsset = this.maxQuoteAsset;
+			//	}
+			//}
 			this.orderAmount = this.quoteAsset;
 		} else{
 			this.quoteAsset -= 0.001;
@@ -941,24 +944,24 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 			}
 		}
 		this.baseAsset = (this.quoteAsset * this.orderPrice);
-		if(this.orderType == OrderType.Buy){
-			if(this.baseAsset > this.maxBaseAsset){
-				this.baseAsset = this.maxBaseAsset;
-			}
-		}
+		//if(this.orderType == OrderType.Buy){
+		//	if(this.baseAsset > this.maxBaseAsset){
+		//		this.baseAsset = this.maxBaseAsset;
+		//	}
+		//}
 		this.convertToFloat();
 		this.calcAccets();
 	}
 
 	public  calcWithNewAmount(){
-		/* this.convertToNumber();
+		this.convertToNumber();
 		this.quoteAsset = this.tradeForm.controls['amount'].value;
 		this.orderAmount = this.tradeForm.controls['amount'].value;
 		this.baseAsset = this.quoteAsset * this.orderPrice;
-		if(this.orderType == OrderType.Buy){
-			if(this.baseAsset > this.maxBaseAsset){
-				this.baseAsset = this.maxBaseAsset;
-			}
+		if(this.tradeForm.value['type'] == OrderType.Buy){
+		//	if(this.baseAsset > this.maxBaseAsset){
+		//		this.baseAsset = this.maxBaseAsset;
+		//	}
 			if(this.orderPrice!=0){
 				this.quoteAsset = this.baseAsset / this.orderPrice;
 			}
@@ -967,11 +970,11 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 			// this.baseAsset = 
 			// this.orderTotal =
 		}
-		if(this.orderType == OrderType.Sell){
-			if(this.quoteAsset > this.maxQuoteAsset){
-				this.quoteAsset = this.maxQuoteAsset;
-				this.orderAmount = this.maxQuoteAsset;
-			}
+		if(this.tradeForm.value['type'] == OrderType.Sell){
+		//	if(this.quoteAsset > this.maxQuoteAsset){
+		//	this.quoteAsset = this.maxQuoteAsset;
+		//		this.orderAmount = this.maxQuoteAsset;
+		//	}
 			this.baseAsset = this.quoteAsset * this.orderPrice;
 			this.orderTotal = this.baseAsset;
 		}
@@ -980,19 +983,19 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		this.baseAsset = this.baseAsset.toFixed(8);
 		this.quoteAsset =  this.quoteAsset.toFixed(8);
 		this.orderTotal =  this.orderTotal.toFixed(8);
-		this.orderAmount = this.orderAmount.toFixed(8); */
+		this.orderAmount = this.orderAmount.toFixed(8);
 	}
 
 	public calcWithNewTotal() {
 
-		/* this.convertToNumber();
+		this.convertToNumber();
 
 		this.orderTotal = this.tradeForm.controls['total'].value;
 		this.baseAsset = this.tradeForm.controls['total'].value;
-		if(this.orderType == OrderType.Buy){
-			if(this.baseAsset > this.maxBaseAsset){
-				this.baseAsset = this.maxBaseAsset;
-			}
+		if(this.tradeForm.value['type'] == OrderType.Buy){
+		//	if(this.baseAsset > this.maxBaseAsset){
+		//		this.baseAsset = this.maxBaseAsset;
+		//	}
 			if(this.orderPrice!=0){
 				this.quoteAsset = this.baseAsset / this.orderPrice;
 			}
@@ -1005,11 +1008,11 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 			this.orderPrice =  this.orderPrice;
 		}
 
-		if(this.orderType == OrderType.Sell){
-			if(this.quoteAsset > this.maxQuoteAsset){
-				this.quoteAsset = this.maxQuoteAsset;
-				this.orderAmount = this.maxQuoteAsset;
-			}
+		if(this.tradeForm.value['type'] == OrderType.Sell){
+		//	if(this.quoteAsset > this.maxQuoteAsset){
+		//		this.quoteAsset = this.maxQuoteAsset;
+		//		this.orderAmount = this.maxQuoteAsset;
+			// }
 			this.baseAsset = this.quoteAsset * this.orderPrice;
 			this.orderTotal = this.baseAsset;
 		}
@@ -1018,7 +1021,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		this.baseAsset =  this.baseAsset.toFixed(8);
 		this.orderPrice =  this.orderPrice.toFixed(8);
 		this.orderAmount =  this.orderAmount.toFixed(8);
-		this.quoteAsset =  this.quoteAsset.toFixed(8); */
+		this.quoteAsset =  this.quoteAsset.toFixed(8);
 
 	}
 
@@ -1026,18 +1029,18 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		if (act == "buy") {
 			this.buyCellBtn = "PLACE BUY ORDER"
 			this.buyCell = false;
-			this.orderType = OrderType.Buy;
+			this.tradeForm.controls['type'].setValue(OrderType.Buy);
 		}
 		if (act == "sell") {
 			this.buyCellBtn = "PLACE SELL ORDER"
 			this.buyCell = true;
-			this.orderType = OrderType.Sell;
+			this.tradeForm.controls['type'].setValue(OrderType.Sell);
 		}
 		this.convertToNumber();
-		if(this.orderType == OrderType.Buy){
-			if(this.baseAsset > this.maxBaseAsset){
-				this.baseAsset = this.maxBaseAsset;
-			}
+		if(this.tradeForm.value['type'] == OrderType.Buy){
+			// if(this.baseAsset > this.maxBaseAsset){
+			// 	this.baseAsset = this.maxBaseAsset;
+			// }
 			if(this.orderPrice != 0){
 				this.quoteAsset = this.baseAsset / this.orderPrice;
 			}
@@ -1046,14 +1049,16 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 			
 		}
 
-		if(this.orderType == OrderType.Sell){
-			if(this.quoteAsset > this.maxQuoteAsset){
-				this.quoteAsset = this.maxQuoteAsset;
-			}
+		if(this.tradeForm.value['type'] == OrderType.Sell){
+			// if(this.quoteAsset > this.maxQuoteAsset){
+			// 	this.quoteAsset = this.maxQuoteAsset;
+			// }
 			this.orderAmount = this.quoteAsset;
 			this.baseAsset = this.quoteAsset * this.orderPrice;
 			this.orderTotal = this.baseAsset;
 		}
 		this.convertToFloat();
+
+		console.log(this.tradeForm.value);
 	}
 }
