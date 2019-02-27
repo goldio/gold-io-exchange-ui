@@ -67,6 +67,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 	public responciveTabs = 2;
 
 	public tradeHistory: TradeHistoryItem[] = [];
+	public orderBook: { asks: any[], bids: any[] };
 	public orderBookBids: OrderBookItem[] = [];
 	public orderBookAsks: OrderBookItem[] = [];
 
@@ -623,20 +624,22 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 	}
 
 	private async setDepthChartData(points?: { asks: any[], bids: any[] }) {
-		const data = await this.getOrderBook();
+		if (!this.orderBook) {
+			this.orderBook = await this.getOrderBook();
+		}
 
 		if (points) {
 			points.bids.forEach(point => {
-				data.bids.unshift(point);
+				this.orderBook.bids.unshift(point);
 			});
 
 			points.asks.forEach(point => {
-				data.asks.unshift(point);
+				this.orderBook.asks.unshift(point);
 			});
 		}
 		
-		const bestBid = this.getBestBid(data.bids);
-		const bestAsk = this.getBestAsk(data.asks);
+		const bestBid = this.getBestBid(this.orderBook.bids);
+		const bestAsk = this.getBestAsk(this.orderBook.asks);
 		const midPrice = (bestAsk + bestBid) / 2;
 
 		let minAxisExtr = midPrice - 2000;
@@ -648,7 +651,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		//формирование левого графика
 		this.dataDepthBids = [];
 		let summBids = 0;
-		data.bids.forEach(el => {
+		this.orderBook.bids.forEach(el => {
 			if (el[0] > minAxisExtr && el[0] < maxAxisExtr) {
 				summBids += Number(el[1]);
 				this.dataDepthBids[el[0]] = summBids;
@@ -659,7 +662,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		//формирование правого графика
 		this.dataDepthAsks = [];
 		let summAsks = 0;
-		data.asks.forEach(el => {
+		this.orderBook.asks.forEach(el => {
 			if (el[0] > (midPrice - 2000) && el[0] < (midPrice + 2000)) {
 				summAsks += Number(el[1]);
 				this.dataDepthAsks[el[0]] = summAsks;
