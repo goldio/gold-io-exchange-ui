@@ -167,13 +167,13 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 				this.viewSymbols = this.symbols;
 				const coins = ["BTC", "ETH", "EOS"];
 
-				/* let btcethSymbol = new Symbol();
-				btcethSymbol.baseAsset = "BTC";
-				btcethSymbol.quoteAsset = "ETH";
-				btcethSymbol.symbol = "BTCETH";
+				let btcethSymbol = new Symbol();
+				btcethSymbol.baseAsset = "ETH";
+				btcethSymbol.quoteAsset = "BTC";
+				btcethSymbol.symbol = "ETHBTC";
 				btcethSymbol.gio = true;
 
-				this.symbols.unshift(btcethSymbol); */
+				this.symbols.unshift(btcethSymbol);
 
 				coins.forEach(coin => {
 					let symbol = new Symbol();
