@@ -13,7 +13,12 @@
                 (click)="copyToClipboard(deposit)"></button></div>
 
         <div class="profile-right-content">
-            <div class="qr">
+            <div class="qr" *ngIf="wallet.coin.shortName == 'BTC' || wallet.coin.shortName == 'ETH'">
+                <ngx-qrcode class="" [qrc-value]="deposit" qrc-class="aclass" qrc-errorCorrectionLevel="L">
+                </ngx-qrcode>
+            </div>
+
+            <div class="qr" style="flex-shrink: 0;" *ngIf="wallet.coin.shortName != 'BTC' && wallet.coin.shortName != 'ETH'">
                 <ngx-qrcode class="" [qrc-value]="deposit" qrc-class="aclass" qrc-errorCorrectionLevel="L">
                 </ngx-qrcode>
             </div>
@@ -23,13 +28,19 @@
                 <span>Send only {{ wallet.coin.shortName }} to this<br> deposit address.</span>
             </div>
 
-            <div class="qr-text" *ngIf="wallet.coin.shortName != 'BTC' && wallet.coin.shortName != 'ETH'">
-                <div></div>
-                <span>Send only 123 to this<br> deposit address.</span>
+            <div class="qr-text" *ngIf="wallet.coin.shortName != 'BTC' && wallet.coin.shortName != 'ETH'" style="border: 1px solid red; padding: 10px 18px; height: fit-content; margin-top: 0; margin-left: 25px;">
+                <div class="red-icon"></div>
+                <span style="font-size: 12px;">Both a MEMO and an Address are required to successfully deposit your {{ wallet.coin.shortName }}</span>
             </div>
         </div>
-        <div class="qr-text-gold">
+
+        <div class="qr-text-gold" *ngIf="wallet.coin.shortName == 'BTC' || wallet.coin.shortName == 'ETH'">
             <span>{{ deposit }}</span>
+        </div>
+
+        <div class="qr-text-gold" style="display: flex; justify-content: space-between;" *ngIf="wallet.coin.shortName != 'BTC' && wallet.coin.shortName != 'ETH'">
+            <span><span style="color:#fff;">Address: </span>eosiaaaaaaaa</span>
+            <span><span style="color:#fff;">Memo: </span>{{ deposit }}</span>
         </div>
     </div>
 
@@ -49,7 +60,7 @@
             </div>
         </div>
         <div class="deposit-information">
-            <span>– Coins will be deposited immediately after <a>2 network confirmations</a></span>
+            <span *ngIf="wallet.coin.shortName == 'BTC' || wallet.coin.shortName == 'ETH'">– Coins will be deposited immediately after <a>2 network confirmations</a></span>
             <span>– After making a deposit, you can track its progress on the <a style="cursor: pointer;"
                     routerLink="/balanceHistory">history page</a></span>
         </div>
