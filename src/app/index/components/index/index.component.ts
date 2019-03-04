@@ -938,7 +938,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 
 			if (this.orderPrice != 0){
 				this.quoteAsset = (this.baseAsset / this.orderPrice);
-				this.orderAmount = this.quoteAsset;
+				//this.orderAmount = this.quoteAsset;
 			}
 
 			this.orderTotal = this.baseAsset;
