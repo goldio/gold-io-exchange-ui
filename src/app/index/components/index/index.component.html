@@ -2,7 +2,7 @@
   <div id="left" style="top: 60px" [ngClass]="{ 'visible': responciveTabs == 1 }">
     <form class="left-content-block" [formGroup]="tradeForm" (ngSubmit)="submitOrder(tradeForm)" *ngIf="currentSymbol">
       <div class="left-content box-responcive visible1" >
-        <div class="left-content-balance">
+        <div class="left-content-balance" *ngIf="isLoggedIn">
           <h4>Balance</h4>
           <div class="left-content-balance-item" *ngIf="quoteWallet">
             <b>{{ currentSymbol.quoteAsset }}</b>
@@ -33,12 +33,12 @@
               </div>
               <div class="left-content-sell-input">
                 Price
-                <em>
+                <!-- <em>
                   <input type="radio" class="radio" id="radio1" name="radio">
                   <label class="radio1 radioMarket" for="radio1">Market</label>
                   <input type="radio" class="radio" id="radio2" name="radio" checked>
                   <label class="radio1" for="radio2">Limit</label>
-                </em>
+                </em> -->
                 <input placeholder="1.00000000" type="number" formControlName="price" required [(ngModel)]="orderPrice"
                   (keyup)="calcWithNewPrice()" *ngIf="isLoggedIn">
                   <input placeholder="1.00000000" type="number" formControlName="price" required [(ngModel)]="orderPrice"
