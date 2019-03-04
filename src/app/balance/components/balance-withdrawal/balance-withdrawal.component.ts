@@ -102,9 +102,10 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
       this.markContolsAsTouched() ;
 			return;
     }
-    if(!this.amountError || !this.fewAmountError){
+    if(this.amountError || this.fewAmountError){
       return;
     }
+    console.log(form);
 		
 		this.loader = true;
 		const req = new WithdrawlRequest();
