@@ -97,9 +97,9 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
   }
 
   public submitWithdrawalForm(form: FormGroup): void {
-		
+		console.log(form);
 		if (form.invalid) {
-			this.markContolsAsTouched() ;
+      this.markContolsAsTouched() ;
 			return;
     }
     if(!this.amountError || !this.fewAmountError){

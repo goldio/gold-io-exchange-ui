@@ -28,10 +28,11 @@
         <span>– Minimum withdrawal <a>0.2 {{ wallet.coin.shortName }}</a></span>
       </div>
 
-      <form [formGroup]="withdrawalForm" (ngSubmit)="submitWithdrawalForm(withdrawalForm)">
+      <form [formGroup]="withdrawalForm" *ngIf="wallet" (ngSubmit)="submitWithdrawalForm(withdrawalForm)">
           <div class="balance-table balance-table-form" >
               <div class="balance-table-title">
-                  <span>BTC Withdrawal Address</span>
+                  <span *ngIf="wallet.coin.shortName == 'BTC' || wallet.coin.shortName == 'ETH'">{{ wallet.coin.shortName }} Withdrawal Address</span>
+                  <span *ngIf="wallet.coin.shortName == 'EOS' || wallet.coin.shortName == 'GIO'">EOS Account Name</span>
                   <span>Amount</span>
               </div>
       
