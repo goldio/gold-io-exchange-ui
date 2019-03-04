@@ -7,6 +7,7 @@ import { ExchangeInfo } from 'src/app/index/models/exchange-info.model';
 import { OrderBookResponse } from '../models/binance/order-book-response.model';
 import { BaseHttpService } from './base-http.service';
 import { RequestHelper } from '../helpers';
+import { DataResponse, BinanceOrderBookResponse } from '../models/response';
 
 @Injectable()
 export class BinanceService extends BaseHttpService {
@@ -39,7 +40,7 @@ export class BinanceService extends BaseHttpService {
             .map(response => response.json());
     }
 
-    public getOrderBook(symbol: string, limit: number = 500): Observable<any> {
+    public getOrderBook(symbol: string, limit: number = 500): Observable<DataResponse<BinanceOrderBookResponse>> {
         return this.get(`${this.apiUrl}/binance/depth/${symbol.replace('/', '')}`)
             .map(response => response.json());
     }

@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/common/services/storage.service';
 import { Router } from '@angular/router';
@@ -10,77 +11,77 @@ import { BalanceService } from '../../services/balance.service';
 import { AuthService } from 'src/app/common/services/auth.service';
 
 @Component({
-  selector: 'app-balance-deposit',
-  templateUrl: './balance-deposit.component.html',
-  styleUrls: ['./balance-deposit.component.scss']
+	selector: 'app-balance-deposit',
+	templateUrl: './balance-deposit.component.html',
+	styleUrls: ['./balance-deposit.component.scss']
 })
 export class BalanceDepositComponent extends BaseLayoutComponent implements OnInit {
 
-  public isLoggedIn: boolean;
-  
-  public depositID: number;
-  public qrContent;
-  public qrContentValue: string = "svetlana";
-  public viewBalance:string = "";
-  public wallet: UserWallet;
-  public deposit: string;
+	public isLoggedIn: boolean;
 
-  constructor(
-    private storageService: StorageService,
-    private router:Router,
-    private walletsService: WalletsService,
-    private balanceService:BalanceService,
-    private authService:AuthService
-  ) {
-    super();
-  }
+	public depositID: number;
+	public qrContent;
+	public qrContentValue: string = "svetlana";
+	public viewBalance: string = "";
+	public wallet: UserWallet;
+	public deposit: string;
 
-  ngOnInit() {
-    this.loadDepositID();
-    this.loadWallets();
-    this.loadDeposit();
-    
-  }
-  private loadDepositID() {
-    this.authService
-		.isLoggedIn
-		.subscribe(logged => {
-			this.isLoggedIn = logged;
-		});
+	constructor(
+		private storageService: StorageService,
+		private router: Router,
+		private walletsService: WalletsService,
+		private balanceService: BalanceService,
+		private authService: AuthService
+	) {
+		super();
+	}
+
+	ngOnInit() {
+		this.loadDepositID();
+		this.loadWallets();
+		this.loadDeposit();
+	}
+
+	private loadDepositID() {
+		this.authService
+			.isLoggedIn
+			.subscribe(logged => {
+				this.isLoggedIn = logged;
+			});
 
 		if (!this.isLoggedIn) {
 			this.router.navigate(['/authorization']);
-    }
-    
+		}
+
 		this.storageService.currentUserWallet
 			.subscribe(Id => {
 				if (!Id)
 					return;
-          this.depositID = Id.id;
-          if(!this.depositID){
-            this.router.navigate(['/balance']);
-          }
+				this.depositID = Id.id;
+				if (!this.depositID) {
+					this.router.navigate(['/balance']);
+				}
 			},
 				error => console.log(error),
-      );
-			
+			);
+
 	}
 
-  public back(){
-    this.router.navigate(['/balance']);
-  }
+	public back() {
+		this.router.navigate(['/balance']);
+	}
 
-  public copyToClipboard(str : string) {
-    const el = document.createElement('textarea');
-    el.value = str;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
+	public copyToClipboard(str: string) {
+		const el = document.createElement('textarea');
+		el.value = str;
+		document.body.appendChild(el);
+		el.select();
+		document.execCommand('copy');
+		document.body.removeChild(el);
 
-  }
+	}
 
-  private loadWallets(): void {
+	private loadWallets(): void {
 		this.walletsService
 			.getMe()
 			.subscribe(res => {
@@ -89,21 +90,20 @@ export class BalanceDepositComponent extends BaseLayoutComponent implements OnIn
 					return;
 				}
 
-        this.wallet = res.data.find(x=> x.id == this.depositID);
-        this.viewBalance = this.wallet.balance.toFixed(8);
-        // console.log(this.wallet);
+				this.wallet = res.data.find(x => x.id == this.depositID);
+				this.viewBalance = this.wallet.balance.toFixed(8);
 			});
 	}
-  
-  public loadDeposit(){
-    this.balanceService
-    .getDeposit(this.depositID)
-    .subscribe(res => {
-      if (!res.success) {
-        alert(res.message);
-        return;
-      }
-      this.deposit = res.address;
-    });
-  }
+
+	public loadDeposit() {
+		this.balanceService
+			.getDeposit(this.depositID)
+			.subscribe(res => {
+				if (!res.success) {
+					alert(res.message);
+					return;
+				}
+				this.deposit = res.address;
+			});
+	}
 }

@@ -1,29 +1,32 @@
 <div class="history-narrow deposit section" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }" *ngIf="wallet">
     <div class="balance-title">
         <label for="back">
-          <h2>
-              <button class="back-btn" id="back" (click)="back()"></button>
-              <b>Deposit</b>
+            <h2>
+                <button class="back-btn" id="back" (click)="back()"></button>
+                <b>Deposit</b>
             </h2>
-          </label>
-    </div>  
-    
-    <div class="profile-right">
-        <div class="profile-right-title">Bitcoin deposit address<button class="copy-btn-balance" (click)="copyToClipboard(deposit)"></button></div>
+        </label>
+    </div>
+
+    <div class="profile-right" *ngIf="wallet">
+        <div class="profile-right-title">{{ wallet.coin.name }} deposit address<button class="copy-btn-balance"
+                (click)="copyToClipboard(deposit)"></button></div>
 
         <div class="profile-right-content">
-          <div class="qr">
-              <ngx-qrcode 
-              class=""
-              [qrc-value] = "deposit"
-              qrc-class = "aclass"
-              qrc-errorCorrectionLevel = "L">
-            </ngx-qrcode>
-          </div>
-          <div class="qr-text">
-              <div></div>
-              <span>Send only BTC to this<br> deposit address.</span>
-          </div>
+            <div class="qr">
+                <ngx-qrcode class="" [qrc-value]="deposit" qrc-class="aclass" qrc-errorCorrectionLevel="L">
+                </ngx-qrcode>
+            </div>
+
+            <div class="qr-text" *ngIf="wallet.coin.shortName == 'BTC' || wallet.coin.shortName == 'ETH'">
+                <div></div>
+                <span>Send only {{ wallet.coin.shortName }} to this<br> deposit address.</span>
+            </div>
+
+            <div class="qr-text" *ngIf="wallet.coin.shortName != 'BTC' && wallet.coin.shortName != 'ETH'">
+                <div></div>
+                <span>Send only 123 to this<br> deposit address.</span>
+            </div>
         </div>
         <div class="qr-text-gold">
             <span>{{ deposit }}</span>
@@ -31,26 +34,27 @@
     </div>
 
     <div class="profile-left">
-        <div class="balance-table" >
+        <div class="balance-table">
             <div class="balance-table-title">
                 <span>Coin</span>
                 <span>Balance</span>
             </div>
-    
-            <div class="balance-table-item" >
-                <span  before="Coin">
+
+            <div class="balance-table-item">
+                <span before="Coin">
                     <img src="{{ wallet.coin.icon.url }}" alt="">
                     <b>{{ wallet.coin.shortName }} – {{ wallet.coin.name }}</b>
                 </span>
-                <span  before="Balance" *ngIf="viewBalance">{{ viewBalance }}</span>
+                <span before="Balance" *ngIf="viewBalance">{{ viewBalance }}</span>
             </div>
         </div>
         <div class="deposit-information">
-          <span>– Coins will be deposited immediately after <a>2 network confirmations</a></span>
-          <span>– After making a deposit, you can track its progress on the <a style="cursor: pointer;" routerLink="/balanceHistory">history page</a></span>
+            <span>– Coins will be deposited immediately after <a>2 network confirmations</a></span>
+            <span>– After making a deposit, you can track its progress on the <a style="cursor: pointer;"
+                    routerLink="/balanceHistory">history page</a></span>
         </div>
     </div>
-       
-    
-    
+
+
+
 </div>

@@ -125,6 +125,8 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 	}
 
 	private updateMainData(updatedElem: any, type: string) {
+		if (!this.depthChartData) return;
+		
 		let finded = false;
 		let val = Number.parseFloat(updatedElem[0]);
 		//let series = this.Highcharts.charts[0].series.find(x => x.name == type);
@@ -164,30 +166,21 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 			.getExchangeInfo()
 			.subscribe(res => {
 				this.symbols = res.symbols;
-				this.viewSymbols = this.symbols;
-				const coins = ["BTC", "ETH", "EOS"];
+				this.tradeService
+					.getPairs()
+					.subscribe(res => {
+						if (!res.success) {
+							console.log(res.message);
+							return;
+						}
 
-				let btcethSymbol = new Symbol();
-				btcethSymbol.baseAsset = "ETH";
-				btcethSymbol.quoteAsset = "BTC";
-				btcethSymbol.symbol = "ETHBTC";
-				btcethSymbol.gio = true;
+						res.data.forEach(pair => {
+							this.symbols.unshift(Symbol.fromPair(pair));
+						});
 
-				this.symbols.unshift(btcethSymbol);
-
-				coins.forEach(coin => {
-					let symbol = new Symbol();
-					symbol.baseAsset = "GIO";
-					symbol.quoteAsset = coin;
-					symbol.symbol = `GIO${coin}`;
-					symbol.gio = true;
-
-					this.symbols.unshift(symbol);
-					this.viewSymbols = this.symbols;
-				});
-				
-
-				this.setSymbol();
+						this.viewSymbols = this.symbols;
+						this.setSymbol();
+					});
 			});
 	}
 
@@ -296,6 +289,55 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 
 			return;
 		}
+
+		this.binanceService
+			.getOrderBook(this.currentSymbol.symbol)
+			.subscribe(res => {
+				if (!res.success) {
+					alert(res.message);
+					return;
+				}
+
+				let points = { asks: [], bids: [] };
+
+				res.data.bids.forEach(item => {
+					if (this.orderBookBids.length > 21) {
+						this.orderBookBids.shift();
+					}
+
+					if (parseFloat(item[1]) > 0) {
+						let aItem = {
+							price: parseFloat(item[0]).toFixed(8),
+							amount: parseFloat(item[1]).toFixed(8),
+							total: `${(item[0] * item[1]).toFixed(8)}`
+						};
+
+						points.bids.push([parseFloat(item[0]), parseFloat(item[1])]);
+						this.orderBookBids.push(aItem);
+						this.updateMainData(item, 'bids');
+					}
+				});
+
+				res.data.asks.forEach(item => {
+					if (this.orderBookAsks.length > 21) {
+						this.orderBookAsks.shift();
+					}
+
+					if (parseFloat(item[1]) > 0) {
+						let aItem = {
+							price: parseFloat(item[0]).toFixed(8),
+							amount: parseFloat(item[1]).toFixed(8),
+							total: `${(item[0] * item[1]).toFixed(8)}`
+						};
+						
+						points.asks.push([parseFloat(item[0]), parseFloat(item[1])]);
+						this.orderBookAsks.push(aItem);
+						this.updateMainData(item, 'asks');
+					}
+				});
+
+				this.setDepthChartData(points);
+			});
 	}
 
 	private openDepthStream(): void {
