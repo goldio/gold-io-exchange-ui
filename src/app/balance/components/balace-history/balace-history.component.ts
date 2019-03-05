@@ -49,7 +49,7 @@ export class BalaceHistoryComponent extends BaseLayoutComponent implements OnIni
   public getInfoDeposit(){
     this.balanceService.getHistoryDeposit().subscribe(res => {
       if (!res.success) {
-        alert(res.message);
+        // alert(res.message);
         return;
       }
       this.viewDeposit = res.data;
@@ -61,7 +61,7 @@ export class BalaceHistoryComponent extends BaseLayoutComponent implements OnIni
   public getInfoWithdrawal(){
     this.balanceService.getHistoryWithdrawal().subscribe(res => {
       if (!res.success) {
-        alert(res.message);
+        // alert(res.message);
         return;
       }
       this.viewWithdrawal = res.data;

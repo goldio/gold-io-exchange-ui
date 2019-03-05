@@ -63,7 +63,7 @@ export class ActivityComponent extends BaseLayoutComponent implements OnInit {
   public getSessions(){
     this.activityService.getlogin().subscribe(res => {
       if(!res.success){
-        alert('error');
+        // alert('error');
       }
       this.userSessions = res.data;
       // console.log(this.userSessions);

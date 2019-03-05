@@ -70,7 +70,7 @@ export class BalanceComponent extends BaseLayoutComponent implements OnInit {
 			.getMe()
 			.subscribe(res => {
 				if (!res.success) {
-					alert(res.message);
+					// alert(res.message);
 					return;
 				}
 

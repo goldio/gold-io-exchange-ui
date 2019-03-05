@@ -56,7 +56,7 @@ export class AuthorizationComponent extends BaseLayoutComponent implements OnIni
 		}
 		if (form.invalid) {
 			this.markContolsAsTouched();
-			console.log(form);
+			// console.log(form);
 			return;
 		}
 		this.loader = true;
@@ -73,9 +73,10 @@ export class AuthorizationComponent extends BaseLayoutComponent implements OnIni
 					// this.showError(res.message, this.signInForm.controls['email'], 'email' );
 					return;
 				}
-
+				
 				this.router.navigate(['/index']);
 			});
+			this.loader = false;
 	}
 
 	public markContolsAsTouched() {

@@ -86,7 +86,7 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
 			.getMe()
 			.subscribe(res => {
 				if (!res.success) {
-					alert(res.message);
+					// alert(res.message);
 					return;
 				}
 
@@ -115,7 +115,7 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
 			.withdrawlRequest(req, this.withdrawalID)
 			.subscribe(res => {
 				if (!res.success) {
-          alert('error');
+          // alert('error');
           this.loader = false;
 				}
 				this.updateRes = true;

@@ -222,7 +222,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 				.getOrdersBySymbol(this.currentSymbol.baseAsset, this.currentSymbol.quoteAsset)
 				.subscribe(res => {
 					if (!res.success) {
-						alert(res.message);
+						//alert(res.message);
 						return;
 					}
 
@@ -266,7 +266,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 				.getOrderBookBySymbol(this.currentSymbol.baseAsset, this.currentSymbol.quoteAsset)
 				.subscribe(res => {
 					if (!res.success) {
-						alert(res.message);
+						//alert(res.message);
 						return;
 					}
 
@@ -296,7 +296,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 			.getOrderBook(this.currentSymbol.symbol)
 			.subscribe(res => {
 				if (!res.success) {
-					alert(res.message);
+					//alert(res.message);
 					return;
 				}
 
@@ -425,17 +425,17 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 	public submitOrder(form: FormGroup): void {
 		// console.log(form);
 		if (form.invalid) {
-			alert('form invalid');
+			// alert('form invalid');
 			return;
 		}
-		alert('form valid');
+		// alert('form valid');
 		
 		this.loader = true;
 		this.tradeService
 			.createOrder(form.value)
 			.subscribe(res => {
 				if (!res.success) {
-					alert(res.message);
+					//alert(res.message);
 					this.loader = false;
 				}
 
@@ -854,7 +854,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 			.getPriceByPair(base,quote)
 			.subscribe(res => {
 				if (!res.success) {
-					alert(res.message);
+					//alert(res.message);
 					return;
 				}
 				this.orderPrice = res.data;
@@ -873,7 +873,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 				.getMe()
 				.subscribe(res => {
 					if (!res.success) {
-						alert(res.message);
+						//alert(res.message);
 						return;
 					}
 					this.MyWallets = res.data;

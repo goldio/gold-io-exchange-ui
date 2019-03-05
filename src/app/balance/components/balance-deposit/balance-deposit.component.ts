@@ -86,7 +86,7 @@ export class BalanceDepositComponent extends BaseLayoutComponent implements OnIn
 			.getMe()
 			.subscribe(res => {
 				if (!res.success) {
-					alert(res.message);
+					// alert(res.message);
 					return;
 				}
 
@@ -100,7 +100,7 @@ export class BalanceDepositComponent extends BaseLayoutComponent implements OnIn
 			.getDeposit(this.depositID)
 			.subscribe(res => {
 				if (!res.success) {
-					alert(res.message);
+					// alert(res.message);
 					return;
 				}
 				this.deposit = res.address;

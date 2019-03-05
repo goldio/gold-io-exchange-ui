@@ -39,7 +39,7 @@ export class NotificationsComponent extends BaseLayoutComponent implements OnIni
       .getNotifications()
       .subscribe(res => {
         if(!res.success){
-          alert('err');
+          // alert('err');
         }
         this.notifications = res.data;
         

@@ -76,7 +76,7 @@ export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 			.getCountries()
 			.subscribe(res => {
 				if (!res.success) {
-					alert(res.message);
+					//alert(res.message);
 					return;
 				}
 
@@ -91,7 +91,7 @@ export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 				.getCities()
 				.subscribe(res => {
 					if (!res.success) {
-						alert(res.message);
+						//alert(res.message);
 						return;
 					}
 
@@ -106,7 +106,7 @@ export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 			.getCountryCities(countryID)
 			.subscribe(res => {
 				if (!res.success) {
-					alert(res.message);
+					//alert(res.message);
 					return;
 				}
 
@@ -278,8 +278,8 @@ export class ProfileComponent extends BaseLayoutComponent implements OnInit {
 			.updateMe(req)
 			.subscribe(res => {
 				if (!res.success) {
-					alert('error');
-					alert(res.message);
+					// alert('error');
+					//alert(res.message);
 					this.updateResText = res.message;
 					this.updateRes = true;
 					this.successfullyChanged = false;

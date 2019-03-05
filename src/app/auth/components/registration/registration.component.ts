@@ -61,7 +61,7 @@ export class RegistrationComponent extends BaseLayoutComponent implements OnInit
 			
 			
 			if (form.controls['agreeBox'].invalid) {
-				alert('11');
+				// alert('11');
 				this.checkErr = true;
 				setTimeout(() => {
 					this.checkErr = false;

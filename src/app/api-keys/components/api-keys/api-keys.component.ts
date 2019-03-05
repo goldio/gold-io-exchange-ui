@@ -150,7 +150,7 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
   }
 
   public saveChanges(id : any){
-    alert(id);
+    // alert(id);
     let updateKey:CreateUpdateKeyRequest={
       accountPermissions: this.apiKeys.find(x=>x.id == id).accountPermissions,
       ordersPermissions: this.apiKeys.find(x=>x.id == id).ordersPermissions,
