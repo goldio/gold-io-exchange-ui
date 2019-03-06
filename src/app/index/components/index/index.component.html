@@ -6,7 +6,7 @@
           <h4>Balance</h4>
           <div class="left-content-balance-item" *ngIf="quoteWallet">
             <b>{{ currentSymbol.quoteAsset }}</b>
-            {{ quoteWallet.balance.toFixed(8) }}
+            {{ maxQuoteAsset.toFixed(8) }}
             <!-- <div class="button-plus" type="button" (click)="calcQuoteAss(false)" *ngIf="isLoggedIn"><span>+</span></div>
             <div class="button-minus" type="button" (click)="calcQuoteAss(true)" *ngIf="isLoggedIn"><span>-</span></div>
             <div class="button-plus" type="button" *ngIf="!isLoggedIn"><span>+</span></div>
@@ -14,7 +14,7 @@
           </div>
           <div class="left-content-balance-item" *ngIf="baseWallet">
             <b>{{ currentSymbol.baseAsset }}</b>
-            {{ baseWallet.balance.toFixed(8) }}
+            {{ maxBaseAsset.toFixed(8) }}
             <!-- <div class="button-plus" type="button" (click)="calcBaseAss(false)" *ngIf="isLoggedIn"><span>+</span></div>
             <div class="button-minus" type="button" (click)="calcBaseAss(true)" *ngIf="isLoggedIn"><span>-</span></div>
             <div class="button-plus" type="button" *ngIf="!isLoggedIn"><span>+</span></div>
@@ -27,8 +27,8 @@
               <div class="double-btns" [ngClass]="{
                                 'change-double-btn' : buyCell
                             }">
-                <button class="" type="button" (click)='maxValues("buy")'>BUY</button>
-                <button class="" type="button" (click)='maxValues("sell")'>SELL</button>
+                <button class="" type="button" (click)='changeOrderAct("buy")'>BUY</button>
+                <button class="" type="button" (click)='changeOrderAct("sell")'>SELL</button>
                 <div class="choose"></div>
               </div>
               <div class="left-content-sell-input">
@@ -39,32 +39,32 @@
                   <input type="radio" class="radio" id="radio2" name="radio" checked>
                   <label class="radio1" for="radio2">Limit</label>
                 </em> -->
-                <input placeholder="1.00000000" type="number" formControlName="price" required [(ngModel)]="orderPrice"
+                <input placeholder="1.00000000" type="number" formControlName="price" required  pattern="\d+(\.\d{2})?" [(ngModel)]="orderPrice"
                   (keyup)="calcWithNewPrice()" *ngIf="isLoggedIn">
-                  <input placeholder="1.00000000" type="number" formControlName="price" required [(ngModel)]="orderPrice"
+                  <input placeholder="1.00000000" type="number" formControlName="price" required pattern="\d+(\.\d{2})?" [(ngModel)]="orderPrice"
                   (keyup)="calcWithNewPrice()" *ngIf="!isLoggedIn" disabled>
                 <b class="input-decor">{{ currentSymbol.quoteAsset }}</b>
               </div>
               <div class="left-content-sell-input">
                 Amount
-                <input placeholder="1.00000000" type="number" formControlName="amount" required [(ngModel)]="orderAmount"
+                <input placeholder="1.00000000" type="number" formControlName="amount" required pattern="\d+(\.\d{2})?" [(ngModel)]="orderAmount"
                   (keyup)="calcWithNewAmount()" *ngIf="isLoggedIn">
-                  <input placeholder="1.00000000" type="number" formControlName="amount" required [(ngModel)]="orderAmount"
+                  <input placeholder="1.00000000" type="number" formControlName="amount" required pattern="\d+(\.\d{2})?" [(ngModel)]="orderAmount"
                   (keyup)="calcWithNewAmount()" *ngIf="!isLoggedIn" disabled>
                 <b>{{ currentSymbol.baseAsset }}</b>
               </div>
               <div class="left-content-sell-input percents">
 
-                <div class="percent"><span>25%</span></div>
-                <div class="percent"><span>50%</span></div>
-                <div class="percent"><span>75%</span></div>
-                <div class="percent"><span>100%</span></div>
+                <div class="percent" (click)="calcPercent(25)"><span>25%</span></div>
+                <div class="percent" (click)="calcPercent(50)"><span>50%</span></div>
+                <div class="percent" (click)="calcPercent(75)"><span>75%</span></div>
+                <div class="percent" (click)="calcPercent(100)"><span>100%</span></div>
               </div>
               <div class="left-content-sell-input">
                 Total
-                <input placeholder="1.00000000" type="number" formControlName="total" required [(ngModel)]="orderTotal"
+                <input placeholder="1.00000000" type="number" formControlName="total" required pattern="\d+(\.\d{2})?" [(ngModel)]="orderTotal"
                   (keyup)="calcWithNewTotal()" *ngIf="isLoggedIn">
-                  <input placeholder="1.00000000" type="number" formControlName="total" required [(ngModel)]="orderTotal"
+                  <input placeholder="1.00000000" type="number" formControlName="total" required pattern="\d+(\.\d{2})?" [(ngModel)]="orderTotal"
                   (keyup)="calcWithNewTotal()" *ngIf="!isLoggedIn" disabled>
                 <b>{{ currentSymbol.quoteAsset }}</b>
               </div>

@@ -5,7 +5,7 @@
     <!-- dropdown menu -->
     <ul class="reset left-top-menu" id="popup" >
         <div class="exchanger-header-profile exchanger-header-profile-nav">
-            <img (click)="userOpen = !userOpen" class="user-photo" src="../../../../assets/images/persone-photo.svg" alt="">
+            <!-- <img (click)="userOpen = !userOpen" class="user-photo" src="../../../../assets/images/persone-photo.svg" alt=""> -->
             <span (click)="userOpen = !userOpen" *ngIf="user">{{ user.login }}</span>
             <ul class="reset header-profile-drop2 profile2" [ngClass]="{
             'header-profile-drop2-open': userOpen
@@ -28,14 +28,14 @@
         <li *ngIf="!isLoggedIn" routerLink="/registration"  (click)="menuOpen()"><a><i class="ico10"></i>Sign Up</a></li>
         <span>System</span>
         <li (click)="theme()"><a><i class="ico11"></i>Black&amp;White</a></li>
-        <li><a><i class="ico12"></i>Help</a></li>
+        <!-- <li><a><i class="ico12"></i>Help</a></li> -->
         <li routerLink="/notification" (click)="menuOpen()"><a><i class="ico13"></i>Notification</a></li>
         <li routerLink="/security" (click)="menuOpen()"><a><i class="ico14"></i>Settings</a></li>
     </ul>
     <!-- dropdown menu end -->
 
     <div class="exchanger-header-profile exchanger-header-profile-top" *ngIf="isLoggedIn">
-        <img (click)="userOpen = !userOpen" class="user-photo" src="../../../../assets/images/persone-photo.svg" alt="">
+        <!-- <img (click)="userOpen = !userOpen" class="user-photo" src="../../../../assets/images/persone-photo.svg" alt=""> -->
         <span (click)="userOpen = !userOpen" *ngIf="user">{{ user.login }}</span>
         <ul class="reset header-profile-drop2" [ngClass]="{
         'header-profile-drop2-open': userOpen
