@@ -39,17 +39,17 @@
                   <input type="radio" class="radio" id="radio2" name="radio" checked>
                   <label class="radio1" for="radio2">Limit</label>
                 </em> -->
-                <input placeholder="1.00000000" type="number" formControlName="price" required  pattern="\d+(\.\d{2})?" [(ngModel)]="orderPrice"
-                  (keyup)="calcWithNewPrice()" *ngIf="isLoggedIn">
-                  <input placeholder="1.00000000" type="number" formControlName="price" required pattern="\d+(\.\d{2})?" [(ngModel)]="orderPrice"
+                <input placeholder="1.00000000" type="number" formControlName="price" required   [(ngModel)]="orderPrice"
+                  (keyup)="calcWithNewPrice($event)" *ngIf="isLoggedIn">
+                  <input placeholder="1.00000000" type="number" formControlName="price" required  [(ngModel)]="orderPrice"
                   (keyup)="calcWithNewPrice()" *ngIf="!isLoggedIn" disabled>
                 <b class="input-decor">{{ currentSymbol.quoteAsset }}</b>
               </div>
               <div class="left-content-sell-input">
                 Amount
-                <input placeholder="1.00000000" type="number" formControlName="amount" required pattern="\d+(\.\d{2})?" [(ngModel)]="orderAmount"
+                <input placeholder="1.00000000" type="number" formControlName="amount" required  [(ngModel)]="orderAmount"
                   (keyup)="calcWithNewAmount()" *ngIf="isLoggedIn">
-                  <input placeholder="1.00000000" type="number" formControlName="amount" required pattern="\d+(\.\d{2})?" [(ngModel)]="orderAmount"
+                  <input placeholder="1.00000000" type="number" formControlName="amount" required  [(ngModel)]="orderAmount"
                   (keyup)="calcWithNewAmount()" *ngIf="!isLoggedIn" disabled>
                 <b>{{ currentSymbol.baseAsset }}</b>
               </div>
@@ -62,9 +62,9 @@
               </div>
               <div class="left-content-sell-input">
                 Total
-                <input placeholder="1.00000000" type="number" formControlName="total" required pattern="\d+(\.\d{2})?" [(ngModel)]="orderTotal"
+                <input placeholder="1.00000000" type="number" formControlName="total" required  [(ngModel)]="orderTotal"
                   (keyup)="calcWithNewTotal()" *ngIf="isLoggedIn">
-                  <input placeholder="1.00000000" type="number" formControlName="total" required pattern="\d+(\.\d{2})?" [(ngModel)]="orderTotal"
+                  <input placeholder="1.00000000" type="number" formControlName="total" required  [(ngModel)]="orderTotal"
                   (keyup)="calcWithNewTotal()" *ngIf="!isLoggedIn" disabled>
                 <b>{{ currentSymbol.quoteAsset }}</b>
               </div>

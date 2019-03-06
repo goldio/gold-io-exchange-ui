@@ -53,7 +53,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 	public orderPrice: any;
 	public orderAmount: any;
 	public orderTotal: any;
-	
+	public nowPercent: any;
 	public maxBaseAsset: any;
 	public maxQuoteAsset: any;
 
@@ -432,19 +432,19 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		}
 		// alert('form valid');
 
-		this.loader = true;
-		this.tradeService
-			.createOrder(form.value)
-			.subscribe(res => {
-				if (!res.success) {
-					//alert(res.message);
-					this.loader = false;
-				}
+		// this.loader = true;
+		// this.tradeService
+		// 	.createOrder(form.value)
+		// 	.subscribe(res => {
+		// 		if (!res.success) {
+		// 			//alert(res.message);
+		// 			this.loader = false;
+		// 		}
 
-				this.loadOrderBook();
-				this.loadTrades();
-				this.loader = false;
-			});
+		// 		this.loadOrderBook();
+		// 		this.loadTrades();
+		// 		this.loader = false;
+		// 	});
 	}
 
 
@@ -866,16 +866,13 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 
 	}
 
-
-
-	
 	// public convertToString(){
 	// 	this.orderTotal = Number(this.orderTotal);
 	// 	this.orderPrice = Number(this.orderPrice);
 	// 	this.orderAmount =   Number(this.orderAmount);
 	// }
 
-	// public convertToNumber(){
+	// public convertToNumber() {
 	// 	this.orderPrice = this.orderPrice.toFixed(8);
 	// 	this.orderAmount = this.orderAmount.toFixed(8);
 	// 	this.orderTotal = this.orderTotal.toFixed(8);
@@ -902,78 +899,140 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 				});
 		}
 	}
-
-	private calcWithNewPrice() {
-		// this.convertToString();
-		setTimeout(() => {
-			this.orderPrice = this.tradeForm.controls['price'].value;
-			this.baseAsset = (this.quoteAsset * this.orderPrice);
-
-			if (this.orderPrice != 0) {
-				this.quoteAsset = (this.baseAsset / this.orderPrice);
-			}
-
-			this.orderTotal = this.baseAsset;
-			// this.orderAmount = this.orderAmount.toFixed(8);
-			// this.orderTotal = this.orderTotal.toFixed(8);
-		}, 500);
+	
+	private calcWithNewPrice(event?:any) {
+		this.orderPrice = this.tradeForm.controls['price'].value;
+		// console.log(this.orderPrice);
+		// console.log(event.keyCode);
+		// this.checkValue(event);
+		if(this.orderPrice == null){
+			this.orderTotal = null;
+		}
+		if(this.orderPrice&&this.orderAmount){
+			this.orderTotal = (this.orderAmount * this.orderPrice).toFixed(8);
+		}
 	}
 
-	public calcWithNewAmount() {
-		// this.convertToString();
-		setTimeout(() => {
-			this.quoteAsset = this.tradeForm.controls['amount'].value;
-			this.orderAmount = this.tradeForm.controls['amount'].value;
-			this.baseAsset = this.quoteAsset * this.orderPrice;
-
-			if (this.tradeForm.value['type'] == OrderType.Buy) {
-
-
-				if (this.orderPrice != 0) {
-					this.quoteAsset = this.baseAsset / this.orderPrice;
-				}
-
-				this.orderAmount = this.quoteAsset;
-				this.orderTotal = this.baseAsset;
-
-			}
-
-			if (this.tradeForm.value['type'] == OrderType.Sell) {
-
-				this.baseAsset = this.quoteAsset * this.orderPrice;
-				this.orderTotal = this.baseAsset;
-			}
-
-			this.orderTotal = this.baseAsset;
-			// this.orderPrice = this.orderPrice.toFixed(8);
-			// this.orderTotal = this.orderTotal.toFixed(8);
-		}, 500);
+	private calcWithNewAmount() {
+		this.orderAmount = this.tradeForm.controls['amount'].value;
+		if(this.orderAmount == null){
+			this.orderTotal = null;
+		}
+		if(this.orderPrice&&this.orderAmount){
+			this.orderTotal = (this.orderAmount * this.orderPrice).toFixed(8);
+		}
 	}
 
 	public calcWithNewTotal() {
-		// this.convertToString();
-		setTimeout(() => {
-			this.orderTotal = this.tradeForm.controls['total'].value;
+		this.orderTotal = this.tradeForm.controls['total'].value;
+		if(this.orderTotal == null){
+			this.orderAmount = null;
+			this.orderPrice = null;
+		}
+		if(this.orderAmount&&this.orderTotal){
+			this.orderAmount = (this.orderTotal / this.orderPrice).toFixed(8);
+		}
+	}
 
-			if(this.orderPrice!=null){
-				this.orderAmount = this.orderTotal/this.orderPrice;
-			}
+	public checkValue(event:any){
+		// var value = event.target.value;
+		// if(value.keyCode == 69|| value.keyCode != [47-58]){
+		// 	this.orderPrice = this.tradeForm.controls['price'].value;
+		// 	this.orderPrice = this.orderPrice.toString();
+		// 	var arrayOfStrings =  this.orderPrice.split(event);
+		// 	this.orderPrice = arrayOfStrings[0];
+		// }
+		// console.log(this.tradeForm.controls['price'].value);
+		// this.orderPrice = this.tradeForm.controls['price'].value.toString();
+		// this.orderPrice = this.orderPrice.replace(',');
 
-			// this.orderPrice = this.orderPrice.toFixed(8);
-			// this.orderAmount = this.orderAmount.toFixed(8);
-		}, 500);
 	}
 	
+
+
+	// private calcWithNewPrice() {
+	// 	// this.orderPrice = this.tradeForm.controls['price'].value.toString();
+	// 	// var splitted = this.orderPrice.split(".", 2);
+	// 	// if (splitted[1] && splitted[1].length > 2) {
+	// 	// 	this.orderPrice = Number(this.orderPrice);
+	// 	// 	this.orderPrice = this.orderPrice.toFixed(2);
+	// 	// }
+	// 	// this.convertToNumber();
+	// 	setTimeout(() => {
+	// 		this.orderPrice = this.tradeForm.controls['price'].value;
+	// 		// this.orderPrice = Number(this.orderPrice);
+	// 		this.orderTotal = (this.orderAmount * this.orderPrice);
+	// 		// if (this.orderAmount != undefined) {
+	// 		// 	this.orderTotal = Number(this.orderTotal);
+	// 		// 	this.orderTotal = this.orderTotal.toFixed(8);
+	// 		// 	this.orderAmount = Number(this.orderAmount);
+	// 		// 	this.orderAmount = this.orderAmount.toFixed(8);
+	// 		// }
+
+	// 	}, 500);
+	// }
+
+	// public calcWithNewAmount() {
+	// 	// this.convertToString();
+	// 	// this.orderAmount = this.tradeForm.controls['amount'].value.toString();
+	// 	// var splitted = this.orderAmount.split(".", 2);
+	// 	// if (splitted[1] && splitted[1].length > 8) {
+	// 	// 	this.orderAmount = Number(this.orderAmount);
+	// 	// 	this.orderAmount = this.orderAmount.toFixed(8);
+	// 	// }
+	// 	setTimeout(() => {
+	// 		this.orderAmount = this.tradeForm.controls['amount'].value;
+	// 		// this.orderAmount = Number(this.orderAmount);
+	// 		this.orderTotal = (this.orderAmount * this.orderPrice);
+
+	// 		// if (this.orderPrice != undefined) {
+	// 		// 	this.orderTotal = Number(this.orderTotal);
+	// 		// 	this.orderTotal = this.orderTotal.toFixed(8);
+	// 		// 	this.orderPrice = Number(this.orderPrice);
+	// 		// 	this.orderPrice = this.orderPrice.toFixed(2);
+	// 		// }
+	// 	}, 500);
+
+
+
+	// }
+
+	// public calcWithNewTotal() {
+	// 	// this.orderTotal = this.tradeForm.controls['total'].value.toString();
+	// 	// var splitted = this.orderTotal.split(".", 2);
+	// 	// if (splitted[1] && splitted[1].length > 8) {
+	// 	// 	this.orderTotal = Number(this.orderTotal);
+	// 	// 	this.orderTotal = this.orderTotal.toFixed(8);
+	// 	// }
+	// 	setTimeout(() => {
+
+	// 		this.orderTotal = this.tradeForm.controls['total'].value;
+	// 		// this.orderTotal = Number(this.orderTotal);
+	// 		this.orderAmount = this.orderTotal / this.orderPrice;
+	// 		// if (this.orderAmount != undefined) {
+	// 		// 	this.orderPrice = Number(this.orderPrice);
+	// 		// 	this.orderPrice = this.orderPrice.toFixed(2);
+	// 		// 	this.orderAmount = Number(this.orderAmount);
+	// 		// 	this.orderAmount = this.orderAmount.toFixed(8);
+	// 		// }
+
+	// 	}, 500);
+	// }
+
 	public changeOrderAct(act: string) {
 		if (act == "buy") {
 			this.buyCellBtn = "PLACE BUY ORDER"
 			this.buyCell = false;
 			this.tradeForm.controls['type'].setValue(OrderType.Buy);
+			this.calcWithNewAmount();
+
 		}
 		if (act == "sell") {
 			this.buyCellBtn = "PLACE SELL ORDER"
 			this.buyCell = true;
 			this.tradeForm.controls['type'].setValue(OrderType.Sell);
+			this.calcWithNewAmount();
+
 		}
 		if (this.tradeForm.value['type'] == OrderType.Buy) {
 
@@ -995,9 +1054,16 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		// console.log(this.tradeForm.value);
 	}
 
-	public calcPercent(percent:number){
-		// this.convertToString();
-
-		// this.convertToNumber();
+	public calcPercent(percent: number) {
+		this.nowPercent = percent;
+		//buy
+		if (!this.buyCell) {
+			this.orderAmount = this.maxQuoteAsset / 100 * this.nowPercent;
+		}
+		//sll
+		if (this.buyCell) {
+			this.orderAmount = this.maxBaseAsset / 100 * this.nowPercent;
+		}
+		this.calcWithNewAmount();
 	}
 }

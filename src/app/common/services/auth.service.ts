@@ -25,7 +25,7 @@ export class AuthService extends BaseHttpService {
     // Logout method
     public logout() {
         LocalStorageHelper.removeToken();
-
+        // LocalStorageHelper.removeSymbols();
         this.loginSubject.next(false);
         this.router.navigate(['/authorization']);
     }

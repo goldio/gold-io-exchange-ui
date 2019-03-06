@@ -18,4 +18,24 @@ export class LocalStorageHelper {
     public static removeToken(): void {
         localStorage.removeItem('Authorization');
     }
+
+
+
+    // public static getSymbols(): SecurityToken {
+    //     const Symbols = localStorage.getItem('Symbols');
+    //     if (!Symbols) return;
+
+    //     return JSON.parse(Symbols);
+    // }
+
+    // public static saveSymbols(Symbols: string): boolean {
+    //     if (!Symbols) return false;
+
+    //     localStorage.setItem('Symbols', JSON.stringify(Symbols));
+    //     return true;
+    // }
+
+    // public static removeSymbols(): void {
+    //     localStorage.removeItem('Symbols');
+    // }
 }
