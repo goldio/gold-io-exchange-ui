@@ -52,6 +52,9 @@ import { BalanceService } from './balance/services/balance.service';
 import { BalaceHistoryComponent } from './balance/components/balace-history/balace-history.component';
 import { SucessfullSentEmailPasswordComponent } from './auth/components/sucessfull-sent-email-password/sucessfull-sent-email-password.component';
 
+
+
+
 @NgModule({
 	declarations: [
 		AppComponent,

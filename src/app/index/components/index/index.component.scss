@@ -2481,3 +2481,29 @@ Pagination Styles
 .transparent-btn{
   position: relative;
 }
+
+
+
+.orderError{
+  margin-top: 10px;
+  width: 100%;
+  height: 36px;
+  background: rgba(14, 17, 26, 0.9);
+  border-radius: 4px;
+  color: wheat;
+  transition: 1.5s ease;
+  box-sizing: border-box;
+  display: flex;
+  pointer-events: none;
+  opacity: 0;
+
+  span{
+    margin: auto;
+    color: #D1C881;
+    font-size: 14px;
+  }
+} 
+.orderError_open{
+  opacity: 1;
+  transition: 1.5s ease;
+}
