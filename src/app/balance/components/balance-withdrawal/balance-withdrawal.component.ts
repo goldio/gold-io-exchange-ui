@@ -10,78 +10,79 @@ import { WithdrawlRequest } from '../../models/withdrawl-request.model';
 import { AuthService } from 'src/app/common/services/auth.service';
 
 @Component({
-  selector: 'app-balance-withdrawal',
-  templateUrl: './balance-withdrawal.component.html',
-  styleUrls: ['./balance-withdrawal.component.scss']
+	selector: 'app-balance-withdrawal',
+	templateUrl: './balance-withdrawal.component.html',
+	styleUrls: ['./balance-withdrawal.component.scss']
 })
 export class BalanceWithdrawalComponent extends BaseLayoutComponent implements OnInit {
-  public loader = false;
-  public isLoggedIn: boolean;
-  
-  public withdrawalID:number;
-  public wallet: UserWallet;
-  public viewBalance:string = "";
+	public loader = false;
+	public isLoggedIn: boolean;
 
-  public updateRes:boolean;
-  public updateResText:string;
-  public successfullyChanged:boolean;
+	public withdrawalID: number;
+	public wallet: UserWallet;
+	public viewBalance: string = "";
 
-  public amountError = false;
-  public fewAmountError = false;
-  public withdrawalForm: FormGroup;
+	public updateRes: boolean;
+	public updateResText: string;
+	public successfullyChanged: boolean;
 
-  public getAmount = '0.00000000';
+	public amountError = false;
+	public fewAmountError = false;
+	public withdrawalForm: FormGroup;
 
-  constructor(
-    private storageService: StorageService,
-    private router:Router,
-    private walletsService: WalletsService,
-    private balanceService:BalanceService,
-    private authService:AuthService
+	public getAmount = '0.00000000';
 
-  ) {
-    super();
-   }
+	constructor(
+		private storageService: StorageService,
+		private router: Router,
+		private walletsService: WalletsService,
+		private balanceService: BalanceService,
+		private authService: AuthService
 
-  ngOnInit() {
-    this.loadDepositID();
-    this.loadWallets();
-    this.initWithdrawalForm();
-  }
+	) {
+		super();
+	}
+
+	ngOnInit() {
+		this.loadDepositID();
+		this.loadWallets();
+		this.initWithdrawalForm();
+	}
 
 
-  public back(){
-    this.router.navigate(['/balance']);
-  }
+	public back() {
+		this.router.navigate(['/balance']);
+	}
 
- 
-  
-  private loadDepositID() {
-    this.authService
-		.isLoggedIn
-		.subscribe(logged => {
-			this.isLoggedIn = logged;
-		});
+
+
+	private loadDepositID() {
+		this.authService
+			.isLoggedIn
+			.subscribe(logged => {
+				this.isLoggedIn = logged;
+			});
 
 		if (!this.isLoggedIn) {
 			this.router.navigate(['/authorization']);
-    }
+		}
+		
 		this.storageService.currentUserWallet
 			.subscribe(Id => {
-        if (!Id){
-            return;
-        }
-        this.withdrawalID = Id.id;
-        if(!this.withdrawalID){
-          this.router.navigate(['/balance']);
-        }
+				if (!Id) {
+					return;
+				}
+				this.withdrawalID = Id.id;
+				if (!this.withdrawalID) {
+					this.router.navigate(['/balance']);
+				}
 			},
 				error => console.log(error),
-      );
-			
-  }
-  
-  private loadWallets(): void {
+			);
+
+	}
+
+	private loadWallets(): void {
 		this.walletsService
 			.getMe()
 			.subscribe(res => {
@@ -90,23 +91,23 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
 					return;
 				}
 
-        this.wallet = res.data.find(x=> x.id == this.withdrawalID);
-        this.viewBalance = this.wallet.balance.toFixed(8);
-        // console.log(this.wallet);
+				this.wallet = res.data.find(x => x.id == this.withdrawalID);
+				this.viewBalance = this.wallet.balance.toFixed(8);
+				// console.log(this.wallet);
 			});
-  }
+	}
 
-  public submitWithdrawalForm(form: FormGroup): void {
+	public submitWithdrawalForm(form: FormGroup): void {
 		console.log(form);
 		if (form.invalid) {
-      this.markContolsAsTouched() ;
+			this.markContolsAsTouched();
 			return;
-    }
-    if(this.amountError || this.fewAmountError){
-      return;
-    }
-    console.log(form);
-		
+		}
+		if (this.amountError || this.fewAmountError) {
+			return;
+		}
+		console.log(form);
+
 		this.loader = true;
 		const req = new WithdrawlRequest();
 		req.address = form.value['address'];
@@ -115,8 +116,8 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
 			.withdrawlRequest(req, this.withdrawalID)
 			.subscribe(res => {
 				if (!res.success) {
-          // alert('error');
-          this.loader = false;
+					// alert('error');
+					this.loader = false;
 				}
 				this.updateRes = true;
 				this.updateResText = res.message;
@@ -124,39 +125,39 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
 				setTimeout(() => {
 					this.updateRes = false;
 					this.successfullyChanged = false;
-          this.updateResText = "";
-          this.loader = false;
-        }, 3000);
-        this.withdrawalForm.reset();
+					this.updateResText = "";
+					this.loader = false;
+				}, 3000);
+				this.withdrawalForm.reset();
 			});
 	}
 
 	public markContolsAsTouched() {
 		this.withdrawalForm.controls['address'].markAsTouched();
 		this.withdrawalForm.controls['amount'].markAsTouched();
-  }
-  
-  private initWithdrawalForm(): void {
+	}
+
+	private initWithdrawalForm(): void {
 		this.withdrawalForm = new FormGroup({
 			address: new FormControl(null, [Validators.required]),
 			amount: new FormControl(null, [Validators.required])
 		});
-  }
-  
-  public checkAmount(){
-    if(this.withdrawalForm.controls['amount'].value < 0.2){
-      this.amountError = true;
-    }else{
-      this.amountError = false;
-    }
-    if(this.withdrawalForm.controls['amount'].value > this.wallet.balance){
-      this.fewAmountError = true;
-    }else{
-      this.fewAmountError = false;
-    }
-    if(this.withdrawalForm.controls['amount'].value!=0){
-      this.getAmount = (this.withdrawalForm.controls['amount'].value-0.00005000).toFixed(8);
-    }
-  }
-  
+	}
+
+	public checkAmount() {
+		if (this.withdrawalForm.controls['amount'].value < 0.2) {
+			this.amountError = true;
+		} else {
+			this.amountError = false;
+		}
+		if (this.withdrawalForm.controls['amount'].value > this.wallet.balance) {
+			this.fewAmountError = true;
+		} else {
+			this.fewAmountError = false;
+		}
+		if (this.withdrawalForm.controls['amount'].value != 0) {
+			this.getAmount = (this.withdrawalForm.controls['amount'].value - 0.00005000).toFixed(8);
+		}
+	}
+
 }
