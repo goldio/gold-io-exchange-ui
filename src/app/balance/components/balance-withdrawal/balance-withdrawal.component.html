@@ -25,7 +25,7 @@
       </div>
       <div class="deposit-information">
         <span>– Once you have submitted your withdrawal request, we will send a confirmation email </span>
-        <span>– Minimum withdrawal <a>0.2 {{ wallet.coin.shortName }}</a></span>
+        <span>– Minimum withdrawal <a>0.0001 {{ wallet.coin.shortName }}</a></span>
       </div>
 
       <form [formGroup]="withdrawalForm" *ngIf="wallet" (ngSubmit)="submitWithdrawalForm(withdrawalForm)">
@@ -49,7 +49,7 @@
                   <div class="error-text"[ngClass]="{
                     'error-text-open' : withdrawalForm.controls.amount.hasError('required') && withdrawalForm.controls.amount.touched }">Сan't be empty!</div>
                     <div class="error-text"[ngClass]="{
-                      'error-text-open' : amountError && (!withdrawalForm.controls.amount.hasError('required')) && !fewAmountError }">Minimum withdrawal 0.2 {{ wallet.coin.shortName }}</div>
+                      'error-text-open' : amountError && (!withdrawalForm.controls.amount.hasError('required')) && !fewAmountError }">Minimum withdrawal 0.0001 {{ wallet.coin.shortName }}</div>
                       <div class="error-text"[ngClass]="{
                         'error-text-open' : fewAmountError && (!withdrawalForm.controls.amount.hasError('required')) && !amountError }">insufficient funds</div>
                   <b>{{ wallet.coin.shortName }}</b>
