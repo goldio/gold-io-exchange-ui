@@ -69,7 +69,7 @@
                 <b>{{ currentSymbol.quoteAsset }}</b>
               </div>
               <button class="transparent-btn" type="submit" *ngIf="isLoggedIn" [attr.disabled]="loader ? true : null">{{ buyCellBtn }}
-                  <div class="loader" [ngClass]="{'loader-open':loader}">
+                <div class="loader" [ngClass]="{'loader-open':loader}">
                       <div class="lds-ellipsis">
                         <div></div>
                         <div></div>
@@ -78,6 +78,8 @@
                       </div>
                     </div>
               </button>
+              <div class="orderError" [ngClass]="{'orderError_open':orderError}"><span>Insufficient funds!</span></div> 
+
             </div>
           </div>
         </div>

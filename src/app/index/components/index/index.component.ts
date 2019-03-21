@@ -48,6 +48,8 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 	public tradeForm: FormGroup;
 	public searchForm: FormGroup;
 
+	public mask = [/\d{1,}/, '.', /\d?/, /\d?/];
+
 	public baseAsset: any;
 	public quoteAsset: any;
 	public orderPrice: any;
@@ -56,7 +58,8 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 	public nowPercent: any;
 	public maxBaseAsset: any;
 	public maxQuoteAsset: any;
-
+	public persentAmount: any;
+	public orderError = false;
 
 	public MyWallets: UserWallet[];
 	public baseWallet: UserWallet;
@@ -174,7 +177,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 					.getPairs()
 					.subscribe(res => {
 						if (!res.success) {
-							console.log(res.message);
+							// console.log(res.message);
 							return;
 						}
 
@@ -430,21 +433,43 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 			// alert('form invalid');
 			return;
 		}
+		//buy
+		if (this.buyCell == false) {
+			if (this.orderAmount > this.maxQuoteAsset) {
+				this.orderError = true;
+				setTimeout(() => {
+					this.orderError = false;
+				}, 3000);
+				return;
+			}
+		}
+		//sell
+		if (this.buyCell != false) {
+			if (this.orderAmount > this.maxBaseAsset) {
+				this.orderError = true;
+				setTimeout(() => {
+					this.orderError = false;
+				}, 3000);
+				return;
+			}
+		}
+
+
 		// alert('form valid');
 
-		// this.loader = true;
-		// this.tradeService
-		// 	.createOrder(form.value)
-		// 	.subscribe(res => {
-		// 		if (!res.success) {
-		// 			//alert(res.message);
-		// 			this.loader = false;
-		// 		}
+		this.loader = true;
+		this.tradeService
+			.createOrder(form.value)
+			.subscribe(res => {
+				if (!res.success) {
+					//alert(res.message);
+					this.loader = false;
+				}
 
-		// 		this.loadOrderBook();
-		// 		this.loadTrades();
-		// 		this.loader = false;
-		// 	});
+				this.loadOrderBook();
+				this.loadTrades();
+				this.loader = false;
+			});
 	}
 
 
@@ -866,17 +891,8 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 
 	}
 
-	// public convertToString(){
-	// 	this.orderTotal = Number(this.orderTotal);
-	// 	this.orderPrice = Number(this.orderPrice);
-	// 	this.orderAmount =   Number(this.orderAmount);
-	// }
 
-	// public convertToNumber() {
-	// 	this.orderPrice = this.orderPrice.toFixed(8);
-	// 	this.orderAmount = this.orderAmount.toFixed(8);
-	// 	this.orderTotal = this.orderTotal.toFixed(8);
-	// }
+
 
 	public getBalance(): void {
 		if (this.isLoggedIn) {
@@ -899,125 +915,75 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 				});
 		}
 	}
-	
-	private calcWithNewPrice(event?:any) {
-		this.orderPrice = this.tradeForm.controls['price'].value;
-		// console.log(this.orderPrice);
-		// console.log(event.keyCode);
-		// this.checkValue(event);
-		if(this.orderPrice == null){
-			this.orderTotal = null;
-		}
-		if(this.orderPrice&&this.orderAmount){
-			this.orderTotal = (this.orderAmount * this.orderPrice).toFixed(8);
-		}
+
+	private calcWithNewPrice(event?: any) {
+		setTimeout(() => {
+			this.orderPrice = this.tradeForm.controls['price'].value;
+			this.orderPrice = Number(this.orderPrice);
+			this.orderPrice = this.orderPrice.toFixed(2);
+
+			// console.log(this.orderPrice);
+			if (this.orderPrice == null) {
+				this.orderTotal = null;
+			}
+			if (this.orderPrice && this.orderAmount) {
+				this.orderTotal =   Number(this.orderTotal);
+				this.orderTotal = (this.orderAmount * this.orderPrice).toFixed(8);
+			}
+			this.orderPrice = Number(this.orderPrice);
+			this.orderPrice = this.orderPrice.toFixed(2);
+		}, 1000);
+
 	}
 
-	private calcWithNewAmount() {
-		this.orderAmount = this.tradeForm.controls['amount'].value;
-		if(this.orderAmount == null){
-			this.orderTotal = null;
-		}
-		if(this.orderPrice&&this.orderAmount){
-			this.orderTotal = (this.orderAmount * this.orderPrice).toFixed(8);
-		}
+	private calcWithNewAmount(persentAmount?: any) {
+		setTimeout(() => {
+			this.orderAmount = this.tradeForm.controls['amount'].value;
+			this.orderAmount = Number(this.orderAmount);
+			this.orderAmount = this.orderAmount.toFixed(8);
+			console.log(this.orderPrice);
+			if (persentAmount) {
+				this.orderAmount = persentAmount;
+			}
+			if (this.orderAmount == null) {
+				this.orderTotal = null;
+			}
+			if (this.orderPrice && this.orderAmount) {
+				this.orderTotal =   Number(this.orderTotal);
+				this.orderTotal = (this.orderAmount * this.orderPrice).toFixed(8);
+				// this.orderPrice =   Number(this.orderPrice);
+				// this.orderPrice = this.orderPrice.toFixed(2);
+			}
+			if (persentAmount) {
+				// this.orderAmount = persentAmount.toFixed(8);
+			}
+			this.orderAmount = Number(this.orderAmount);
+			this.orderAmount = this.orderAmount.toFixed(8);
+		}, 1000);
 	}
 
 	public calcWithNewTotal() {
-		this.orderTotal = this.tradeForm.controls['total'].value;
-		if(this.orderTotal == null){
-			this.orderAmount = null;
-			this.orderPrice = null;
-		}
-		if(this.orderAmount&&this.orderTotal){
-			this.orderAmount = (this.orderTotal / this.orderPrice).toFixed(8);
-		}
+		setTimeout(() => {
+			this.orderTotal = this.tradeForm.controls['total'].value;
+			this.orderTotal = Number(this.orderTotal);
+			this.orderTotal = this.orderTotal.toFixed(8);
+			if (this.orderTotal == null) {
+				this.orderAmount = null;
+				this.orderPrice = null;
+			}
+			if (this.orderAmount && this.orderTotal) {
+				this.orderAmount = (this.orderTotal / this.orderPrice);
+
+				this.orderAmount =   Number(this.orderAmount);
+				this.orderAmount = (this.orderTotal / this.orderPrice).toFixed(8);
+				// this.orderPrice = this.orderPrice.toFixed(2);
+			}
+			this.orderTotal = Number(this.orderTotal);
+			this.orderTotal = this.orderTotal.toFixed(8);
+		}, 1000);
 	}
 
-	public checkValue(event:any){
-		// var value = event.target.value;
-		// if(value.keyCode == 69|| value.keyCode != [47-58]){
-		// 	this.orderPrice = this.tradeForm.controls['price'].value;
-		// 	this.orderPrice = this.orderPrice.toString();
-		// 	var arrayOfStrings =  this.orderPrice.split(event);
-		// 	this.orderPrice = arrayOfStrings[0];
-		// }
-		// console.log(this.tradeForm.controls['price'].value);
-		// this.orderPrice = this.tradeForm.controls['price'].value.toString();
-		// this.orderPrice = this.orderPrice.replace(',');
 
-	}
-	
-
-
-	// private calcWithNewPrice() {
-	// 	// this.orderPrice = this.tradeForm.controls['price'].value.toString();
-	// 	// var splitted = this.orderPrice.split(".", 2);
-	// 	// if (splitted[1] && splitted[1].length > 2) {
-	// 	// 	this.orderPrice = Number(this.orderPrice);
-	// 	// 	this.orderPrice = this.orderPrice.toFixed(2);
-	// 	// }
-	// 	// this.convertToNumber();
-	// 	setTimeout(() => {
-	// 		this.orderPrice = this.tradeForm.controls['price'].value;
-	// 		// this.orderPrice = Number(this.orderPrice);
-	// 		this.orderTotal = (this.orderAmount * this.orderPrice);
-	// 		// if (this.orderAmount != undefined) {
-	// 		// 	this.orderTotal = Number(this.orderTotal);
-	// 		// 	this.orderTotal = this.orderTotal.toFixed(8);
-	// 		// 	this.orderAmount = Number(this.orderAmount);
-	// 		// 	this.orderAmount = this.orderAmount.toFixed(8);
-	// 		// }
-
-	// 	}, 500);
-	// }
-
-	// public calcWithNewAmount() {
-	// 	// this.convertToString();
-	// 	// this.orderAmount = this.tradeForm.controls['amount'].value.toString();
-	// 	// var splitted = this.orderAmount.split(".", 2);
-	// 	// if (splitted[1] && splitted[1].length > 8) {
-	// 	// 	this.orderAmount = Number(this.orderAmount);
-	// 	// 	this.orderAmount = this.orderAmount.toFixed(8);
-	// 	// }
-	// 	setTimeout(() => {
-	// 		this.orderAmount = this.tradeForm.controls['amount'].value;
-	// 		// this.orderAmount = Number(this.orderAmount);
-	// 		this.orderTotal = (this.orderAmount * this.orderPrice);
-
-	// 		// if (this.orderPrice != undefined) {
-	// 		// 	this.orderTotal = Number(this.orderTotal);
-	// 		// 	this.orderTotal = this.orderTotal.toFixed(8);
-	// 		// 	this.orderPrice = Number(this.orderPrice);
-	// 		// 	this.orderPrice = this.orderPrice.toFixed(2);
-	// 		// }
-	// 	}, 500);
-
-
-
-	// }
-
-	// public calcWithNewTotal() {
-	// 	// this.orderTotal = this.tradeForm.controls['total'].value.toString();
-	// 	// var splitted = this.orderTotal.split(".", 2);
-	// 	// if (splitted[1] && splitted[1].length > 8) {
-	// 	// 	this.orderTotal = Number(this.orderTotal);
-	// 	// 	this.orderTotal = this.orderTotal.toFixed(8);
-	// 	// }
-	// 	setTimeout(() => {
-
-	// 		this.orderTotal = this.tradeForm.controls['total'].value;
-	// 		// this.orderTotal = Number(this.orderTotal);
-	// 		this.orderAmount = this.orderTotal / this.orderPrice;
-	// 		// if (this.orderAmount != undefined) {
-	// 		// 	this.orderPrice = Number(this.orderPrice);
-	// 		// 	this.orderPrice = this.orderPrice.toFixed(2);
-	// 		// 	this.orderAmount = Number(this.orderAmount);
-	// 		// 	this.orderAmount = this.orderAmount.toFixed(8);
-	// 		// }
-
-	// 	}, 500);
-	// }
 
 	public changeOrderAct(act: string) {
 		if (act == "buy") {
@@ -1051,11 +1017,11 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 			// this.orderTotal = this.baseAsset;
 		}
 
-		// console.log(this.tradeForm.value);
 	}
 
 	public calcPercent(percent: number) {
 		this.nowPercent = percent;
+		// console.log(percent);
 		//buy
 		if (!this.buyCell) {
 			this.orderAmount = this.maxQuoteAsset / 100 * this.nowPercent;
@@ -1064,6 +1030,8 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		if (this.buyCell) {
 			this.orderAmount = this.maxBaseAsset / 100 * this.nowPercent;
 		}
-		this.calcWithNewAmount();
+		// console.log(this.orderAmount);
+		this.persentAmount = this.orderAmount;
+		this.calcWithNewAmount(this.persentAmount);
 	}
 }

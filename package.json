@@ -34,10 +34,10 @@
     "jqwidgets-scripts": "^6.1.0",
     "moment": "^2.22.2",
     "ngx-malihu-scrollbar": "^7.0.0",
+    "ngx-qrcode2": "0.0.9",
     "rxjs": "~6.3.3",
     "rxjs-compat": "^6.3.3",
     "tslib": "^1.9.0",
-    "ngx-qrcode2": "0.0.9",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
