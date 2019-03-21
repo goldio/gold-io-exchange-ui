@@ -144,7 +144,7 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
   }
   
   public checkAmount(){
-    if(this.withdrawalForm.controls['amount'].value < 0.2){
+    if(this.withdrawalForm.controls['amount'].value < 0.0001){
       this.amountError = true;
     }else{
       this.amountError = false;
