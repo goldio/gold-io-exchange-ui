@@ -177,6 +177,7 @@ label {
   font-size: 16px;
   font-weight: 900;
   transition: none;
+  line-height: 1.2;
   overflow: hidden;
 }
 
@@ -262,7 +263,7 @@ label {
   .some-answer {
     position: absolute;
     width: fit-content;
-    top: 40px;
+    top: 28px;
     left: 200px;
     color: #D1C174;
     transition: 1.5s;

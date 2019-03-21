@@ -9,6 +9,8 @@ import { DepositResponse } from '../models/deposit-response.model';
 import { WallenOperation } from 'src/app/activity/models/wallet-operation.model';
 import { WithdrawlRequest } from '../models/withdrawl-request.model';
 import { BalanceHistory } from '../models/history.model';
+import { GetTransactionFeeResponse } from '../models/getTransactionFeeResponse.model';
+import { GetTransactionFeeRequest } from '../models/getTransactionFeeRequest.model';
 
 @Injectable()
 export class BalanceService extends BaseHttpService {
@@ -38,4 +40,10 @@ export class BalanceService extends BaseHttpService {
         return this.get(`${this.apiUrl}/wallets/me/history/withdraw`)
             .map(response => response.json());
     }
+
+    public getFee(request: GetTransactionFeeRequest): Observable<GetTransactionFeeResponse> {
+        return this.post(`${this.apiUrl}/wallets/fee`, request)
+            .map(response => response.json());
+    }
+    
 }

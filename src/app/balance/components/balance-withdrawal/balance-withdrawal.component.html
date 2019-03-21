@@ -45,7 +45,7 @@
                 </span>
                 <span class="balance-inp error" [ngClass]="{
                   'error-open' : withdrawalForm.controls.amount.hasError('required') && withdrawalForm.controls.amount.touched }">
-                  <input type="text" class="amount-inp" formControlName="amount" (keyup)="checkAmount()" required>
+                  <input type="number" class="amount-inp" formControlName="amount" (keyup)="checkAmount()" required>
                   <div class="error-text"[ngClass]="{
                     'error-text-open' : withdrawalForm.controls.amount.hasError('required') && withdrawalForm.controls.amount.touched }">Сan't be empty!</div>
                     <div class="error-text"[ngClass]="{
@@ -57,8 +57,8 @@
               </div>
           </div>
           <div class="res-information">
-            <span class="res-info">Transaction Fee: 0.00005000 </span>
-            <span class="res-info">You will get: {{ getAmount }}</span>
+            <span class="res-info">Transaction Fee: {{ fee.toFixed(8) }} </span>
+            <span class="res-info">You will get: {{ finalAmount.toFixed(8) }}</span>
           </div>
           
           <div class="btnTexts">

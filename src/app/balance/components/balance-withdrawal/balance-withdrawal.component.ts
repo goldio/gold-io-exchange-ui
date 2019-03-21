@@ -8,6 +8,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { BalanceService } from '../../services/balance.service';
 import { WithdrawlRequest } from '../../models/withdrawl-request.model';
 import { AuthService } from 'src/app/common/services/auth.service';
+import { GetTransactionFeeRequest } from '../../models/getTransactionFeeRequest.model';
 
 @Component({
 	selector: 'app-balance-withdrawal',
@@ -30,7 +31,10 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
 	public fewAmountError = false;
 	public withdrawalForm: FormGroup;
 
-	public getAmount = '0.00000000';
+	// public getAmount = '0.00000000';
+
+	public fee = 0;
+	public finalAmount = 0;
 
 	constructor(
 		private storageService: StorageService,
@@ -155,9 +159,25 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
 		} else {
 			this.fewAmountError = false;
 		}
-		if (this.withdrawalForm.controls['amount'].value != 0) {
-			this.getAmount = (this.withdrawalForm.controls['amount'].value - 0.00005000).toFixed(8);
+		
+
+		if((this.wallet.coin.shortName == "BTC" || this.wallet.coin.shortName == "ETH")&&(this.withdrawalForm.controls['amount'].value <= this.wallet.balance)&&(this.withdrawalForm.controls['amount'].value > 0.0001)){
+			let req:GetTransactionFeeRequest = {
+				coin : this.wallet.coin.shortName,
+				amount: this.withdrawalForm.controls['amount'].value
+			}
+			this.balanceService.getFee(req).subscribe(res => {
+				if(!res.success){
+					alert('error');
+					return;
+				}
+				this.fee = res.fee;
+				this.finalAmount = res.finalAmount;
+			});
+
+			
 		}
+		
 	}
 
 }
