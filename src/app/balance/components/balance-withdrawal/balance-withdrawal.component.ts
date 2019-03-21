@@ -45,8 +45,8 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
 
 	ngOnInit() {
 		this.loadDepositID();
-		this.loadWallets();
 		this.initWithdrawalForm();
+		this.loadWallets();
 	}
 
 

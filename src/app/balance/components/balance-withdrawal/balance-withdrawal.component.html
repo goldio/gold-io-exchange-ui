@@ -52,7 +52,7 @@
                       'error-text-open' : amountError && (!withdrawalForm.controls.amount.hasError('required')) && !fewAmountError }">Minimum withdrawal 0.2 {{ wallet.coin.shortName }}</div>
                       <div class="error-text"[ngClass]="{
                         'error-text-open' : fewAmountError && (!withdrawalForm.controls.amount.hasError('required')) && !amountError }">insufficient funds</div>
-                  <b>BTC</b>
+                  <b>{{ wallet.coin.shortName }}</b>
                   </span>
               </div>
           </div>
