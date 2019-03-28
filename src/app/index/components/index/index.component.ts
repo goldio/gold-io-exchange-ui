@@ -910,8 +910,6 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 					this.maxBaseAsset = this.baseWallet.balance;
 					this.maxQuoteAsset = this.quoteWallet.balance;
 
-					this.maxBaseAsset = 10;
-					this.maxQuoteAsset = 20;
 				});
 		}
 	}
@@ -920,7 +918,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		setTimeout(() => {
 			this.orderPrice = this.tradeForm.controls['price'].value;
 			this.orderPrice = Number(this.orderPrice);
-			this.orderPrice = this.orderPrice.toFixed(2);
+			this.orderPrice = this.orderPrice.toFixed(6);
 
 			// console.log(this.orderPrice);
 			if (this.orderPrice == null) {
@@ -928,10 +926,10 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 			}
 			if (this.orderPrice && this.orderAmount) {
 				this.orderTotal =   Number(this.orderTotal);
-				this.orderTotal = (this.orderAmount * this.orderPrice).toFixed(8);
+				this.orderTotal = (this.orderAmount * this.orderPrice).toFixed(6);
 			}
 			this.orderPrice = Number(this.orderPrice);
-			this.orderPrice = this.orderPrice.toFixed(2);
+			this.orderPrice = this.orderPrice.toFixed(6);
 		}, 1000);
 
 	}
@@ -940,7 +938,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		setTimeout(() => {
 			this.orderAmount = this.tradeForm.controls['amount'].value;
 			this.orderAmount = Number(this.orderAmount);
-			this.orderAmount = this.orderAmount.toFixed(8);
+			this.orderAmount = this.orderAmount.toFixed(6);
 			console.log(this.orderPrice);
 			if (persentAmount) {
 				this.orderAmount = persentAmount;
@@ -950,7 +948,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 			}
 			if (this.orderPrice && this.orderAmount) {
 				this.orderTotal =   Number(this.orderTotal);
-				this.orderTotal = (this.orderAmount * this.orderPrice).toFixed(8);
+				this.orderTotal = (this.orderAmount * this.orderPrice).toFixed(6);
 				// this.orderPrice =   Number(this.orderPrice);
 				// this.orderPrice = this.orderPrice.toFixed(2);
 			}
@@ -958,7 +956,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 				// this.orderAmount = persentAmount.toFixed(8);
 			}
 			this.orderAmount = Number(this.orderAmount);
-			this.orderAmount = this.orderAmount.toFixed(8);
+			this.orderAmount = this.orderAmount.toFixed(6);
 		}, 1000);
 	}
 
@@ -966,7 +964,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		setTimeout(() => {
 			this.orderTotal = this.tradeForm.controls['total'].value;
 			this.orderTotal = Number(this.orderTotal);
-			this.orderTotal = this.orderTotal.toFixed(8);
+			this.orderTotal = this.orderTotal.toFixed(6);
 			if (this.orderTotal == null) {
 				this.orderAmount = null;
 				this.orderPrice = null;
@@ -975,11 +973,11 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 				this.orderAmount = (this.orderTotal / this.orderPrice);
 
 				this.orderAmount =   Number(this.orderAmount);
-				this.orderAmount = (this.orderTotal / this.orderPrice).toFixed(8);
+				this.orderAmount = (this.orderTotal / this.orderPrice).toFixed(6);
 				// this.orderPrice = this.orderPrice.toFixed(2);
 			}
 			this.orderTotal = Number(this.orderTotal);
-			this.orderTotal = this.orderTotal.toFixed(8);
+			this.orderTotal = this.orderTotal.toFixed(6);
 		}, 1000);
 	}
 
