@@ -920,7 +920,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 		setTimeout(() => {
 			this.orderPrice = this.tradeForm.controls['price'].value;
 			this.orderPrice = Number(this.orderPrice);
-			this.orderPrice = this.orderPrice.toFixed(2);
+			this.orderPrice = this.orderPrice.toFixed(8);
 
 			// console.log(this.orderPrice);
 			if (this.orderPrice == null) {
@@ -931,7 +931,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 				this.orderTotal = (this.orderAmount * this.orderPrice).toFixed(8);
 			}
 			this.orderPrice = Number(this.orderPrice);
-			this.orderPrice = this.orderPrice.toFixed(2);
+			this.orderPrice = this.orderPrice.toFixed(8);
 		}, 1000);
 
 	}
