@@ -24,6 +24,7 @@ import { ThemeService } from 'src/app/common/services/theme.service';
 import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
 import { UserWallet } from 'src/app/common/models';
 import symbols from './symbols';
+import { Pair } from '../../models/pair.model';
 
 // import { runInThisContext } from 'vm';
 
@@ -37,7 +38,7 @@ declare var Swiper: any;
 })
 
 
-export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDestroy {
+export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	OrderType = OrderType;
 
 	public loader = false;
@@ -50,24 +51,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 
 	public mask = [/\d{1,}/, '.', /\d?/, /\d?/];
 
-	public baseAsset: any;
-	public quoteAsset: any;
-	public orderPrice: any;
-	public orderAmount: any;
-	public orderTotal: any;
-	public nowPercent: any;
-	public maxBaseAsset: any;
-	public maxQuoteAsset: any;
-	public persentAmount: any;
 	public orderError = false;
-
-	public MyWallets: UserWallet[];
-	public baseWallet: UserWallet;
-	public quoteWallet: UserWallet;
-
-	public Highcharts = Highcharts;
-	public priceChartOptions: Highcharts.Options;
-	public depthChartOptions: Highcharts.Options;
 
 	public chart: boolean = false;
 	public currencyBox: boolean = false;
@@ -75,404 +59,24 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 	public buyCellBtn = "PLACE BUY ORDER";
 	public responciveTabs = 2;
 
-	public tradeHistory: TradeHistoryItem[] = [];
-	public orderBook: { asks: any[], bids: any[] };
-	public orderBookBids: OrderBookItem[] = [];
-	public orderBookAsks: OrderBookItem[] = [];
-
-	public depthChartData: any;
-	public dataDepthAsks: any[];
-	public dataDepthBids: any[];
-
-	public priceChartData: any;
-
 	public theme: Theme;
 
-	public symbols: Symbol[];
-	public viewSymbols: Symbol[];
-	public currentSymbol: Symbol;
-
-	private getBestAsk(data: any) {
-		let best = Number(data[0][0]);
-		let val;
-		data.forEach(el => {
-			val = Number(el[0]);
-			if (el[0] < best) {
-				best = el[0];
-			}
-		});
-		return best;
-	}
-
-	private getBestBid(data: any) {
-		let best = Number(data[0][0]);
-		let val;
-		data.forEach(el => {
-			val = Number(el[0]);
-			if (val > best) {
-				best = val;
-			}
-		});
-		return best;
-	}
-
-	private convertToGraphData(data: any) {
-		let convertedData = [];
-		for (let key in data) {
-			let point = {
-				x: Number(key),
-				y: data[key]
-			};
-			convertedData.push(point);
-		}
-		convertedData.sort(function (first, second) {
-			return first.x - second.x;
-		});
-		return convertedData;
-	}
-
-	private updateMainData(updatedElem: any, type: string) {
-		if (!this.depthChartData) return;
-
-		let finded = false;
-		let val = Number.parseFloat(updatedElem[0]);
-		//let series = this.Highcharts.charts[0].series.find(x => x.name == type);
-
-		for (let i = 0; i < this.depthChartData[type].length; i++) {
-			let el = this.depthChartData[type][i];
-			if (Number.parseFloat(el[0]) == val) {
-				this.depthChartData[type][i][1] = updatedElem[1];
-				finded = true;
-				/* series.setData(this.depthChartData[type]);
-				series.update(series.options, true); */
-				return true;
-			}
-		}
-
-		if (type == 'asks') {
-			this.dataDepthAsks.push([Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1])]);
-			// console.log(this.dataDepthAsks);
-		} else if (type == 'bids') {
-			this.dataDepthBids.push([Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1])]);
-			// console.log(this.dataDepthBids);
-		}
-
-		/* series.setData(this.depthChartData[type]);
-		series.update(series.options, true); */
-		return false;
-		// mainData[type].forEach(function(el, index){
-		//     if(Number(el[0]) == val){
-		//         mainData[type][index] = updatedElem[2];
-		//         finded = true;
-		//     }
-		// });
-	}
-
-	private loadSymbols(): void {
-		this.binanceService
-			.getExchangeInfo()
-			.subscribe(res => {
-				this.symbols = res.symbols;
-				this.tradeService
-					.getPairs()
-					.subscribe(res => {
-						if (!res.success) {
-							// console.log(res.message);
-							return;
-						}
-
-						res.data.forEach(pair => {
-							this.symbols.unshift(Symbol.fromPair(pair));
-						});
-
-						this.viewSymbols = this.symbols;
-						this.setSymbol();
-					});
-			});
-	}
-
-	private setSymbol(symbol?: Symbol): void {
-		this.currencyBox = false;
-
-		if (!symbol) {
-			this.currentSymbol = this.symbols.find(x => x.symbol == "ETHBTC");
-			this.loadPrice('ETH', 'BTC');
-		} else {
-			this.currentSymbol = symbol;
-			this.loadPrice(symbol.baseAsset, symbol.quoteAsset);
-		}
-
-		this.loadTrades();
-		this.loadOrderBook();
-		this.getBalance();
-
-		this.initPriceChart().finally(() => this.initDepthChart().finally(() => this.openDepthStream()));
-
-		this.initTradeForm();
-
-		/* if (this.Highcharts.charts[0]) {
-			this.Highcharts.charts[0].update(this.priceChartOptions, true);
-		}
-
-		if (this.Highcharts.charts[1]) {
-			this.Highcharts.charts[1].update(this.depthChartOptions, true);
-		} */
-	}
-
-	private loadTrades(): void {
-		this.tradeHistory = [];
-
-		if (this.currentSymbol.gio) {
-			this.tradeService
-				.getOrdersBySymbol(this.currentSymbol.baseAsset, this.currentSymbol.quoteAsset)
-				.subscribe(res => {
-					if (!res.success) {
-						//alert(res.message);
-						return;
-					}
-
-					res.data.forEach(item => {
-						this.tradeHistory
-							.push({
-								price: item.price.toFixed(4),
-								qty: item.amount.toFixed(8),
-								isBuyerMaker: item.type == OrderType.Buy ? true : false,
-								isBestMatch: false,
-								time: DateHelper.getTimeFromDate(new Date(item.time))
-							});
-					});
-				});
-
-			return;
-		}
-
-		this.binanceService
-			.getTrades(this.currentSymbol.symbol)
-			.subscribe(res => {
-				res.data.forEach((item: TradeHistoryItemNative) => {
-					this.tradeHistory
-						.push({
-							price: item.price.toFixed(4),
-							qty: item.qty.toFixed(8),
-							isBuyerMaker: item.isBuyerMaker,
-							isBestMatch: item.isBestMatch,
-							time: DateHelper.getTimeFromDate(new Date(item.time))
-						});
-				});
-			});
-	}
-
-	private loadOrderBook(): void {
-		this.orderBookAsks = [];
-		this.orderBookBids = [];
-
-		if (this.currentSymbol.gio) {
-			this.tradeService
-				.getOrderBookBySymbol(this.currentSymbol.baseAsset, this.currentSymbol.quoteAsset)
-				.subscribe(res => {
-					if (!res.success) {
-						//alert(res.message);
-						return;
-					}
-
-					res.data.forEach(item => {
-						if (item.type == OrderType.Buy) {
-							this.orderBookAsks
-								.push({
-									price: item.price.toFixed(8),
-									amount: item.amount.toFixed(8),
-									total: (item.price * item.amount).toFixed(8)
-								});
-						} else if (item.type == OrderType.Sell) {
-							this.orderBookBids
-								.push({
-									price: item.price.toFixed(8),
-									amount: item.amount.toFixed(8),
-									total: (item.price * item.amount).toFixed(8)
-								});
-						}
-					});
-				});
-
-			return;
-		}
-
-		this.binanceService
-			.getOrderBook(this.currentSymbol.symbol)
-			.subscribe(res => {
-				if (!res.success) {
-					//alert(res.message);
-					return;
-				}
-
-				let points = { asks: [], bids: [] };
-
-				res.data.bids.forEach(item => {
-					if (this.orderBookBids.length > 21) {
-						this.orderBookBids.shift();
-					}
-
-					if (parseFloat(item[1]) > 0) {
-						let aItem = {
-							price: parseFloat(item[0]).toFixed(8),
-							amount: parseFloat(item[1]).toFixed(8),
-							total: `${(item[0] * item[1]).toFixed(8)}`
-						};
-
-						points.bids.push([parseFloat(item[0]), parseFloat(item[1])]);
-						this.orderBookBids.push(aItem);
-						this.updateMainData(item, 'bids');
-					}
-				});
-
-				res.data.asks.forEach(item => {
-					if (this.orderBookAsks.length > 21) {
-						this.orderBookAsks.shift();
-					}
-
-					if (parseFloat(item[1]) > 0) {
-						let aItem = {
-							price: parseFloat(item[0]).toFixed(8),
-							amount: parseFloat(item[1]).toFixed(8),
-							total: `${(item[0] * item[1]).toFixed(8)}`
-						};
-
-						points.asks.push([parseFloat(item[0]), parseFloat(item[1])]);
-						this.orderBookAsks.push(aItem);
-						this.updateMainData(item, 'asks');
-					}
-				});
-
-				this.setDepthChartData(points);
-			});
-	}
-
-	private openDepthStream(): void {
-		/* this.websocketService.closeLocalDepthStream(); */
-
-		/* if (this.currentSymbol.gio) {
-			this.websocketService.openLocalDepthStream();
-			this.websocketService
-				.localDepthStreamMessage
-				.subscribe(msg => {
-					console.log(msg);
-				});
-
-			return;
-		} */
-
-		this.websocketService.closeDepthStream();
-		this.websocketService.openDepthStream(this.currentSymbol.symbol);
-
-		this.websocketService
-			.depthStreamMessage
-			.subscribe(msg => {
-				if (msg) {
-					const messageData = JSON.parse(msg.data);
-					// console.log(messageData);
-
-					if (messageData['e'] == "depthUpdate") {
-						let points = { asks: [], bids: [] };
-
-						messageData['b'].forEach(item => {
-							if (this.orderBookBids.length > 21) {
-								this.orderBookBids.shift();
-							}
-
-							if (parseFloat(item[1]) > 0) {
-								let aItem = {
-									price: parseFloat(item[0]).toFixed(8),
-									amount: parseFloat(item[1]).toFixed(8),
-									total: `${(item[0] * item[1]).toFixed(8)}`
-								};
-
-								points.bids.push([parseFloat(item[0]), parseFloat(item[1])]);
-								this.orderBookBids.push(aItem);
-								this.updateMainData(item, 'bids');
-							}
-						});
-
-						messageData['a'].forEach(item => {
-							if (this.orderBookAsks.length > 21) {
-								this.orderBookAsks.shift();
-							}
-
-							if (parseFloat(item[1]) > 0) {
-								let aItem = {
-									price: parseFloat(item[0]).toFixed(8),
-									amount: parseFloat(item[1]).toFixed(8),
-									total: `${(item[0] * item[1]).toFixed(8)}`
-								};
-
-								points.asks.push([parseFloat(item[0]), parseFloat(item[1])]);
-								this.orderBookAsks.push(aItem);
-								this.updateMainData(item, 'asks');
-							}
-						});
-
-						this.setDepthChartData(points);
-					}
-				}
-			});
-	}
+	public pairs: Pair[];
 
 	private initTradeForm(): void {
 		this.tradeForm = new FormGroup({
-			baseAsset: new FormControl(this.currentSymbol.baseAsset, [Validators.required]),
-			quoteAsset: new FormControl(this.currentSymbol.quoteAsset, [Validators.required]),
+			baseAsset: new FormControl("ETH", [Validators.required]),
+			quoteAsset: new FormControl("BTC", [Validators.required]),
 			type: new FormControl(OrderType.Buy, [Validators.required]),
-			price: new FormControl(this.orderPrice, [Validators.required]),
-			amount: new FormControl(this.orderAmount, [Validators.required]),
-			total: new FormControl(this.orderTotal, [Validators.required]),
+			price: new FormControl(null, [Validators.required]),
+			amount: new FormControl(null, [Validators.required]),
+			total: new FormControl(null, [Validators.required]),
 		});
 	}
 
 	public submitOrder(form: FormGroup): void {
-		// console.log(form);
-		if (form.invalid) {
-			// alert('form invalid');
-			return;
-		}
-		//buy
-		if (this.buyCell == false) {
-			if (this.orderAmount > this.maxQuoteAsset) {
-				this.orderError = true;
-				setTimeout(() => {
-					this.orderError = false;
-				}, 3000);
-				return;
-			}
-		}
-		//sell
-		if (this.buyCell != false) {
-			if (this.orderAmount > this.maxBaseAsset) {
-				this.orderError = true;
-				setTimeout(() => {
-					this.orderError = false;
-				}, 3000);
-				return;
-			}
-		}
-
-
-		// alert('form valid');
-
-		this.loader = true;
-		this.tradeService
-			.createOrder(form.value)
-			.subscribe(res => {
-				if (!res.success) {
-					//alert(res.message);
-					this.loader = false;
-				}
-
-				this.loadOrderBook();
-				this.loadTrades();
-				this.loader = false;
-			});
+		console.log(form);
 	}
-
-
 
 	private initSearchForm(): void {
 		this.searchForm = new FormGroup({
@@ -484,22 +88,16 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 			.valueChanges
 			.debounceTime(500)
 			.subscribe(value => {
-				if (!value) {
-					// this.symbols = this.symbols;
+				/* if (!value) {
 					this.viewSymbols = this.symbols;
-					// console.log(this.viewSymbols);
 					return;
 				}
+
 				this.viewSymbols = this.symbols
 					.filter(x =>
 						x.symbol.toLowerCase().includes(`${value}`.toLowerCase()) ||
-						x.symbol.toLowerCase().includes(`${value}`.toLowerCase()));
-				// this.symbols = this.symbols
-				// 	.filter(x =>
-				// 		x.symbol.toLowerCase().includes(`${value}`.toLowerCase()) ||
-				// 		x.symbol.toLowerCase().includes(`${value}`.toLowerCase()));
+						x.symbol.toLowerCase().includes(`${value}`.toLowerCase())); */
 			});
-		// console.log(this.viewSymbols);
 	}
 
 	constructor(
@@ -524,7 +122,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 			});
 	}
 
-	ngOnInit() {
+	ngOnInit(): void {
 		this.authService
 			.isLoggedIn
 			.subscribe(logged => {
@@ -535,501 +133,33 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit, OnDes
 			scrollContainer: true
 		});
 
-		this.loadSymbols();
-
 		this.initSearchForm();
+		this.initTradeForm();
+	}
 
-		this.searchForm
-			.controls['search']
-			.valueChanges
-			.debounceTime(500)
-			.subscribe(value => {
-				if (!value) {
-					this.viewSymbols = this.symbols;
-					// console.log(this.viewSymbols);
+	// Load trade pairs
+	public loadPairs(): void {
+		this.tradeService
+			.getPairs()
+			.subscribe(res => {
+				if (!res.success) {
+					console.log(res.message);
 					return;
 				}
-				this.viewSymbols = this.symbols
-					.filter(x =>
-						x.symbol.toLowerCase().includes(`${value}`.toLowerCase()) ||
-						x.symbol.toLowerCase().includes(`${value}`.toLowerCase()));
+
+				this.pairs = res.data;
 			});
-
-		if (!this.isLoggedIn) {
-
-		}
-
 	}
-
-	ngOnDestroy() {
-		this.websocketService.closeDepthStream();
-		this.websocketService.closeLocalDepthStream();
-	}
-
-	private async getCandlestickData() {
-		const symbol = this.currentSymbol.symbol;
-		const data = await this.binanceService
-			.getCandlestickData(symbol)
-			.toPromise();
-
-		return data;
-	}
-
-	private async getOrderBook() {
-		const symbol = this.currentSymbol.symbol;
-		const data = await this.binanceService
-			.getOrderBook(symbol)
-			.toPromise();
-
-		const asks = [];
-		data.data.asks.forEach(ask => {
-			asks.push([parseFloat(ask[0]), parseFloat(ask[1])]);
-		});
-
-		const bids = [];
-		data.data.bids.forEach(bid => {
-			bids.push([parseFloat(bid[0]), parseFloat(bid[1])]);
-		});
-
-		return { asks: asks, bids: bids };
-	}
-
-	private async setPriceChartData() {
-		const data = await this.getCandlestickData();
-		let ohlc = [],
-			volume = [],
-			dataLength = data.data.length,
-			i = 0;
-
-		for (i; i < dataLength; i += 1) {
-			ohlc.push([
-				new Date(data.data[i][0] * 1000).toString(), // the date
-				data.data[i][1], // open
-				data.data[i][2], // high
-				data.data[i][3], // low
-				data.data[i][4] // close
-			]);
-			volume.push([
-				new Date(data.data[i][0] * 1000).toString(), // the date
-				data.data[i][5] // the volume
-			]);
-		}
-
-		this.priceChartData = { ohlc, volume };
-	}
-
-	private async initPriceChart() {
-		await this.setPriceChartData();
-
-		this.priceChartOptions = {
-			chart: { type: 'area' },
-			title: null,
-
-			credits: { enabled: false },
-			rangeSelector: {
-				buttons: [{
-					type: 'month',
-					count: 2,
-					text: '2m'
-				}, {
-					type: 'all',
-					count: 1,
-					text: 'All'
-				}],
-				selected: 1
-			},
-			xAxis: [{
-				labels: {
-					style: {
-						color: '#a2afbe'
-					}
-				},
-			}],
-			yAxis: [{
-				labels: {
-					align: 'right',
-					style: {
-						color: '#a2afbe'
-					},
-					useHTML: true,
-					format: '<span style="font-family: Helvetica Neue">${value}</span>',
-				},
-				title: {
-					text: ''
-				},
-				resize: {
-					enabled: true
-				}
-			}, {
-				labels: {
-					align: 'left',
-					style: {
-						color: '#a2afbe'
-					},
-					enabled: false,
-				},
-				title: {
-					text: ''
-				},
-				visible: false,
-				resize: {
-					enabled: true
-				}
-			}],
-			series: [{
-				type: 'candlestick',
-				name: 'BTC',
-				data: this.priceChartData.ohlc,
-				zIndex: 3,
-				pointWidth: 8
-			}, {
-				type: 'column',
-				name: 'Volume',
-				data: this.priceChartData.volume,
-				yAxis: 1,
-				zIndex: 2,
-				pointWidth: 4
-			}]
-
-
-			/* series: [{
-				type: 'candlestick',
-				name: 'Line1', 
-				data: data, 
-				dataGrouping: {
-					units: [[ 'week', [1] ], [ 'month', [1, 2, 3, 4, 6] ]]
-				}
-			}] */
-		};
-	}
-
-	private async setDepthChartData(points?: { asks: any[], bids: any[] }) {
-		if (!this.orderBook) {
-			this.orderBook = await this.getOrderBook();
-		}
-
-		if (points) {
-			points.bids.forEach(point => {
-				this.orderBook.bids.unshift(point);
-			});
-
-			points.asks.forEach(point => {
-				this.orderBook.asks.unshift(point);
-			});
-		}
-
-		const bestBid = this.getBestBid(this.orderBook.bids);
-		const bestAsk = this.getBestAsk(this.orderBook.asks);
-		const midPrice = (bestAsk + bestBid) / 2;
-
-		let minAxisExtr = midPrice - 2000;
-		//let curMinAxisExtr = minAxisExtr;
-
-		let maxAxisExtr = midPrice + 2000;
-		//let curMaxAxisExtr = maxAxisExtr;
-
-		//формирование левого графика
-		this.dataDepthBids = [];
-		let summBids = 0;
-		this.orderBook.bids.forEach(el => {
-			if (el[0] > minAxisExtr && el[0] < maxAxisExtr) {
-				summBids += Number(el[1]);
-				this.dataDepthBids[el[0]] = summBids;
-			}
-		});
-		let chartBidsData = this.convertToGraphData(this.dataDepthBids);
-
-		//формирование правого графика
-		this.dataDepthAsks = [];
-		let summAsks = 0;
-		this.orderBook.asks.forEach(el => {
-			if (el[0] > (midPrice - 2000) && el[0] < (midPrice + 2000)) {
-				summAsks += Number(el[1]);
-				this.dataDepthAsks[el[0]] = summAsks;
-			}
-		});
-		let chartAsksData = this.convertToGraphData(this.dataDepthAsks);
-
-
-		this.depthChartData = {
-			asks: chartAsksData,
-			bids: chartBidsData
-		};
-
-		if (this.Highcharts.charts[1]) {
-			this.Highcharts.charts[1].series[0].update({
-				name: 'bids',
-				type: 'area',
-				data: this.depthChartData.bids
-			});
-
-			this.Highcharts.charts[1].series[1].update({
-				name: 'asks',
-				type: 'area',
-				data: this.depthChartData.asks
-			});
-		}
-	}
-
-	private async initDepthChart() {
-		await this.setDepthChartData();
-
-		this.depthChartOptions = {
-			chart: { type: 'area', zoomType: 'xy', animation: true },
-			rangeSelector: {
-				selected: 1
-			},
-			title: null,
-			credits: { enabled: false },
-			xAxis: {
-				minPadding: 0,
-				maxPadding: 0,
-				plotLines: [{
-					color: '#888',
-					value: 0.1523,
-					width: 1,
-					label: {
-						text: 'Actual price',
-						rotation: 90
-					}
-				}],
-				labels: {
-					style: {
-						fontFamily: 'Helvetica Neue',
-						color: '#ffffff',
-						fontSize: '10px'
-					}
-				},
-				title: {
-					text: 'Price',
-					style: {
-						fontFamily: 'Helvetica Neue',
-						color: '#ffffff',
-						fontSize: '10px'
-					}
-				}
-			},
-			yAxis: [{
-				lineWidth: 1,
-				gridLineWidth: 1,
-				title: null,
-				tickWidth: 1,
-				tickLength: 5,
-				tickPosition: 'inside',
-				labels: {
-					align: 'left',
-					x: 8,
-					style: {
-						fontFamily: 'Helvetica Neue',
-						color: '#ffffff',
-						fontSize: '11px',
-						opacity: 0.4
-					}
-				}
-			}, {
-				opposite: true,
-				linkedTo: 0,
-				lineWidth: 1,
-				gridLineWidth: 0,
-				title: null,
-				tickWidth: 1,
-				tickLength: 5,
-				tickPosition: 'inside',
-				labels: {
-					align: 'right',
-					x: -8,
-					style: {
-						fontFamily: 'Helvetica Neue',
-						color: '#ffffff',
-						fontSize: '11px',
-						opacity: 0.4
-					}
-				}
-			}],
-			legend: { enabled: false },
-			plotOptions: {
-				area: {
-					fillOpacity: 0.2,
-					lineWidth: 1,
-					step: 'center'
-				},
-				series: {
-					turboThreshold: 10000,
-					showInNavigator: true
-				}
-			},
-			tooltip: {
-				headerFormat: '<span style="font-size=10px;">Price: {point.key}</span><br/>',
-				valueDecimals: 2
-			},
-			series: [{
-				name: 'bids',
-				type: 'area',
-				data: this.depthChartData.bids
-			}, {
-				name: 'asks',
-				type: 'area',
-				data: this.depthChartData.asks
-			}]
-		};
-	}
-
-	private loadPrice(base: string, quote: string, ) {
-		if (this.currentSymbol.gio) {
-			this.tradeService
-				.getPriceByPair(base, quote)
-				.subscribe(res => {
-					if (!res.success) {
-						//alert(res.message);
-						return;
-					}
-					this.orderPrice = res.data;
-				});
-		}
-		// this.orderPrice = 0;
-		return;
-
-	}
-
-
-
-
-	public getBalance(): void {
-		if (this.isLoggedIn) {
-			this.walletsService
-				.getMe()
-				.subscribe(res => {
-					if (!res.success) {
-						//alert(res.message);
-						return;
-					}
-					this.MyWallets = res.data;
-					this.baseWallet = this.MyWallets.find(x => x.coin.shortName == this.currentSymbol.baseAsset);
-					this.quoteWallet = this.MyWallets.find(x => x.coin.shortName == this.currentSymbol.quoteAsset);
-
-					this.maxBaseAsset = this.baseWallet.balance;
-					this.maxQuoteAsset = this.quoteWallet.balance;
-
-				});
-		}
-	}
-
-	private calcWithNewPrice(event?: any) {
-		setTimeout(() => {
-			this.orderPrice = this.tradeForm.controls['price'].value;
-			this.orderPrice = Number(this.orderPrice);
-			this.orderPrice = this.orderPrice.toFixed(8);
-
-			// console.log(this.orderPrice);
-			if (this.orderPrice == null) {
-				this.orderTotal = null;
-			}
-			if (this.orderPrice && this.orderAmount) {
-				this.orderTotal =   Number(this.orderTotal);
-				this.orderTotal = (this.orderAmount * this.orderPrice).toFixed(6);
-			}
-			this.orderPrice = Number(this.orderPrice);
-			this.orderPrice = this.orderPrice.toFixed(8);
-		}, 1000);
-
-	}
-
-	private calcWithNewAmount(persentAmount?: any) {
-		setTimeout(() => {
-			this.orderAmount = this.tradeForm.controls['amount'].value;
-			this.orderAmount = Number(this.orderAmount);
-			this.orderAmount = this.orderAmount.toFixed(6);
-			console.log(this.orderPrice);
-			if (persentAmount) {
-				this.orderAmount = persentAmount;
-			}
-			if (this.orderAmount == null) {
-				this.orderTotal = null;
-			}
-			if (this.orderPrice && this.orderAmount) {
-				this.orderTotal =   Number(this.orderTotal);
-				this.orderTotal = (this.orderAmount * this.orderPrice).toFixed(6);
-				// this.orderPrice =   Number(this.orderPrice);
-				// this.orderPrice = this.orderPrice.toFixed(2);
-			}
-			if (persentAmount) {
-				// this.orderAmount = persentAmount.toFixed(8);
-			}
-			this.orderAmount = Number(this.orderAmount);
-			this.orderAmount = this.orderAmount.toFixed(6);
-		}, 1000);
-	}
-
-	public calcWithNewTotal() {
-		setTimeout(() => {
-			this.orderTotal = this.tradeForm.controls['total'].value;
-			this.orderTotal = Number(this.orderTotal);
-			this.orderTotal = this.orderTotal.toFixed(6);
-			if (this.orderTotal == null) {
-				this.orderAmount = null;
-				this.orderPrice = null;
-			}
-			if (this.orderAmount && this.orderTotal) {
-				this.orderAmount = (this.orderTotal / this.orderPrice);
-
-				this.orderAmount =   Number(this.orderAmount);
-				this.orderAmount = (this.orderTotal / this.orderPrice).toFixed(6);
-				// this.orderPrice = this.orderPrice.toFixed(2);
-			}
-			this.orderTotal = Number(this.orderTotal);
-			this.orderTotal = this.orderTotal.toFixed(6);
-		}, 1000);
-	}
-
-
 
 	public changeOrderAct(act: string) {
 		if (act == "buy") {
 			this.buyCellBtn = "PLACE BUY ORDER"
 			this.buyCell = false;
 			this.tradeForm.controls['type'].setValue(OrderType.Buy);
-			this.calcWithNewAmount();
-
-		}
-		if (act == "sell") {
+		} else if (act == "sell") {
 			this.buyCellBtn = "PLACE SELL ORDER"
 			this.buyCell = true;
 			this.tradeForm.controls['type'].setValue(OrderType.Sell);
-			this.calcWithNewAmount();
-
 		}
-		if (this.tradeForm.value['type'] == OrderType.Buy) {
-
-			// if(this.orderPrice != 0){
-			// 	this.quoteAsset = this.baseAsset / this.orderPrice;
-			// }
-			// this.orderAmount = this.quoteAsset;
-			// this.orderTotal = this.baseAsset;
-
-		}
-
-		if (this.tradeForm.value['type'] == OrderType.Sell) {
-
-			// this.orderAmount = this.quoteAsset;
-			// this.baseAsset = this.quoteAsset * this.orderPrice;
-			// this.orderTotal = this.baseAsset;
-		}
-
-	}
-
-	public calcPercent(percent: number) {
-		this.nowPercent = percent;
-		// console.log(percent);
-		//buy
-		if (!this.buyCell) {
-			this.orderAmount = this.maxQuoteAsset / 100 * this.nowPercent;
-		}
-		//sll
-		if (this.buyCell) {
-			this.orderAmount = this.maxBaseAsset / 100 * this.nowPercent;
-		}
-		// console.log(this.orderAmount);
-		this.persentAmount = this.orderAmount;
-		this.calcWithNewAmount(this.persentAmount);
 	}
 }

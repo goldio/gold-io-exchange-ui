@@ -20,7 +20,7 @@ export class TradeService extends BaseHttpService {
     }
 
     public getPairs(): Observable<DataResponse<Pair[]>> {
-        return this.get(`${this.apiUrl}/coins/pairs`)
+        return this.get(`${this.apiUrl}/trade/pairs`)
             .map(response => response.json());
     }
     

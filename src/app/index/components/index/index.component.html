@@ -1,471 +1,473 @@
 <section class="section index" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }">
-  <div id="left" style="top: 60px" [ngClass]="{ 'visible': responciveTabs == 1 }">
-    <form class="left-content-block" [formGroup]="tradeForm" (ngSubmit)="submitOrder(tradeForm)" *ngIf="currentSymbol">
-      <div class="left-content box-responcive visible1" >
-        <div class="left-content-balance" *ngIf="isLoggedIn">
-          <h4>Balance</h4>
-          <div class="left-content-balance-item" *ngIf="quoteWallet">
-            <b>{{ currentSymbol.quoteAsset }}</b>
-            {{ maxQuoteAsset.toFixed(8) }}
-            <!-- <div class="button-plus" type="button" (click)="calcQuoteAss(false)" *ngIf="isLoggedIn"><span>+</span></div>
-            <div class="button-minus" type="button" (click)="calcQuoteAss(true)" *ngIf="isLoggedIn"><span>-</span></div>
-            <div class="button-plus" type="button" *ngIf="!isLoggedIn"><span>+</span></div>
-            <div class="button-minus" type="button" *ngIf="!isLoggedIn"><span>-</span></div> -->
-          </div>
-          <div class="left-content-balance-item" *ngIf="baseWallet">
-            <b>{{ currentSymbol.baseAsset }}</b>
-            {{ maxBaseAsset.toFixed(8) }}
-            <!-- <div class="button-plus" type="button" (click)="calcBaseAss(false)" *ngIf="isLoggedIn"><span>+</span></div>
-            <div class="button-minus" type="button" (click)="calcBaseAss(true)" *ngIf="isLoggedIn"><span>-</span></div>
-            <div class="button-plus" type="button" *ngIf="!isLoggedIn"><span>+</span></div>
-            <div class="button-minus" type="button" *ngIf="!isLoggedIn"><span>-</span></div> -->
-          </div>
-        </div>
-        <div class="pos-rel">
-          <div class="box visible">
-            <div class="left-content-sell">
-              <div class="double-btns" [ngClass]="{
-                                'change-double-btn' : buyCell
-                            }">
-                <button class="" type="button" (click)='changeOrderAct("buy")'>BUY</button>
-                <button class="" type="button" (click)='changeOrderAct("sell")'>SELL</button>
-                <div class="choose"></div>
-              </div>
-              <div class="left-content-sell-input">
-                Price
-                <!-- <em>
-                  <input type="radio" class="radio" id="radio1" name="radio">
-                  <label class="radio1 radioMarket" for="radio1">Market</label>
-                  <input type="radio" class="radio" id="radio2" name="radio" checked>
-                  <label class="radio1" for="radio2">Limit</label>
-                </em> -->
-                <input placeholder="1.00000000" type="number" formControlName="price" required   [(ngModel)]="orderPrice"
-                  (keyup)="calcWithNewPrice($event)" *ngIf="isLoggedIn">
-                  <input placeholder="1.00000000" type="number" formControlName="price" required  [(ngModel)]="orderPrice"
-                  (keyup)="calcWithNewPrice()" *ngIf="!isLoggedIn" disabled>
-                <b class="input-decor">{{ currentSymbol.quoteAsset }}</b>
-              </div>
-              <div class="left-content-sell-input">
-                Amount
-                <input placeholder="1.00000000" type="number" formControlName="amount" required  [(ngModel)]="orderAmount"
-                  (keyup)="calcWithNewAmount()" *ngIf="isLoggedIn">
-                  <input placeholder="1.00000000" type="number" formControlName="amount" required  [(ngModel)]="orderAmount"
-                  (keyup)="calcWithNewAmount()" *ngIf="!isLoggedIn" disabled>
-                <b>{{ currentSymbol.baseAsset }}</b>
-              </div>
-              <div class="left-content-sell-input percents">
+	<div id="left" style="top: 60px" [ngClass]="{ 'visible': responciveTabs == 1 }">
 
-                <div class="percent" (click)="calcPercent(25)"><span>25%</span></div>
-                <div class="percent" (click)="calcPercent(50)"><span>50%</span></div>
-                <div class="percent" (click)="calcPercent(75)"><span>75%</span></div>
-                <div class="percent" (click)="calcPercent(100)"><span>100%</span></div>
-              </div>
-              <div class="left-content-sell-input">
-                Total
-                <input placeholder="1.00000000" type="number" formControlName="total" required  [(ngModel)]="orderTotal"
-                  (keyup)="calcWithNewTotal()" *ngIf="isLoggedIn">
-                  <input placeholder="1.00000000" type="number" formControlName="total" required  [(ngModel)]="orderTotal"
-                  (keyup)="calcWithNewTotal()" *ngIf="!isLoggedIn" disabled>
-                <b>{{ currentSymbol.quoteAsset }}</b>
-              </div>
-              <button class="transparent-btn" type="submit" *ngIf="isLoggedIn" [attr.disabled]="loader ? true : null">{{ buyCellBtn }}
-                <div class="loader" [ngClass]="{'loader-open':loader}">
-                      <div class="lds-ellipsis">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                      </div>
-                    </div>
-              </button>
-              <div class="orderError" [ngClass]="{'orderError_open':orderError}"><span>Insufficient funds!</span></div> 
+		<form class="left-content-block" [formGroup]="tradeForm" (ngSubmit)="submitOrder(tradeForm)">
+			<div class="left-content box-responcive visible1">
+				<div class="left-content-balance" *ngIf="isLoggedIn">
+					<h4>Balance</h4>
 
-            </div>
-          </div>
-        </div>
-        <div class="left-content-buttons" *ngIf="!isLoggedIn">
-          <button type="button" class="main-btn main-btn-hov" routerLink="/authorization">SIGN IN</button>
-          <button type="button" class="transparent-btn" routerLink="/registration" style="margin-top: 22px;">REGISTER</button>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div id="content">
-    <div id="top">
-      <div class="top-currency" *ngIf="currentSymbol">
-        <span class="top-currency-btn" (click)="currencyBox = !currencyBox">
-          <img src="../../../../assets/images/eth.svg" alt="">
-          <div style="padding: 4px 6px 0 6px;">{{ currentSymbol.baseAsset }} / {{ currentSymbol.quoteAsset }}</div>
-          <img src="../../../../assets/images/btc.svg" alt="">
-        </span>
-        <div class="top-currency-dropdown" *ngIf="symbols" [ngClass]="{
-                'tcd-open': currencyBox
-                }">
-          <form class="top-currency-dropdown-search" [formGroup]="searchForm">
-            <input type="text" placeholder="Search" formControlName="search">
-            <button type="submit"></button>
-          </form>
+					<div class="left-content-balance-item">
+						<b>BTC</b>0.00000000
+					</div>
 
-          <div class="top-currency-dropdown-title">
-            <span>Symbol</span>
-            <span>Base</span>
-            <span>Quote</span>
-          </div>
-          <div class="top-currency-items-wrapper" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
-            <div class="top-currency-dropdown-item" *ngFor="let viewSymbol of viewSymbols" (click)="setSymbol(viewSymbol)">
-              <span><b>{{ viewSymbol.baseAsset }}/{{ viewSymbol.quoteAsset }}</b></span>
-              <span>{{ viewSymbol.baseAsset }}</span>
-              <span>{{ viewSymbol.quoteAsset }}</span>
-              <!-- <span>2213.466</span>
+					<div class="left-content-balance-item">
+						<b>ETH</b>0.00000000
+					</div>
+				</div>
+
+				<div class="pos-rel">
+					<div class="box visible">
+						<div class="left-content-sell">
+							<div class="double-btns" [ngClass]="{'change-double-btn': buyCell}">
+								<button class="" type="button" (click)='changeOrderAct("buy")'>BUY</button>
+								<button class="" type="button" (click)='changeOrderAct("sell")'>SELL</button>
+								<div class="choose"></div>
+							</div>
+
+							<div class="left-content-sell-input">
+								Price
+								<input placeholder="1.00000000" type="number" formControlName="price" required *ngIf="isLoggedIn">
+								<b class="input-decor">BTC</b>
+							</div>
+
+							<div class="left-content-sell-input">
+								Amount
+								<input placeholder="1.00000000" type="number" formControlName="amount" required *ngIf="isLoggedIn">
+								<b>ETH</b>
+							</div>
+
+							<div class="left-content-sell-input percents">
+								<div class="percent"><span>25%</span></div>
+								<div class="percent"><span>50%</span></div>
+								<div class="percent"><span>75%</span></div>
+								<div class="percent"><span>100%</span></div>
+							</div>
+
+							<div class="left-content-sell-input">
+								Total
+								<input placeholder="1.00000000" type="number" formControlName="total" required *ngIf="isLoggedIn">
+								<b>BTC</b>
+							</div>
+							<button class="transparent-btn" type="submit" *ngIf="isLoggedIn"
+								[attr.disabled]="loader ? true : null">{{ buyCellBtn }}
+								<div class="loader" [ngClass]="{'loader-open':loader}">
+									<div class="lds-ellipsis">
+										<div></div>
+										<div></div>
+										<div></div>
+										<div></div>
+									</div>
+								</div>
+							</button>
+							<div class="orderError" [ngClass]="{'orderError_open':orderError}"><span>Insufficient
+									funds!</span></div>
+
+						</div>
+					</div>
+				</div>
+				<div class="left-content-buttons" *ngIf="!isLoggedIn">
+					<button type="button" class="main-btn main-btn-hov" routerLink="/authorization">SIGN IN</button>
+					<button type="button" class="transparent-btn" routerLink="/registration"
+						style="margin-top: 22px;">REGISTER</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div id="content">
+		<div id="top">
+			<div class="top-currency">
+				<span class="top-currency-btn" (click)="currencyBox = !currencyBox">
+					<img src="../../../../assets/images/eth.svg" alt="">
+					<div style="padding: 4px 6px 0 6px;">ETH / BTC</div>
+					<img src="../../../../assets/images/btc.svg" alt="">
+				</span>
+
+				<div class="top-currency-dropdown" [ngClass]="{'tcd-open': currencyBox}">
+
+					<form class="top-currency-dropdown-search" [formGroup]="searchForm">
+						<input type="text" placeholder="Search" formControlName="search">
+						<button type="submit"></button>
+					</form>
+
+					<div class="top-currency-dropdown-title">
+						<span>Symbol</span>
+						<span>Base</span>
+						<span>Quote</span>
+					</div>
+
+					<div class="top-currency-items-wrapper" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+						<div class="top-currency-dropdown-item">
+							<span><b>ETH/BTC</b></span>
+							<span>ETH</span>
+							<span>BTC</span>
+							<!-- <span>2213.466</span>
                             <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span> -->
-            </div>
-          </div>
-        </div>
+						</div>
 
-      </div>
+						<div class="top-currency-dropdown-item">
+							<span><b>EOS/GIO</b></span>
+							<span>EOS</span>
+							<span>GIO</span>
+							<!-- <span>2213.466</span>
+                            <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span> -->
+						</div>
+					</div>
+				</div>
 
-      <div class="top-last-price">
-        <div class="top-last-price-item">
-          <b style="text-transform: uppercase;">LAST PRICE</b> 0.034337
-          <span>$137.81</span>
-        </div>
-        <div class="top-last-price-item">
-          <b style="text-transform: uppercase;">24h change</b>0.001899
-          <span>+5.85%</span>
-        </div>
-        <div class="top-last-price-item">
-          <b style="text-transform: uppercase;">24h high</b>0.037672
-          <em></em>
-        </div>
-        <div class="top-last-price-item">
-          <b style="text-transform: uppercase;">24h LOW</b> 0.032376
-          <em></em>
-        </div>
-        <div class="top-last-price-item">
-          <b style="text-transform: uppercase;">24h volume</b> 19992.65 BTC
-        </div>
-      </div>
-      <!--
+			</div>
+
+			<div class="top-last-price">
+				<div class="top-last-price-item">
+					<b style="text-transform: uppercase;">LAST PRICE</b> 0.034337
+					<span>$137.81</span>
+				</div>
+				<div class="top-last-price-item">
+					<b style="text-transform: uppercase;">24h change</b>0.001899
+					<span>+5.85%</span>
+				</div>
+				<div class="top-last-price-item">
+					<b style="text-transform: uppercase;">24h high</b>0.037672
+					<em></em>
+				</div>
+				<div class="top-last-price-item">
+					<b style="text-transform: uppercase;">24h LOW</b> 0.032376
+					<em></em>
+				</div>
+				<div class="top-last-price-item">
+					<b style="text-transform: uppercase;">24h volume</b> 19992.65 BTC
+				</div>
+			</div>
+			<!--
             <a href="" class="login">User login</a>
             <a href="" class="register">Create new account</a>
             -->
-    </div>
-    <ul class="reset responcive-tabs visible">
-      <div class="swiper-container">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
+		</div>
+		<ul class="reset responcive-tabs visible">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
 
-            <li class="current1" (click)="responciveTabs = 1" [ngClass]="{
+						<li class="current1" (click)="responciveTabs = 1" [ngClass]="{
                                 'active': responciveTabs == 1
                             }">BALANCE</li>
-            <li (click)="responciveTabs = 2" [ngClass]="{
+						<li (click)="responciveTabs = 2" [ngClass]="{
                                 'active': responciveTabs == 2
                             }">ORDER
-              BOOK</li>
-            <li (click)="responciveTabs = 3" [ngClass]="{
+							BOOK</li>
+						<li (click)="responciveTabs = 3" [ngClass]="{
                                 'active': responciveTabs == 3
                             }">TRADE
-              HISTORY</li>
-            <li (click)="chart = true && responciveTabs = 4" [ngClass]="{
+							HISTORY</li>
+						<li (click)="chart = true && responciveTabs = 4" [ngClass]="{
                                 'active': responciveTabs == 4
                             }">PRICE
-              CHART</li>
-            <li (click)="responciveTabs = 6" [ngClass]="{
+							CHART</li>
+						<li (click)="responciveTabs = 6" [ngClass]="{
                                 'active': responciveTabs == 5
                             }">OPEN
-              ORDERS</li>
+							ORDERS</li>
+					</div>
+				</div>
+			</div>
+		</ul>
+		<div class="gradients" style="position:absolute;left:-9999px;">
+			<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+				<defs>
 
-          </div>
-        </div>
-      </div>
-    </ul>
-    <div class="gradients" style="position:absolute;left:-9999px;">
-      <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-
-          <filter id="shadow" filterUnits="userSpaceOnUse" x="0" y="0" width="1200" height="400">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur" />
-            <feOffset in="blur" dx="1" dy="1" result="offsetBlr" />
-            <feFlood flood-color="rgba(237, 114, 72, 0.2)" />
-            <feComposite operator="in" in2="offsetBlr" result="colBlur" />
-            <feMerge>
-              <feMergeNode in="colBlur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-      </svg>
-      <svg xmlns="http://www.w3.org/2000/svg" width="200px" height="200px">
-        <defs>
-          <linearGradient id="lgrad1" x1="50%" y1="0%" x2="50%" y2="100%">
-            <stop offset="0%" style="stop-color:rgb(30,25,45);stop-opacity:1" />
-            <stop offset="100%" style="stop-color:rgb(30,25,45);stop-opacity:1" />
-          </linearGradient>
-        </defs>
-        <rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad1)" />
-      </svg>
-      <svg xmlns="http://www.w3.org/2000/svg" width="200px" height="200px">
-        <defs>
-          <linearGradient id="lgrad2" x1="50%" y1="0%" x2="50%" y2="100%">
-            <stop offset="0%" style="stop-color:rgb(28,49,56);stop-opacity:1" />
-            <stop offset="100%" style="stop-color:rgb(28,49,56);stop-opacity:1" />
-          </linearGradient>
-        </defs>
-        <rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad2)" />
-      </svg>
-    </div>
-
+					<filter id="shadow" filterUnits="userSpaceOnUse" x="0" y="0" width="1200" height="400">
+						<feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur" />
+						<feOffset in="blur" dx="1" dy="1" result="offsetBlr" />
+						<feFlood flood-color="rgba(237, 114, 72, 0.2)" />
+						<feComposite operator="in" in2="offsetBlr" result="colBlur" />
+						<feMerge>
+							<feMergeNode in="colBlur" />
+							<feMergeNode in="SourceGraphic" />
+						</feMerge>
+					</filter>
+				</defs>
+			</svg>
+			<svg xmlns="http://www.w3.org/2000/svg" width="200px" height="200px">
+				<defs>
+					<linearGradient id="lgrad1" x1="50%" y1="0%" x2="50%" y2="100%">
+						<stop offset="0%" style="stop-color:rgb(30,25,45);stop-opacity:1" />
+						<stop offset="100%" style="stop-color:rgb(30,25,45);stop-opacity:1" />
+					</linearGradient>
+				</defs>
+				<rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad1)" />
+			</svg>
+			<svg xmlns="http://www.w3.org/2000/svg" width="200px" height="200px">
+				<defs>
+					<linearGradient id="lgrad2" x1="50%" y1="0%" x2="50%" y2="100%">
+						<stop offset="0%" style="stop-color:rgb(28,49,56);stop-opacity:1" />
+						<stop offset="100%" style="stop-color:rgb(28,49,56);stop-opacity:1" />
+					</linearGradient>
+				</defs>
+				<rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad2)" />
+			</svg>
+		</div>
 
 
 
 
 
-    <div class="content-left box-responcive" [ngClass]="{
-            'visible': responciveTabs == 2
-        }" *ngIf="currentSymbol">
-      <h2>ORDER BOOK</h2>
-      <span style="padding-left: 25px;">Price({{ currentSymbol.quoteAsset }})</span>
-      <span>Amount({{ currentSymbol.baseAsset }})</span>
-      <span>Total({{ currentSymbol.quoteAsset }})</span>
 
-      <div class="content-left-info" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
-        <div class="content-left-red">
-          <div class="content-left-red-item left-red" *ngFor="let item of orderBookBids">
-            <span>{{ item.price }}</span>
-            <span>{{ item.amount }}</span>
-            <span>{{ item.total }}</span>
-            <!-- <em style="width: 2px;"></em> -->
-          </div>
-        </div>
-        <div class="content-left-sticky">
-          <span class="content-left-sticky-green">0.034337 </span>
-          <span class="content-left-sticky-text">$137.81</span>
-        </div>
-        <div class="content-left-red">
-          <div class="content-left-red-item left-green" *ngFor="let item of orderBookAsks">
-            <span>{{ item.price }}</span>
-            <span>{{ item.amount }}</span>
-            <span>{{ item.total }}</span>
-            <!-- <em style="width: 2px;"></em> -->
-          </div>
-        </div>
-      </div>
-    </div>
+		<div class="content-left box-responcive" [ngClass]="{'visible': responciveTabs == 2}">
+			<h2>ORDER BOOK</h2>
+			<span style="padding-left: 25px;">Price(BTC)</span>
+			<span>Amount(ETH)</span>
+			<span>Total(BTC)</span>
 
-    <div class="content-right box-responcive" [ngClass]="{
-            'visible': responciveTabs == 3
-        }" *ngIf="currentSymbol">
-      <h2>TRADE HISTORY</h2>
-      <span>Price({{ currentSymbol.quoteAsset }})</span>
-      <span>Amount({{ currentSymbol.baseAsset }})</span>
-      <span>UTC Time</span>
-      <div class="content-right-info" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
-        <div class="content-right-item" *ngFor="let item of tradeHistory">
-          <span [ngClass]="{ 'history-green': item.isBuyerMaker, 'history-red': !item.isBuyerMaker }">{{
-            item.price }}</span>
-          <span>{{ item.qty }}</span>
-          <span>{{ item.time }}</span>
-        </div>
-      </div>
-    </div>
+			<div class="content-left-info" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+				<div class="content-left-red">
+					<div class="content-left-red-item left-red">
+						<span>0.00000000</span>
+						<span>0.00000000</span>
+						<span>0.00000000</span>
+						<!-- <em style="width: 2px;"></em> -->
+					</div>
 
-    <div class="content-center" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" [ngClass]="{
+					<div class="content-left-red-item left-red">
+						<span>0.00000000</span>
+						<span>0.00000000</span>
+						<span>0.00000000</span>
+						<!-- <em style="width: 2px;"></em> -->
+					</div>
+				</div>
+				<div class="content-left-sticky">
+					<span class="content-left-sticky-green">0.034337 </span>
+					<span class="content-left-sticky-text">$137.81</span>
+				</div>
+				<div class="content-left-red">
+					<div class="content-left-red-item left-green">
+						<span>0.00000000</span>
+						<span>0.00000000</span>
+						<span>0.00000000</span>
+						<!-- <em style="width: 2px;"></em> -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="content-right box-responcive" [ngClass]="{'visible': responciveTabs == 3}">
+			<h2>TRADE HISTORY</h2>
+			<span>Price(BTC)</span>
+			<span>Amount(ETH)</span>
+			<span>UTC Time</span>
+
+			<div class="content-right-info" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+				<div class="content-right-item">
+					<!-- <span [ngClass]="{'history-green': item.isBuyerMaker, 'history-red': !item.isBuyerMaker }">0.00000000</span> -->
+					<span class="history-green">0.00000000</span>
+					<span>0.00000000</span>
+					<span>17:28</span>
+				</div>
+				<div class="content-right-item">
+					<!-- <span [ngClass]="{'history-green': item.isBuyerMaker, 'history-red': !item.isBuyerMaker }">0.00000000</span> -->
+					<span class="history-red">0.00000000</span>
+					<span>0.00000000</span>
+					<span>17:28</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="content-center" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" [ngClass]="{
             'content-center-visible': responciveTabs == 4  || responciveTabs == 6
         }">
-      <div class="content-center-chart box-responcive" [ngClass]="{
+			<div class="content-center-chart box-responcive" [ngClass]="{
                 'visible': responciveTabs == 4 
             }">
 
-        <ul class="reset content-center-tabs double-btns" [ngClass]="{
+				<ul class="reset content-center-tabs double-btns" [ngClass]="{
                     'change-double-btn': chart
                 }">
-          <button (click)="chart = false">Price chart</button>
-          <button (click)="chart = true">Depth chart</button>
-          <div class="choose"></div>
-        </ul>
+					<button (click)="chart = false">Price chart</button>
+					<button (click)="chart = true">Depth chart</button>
+					<div class="choose"></div>
+				</ul>
 
-        <div class="box price-box" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" [ngClass]="{
+				<div class="box price-box" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" [ngClass]="{
                     'visible': !chart
                     }">
-          <h2>PRICE CHART</h2>
-          <div class="chart-box" id="price-chart-box">
-            <!-- <div [chart]="priceChart"></div> -->
-            <highcharts-chart *ngIf="priceChartOptions" [Highcharts]="Highcharts" [options]="priceChartOptions" style="display: block; width: 100%; height: 100%;"></highcharts-chart>
-          </div>
-          <div class="chart-box" id="price-chart-box1" style="display:none"></div>
-        </div>
+					<h2>PRICE CHART</h2>
+					<div class="chart-box" id="price-chart-box">
+						
+					</div>
 
-        <div class="box depth-box" [ngClass]="{
+					<div class="chart-box" id="price-chart-box1" style="display:none"></div>
+				</div>
+
+				<div class="box depth-box" [ngClass]="{
                     'visible': chart
                     }">
-          <h2>DEPTH CHART</h2>
-          <div class="chart-box" id="depth-chart-box1">
-            <highcharts-chart *ngIf="depthChartOptions" [Highcharts]="Highcharts" [options]="depthChartOptions" style="display: block; width: 100%; height: 100%;"></highcharts-chart>
-          </div>
-          <div class="chart-box" id="depth-chart-box" style="display:none">
-          </div>
+					<h2>DEPTH CHART</h2>
+					<div class="chart-box" id="depth-chart-box1">
+						
+					</div>
 
-          <div class="depth_chart_control" style="display:none">
-            <button id="depth_plus" class="balances-plus">+</button>
+					<div class="chart-box" id="depth-chart-box" style="display:none">
+					</div>
 
-            <div class="depth_chart_header">
-              <div class="mid_price_label">Mid Market Price</div>
+					<div class="depth_chart_control" style="display:none">
+						<button id="depth_plus" class="balances-plus">+</button>
 
-              <div id="depth_chart_mid_price" class="mid_price">
-                0
-              </div>
-            </div>
+						<div class="depth_chart_header">
+							<div class="mid_price_label">Mid Market Price</div>
 
-            <button id="depth_minus" class="balances-minus">-</button>
-          </div>
-        </div>
+							<div id="depth_chart_mid_price" class="mid_price">
+								0
+							</div>
+						</div>
 
-      </div>
+						<button id="depth_minus" class="balances-minus">-</button>
+					</div>
+				</div>
 
-      <div class="content-center-orders box-responcive block-orders" [ngClass]="{
+			</div>
+
+			<div class="content-center-orders box-responcive block-orders" [ngClass]="{
                 'visible': responciveTabs == 6 
-            }" *ngIf="currentSymbol">
-        <div class="box visible">
-          <h2>OPEN ORDERS</h2>
-          <div class="content-orders">
-            <div class="content-orders-title">
-              <span>Size</span>
-              <span>Filled ({{ currentSymbol.baseAsset }})</span>
-              <span>Price ({{ currentSymbol.quoteAsset }})</span>
-              <span>Time</span>
-              <span>Status</span>
-            </div>
-            <div class="content-orders-item">
-              <span>3.840000000</span>
-              <span>2.00</span>
-              <span>5643.28</span>
-              <span>12:28:42</span>
-              <span><i>Ok</i></span>
-            </div>
-            <div class="content-orders-item">
-              <span>3.840000000</span>
-              <span>2.00</span>
-              <span>5643.28</span>
-              <span>12:28:42</span>
-              <span><i>Ok</i></span>
-            </div>
-            <div class="content-orders-item">
-              <span>3.840000000</span>
-              <span>2.00</span>
-              <span>5643.28</span>
-              <span>12:28:42</span>
-              <span><i>Ok</i></span>
-            </div>
-            <div class="content-orders-item">
-              <span>3.840000000</span>
-              <span>2.00</span>
-              <span>5643.28</span>
-              <span>12:28:42</span>
-              <span><i>Ok</i></span>
-            </div>
-            <div class="content-orders-item">
-              <span>3.840000000</span>
-              <span>2.00</span>
-              <span>5643.28</span>
-              <span>12:28:42</span>
-              <span><i>Ok</i></span>
-            </div>
-            <div class="content-orders-item">
-              <span>3.840000000</span>
-              <span>2.00</span>
-              <span>5643.28</span>
-              <span>12:28:42</span>
-              <span><i>Ok</i></span>
-            </div>
-            <div class="content-orders-item">
-              <span>3.840000000</span>
-              <span>2.00</span>
-              <span>5643.28</span>
-              <span>12:28:42</span>
-              <span><i>Ok</i></span>
-            </div>
-            <div class="content-orders-item">
-              <span>3.840000000</span>
-              <span>2.00</span>
-              <span>5643.28</span>
-              <span>12:28:42</span>
-              <span><i>Ok</i></span>
-            </div>
-            <div class="content-orders-item">
-              <span>3.840000000</span>
-              <span>2.00</span>
-              <span>5643.28</span>
-              <span>12:28:42</span>
-              <span><i>Ok</i></span>
-            </div>
-            <div class="content-orders-item">
-              <span>3.840000000</span>
-              <span>2.00</span>
-              <span>5643.28</span>
-              <span>12:28:42</span>
-              <span><i>Ok</i></span>
-            </div>
-            <div class="content-orders-item">
-              <span>3.840000000</span>
-              <span>2.00</span>
-              <span>5643.28</span>
-              <span>12:28:42</span>
-              <span><i>Ok</i></span>
-            </div>
-            <div class="content-orders-item">
-              <span>3.840000000</span>
-              <span>2.00</span>
-              <span>5643.28</span>
-              <span>12:28:42</span>
-              <span><i>Ok</i></span>
-            </div>
-            <div class="content-orders-item">
-              <span>3.840000000</span>
-              <span>2.00</span>
-              <span>5643.28</span>
-              <span>12:28:42</span>
-              <span><i>Ok</i></span>
-            </div>
-            <div class="content-orders-item">
-              <span>3.840000000</span>
-              <span>2.00</span>
-              <span>5643.28</span>
-              <span>12:28:42</span>
-              <span><i>Ok</i></span>
-            </div>
-            <div class="content-orders-item">
-              <span>3.840000000</span>
-              <span>2.00</span>
-              <span>5643.28</span>
-              <span>12:28:42</span>
-              <span><i>Ok</i></span>
-            </div>
-            <div class="content-orders-item">
-              <span>3.840000000</span>
-              <span>2.00</span>
-              <span>5643.28</span>
-              <span>12:28:42</span>
-              <span><i>Ok</i></span>
-            </div>
-            <div class="content-orders-item">
-              <span>3.840000000</span>
-              <span>2.00</span>
-              <span>5643.28</span>
-              <span>12:28:42</span>
-              <span><i>Ok</i></span>
-            </div>
-            <div class="content-orders-item">
-              <span>3.840000000</span>
-              <span>2.00</span>
-              <span>5643.28</span>
-              <span>12:28:42</span>
-              <span><i>Ok</i></span>
-            </div>
-          </div>
-        </div>
+            }">
+				<div class="box visible">
+					<h2>OPEN ORDERS</h2>
+					<div class="content-orders">
+						<div class="content-orders-title">
+							<span>Size</span>
+							<span>Filled (ETH)</span>
+							<span>Price (BTC)</span>
+							<span>Time</span>
+							<span>Status</span>
+						</div>
+						<div class="content-orders-item">
+							<span>3.840000000</span>
+							<span>2.00</span>
+							<span>5643.28</span>
+							<span>12:28:42</span>
+							<span><i>Ok</i></span>
+						</div>
+						<div class="content-orders-item">
+							<span>3.840000000</span>
+							<span>2.00</span>
+							<span>5643.28</span>
+							<span>12:28:42</span>
+							<span><i>Ok</i></span>
+						</div>
+						<div class="content-orders-item">
+							<span>3.840000000</span>
+							<span>2.00</span>
+							<span>5643.28</span>
+							<span>12:28:42</span>
+							<span><i>Ok</i></span>
+						</div>
+						<div class="content-orders-item">
+							<span>3.840000000</span>
+							<span>2.00</span>
+							<span>5643.28</span>
+							<span>12:28:42</span>
+							<span><i>Ok</i></span>
+						</div>
+						<div class="content-orders-item">
+							<span>3.840000000</span>
+							<span>2.00</span>
+							<span>5643.28</span>
+							<span>12:28:42</span>
+							<span><i>Ok</i></span>
+						</div>
+						<div class="content-orders-item">
+							<span>3.840000000</span>
+							<span>2.00</span>
+							<span>5643.28</span>
+							<span>12:28:42</span>
+							<span><i>Ok</i></span>
+						</div>
+						<div class="content-orders-item">
+							<span>3.840000000</span>
+							<span>2.00</span>
+							<span>5643.28</span>
+							<span>12:28:42</span>
+							<span><i>Ok</i></span>
+						</div>
+						<div class="content-orders-item">
+							<span>3.840000000</span>
+							<span>2.00</span>
+							<span>5643.28</span>
+							<span>12:28:42</span>
+							<span><i>Ok</i></span>
+						</div>
+						<div class="content-orders-item">
+							<span>3.840000000</span>
+							<span>2.00</span>
+							<span>5643.28</span>
+							<span>12:28:42</span>
+							<span><i>Ok</i></span>
+						</div>
+						<div class="content-orders-item">
+							<span>3.840000000</span>
+							<span>2.00</span>
+							<span>5643.28</span>
+							<span>12:28:42</span>
+							<span><i>Ok</i></span>
+						</div>
+						<div class="content-orders-item">
+							<span>3.840000000</span>
+							<span>2.00</span>
+							<span>5643.28</span>
+							<span>12:28:42</span>
+							<span><i>Ok</i></span>
+						</div>
+						<div class="content-orders-item">
+							<span>3.840000000</span>
+							<span>2.00</span>
+							<span>5643.28</span>
+							<span>12:28:42</span>
+							<span><i>Ok</i></span>
+						</div>
+						<div class="content-orders-item">
+							<span>3.840000000</span>
+							<span>2.00</span>
+							<span>5643.28</span>
+							<span>12:28:42</span>
+							<span><i>Ok</i></span>
+						</div>
+						<div class="content-orders-item">
+							<span>3.840000000</span>
+							<span>2.00</span>
+							<span>5643.28</span>
+							<span>12:28:42</span>
+							<span><i>Ok</i></span>
+						</div>
+						<div class="content-orders-item">
+							<span>3.840000000</span>
+							<span>2.00</span>
+							<span>5643.28</span>
+							<span>12:28:42</span>
+							<span><i>Ok</i></span>
+						</div>
+						<div class="content-orders-item">
+							<span>3.840000000</span>
+							<span>2.00</span>
+							<span>5643.28</span>
+							<span>12:28:42</span>
+							<span><i>Ok</i></span>
+						</div>
+						<div class="content-orders-item">
+							<span>3.840000000</span>
+							<span>2.00</span>
+							<span>5643.28</span>
+							<span>12:28:42</span>
+							<span><i>Ok</i></span>
+						</div>
+						<div class="content-orders-item">
+							<span>3.840000000</span>
+							<span>2.00</span>
+							<span>5643.28</span>
+							<span>12:28:42</span>
+							<span><i>Ok</i></span>
+						</div>
+					</div>
+				</div>
 
-      </div>
-    </div>
+			</div>
+		</div>
 
-  </div>
+	</div>
 </section>
