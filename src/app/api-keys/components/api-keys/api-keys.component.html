@@ -2,51 +2,54 @@
   <div class="api-keys-title">
     <h2><b>API Keys</b></h2>
   </div>
-  <div class="api-keys-item api-keys-item-title">
-    <div class="column1">API</div>
-    <div class="column2">Secret code</div>
-    <div class="column3"></div>
-
-  </div>
   <div>
-    <div class="api-keys-item" *ngFor="let apiKey of apiKeys">
-      <div class="column column1 table-text">
-        {{ apiKey.publicKey }}
-      </div>
-      <div class="column column2 table-text">
-        {{ apiKey.secretKey }}
-        <button type="button" class="copy-btn ml-27" (click)="copyToClipboard(apiKey.secretKey)"></button>
-      </div>
-      <div class="column column3">
-        <button type="button" class="change-btn" (click)="settingsOpen(apiKey.id)"></button>
-        <button type="button" class="delete-btn ml-19" (click)="deleteApiKey(apiKey.id)"></button>
-        <button type="button" class="save-btn-api ml-19" (click)="saveChanges(apiKey.id)"></button>
-        <!-- [attr.disabled]="!selectedCoin ? '' : null" -->
-        <div class="settings" id="{{apiKey.id}}">
-          <div class="sign-container-checkbox">
-            <input type="checkbox" id="{{apiKey.id}} +'1'" (click)="changeAccountValues(apiKey.id)" [ngModel]="apiKey.accountPermissions"
-              [checked]="apiKey.accountPermissions" />
-            <label for="{{apiKey.id}} +'1'">
-              <span></span>View account info
-            </label>
-          </div>
-          <div class="sign-container-checkbox">
-            <input type="checkbox" id="{{apiKey.id}} +'2'" (click)="changeOrdersValues(apiKey.id)" [ngModel]="apiKey.ordersPermissions"
-              [checked]="apiKey.ordersPermissions" />
-            <label for="{{apiKey.id}} +'2'">
-              <span></span>Create & edit orders
-            </label>
-          </div>
-          <div class="sign-container-checkbox">
-            <input type="checkbox" id="{{apiKey.id}} +'3'" (click)="changeFundsValues(apiKey.id)" [ngModel]="apiKey.fundsPermissions"
-              [checked]="apiKey.fundsPermissions" />
-            <label for="{{apiKey.id}} +'3'">
-              <span></span>Withdraw funds
-            </label>
+    <div class="api-keys-item api-keys-item-title">
+      <div class="column1">API</div>
+      <div class="column2">Secret code</div>
+      <div class="column3"></div>
+  
+    </div>
+    <div>
+      <div class="api-keys-item" *ngFor="let apiKey of apiKeys">
+        <div class="column column1 table-text">
+          {{ apiKey.publicKey }}
+        </div>
+        <div class="column column2 table-text">
+          {{ apiKey.secretKey }}
+          <button type="button" class="copy-btn ml-27" (click)="copyToClipboard(apiKey.secretKey)"></button>
+        </div>
+        <div class="column column3">
+          <button type="button" class="change-btn" (click)="settingsOpen(apiKey.id)"></button>
+          <button type="button" class="delete-btn ml-19" (click)="deleteApiKey(apiKey.id)"></button>
+          <button type="button" class="save-btn-api ml-19" (click)="saveChanges(apiKey.id)"></button>
+          <!-- [attr.disabled]="!selectedCoin ? '' : null" -->
+          <div class="settings" id="{{apiKey.id}}">
+            <div class="sign-container-checkbox">
+              <input type="checkbox" id="{{apiKey.id}} +'1'" (click)="changeAccountValues(apiKey.id)" [ngModel]="apiKey.accountPermissions"
+                [checked]="apiKey.accountPermissions" />
+              <label for="{{apiKey.id}} +'1'">
+                <span></span>View account info
+              </label>
+            </div>
+            <div class="sign-container-checkbox">
+              <input type="checkbox" id="{{apiKey.id}} +'2'" (click)="changeOrdersValues(apiKey.id)" [ngModel]="apiKey.ordersPermissions"
+                [checked]="apiKey.ordersPermissions" />
+              <label for="{{apiKey.id}} +'2'">
+                <span></span>Create & edit orders
+              </label>
+            </div>
+            <div class="sign-container-checkbox">
+              <input type="checkbox" id="{{apiKey.id}} +'3'" (click)="changeFundsValues(apiKey.id)" [ngModel]="apiKey.fundsPermissions"
+                [checked]="apiKey.fundsPermissions" />
+              <label for="{{apiKey.id}} +'3'">
+                <span></span>Withdraw funds
+              </label>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 
   <div class="row">

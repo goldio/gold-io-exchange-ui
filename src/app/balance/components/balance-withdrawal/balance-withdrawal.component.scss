@@ -263,11 +263,16 @@ label {
   .some-answer {
     position: absolute;
     width: fit-content;
-    top: 28px;
-    left: 200px;
+    // top: 28px;
+    // left: 200px;
     color: #D1C174;
     transition: 1.5s;
     opacity: 0;
+    bottom: 0;
+    height: 48px;
+    left: 180px;
+    align-items: center;
+    display: flex;
 
     img {
       margin-right: 11px;

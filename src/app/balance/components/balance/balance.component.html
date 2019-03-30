@@ -10,24 +10,28 @@
         </div>
     </div>
 
-    <div class="balance-table" *ngIf="viewWallets">
+    <div class="balance-table balance-table-new" *ngIf="viewWallets">
         <div class="balance-table-title">
             <span>Coin</span>
-            <span>Balance</span>
-            <span>On orders</span>
-            <span>VTC Value</span>
+            <span>Name</span>
+            <span>Total balance</span>
+            <span>Avaiable balance</span>
+            <span>In orders</span>
+            <span>Cost (BTC)</span>
             <span></span>
         </div>
 
         <div class="balance-table-item" *ngFor="let wallet of viewWallets">
             <span>
                 <img src="{{ wallet.coin.icon.url }}" alt="">
-                <b>{{ wallet.coin.name }}</b>
+                <b>{{ wallet.coin.shortName }}</b>
             </span>
 
-            <span before="Total balance">{{ wallet.balance.toFixed(8) }}</span>
-            <span before="On orders">{{ wallet.onOrders.toFixed(8) }}</span>
-            <span before="VTC Value">{{ wallet.vtcValue.toFixed(8) }}</span>
+            <span before="Name">{{ wallet.coin.name  }}</span>
+            <span before="Total balance">{{ wallet.balance.toFixed(8)  }}</span>
+            <span before="Avaiable balance">???????????????</span>
+            <span before="In orders">{{wallet.onOrders.toFixed(8)  }}</span>
+            <span before="Cost (BTC)">???????????????</span>
             <span>
                 <div class="coin-btns">
                     <div class="coin-btn first-coin-btn" (click)="routeToDeposit(wallet)">Deposit</div>
