@@ -13,4 +13,25 @@ export class Order extends BaseModel {
     public type: OrderType;
     public status: OrderStatus;
     public time: Date;
+
+    public static create(o: WebSocketOrder) {
+        const order = new Order();
+        order.amount = o.Amount;
+        order.balance = o.Balance;
+        order.price = o.Price;
+        order.type = o.Type;
+        order.status = o.Status;
+        order.time = o.Time;
+
+        return order;
+    }
+}
+
+class WebSocketOrder {
+    public Amount: number;
+    public Balance: number;
+    public Price: number;
+    public Type: OrderType;
+    public Status: OrderStatus;
+    public Time: Date; 
 }

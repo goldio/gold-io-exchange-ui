@@ -1,17 +1,17 @@
 <section class="section index" [ngClass]="{ 'visible': isVisible, 'hidden': !isVisible }">
 	<div id="left" style="top: 60px" [ngClass]="{ 'visible': responciveTabs == 1 }">
 
-		<form class="left-content-block" [formGroup]="tradeForm" (ngSubmit)="submitOrder(tradeForm)">
+		<form class="left-content-block" [formGroup]="tradeForm" (ngSubmit)="submitOrder(tradeForm)" *ngIf="tradeForm">
 			<div class="left-content box-responcive visible1">
 				<div class="left-content-balance" *ngIf="isLoggedIn">
 					<h4>Balance</h4>
 
-					<div class="left-content-balance-item">
-						<b>BTC</b>0.00000000
+					<div class="left-content-balance-item" *ngIf="quoteWallet">
+						<b>{{ currentPair.quoteAsset.shortName }}</b>{{ quoteWallet.balance.toFixed(8) }}
 					</div>
 
-					<div class="left-content-balance-item">
-						<b>ETH</b>0.00000000
+					<div class="left-content-balance-item" *ngIf="baseWallet">
+						<b>{{ currentPair.baseAsset.shortName }}</b>{{ baseWallet.balance.toFixed(8) }}
 					</div>
 				</div>
 
@@ -26,14 +26,14 @@
 
 							<div class="left-content-sell-input">
 								Price
-								<input placeholder="1.00000000" type="number" formControlName="price" required *ngIf="isLoggedIn">
-								<b class="input-decor">BTC</b>
+								<input placeholder="1.00000000" type="number" formControlName="price" required>
+								<b class="input-decor">{{ currentPair.quoteAsset.shortName }}</b>
 							</div>
 
 							<div class="left-content-sell-input">
 								Amount
-								<input placeholder="1.00000000" type="number" formControlName="amount" required *ngIf="isLoggedIn">
-								<b>ETH</b>
+								<input placeholder="1.00000000" type="number" formControlName="amount" required>
+								<b>{{ currentPair.baseAsset.shortName }}</b>
 							</div>
 
 							<div class="left-content-sell-input percents">
@@ -45,9 +45,10 @@
 
 							<div class="left-content-sell-input">
 								Total
-								<input placeholder="1.00000000" type="number" formControlName="total" required *ngIf="isLoggedIn">
-								<b>BTC</b>
+								<input placeholder="1.00000000" type="number" formControlName="total" required readonly style="cursor: default">
+								<b>{{ currentPair.quoteAsset.shortName }}</b>
 							</div>
+
 							<button class="transparent-btn" type="submit" *ngIf="isLoggedIn"
 								[attr.disabled]="loader ? true : null">{{ buyCellBtn }}
 								<div class="loader" [ngClass]="{'loader-open':loader}">
@@ -75,10 +76,10 @@
 	</div>
 	<div id="content">
 		<div id="top">
-			<div class="top-currency">
+			<div class="top-currency" *ngIf="currentPair">
 				<span class="top-currency-btn" (click)="currencyBox = !currencyBox">
 					<img src="../../../../assets/images/eth.svg" alt="">
-					<div style="padding: 4px 6px 0 6px;">ETH / BTC</div>
+					<div style="padding: 4px 6px 0 6px;">{{ currentPair.symbol }}</div>
 					<img src="../../../../assets/images/btc.svg" alt="">
 				</span>
 
@@ -96,18 +97,10 @@
 					</div>
 
 					<div class="top-currency-items-wrapper" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
-						<div class="top-currency-dropdown-item">
-							<span><b>ETH/BTC</b></span>
-							<span>ETH</span>
-							<span>BTC</span>
-							<!-- <span>2213.466</span>
-                            <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span> -->
-						</div>
-
-						<div class="top-currency-dropdown-item">
-							<span><b>EOS/GIO</b></span>
-							<span>EOS</span>
-							<span>GIO</span>
+						<div class="top-currency-dropdown-item" *ngFor="let pair of pairs" (click)="setPair(pair)">
+							<span><b>{{ pair.symbol }}</b></span>
+							<span>{{ pair.baseAsset.shortName }}</span>
+							<span>{{ pair.quoteAsset.shortName }}</span>
 							<!-- <span>2213.466</span>
                             <span class="top-currency-green">+8.23%<img src="../../../../assets/images/green-arr.svg" alt=""></span> -->
 						</div>
@@ -206,66 +199,49 @@
 			</svg>
 		</div>
 
-
-
-
-
-
-		<div class="content-left box-responcive" [ngClass]="{'visible': responciveTabs == 2}">
+		<div class="content-left box-responcive" *ngIf="currentPair" [ngClass]="{'visible': responciveTabs == 2}">
 			<h2>ORDER BOOK</h2>
-			<span style="padding-left: 25px;">Price(BTC)</span>
-			<span>Amount(ETH)</span>
-			<span>Total(BTC)</span>
+			<span style="padding-left: 25px;">Price({{ currentPair.quoteAsset.shortName }})</span>
+			<span>Amount({{ currentPair.baseAsset.shortName }})</span>
+			<span>Total({{ currentPair.quoteAsset.shortName }})</span>
 
 			<div class="content-left-info" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
 				<div class="content-left-red">
-					<div class="content-left-red-item left-red">
-						<span>0.00000000</span>
-						<span>0.00000000</span>
-						<span>0.00000000</span>
+					<div class="content-left-red-item left-red" *ngFor="let order of openOrders.sell">
+						<span>{{ order.price.toFixed(8) }}</span>
+						<span>{{ order.amount.toFixed(8) }}</span>
+						<span>{{ (order.price * order.amount).toFixed(8) }}</span>
 						<!-- <em style="width: 2px;"></em> -->
 					</div>
+				</div>
 
-					<div class="content-left-red-item left-red">
-						<span>0.00000000</span>
-						<span>0.00000000</span>
-						<span>0.00000000</span>
-						<!-- <em style="width: 2px;"></em> -->
-					</div>
+				<div class="content-left-sticky" *ngIf="currentPrice" style="display: flex; justify-content: center; align-items: center; padding: 0;">
+					<span class="price-indicator" [ngClass]="{'content-left-sticky-green': currentPrice.isHigher, 'content-left-sticky-red': !currentPrice.isHigher}" style="margin: 0">{{ currentPrice.price.toFixed(6) }}</span>
+					<!-- <span class="content-left-sticky-text">$137.81</span> -->
 				</div>
-				<div class="content-left-sticky">
-					<span class="content-left-sticky-green">0.034337 </span>
-					<span class="content-left-sticky-text">$137.81</span>
-				</div>
+
 				<div class="content-left-red">
-					<div class="content-left-red-item left-green">
-						<span>0.00000000</span>
-						<span>0.00000000</span>
-						<span>0.00000000</span>
+					<div class="content-left-red-item left-green" *ngFor="let order of openOrders.buy">
+						<span>{{ order.price.toFixed(8) }}</span>
+						<span>{{ order.amount.toFixed(8) }}</span>
+						<span>{{ (order.price * order.amount).toFixed(8) }}</span>
 						<!-- <em style="width: 2px;"></em> -->
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="content-right box-responcive" [ngClass]="{'visible': responciveTabs == 3}">
+		<div class="content-right box-responcive" *ngIf="currentPair" [ngClass]="{'visible': responciveTabs == 3}">
 			<h2>TRADE HISTORY</h2>
-			<span>Price(BTC)</span>
-			<span>Amount(ETH)</span>
+			<span>Price({{ currentPair.quoteAsset.shortName }})</span>
+			<span>Amount({{ currentPair.baseAsset.shortName }})</span>
 			<span>UTC Time</span>
 
-			<div class="content-right-info" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
-				<div class="content-right-item">
-					<!-- <span [ngClass]="{'history-green': item.isBuyerMaker, 'history-red': !item.isBuyerMaker }">0.00000000</span> -->
-					<span class="history-green">0.00000000</span>
-					<span>0.00000000</span>
-					<span>17:28</span>
-				</div>
-				<div class="content-right-item">
-					<!-- <span [ngClass]="{'history-green': item.isBuyerMaker, 'history-red': !item.isBuyerMaker }">0.00000000</span> -->
-					<span class="history-red">0.00000000</span>
-					<span>0.00000000</span>
-					<span>17:28</span>
+			<div class="content-right-info" *ngIf="closedOrders" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+				<div class="content-right-item" *ngFor="let order of closedOrders">
+					<span [ngClass]="{'history-green': order.type == OrderType.Buy, 'history-red': order.type == OrderType.Sell }">{{ order.price.toFixed(8) }}</span>
+					<span>{{ order.amount.toFixed(8) }}</span>
+					<span>{{ order.time | date: 'HH:mm:ss' }}</span>
 				</div>
 			</div>
 		</div>
@@ -327,13 +303,13 @@
 			<div class="content-center-orders box-responcive block-orders" [ngClass]="{
                 'visible': responciveTabs == 6 
             }">
-				<div class="box visible">
+				<div class="box visible" *ngIf="currentPair">
 					<h2>OPEN ORDERS</h2>
 					<div class="content-orders">
 						<div class="content-orders-title">
 							<span>Size</span>
-							<span>Filled (ETH)</span>
-							<span>Price (BTC)</span>
+							<span>Filled ({{ currentPair.baseAsset.shortName }})</span>
+							<span>Price ({{ currentPair.quoteAsset.shortName }})</span>
 							<span>Time</span>
 							<span>Status</span>
 						</div>

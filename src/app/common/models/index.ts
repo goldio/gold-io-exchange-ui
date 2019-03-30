@@ -10,3 +10,6 @@ export * from './security-token.model';
 export * from './order.model';
 export * from './user-wallet.model';
 export * from './coin-address.model';
+export * from './price.model';
+export * from './socket-json.model';
+export * from './websocket-message.model';

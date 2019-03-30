@@ -1,31 +1,33 @@
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject } from 'rxjs';
+import { SocketJSON } from '../models';
+import { Pair } from 'src/app/index/models/pair.model';
 
 @Injectable()
 export class WebsocketService {
-    private depthStream: WebSocket = new WebSocket(`wss://stream.binance.com:9443/ws/ethbtc@depth`);
-    private _depthStreamMessage: BehaviorSubject<MessageEvent> = new BehaviorSubject<MessageEvent>(null);
+    /* private depthStream: WebSocket = new WebSocket(`wss://stream.binance.com:9443/ws/ethbtc@depth`);
+    private _depthStreamMessage: BehaviorSubject<MessageEvent> = new BehaviorSubject<MessageEvent>(null); */
 
-    private localDepthStream: WebSocket = new WebSocket(`ws://localhost:5000/notifications`);
-    private _localDepthStreamMessage: BehaviorSubject<MessageEvent> = new BehaviorSubject<MessageEvent>(null);
+    private channel: WebSocket = new WebSocket(`ws://localhost:5000/notifications`);
+    private _channelMessage: BehaviorSubject<MessageEvent> = new BehaviorSubject<MessageEvent>(null);
     
-    public get depthStreamMessage(): Observable<MessageEvent> {
+    /* public get depthStreamMessage(): Observable<MessageEvent> {
         return this._depthStreamMessage.asObservable();
-    }
+    } */
 
-    public get localDepthStreamMessage(): Observable<MessageEvent> {
-        return this._localDepthStreamMessage.asObservable();
+    public get channelMessage(): Observable<MessageEvent> {
+        return this._channelMessage.asObservable();
     }
 
     constructor() {
-        this.depthStream.onopen = () => {
+        /* this.depthStream.onopen = () => {
             this.depthStream.onmessage = (msg) => {
                 this._depthStreamMessage.next(msg);
             }
-        }
+        } */
     }
 
-    public openDepthStream(symbol: string): void {
+    /* public openDepthStream(symbol: string): void {
         this.depthStream.close();
         this.depthStream = new WebSocket(`wss://stream.binance.com:9443/ws/${symbol.toLowerCase()}@depth`);
         
@@ -34,24 +36,30 @@ export class WebsocketService {
                 this._depthStreamMessage.next(msg);
             }
         }
-    }
+    } */
 
-    public openLocalDepthStream(): void {
-        this.localDepthStream.close();
-        this.localDepthStream = new WebSocket(`ws://localhost:5000/notifications`);
+    public openChannel(pair: Pair): void {
+        this.channel.close();
+        this.channel = new WebSocket(`ws://localhost:5000/notifications`);
 
-        this.localDepthStream.onopen = () => {
-            this.localDepthStream.onmessage = (msg) => {
-                this._localDepthStreamMessage.next(msg);
+        this.channel.onopen = () => {
+            this.channel.onmessage = (msg) => {
+                this._channelMessage.next(msg);
             }
+
+            const message = new SocketJSON();
+            message.type = "orderBook";
+            message.pair = pair.symbol;
+
+            this.channel.send(JSON.stringify(message));
         }
     }
 
-    public closeDepthStream(): void {
+    /* public closeDepthStream(): void {
         this.depthStream.close();
-    }
+    } */
 
-    public closeLocalDepthStream(): void {
-        this.localDepthStream.close();
+    public closeChannel(): void {
+        this.channel.close();
     }
 }

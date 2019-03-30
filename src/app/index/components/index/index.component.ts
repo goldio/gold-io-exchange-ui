@@ -10,21 +10,20 @@ import HC_stock from 'highcharts/modules/stock';
 HC_stock(Highcharts);
 
 import { WebsocketService } from 'src/app/common/services/websocket.service';
-import { TradeHistoryItem, OrderBookItem, CandlestickItem, TradeHistoryItemNative } from '../../models';
 import { BinanceService } from 'src/app/common/services/binance.service';
-import { DateHelper } from 'src/app/common/helpers';
-import { Symbol } from '../../models/symbol.model';
 import { AuthService } from 'src/app/common/services/auth.service';
 
 import { TradeService } from 'src/app/common/services/trade.service';
-import { OrderType, Theme } from 'src/app/common/enums';
+import { OrderType, Theme, OrderStatus } from 'src/app/common/enums';
 import { WalletsService } from 'src/app/common/services/wallets.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ThemeService } from 'src/app/common/services/theme.service';
 import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
-import { UserWallet } from 'src/app/common/models';
+import { UserWallet, Order, Price, WebSocketMessage } from 'src/app/common/models';
 import symbols from './symbols';
 import { Pair } from '../../models/pair.model';
+import { OpenOrdersResponse } from 'src/app/common/models/response';
+import { CryptoHelper } from 'src/app/common/helpers';
 
 // import { runInThisContext } from 'vm';
 
@@ -62,20 +61,29 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	public theme: Theme;
 
 	public pairs: Pair[];
+	public currentPair: Pair;
+	public currentPrice: Price;
 
-	private initTradeForm(): void {
-		this.tradeForm = new FormGroup({
-			baseAsset: new FormControl("ETH", [Validators.required]),
-			quoteAsset: new FormControl("BTC", [Validators.required]),
-			type: new FormControl(OrderType.Buy, [Validators.required]),
-			price: new FormControl(null, [Validators.required]),
-			amount: new FormControl(null, [Validators.required]),
-			total: new FormControl(null, [Validators.required]),
-		});
-	}
+	public baseWallet: UserWallet;
+	public quoteWallet: UserWallet;
 
-	public submitOrder(form: FormGroup): void {
-		console.log(form);
+	public openOrders = {
+		buy: new Array<Order>(),
+		sell: new Array<Order>()
+	};
+
+	public closedOrders: Order[];
+
+	public changeOrderAct(act: string) {
+		if (act == "buy") {
+			this.buyCellBtn = "PLACE BUY ORDER"
+			this.buyCell = false;
+			this.tradeForm.controls['type'].setValue(OrderType.Buy);
+		} else if (act == "sell") {
+			this.buyCellBtn = "PLACE SELL ORDER"
+			this.buyCell = true;
+			this.tradeForm.controls['type'].setValue(OrderType.Sell);
+		}
 	}
 
 	private initSearchForm(): void {
@@ -110,6 +118,63 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	) {
 		super();
 
+		this.connectThemeService();
+		this.initSearchForm();
+		this.init();
+	}
+
+	// Initialization
+	private async init() {
+		this.pairs = await this.getPairs();
+		await this.setPair(this.pairs[0]);
+	}
+
+	// Init trade form
+	private initTradeForm(): void {
+		this.tradeForm = new FormGroup({
+			baseAsset: new FormControl(this.currentPair.baseAsset.shortName, [Validators.required]),
+			quoteAsset: new FormControl(this.currentPair.quoteAsset.shortName, [Validators.required]),
+			type: new FormControl(OrderType.Buy, [Validators.required]),
+			price: new FormControl(this.currentPrice.price.toFixed(8), [Validators.required]),
+			amount: new FormControl(new Number(0).toFixed(8), [Validators.required]),
+			total: new FormControl(new Number(0).toFixed(8), [Validators.required]),
+		});
+
+		this.tradeForm
+			.controls['price']
+			.valueChanges
+			.debounceTime(500)
+			.subscribe(value => {
+				if (!value) {
+					return;
+				}
+
+				let amount = this.tradeForm.value['amount'] || 0;
+				
+				this.tradeForm.
+					controls['total']
+					.setValue((value * amount).toFixed(8));
+			});
+
+		this.tradeForm
+			.controls['amount']
+			.valueChanges
+			.debounceTime(500)
+			.subscribe(value => {
+				if (!value) {
+					return;
+				}
+
+				let price = this.tradeForm.value['price'] || 0;
+				
+				this.tradeForm.
+					controls['total']
+					.setValue((value * price).toFixed(8));
+			});
+	}
+
+	// Connect theme service
+	private connectThemeService(): void {
 		this.themeService
 			.currentState
 			.subscribe(theme => {
@@ -118,7 +183,42 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 				} else {
 					this.scrollbarOptions = { axis: 'yx', theme: 'minimal-dark' };
 				}
+				
 				this.theme = theme;
+			});
+	}
+
+	// Connect web socket
+	private connectWebSocket(): void {
+		this.websocketService
+			.openChannel(this.currentPair);
+
+		this.websocketService
+			.channelMessage
+			.subscribe(msg => {
+				if (!msg) {
+					return;
+				}
+
+				const message = JSON.parse(msg.data) as WebSocketMessage;
+				console.log(message);
+				if (message.type == "orderBookUpdate") {
+					const order = Order.create(JSON.parse(message.message));
+					console.log(order);
+					if (order.status == OrderStatus.Open) {
+						if (order.type == OrderType.Buy) {
+							this.openOrders.buy.push(order);
+						} else if (order.type == OrderType.Sell) {
+							this.openOrders.sell.push(order);
+						}
+					} else if (order.status == OrderStatus.Closed) {
+						if (order.type == OrderType.Buy) {
+							this.openOrders.buy = this.openOrders.buy.filter(x => x.id != order.id);
+						} else if (order.type == OrderType.Sell) {
+							this.openOrders.sell = this.openOrders.sell.filter(x => x.id != order.id);
+						}
+					}
+				} 
 			});
 	}
 
@@ -132,34 +232,119 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		new Swiper('.swiper-container', {
 			scrollContainer: true
 		});
-
-		this.initSearchForm();
-		this.initTradeForm();
 	}
 
 	// Load trade pairs
-	public loadPairs(): void {
-		this.tradeService
+	public async getPairs(): Promise<Pair[]> {
+		const response = await this.tradeService
 			.getPairs()
-			.subscribe(res => {
-				if (!res.success) {
-					console.log(res.message);
-					return;
-				}
+			.toPromise();
+		
+		if (!response.success) {
+			console.log(response.message);
+			return new Array<Pair>();
+		}
 
-				this.pairs = res.data;
-			});
+		return response.data;
 	}
 
-	public changeOrderAct(act: string) {
-		if (act == "buy") {
-			this.buyCellBtn = "PLACE BUY ORDER"
-			this.buyCell = false;
-			this.tradeForm.controls['type'].setValue(OrderType.Buy);
-		} else if (act == "sell") {
-			this.buyCellBtn = "PLACE SELL ORDER"
-			this.buyCell = true;
-			this.tradeForm.controls['type'].setValue(OrderType.Sell);
+	// Set current pair
+	public async setPair(pair: Pair) {
+		this.currencyBox = false;
+		this.currentPair = pair;
+
+		const openOrders = await this.getOpenOrder();
+		if (openOrders) {
+			this.openOrders.buy = openOrders.buyOrders;
+			this.openOrders.sell = openOrders.sellOrders;
 		}
+
+		this.closedOrders = await this.getClosedOrders();
+		this.currentPrice = await this.getCurrentPrice();
+
+		const wallets = await this.getWallets();
+		this.baseWallet = wallets.baseWallet;
+		this.quoteWallet = wallets.quoteWallet;
+
+		this.initTradeForm();
+		this.connectWebSocket();
+	}
+
+	// Load open orders
+	public async getOpenOrder(): Promise<OpenOrdersResponse> {
+		const response = await this.tradeService
+			.getOpenOrders(this.currentPair)
+			.toPromise();
+
+		if (!response.success) {
+			console.log(response.message);
+			return null;
+		}
+
+		return response;
+	}
+
+	// Load closed orders
+	public async getClosedOrders(): Promise<Order[]> {
+		const response = await this.tradeService
+			.getClosedOrders(this.currentPair)
+			.toPromise();
+
+		if (!response.success) {
+			console.log(response.message);
+			return new Array<Order>();
+		}
+		
+		return response.data;
+	}
+
+	// Load current price
+	public async getCurrentPrice(): Promise<Price> {
+		const response = await this.tradeService
+			.getPriceByPair(this.currentPair)
+			.toPromise();
+
+		if (!response.success) {
+			console.log(response.message);
+			return new Price();
+		}
+
+		return new Price(response.price, response.isHigher);
+	}
+
+	// Load wallets
+	public async getWallets() {
+		const response = await this.walletsService
+			.getMe()
+			.toPromise();
+
+		if (!response.success) {
+			console.log(response.message);
+			return;
+		}
+
+		console.log(this.currentPair);
+		console.log(response.data);
+		const result = {
+			baseWallet: response.data.find(x => x.coin.shortName == this.currentPair.baseAsset.shortName),
+			quoteWallet: response.data.find(x => x.coin.shortName == this.currentPair.quoteAsset.shortName)
+		};
+		console.log(result);
+
+		return result;
+	}
+
+	// Submit order form
+	public submitOrder(form: FormGroup): void {
+		if (form.invalid) {
+			console.log('form invalid');
+			return;
+		}
+
+		this.tradeService
+			.createOrder(form.value)
+			.subscribe(res => {
+				console.log(res);
+			})
 	}
 }
