@@ -16,6 +16,7 @@ export class Order extends BaseModel {
 
     public static create(o: WebSocketOrder) {
         const order = new Order();
+        order.id = o.Id;
         order.amount = o.Amount;
         order.balance = o.Balance;
         order.price = o.Price;
@@ -38,6 +39,7 @@ export class Order extends BaseModel {
 }
 
 class WebSocketOrder {
+    public Id: number;
     public Amount: number;
     public Balance: number;
     public Price: number;
