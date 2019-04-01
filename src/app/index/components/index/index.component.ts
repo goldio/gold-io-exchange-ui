@@ -73,6 +73,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	};
 
 	public closedOrders: Order[];
+	public myOpenOrders: Order[];
 
 	public changeOrderAct(act: string) {
 		if (act == "buy") {
@@ -217,6 +218,8 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 						} else if (order.type == OrderType.Sell) {
 							this.openOrders.sell = this.openOrders.sell.filter(x => x.id != order.id);
 						}
+
+						this.closedOrders.push(order);
 					}
 				} 
 			});
@@ -260,6 +263,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		}
 
 		this.closedOrders = await this.getClosedOrders();
+		this.myOpenOrders = await this.getMyOpenOrders();
 		this.currentPrice = await this.getCurrentPrice();
 
 		const wallets = await this.getWallets();
@@ -268,6 +272,24 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 
 		this.initTradeForm();
 		this.connectWebSocket();
+	}
+
+	// Load my open orders
+	public async getMyOpenOrders(): Promise<Order[]> {
+		if (!this.isLoggedIn) {
+			return new Array<Order>();
+		}
+
+		const response = await this.tradeService
+			.getMyOpenOrders(this.currentPair)
+			.toPromise();
+
+		if (!response.success) {
+			console.log(response.message);
+			return new Array<Order>();
+		}
+
+		return response.data;
 	}
 
 	// Load open orders

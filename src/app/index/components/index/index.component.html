@@ -297,15 +297,12 @@
 						<button id="depth_minus" class="balances-minus">-</button>
 					</div>
 				</div>
-
 			</div>
 
-			<div class="content-center-orders box-responcive block-orders" [ngClass]="{
-                'visible': responciveTabs == 6 
-            }">
+			<div class="content-center-orders box-responcive block-orders" [ngClass]="{'visible': responciveTabs == 6}">
 				<div class="box visible" *ngIf="currentPair">
 					<h2>OPEN ORDERS</h2>
-					<div class="content-orders">
+					<div class="content-orders" *ngIf="myOpenOrders">
 						<div class="content-orders-title">
 							<span>Size</span>
 							<span>Filled ({{ currentPair.baseAsset.shortName }})</span>
@@ -313,130 +310,11 @@
 							<span>Time</span>
 							<span>Status</span>
 						</div>
-						<div class="content-orders-item">
-							<span>3.840000000</span>
-							<span>2.00</span>
-							<span>5643.28</span>
-							<span>12:28:42</span>
-							<span><i>Ok</i></span>
-						</div>
-						<div class="content-orders-item">
-							<span>3.840000000</span>
-							<span>2.00</span>
-							<span>5643.28</span>
-							<span>12:28:42</span>
-							<span><i>Ok</i></span>
-						</div>
-						<div class="content-orders-item">
-							<span>3.840000000</span>
-							<span>2.00</span>
-							<span>5643.28</span>
-							<span>12:28:42</span>
-							<span><i>Ok</i></span>
-						</div>
-						<div class="content-orders-item">
-							<span>3.840000000</span>
-							<span>2.00</span>
-							<span>5643.28</span>
-							<span>12:28:42</span>
-							<span><i>Ok</i></span>
-						</div>
-						<div class="content-orders-item">
-							<span>3.840000000</span>
-							<span>2.00</span>
-							<span>5643.28</span>
-							<span>12:28:42</span>
-							<span><i>Ok</i></span>
-						</div>
-						<div class="content-orders-item">
-							<span>3.840000000</span>
-							<span>2.00</span>
-							<span>5643.28</span>
-							<span>12:28:42</span>
-							<span><i>Ok</i></span>
-						</div>
-						<div class="content-orders-item">
-							<span>3.840000000</span>
-							<span>2.00</span>
-							<span>5643.28</span>
-							<span>12:28:42</span>
-							<span><i>Ok</i></span>
-						</div>
-						<div class="content-orders-item">
-							<span>3.840000000</span>
-							<span>2.00</span>
-							<span>5643.28</span>
-							<span>12:28:42</span>
-							<span><i>Ok</i></span>
-						</div>
-						<div class="content-orders-item">
-							<span>3.840000000</span>
-							<span>2.00</span>
-							<span>5643.28</span>
-							<span>12:28:42</span>
-							<span><i>Ok</i></span>
-						</div>
-						<div class="content-orders-item">
-							<span>3.840000000</span>
-							<span>2.00</span>
-							<span>5643.28</span>
-							<span>12:28:42</span>
-							<span><i>Ok</i></span>
-						</div>
-						<div class="content-orders-item">
-							<span>3.840000000</span>
-							<span>2.00</span>
-							<span>5643.28</span>
-							<span>12:28:42</span>
-							<span><i>Ok</i></span>
-						</div>
-						<div class="content-orders-item">
-							<span>3.840000000</span>
-							<span>2.00</span>
-							<span>5643.28</span>
-							<span>12:28:42</span>
-							<span><i>Ok</i></span>
-						</div>
-						<div class="content-orders-item">
-							<span>3.840000000</span>
-							<span>2.00</span>
-							<span>5643.28</span>
-							<span>12:28:42</span>
-							<span><i>Ok</i></span>
-						</div>
-						<div class="content-orders-item">
-							<span>3.840000000</span>
-							<span>2.00</span>
-							<span>5643.28</span>
-							<span>12:28:42</span>
-							<span><i>Ok</i></span>
-						</div>
-						<div class="content-orders-item">
-							<span>3.840000000</span>
-							<span>2.00</span>
-							<span>5643.28</span>
-							<span>12:28:42</span>
-							<span><i>Ok</i></span>
-						</div>
-						<div class="content-orders-item">
-							<span>3.840000000</span>
-							<span>2.00</span>
-							<span>5643.28</span>
-							<span>12:28:42</span>
-							<span><i>Ok</i></span>
-						</div>
-						<div class="content-orders-item">
-							<span>3.840000000</span>
-							<span>2.00</span>
-							<span>5643.28</span>
-							<span>12:28:42</span>
-							<span><i>Ok</i></span>
-						</div>
-						<div class="content-orders-item">
-							<span>3.840000000</span>
-							<span>2.00</span>
-							<span>5643.28</span>
-							<span>12:28:42</span>
+						<div class="content-orders-item" *ngFor="let order of myOpenOrders">
+							<span>{{ (order.amount * order.price).toFixed(8) }}</span>
+							<span>{{ (order.amount - order.balance).toFixed(8) }}</span>
+							<span>{{ order.price }}</span>
+							<span>{{ order.time | date: 'HH:mm:ss' }}</span>
 							<span><i>Ok</i></span>
 						</div>
 					</div>
