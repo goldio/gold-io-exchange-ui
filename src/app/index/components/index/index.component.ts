@@ -202,10 +202,14 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 				}
 
 				const message = JSON.parse(msg.data) as WebSocketMessage;
-				console.log(message);
+
 				if (message.type == "orderBookUpdate") {
 					const order = Order.create(JSON.parse(message.message));
-					console.log(order);
+					if (order.baseAsset.shortName != this.currentPair.baseAsset.shortName &&
+						order.quoteAsset.shortName != this.currentPair.quoteAsset.shortName) {
+							return;
+					}
+
 					if (order.status == OrderStatus.Open) {
 						if (order.type == OrderType.Buy) {
 							this.openOrders.buy.push(order);
