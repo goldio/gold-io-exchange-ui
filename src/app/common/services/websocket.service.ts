@@ -8,7 +8,7 @@ export class WebsocketService {
     /* private depthStream: WebSocket = new WebSocket(`wss://stream.binance.com:9443/ws/ethbtc@depth`);
     private _depthStreamMessage: BehaviorSubject<MessageEvent> = new BehaviorSubject<MessageEvent>(null); */
 
-    private channel: WebSocket = new WebSocket(`ws://localhost:5000/notifications`);
+    private channel: WebSocket = new WebSocket(`ws://188.42.174.122:5000/notifications`);
     private _channelMessage: BehaviorSubject<MessageEvent> = new BehaviorSubject<MessageEvent>(null);
     
     /* public get depthStreamMessage(): Observable<MessageEvent> {
@@ -40,7 +40,7 @@ export class WebsocketService {
 
     public openChannel(pair: Pair): void {
         this.channel.close();
-        this.channel = new WebSocket(`ws://localhost:5000/notifications`);
+        this.channel = new WebSocket(`ws://188.42.174.122:5000/notifications`);
 
         this.channel.onopen = () => {
             this.channel.onmessage = (msg) => {
