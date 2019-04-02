@@ -51,6 +51,7 @@ import { ProfileComponent } from './profile/components/profile/profile.component
 import { BalanceService } from './balance/services/balance.service';
 import { BalaceHistoryComponent } from './balance/components/balace-history/balace-history.component';
 import { SucessfullSentEmailPasswordComponent } from './auth/components/sucessfull-sent-email-password/sucessfull-sent-email-password.component';
+import { TvChartContainerComponent } from './tv-chart-container/tv-chart-container.component';
 
 
 
@@ -76,6 +77,7 @@ import { SucessfullSentEmailPasswordComponent } from './auth/components/sucessfu
 		BalanceWithdrawalComponent,
 		BalaceHistoryComponent,
 		SucessfullSentEmailPasswordComponent,
+		TvChartContainerComponent
 	],
 	imports: [
 		BrowserModule,
