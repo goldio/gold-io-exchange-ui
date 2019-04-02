@@ -24,6 +24,7 @@ import symbols from './symbols';
 import { Pair } from '../../models/pair.model';
 import { OpenOrdersResponse } from 'src/app/common/models/response';
 import { CryptoHelper } from 'src/app/common/helpers';
+import { CreateOrderRequest } from 'src/app/common/models/request';
 
 // import { runInThisContext } from 'vm';
 
@@ -379,16 +380,23 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 			return;
 		}
 
+		const request = new CreateOrderRequest();
+		request.baseAsset = form.value['baseAsset'];
+		request.quoteAsset = form.value['quoteAsset'];
+		request.type = form.value['type'];
+		request.price = parseFloat(form.value['price']);
+		request.amount = parseFloat(form.value['amount']);
+
 		this.tradeService
-			.createOrder(form.value)
+			.createOrder(request)
 			.subscribe(res => {
 				if (!res.success) {
 					alert(res.message);
 					return;
 				}
 
-				form.controls['amount'].reset();
-				form.controls['total'].reset();
+				form.controls['amount'].reset(new Number(0).toFixed(8));
+				form.controls['total'].reset(new Number(0).toFixed(8));
 			});
 	}
 }
