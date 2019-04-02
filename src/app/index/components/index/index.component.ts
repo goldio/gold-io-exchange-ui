@@ -387,8 +387,8 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		request.baseAsset = form.value['baseAsset'];
 		request.quoteAsset = form.value['quoteAsset'];
 		request.type = form.value['type'];
-		request.price = parseFloat(form.value['price']);
-		request.amount = parseFloat(form.value['amount']);
+		request.price = form.value['price'];
+		request.amount = form.value['amount'];
 
 		this.tradeService
 			.createOrder(request)
