@@ -380,15 +380,15 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 			return;
 		}
 
-		form.controls['amount'].reset(new Number(0).toFixed(8));
-		form.controls['total'].reset(new Number(0).toFixed(8));
-
 		const request = new CreateOrderRequest();
 		request.baseAsset = form.value['baseAsset'];
 		request.quoteAsset = form.value['quoteAsset'];
 		request.type = form.value['type'];
-		request.price = form.value['price'];
-		request.amount = form.value['amount'];
+		request.price = parseFloat(form.value['price']);
+		request.amount = parseFloat(form.value['amount']);
+
+		form.controls['amount'].reset(new Number(0).toFixed(8));
+		form.controls['total'].reset(new Number(0).toFixed(8));
 
 		this.tradeService
 			.createOrder(request)
