@@ -1,11 +1,9 @@
 import { Injectable } from "@angular/core";
-import { BaseHttpService } from 'src/app/common/services/base-http.service';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
-import { DataResponse, ResponseModel } from 'src/app/common/models/response';
-import { Person } from 'src/app/common/models';
-import { UpdatePersonRequest } from 'src/app/common/models/request';
 import { ChangePassword } from '../models/changePassword.model';
+import { BaseHttpService } from "../../common/services/base-http.service";
+import { ResponseModel } from "../../common/models/response";
 
 @Injectable()
 export class SecurityService extends BaseHttpService {

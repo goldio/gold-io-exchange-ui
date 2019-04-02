@@ -1,14 +1,12 @@
 
 import { Component, OnInit } from '@angular/core';
-import { StorageService } from 'src/app/common/services/storage.service';
 import { Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
-import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
-import { WalletsService } from 'src/app/common/services/wallets.service';
-import { UserWallet } from 'src/app/common/models';
-import { DepositResponse } from '../../models/deposit-response.model';
 import { BalanceService } from '../../services/balance.service';
-import { AuthService } from 'src/app/common/services/auth.service';
+import { BaseLayoutComponent } from '../../../common/components/base-layout.component';
+import { UserWallet } from '../../../common/models';
+import { StorageService } from '../../../common/services/storage.service';
+import { WalletsService } from '../../../common/services/wallets.service';
+import { AuthService } from '../../../common/services/auth.service';
 
 @Component({
 	selector: 'app-balance-deposit',

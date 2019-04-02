@@ -1,5 +1,5 @@
-import { User } from 'src/app/common/models';
-import { ActivityType } from 'src/app/common/enums/activity-type.enum';
+import { ActivityType } from "../../common/enums/activity-type.enum";
+import { User } from "../../common/models";
 
 export class UserSession{
     public id: number;

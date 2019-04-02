@@ -1,5 +1,5 @@
-import { CoinAddress } from 'src/app/common/models';
-import { WalletOperationStatus } from 'src/app/common/enums/wallet-operation-status.enum';
+import { CoinAddress } from "../../common/models";
+import { WalletOperationStatus } from "../../common/enums/wallet-operation-status.enum";
 
 export class WallenOperation {
     public address: CoinAddress;

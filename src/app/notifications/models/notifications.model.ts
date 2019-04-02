@@ -1,7 +1,7 @@
-import { User } from 'src/app/common/models';
-import { ResponseModel } from 'src/app/common/models/response';
+import { ResponseModel } from "../../common/models/response";
+import { User } from "../../common/models";
 
-export class Notifications extends ResponseModel{
+export class Notifications extends ResponseModel {
     public ID: number;
     public user: User;
     public emailNews: boolean;

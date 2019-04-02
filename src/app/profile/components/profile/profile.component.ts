@@ -5,13 +5,13 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CountriesService } from '../../services/countries.service';
 import * as moment from 'moment';
 import { MatDatepickerInputEvent } from '@angular/material';
-import { last } from '@angular/router/src/utils/collection';
-import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
-import { Country, City, Person } from 'src/app/common/models';
-import { Theme } from 'src/app/common/enums';
-import { AuthService } from 'src/app/common/services/auth.service';
-import { ThemeService } from 'src/app/common/services/theme.service';
-import { UpdatePersonRequest } from 'src/app/common/models/request';
+import { BaseLayoutComponent } from '../../../common/components/base-layout.component';
+import { Country, City, Person } from '../../../common/models';
+import { Theme } from '../../../common/enums';
+import { AuthService } from '../../../common/services/auth.service';
+import { ThemeService } from '../../../common/services/theme.service';
+import { UpdatePersonRequest } from '../../../common/models/request';
+
 @Component({
 	selector: 'app-profile',
 	templateUrl: './profile.component.html',

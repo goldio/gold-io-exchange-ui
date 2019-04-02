@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/common/services/auth.service';
-import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
 import { ChangePassword } from '../../models/changePassword.model';
 import { SecurityService } from '../../services/security.service';
+import { BaseLayoutComponent } from '../../../common/components/base-layout.component';
+import { AuthService } from '../../../common/services/auth.service';
 
 @Component({
   selector: 'app-security',

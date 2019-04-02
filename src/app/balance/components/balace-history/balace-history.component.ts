@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { AuthService } from 'src/app/common/services/auth.service';
 import { BalanceService } from '../../services/balance.service';
 import { BalanceHistory } from '../../models/history.model';
+import { BaseLayoutComponent } from '../../../common/components/base-layout.component';
+import { AuthService } from '../../../common/services/auth.service';
 
 @Component({
   selector: 'app-balace-history',
@@ -21,7 +21,7 @@ export class BalaceHistoryComponent extends BaseLayoutComponent implements OnIni
   constructor(
     private router: Router,
     private location: Location,
-    private authService:AuthService,
+    private authService: AuthService,
     private balanceService:BalanceService
   ) { 
     super();

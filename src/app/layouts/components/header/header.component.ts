@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Theme } from 'src/app/common/enums/theme.enum';
-import { AuthService } from 'src/app/common/services/auth.service';
-import { UsersService } from 'src/app/common/services/users.service';
-import { User } from 'src/app/common/models';
-import { ThemeService } from 'src/app/common/services/theme.service';
+import { User } from '../../../common/models';
+import { AuthService } from '../../../common/services/auth.service';
+import { UsersService } from '../../../common/services/users.service';
+import { ThemeService } from '../../../common/services/theme.service';
+
 declare var jquery: any;
 declare var $: any;
+
 @Component({
 	selector: 'app-header',
 	templateUrl: './header.component.html',

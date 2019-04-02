@@ -1,12 +1,10 @@
 import { Injectable } from "@angular/core";
-import { BaseHttpService } from 'src/app/common/services/base-http.service';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
-import { DataResponse } from 'src/app/common/models/response';
-import { Person } from 'src/app/common/models';
-import { UpdatePersonRequest } from 'src/app/common/models/request';
 import { ApiKey } from '../models/apiKey.model';
 import { CreateUpdateKeyRequest } from '../models/create-update-keyRequest.model';
+import { BaseHttpService } from "../../common/services/base-http.service";
+import { DataResponse } from "../../common/models/response";
 
 @Injectable()
 export class ApiService extends BaseHttpService {

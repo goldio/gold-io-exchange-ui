@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
-import { BaseHttpService } from 'src/app/common/services/base-http.service';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
-import { DataResponse } from 'src/app/common/models/response';
-import { Person } from 'src/app/common/models';
-import { UpdatePersonRequest } from 'src/app/common/models/request';
+import { BaseHttpService } from "../../common/services/base-http.service";
+import { DataResponse } from "../../common/models/response";
+import { Person } from "../../common/models";
+import { UpdatePersonRequest } from "../../common/models/request";
 
 @Injectable()
 export class PersonsService extends BaseHttpService {

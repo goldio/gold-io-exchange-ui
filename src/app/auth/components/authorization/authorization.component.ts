@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/common/services/auth.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
-import { SignInRequest } from 'src/app/common/models/request';
+import { BaseLayoutComponent } from '../../../common/components/base-layout.component';
+import { AuthService } from '../../../common/services/auth.service';
+import { SignInRequest } from '../../../common/models/request';
 
 @Component({
 	selector: 'app-authorization',

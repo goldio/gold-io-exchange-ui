@@ -1,34 +1,20 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-
-/* import * as am4core from "@amcharts/amcharts4/core";
-import * as am4charts from "@amcharts/amcharts4/charts"; */
-/* import { Chart } from 'angular-highcharts'; */
-import * as Highcharts from 'highcharts';
-import HC_more from 'highcharts/highcharts-more.src';
-HC_more(Highcharts);
-import HC_stock from 'highcharts/modules/stock';
-HC_stock(Highcharts);
-
-import { WebsocketService } from 'src/app/common/services/websocket.service';
-import { BinanceService } from 'src/app/common/services/binance.service';
-import { AuthService } from 'src/app/common/services/auth.service';
-
-import { TradeService } from 'src/app/common/services/trade.service';
-import { OrderType, Theme, OrderStatus } from 'src/app/common/enums';
-import { WalletsService } from 'src/app/common/services/wallets.service';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ThemeService } from 'src/app/common/services/theme.service';
-import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
-import { UserWallet, Order, Price, WebSocketMessage, User } from 'src/app/common/models';
-import symbols from './symbols';
 import { Pair } from '../../models/pair.model';
-import { OpenOrdersResponse } from 'src/app/common/models/response';
-import { CryptoHelper } from 'src/app/common/helpers';
-import { CreateOrderRequest } from 'src/app/common/models/request';
+import { BaseLayoutComponent } from '../../../common/components/base-layout.component';
+import { OrderType, Theme, OrderStatus } from '../../../common/enums';
+import { User, Price, UserWallet, Order, WebSocketMessage } from '../../../common/models';
+import { AuthService } from '../../../common/services/auth.service';
+import { WebsocketService } from '../../../common/services/websocket.service';
+import { BinanceService } from '../../../common/services/binance.service';
+import { TradeService } from '../../../common/services/trade.service';
+import { WalletsService } from '../../../common/services/wallets.service';
+import { ThemeService } from '../../../common/services/theme.service';
+import { OpenOrdersResponse } from '../../../common/models/response';
+import { CreateOrderRequest } from '../../../common/models/request';
 
 // import { runInThisContext } from 'vm';
 
-declare var TradingView: any;
 declare var Swiper: any;
 
 @Component({

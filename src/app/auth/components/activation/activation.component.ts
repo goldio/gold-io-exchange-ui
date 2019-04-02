@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute , Params, Router } from '@angular/router';
-import { ActivationRequest  } from 'src/app/common/models/request/activation-request.model';
-import { AuthService } from 'src/app/common/services/auth.service';
+import { AuthService } from '../../../common/services/auth.service';
+import { ActivationRequest } from '../../../common/models/request';
 
 @Component({
   selector: 'app-activation',

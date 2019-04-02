@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { StorageService } from 'src/app/common/services/storage.service';
-import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
-import { WalletsService } from 'src/app/common/services/wallets.service';
-import { UserWallet } from 'src/app/common/models';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { BalanceService } from '../../services/balance.service';
 import { WithdrawlRequest } from '../../models/withdrawl-request.model';
-import { AuthService } from 'src/app/common/services/auth.service';
 import { GetTransactionFeeRequest } from '../../models/getTransactionFeeRequest.model';
+import { BaseLayoutComponent } from '../../../common/components/base-layout.component';
+import { UserWallet } from '../../../common/models';
+import { StorageService } from '../../../common/services/storage.service';
+import { WalletsService } from '../../../common/services/wallets.service';
+import { AuthService } from '../../../common/services/auth.service';
 
 @Component({
 	selector: 'app-balance-withdrawal',

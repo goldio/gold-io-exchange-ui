@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
 import { UserSession } from '../../models/user-session.model';
 import { WallenOperation } from '../../models/wallet-operation.model';
 import { ActivityService } from './services/activity.service';
-import { AuthService } from 'src/app/common/services/auth.service';
 import { Router } from '@angular/router';
-import { ActivityType } from 'src/app/common/enums/activity-type.enum';
+import { BaseLayoutComponent } from '../../../common/components/base-layout.component';
+import { AuthService } from '../../../common/services/auth.service';
 
 @Component({
   selector: 'app-activity',

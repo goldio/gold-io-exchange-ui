@@ -1,13 +1,12 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import 'rxjs/add/operator/debounceTime';
-
-import { UserWallet } from 'src/app/common/models';
-import { WalletsService } from 'src/app/common/services/wallets.service';
-import { AuthService } from 'src/app/common/services/auth.service';
 import { Router } from '@angular/router';
-import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
-import { StorageService } from 'src/app/common/services/storage.service';
+import { BaseLayoutComponent } from '../../../common/components/base-layout.component';
+import { UserWallet } from '../../../common/models';
+import { WalletsService } from '../../../common/services/wallets.service';
+import { AuthService } from '../../../common/services/auth.service';
+import { StorageService } from '../../../common/services/storage.service';
 
 @Component({
 	selector: 'app-balance',

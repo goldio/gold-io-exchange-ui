@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject } from 'rxjs';
 import { SocketJSON } from '../models';
-import { Pair } from 'src/app/index/models/pair.model';
+import { Pair } from '../../index/models/pair.model';
 
 @Injectable()
 export class WebsocketService {

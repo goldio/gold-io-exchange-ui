@@ -1,16 +1,13 @@
 import { Injectable } from "@angular/core";
-import { BaseHttpService } from 'src/app/common/services/base-http.service';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
-import { DataResponse, ResponseModel } from 'src/app/common/models/response';
-import { Person } from 'src/app/common/models';
-import { UpdatePersonRequest } from 'src/app/common/models/request';
 import { DepositResponse } from '../models/deposit-response.model';
-import { WallenOperation } from 'src/app/activity/models/wallet-operation.model';
 import { WithdrawlRequest } from '../models/withdrawl-request.model';
 import { BalanceHistory } from '../models/history.model';
 import { GetTransactionFeeResponse } from '../models/getTransactionFeeResponse.model';
 import { GetTransactionFeeRequest } from '../models/getTransactionFeeRequest.model';
+import { BaseHttpService } from "../../common/services/base-http.service";
+import { ResponseModel, DataResponse } from "../../common/models/response";
 
 @Injectable()
 export class BalanceService extends BaseHttpService {

@@ -2,12 +2,10 @@ import { Injectable } from "@angular/core";
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
-import { TradeHistoryItem } from 'src/app/index/models';
-import { ExchangeInfo } from 'src/app/index/models/exchange-info.model';
-import { BaseHttpService } from 'src/app/common/services/base-http.service';
 import { Notifications } from '../models/notifications.model';
 import { NotificationsUpdate } from '../models/notifications-update.model';
-import { DataResponse } from 'src/app/common/models/response';
+import { BaseHttpService } from "../../common/services/base-http.service";
+import { DataResponse } from "../../common/models/response";
 
 @Injectable()
 export class NotificationsService extends BaseHttpService {

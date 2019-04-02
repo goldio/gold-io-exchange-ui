@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/common/services/auth.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { ChangeRecoveryPasswordRequest } from 'src/app/common/models/request/change-recovery-password-request.model';
+import { AuthService } from '../../../common/services/auth.service';
+import { ChangeRecoveryPasswordRequest } from '../../../common/models/request/change-recovery-password-request.model';
 
 @Component({
 	selector: 'app-recovery',

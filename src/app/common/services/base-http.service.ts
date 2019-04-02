@@ -1,7 +1,7 @@
-import { environment } from 'src/environments/environment';
 import { Http, RequestOptionsArgs, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { RequestHelper, LocalStorageHelper } from '../helpers';
+import { environment } from '../../../environments/environment';
 
 export class BaseHttpService {
     public apiUrl: string = environment.apiEndpoint;

@@ -1,4 +1,4 @@
-import { Coin } from 'src/app/common/models';
+import { Coin } from "../../common/models";
 
 export class Pair {
     public symbol : string;

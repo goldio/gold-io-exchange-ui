@@ -3,7 +3,7 @@ import { NotificationsService } from '../../services/notifications.service';
 import { Notifications } from '../../models/notifications.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { NotificationsUpdate } from '../../models/notifications-update.model';
-import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
+import { BaseLayoutComponent } from '../../../common/components/base-layout.component';
 
 @Component({
   selector: 'app-notifications',
