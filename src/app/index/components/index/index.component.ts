@@ -382,7 +382,10 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		this.tradeService
 			.createOrder(form.value)
 			.subscribe(res => {
-				console.log(res);
-			})
+				if (!res.success) {
+					alert(res.message);
+					return;
+				}
+			});
 	}
 }
