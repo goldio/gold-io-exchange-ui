@@ -380,6 +380,9 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 			return;
 		}
 
+		form.controls['amount'].reset(new Number(0).toFixed(8));
+		form.controls['total'].reset(new Number(0).toFixed(8));
+
 		const request = new CreateOrderRequest();
 		request.baseAsset = form.value['baseAsset'];
 		request.quoteAsset = form.value['quoteAsset'];
@@ -394,9 +397,6 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 					alert(res.message);
 					return;
 				}
-
-				form.controls['amount'].reset(new Number(0).toFixed(8));
-				form.controls['total'].reset(new Number(0).toFixed(8));
 			});
 	}
 }
