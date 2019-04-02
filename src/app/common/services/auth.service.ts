@@ -7,10 +7,11 @@ import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { SignInRequest, SignUpRequest } from '../models/request';
 import { SignInResponse } from '../models/response/sign-in-response.model';
-import { ResponseModel } from '../models/response';
+import { ResponseModel, DataResponse } from '../models/response';
 import { ActivationRequest } from '../models/request/activation-request.model';
 import { RecoveryRequest } from '../models/request/recovery-requers.model';
 import { ChangeRecoveryPasswordRequest } from '../models/request/change-recovery-password-request.model';
+import { User } from '../models';
 
 @Injectable()
 export class AuthService extends BaseHttpService {
@@ -78,6 +79,11 @@ export class AuthService extends BaseHttpService {
         super(http);
 
         this.checkAuth();
+    }
+
+    public getUser(): Observable<DataResponse<User>> {
+        return this.get(`${this.apiUrl}/users/me`)
+            .map(response => response.json());
     }
 
     public registration(request: SignUpRequest): Observable<ResponseModel> {

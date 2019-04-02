@@ -34,6 +34,10 @@ export class Order extends BaseModel {
         order.quoteAsset.shortName = o.QuoteAsset.ShortName;
         order.quoteAsset.isCrypto = o.QuoteAsset.IsCrypto;
 
+        order.user = new User();
+        order.user.id = o.User.Id;
+        order.user.login = o.User.Login;
+
         return order;
     }
 }
@@ -48,10 +52,16 @@ class WebSocketOrder {
     public Time: Date; 
     public BaseAsset: WebSocketCoin;
     public QuoteAsset: WebSocketCoin;
+    public User: WebSocketUser;
 }
 
 export class WebSocketCoin {
     public Name: string;
     public ShortName: string;
     public IsCrypto: boolean;
+}
+
+export class WebSocketUser {
+    public Id: number;
+    public Login: string;
 }

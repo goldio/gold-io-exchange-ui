@@ -19,7 +19,7 @@ import { WalletsService } from 'src/app/common/services/wallets.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ThemeService } from 'src/app/common/services/theme.service';
 import { BaseLayoutComponent } from 'src/app/common/components/base-layout.component';
-import { UserWallet, Order, Price, WebSocketMessage } from 'src/app/common/models';
+import { UserWallet, Order, Price, WebSocketMessage, User } from 'src/app/common/models';
 import symbols from './symbols';
 import { Pair } from '../../models/pair.model';
 import { OpenOrdersResponse } from 'src/app/common/models/response';
@@ -60,6 +60,8 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	public responciveTabs = 2;
 
 	public theme: Theme;
+
+	public user: User;
 
 	public pairs: Pair[];
 	public currentPair: Pair;
@@ -127,7 +129,9 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 
 	// Initialization
 	private async init() {
+		this.user = await this.getUser();
 		this.pairs = await this.getPairs();
+
 		await this.setPair(this.pairs[0]);
 	}
 
@@ -229,6 +233,10 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 								existOrder = order;
 							}
 						}
+
+						if (order.user.id == this.user.id) {
+							this.myOpenOrders.push(order);
+						}
 					} else if (order.status == OrderStatus.Closed) {
 						if (order.type == OrderType.Buy) {
 							this.openOrders.buy = this.openOrders.buy.filter(x => x.id != order.id);
@@ -237,7 +245,16 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 						}
 
 						this.closedOrders.push(order);
+
+						if (order.user.id == this.user.id) {
+							this.myOpenOrders = this.myOpenOrders.filter(x => x.id != order.id);
+						}
 					}
+
+					this.openOrders.buy = Array.from(new Set(this.openOrders.buy));
+					this.openOrders.sell = Array.from(new Set(this.openOrders.sell));
+					this.closedOrders = Array.from(new Set(this.closedOrders));
+					this.myOpenOrders = Array.from(new Set(this.myOpenOrders));
 				} 
 			});
 	}
@@ -252,6 +269,19 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		new Swiper('.swiper-container', {
 			scrollContainer: true
 		});
+	}
+
+	public async getUser(): Promise<User> {
+		const response = await this.authService
+			.getUser()
+			.toPromise();
+
+		if (!response.success) {
+			console.log(response.message);
+			return;
+		}
+
+		return response.data;
 	}
 
 	// Load trade pairs
