@@ -386,6 +386,9 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 					alert(res.message);
 					return;
 				}
+
+				form.controls['amount'].reset();
+				form.controls['total'].reset();
 			});
 	}
 }
