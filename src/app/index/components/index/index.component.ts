@@ -205,9 +205,9 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 
 				if (message.type == "orderBookUpdate") {
 					const order = Order.create(JSON.parse(message.message));
-					if (order.baseAsset.shortName != this.currentPair.baseAsset.shortName &&
-						order.quoteAsset.shortName != this.currentPair.quoteAsset.shortName) {
-							return;
+
+					if (`${order.baseAsset.shortName}/${order.quoteAsset.shortName}` != this.currentPair.symbol) {
+						return;
 					}
 
 					if (order.status == OrderStatus.Open) {
