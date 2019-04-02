@@ -255,7 +255,18 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 					this.openOrders.sell = Array.from(new Set(this.openOrders.sell));
 					this.closedOrders = Array.from(new Set(this.closedOrders));
 					this.myOpenOrders = Array.from(new Set(this.myOpenOrders));
-				} 
+
+					return;
+				}
+
+				if (message.type == "priceUpdate") {
+					const priceMessage = JSON.parse(message.message) as Price;
+					const price = new Price(priceMessage.price, priceMessage.isHigher);
+
+					this.currentPrice = price;
+
+					return;
+				}
 			});
 	}
 
