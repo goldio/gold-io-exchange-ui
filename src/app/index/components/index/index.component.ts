@@ -217,21 +217,9 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 
 					if (order.status == OrderStatus.Open) {
 						if (order.type == OrderType.Buy) {
-							let existOrder = this.openOrders.buy.find(x => x.id == order.id);
-
-							if (!existOrder) {
-								this.openOrders.buy.push(order);
-							} else {
-								existOrder = order;
-							}
+							this.openOrders.buy.push(order);
 						} else if (order.type == OrderType.Sell) {
-							let existOrder = this.openOrders.sell.find(x => x.id == order.id);
-
-							if (!existOrder) {
-								this.openOrders.sell.push(order);
-							} else {
-								existOrder = order;
-							}
+							this.openOrders.sell.push(order);
 						}
 
 						if (order.user.id == this.user.id) {
