@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Pair } from '../../models/pair.model';
 import { BaseLayoutComponent } from '../../../common/components/base-layout.component';
@@ -12,6 +12,7 @@ import { WalletsService } from '../../../common/services/wallets.service';
 import { ThemeService } from '../../../common/services/theme.service';
 import { OpenOrdersResponse } from '../../../common/models/response';
 import { CreateOrderRequest } from '../../../common/models/request';
+import { TvChartContainerComponent } from '../../../tv-chart-container/tv-chart-container.component';
 
 // import { runInThisContext } from 'vm';
 
@@ -53,6 +54,8 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	public currentPair: Pair;
 	public currentPrice: Price;
 
+	public currentPairTV: string;
+
 	public baseWallet: UserWallet;
 	public quoteWallet: UserWallet;
 
@@ -63,6 +66,8 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 
 	public closedOrders: Order[];
 	public myOpenOrders: Order[];
+
+	@ViewChild('priceChart') private priceChart: TvChartContainerComponent;
 
 	public changeOrderAct(act: string) {
 		if (act == "buy") {
@@ -266,6 +271,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	public async setPair(pair: Pair) {
 		this.currencyBox = false;
 		this.currentPair = pair;
+		this.currentPairTV = `${pair.baseAsset.shortName}.${pair.quoteAsset.shortName}`;
 
 		const openOrders = await this.getOpenOrder();
 		if (openOrders) {

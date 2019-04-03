@@ -13,6 +13,7 @@ import { UDFCompatibleDatafeed } from '../../assets/datafeeds/udf/src/udf-compat
     styleUrls: ['./tv-chart-container.component.css']
 })
 export class TvChartContainerComponent implements OnInit, OnDestroy {
+    //private _symbol: ChartingLibraryWidgetOptions['symbol'] = '';
     private _symbol: ChartingLibraryWidgetOptions['symbol'] = 'AAPL';
     private _interval: ChartingLibraryWidgetOptions['interval'] = 'D';
     // BEWARE: no trailing slash is expected in feed URL
