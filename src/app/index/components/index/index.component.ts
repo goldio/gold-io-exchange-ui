@@ -13,6 +13,7 @@ import { ThemeService } from '../../../common/services/theme.service';
 import { OpenOrdersResponse } from '../../../common/models/response';
 import { CreateOrderRequest } from '../../../common/models/request';
 import { TvChartContainerComponent } from '../../../tv-chart-container/tv-chart-container.component';
+import { PairState } from '../../models/pairState.model';
 
 // import { runInThisContext } from 'vm';
 
@@ -28,7 +29,7 @@ declare var Swiper: any;
 export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	OrderType = OrderType;
 
-	// public stats: Stats;
+	public stats: PairState;
 
 	public loader = false;
 	public isLoggedIn: boolean;
@@ -268,18 +269,20 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 
 		return response.data;
 	}
-	// public async getStats(): Promise<Stats[]> {
-		// 	const response = await this.tradeService
-		// 		.getStats()
-		// 		.toPromise();
-			
-		// 	if (!response.success) {
-		// 		console.log(response.message);
-		// 		return new Array<Stats>();
-		// 	}
 
-		// 	return response.data;
-		// }
+	public async getStats(): Promise<PairState> {
+			const response = await this.tradeService
+				.getStats(this.currentPair)
+				.toPromise();
+			
+			if (!response.success) {
+				console.log(response.message);
+
+				// return new Array<PairState>();
+			}
+			console.log(response.data);
+			return response.data;
+		}
 	// Set current pair
 	public async setPair(pair: Pair) {
 		this.currencyBox = false;
@@ -300,7 +303,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		this.baseWallet = wallets.baseWallet;
 		this.quoteWallet = wallets.quoteWallet;
 
-		// this.stats =  await this.getStats();
+		this.stats =  await this.getStats();
 
 		this.initTradeForm();
 		this.connectWebSocket();
