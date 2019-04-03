@@ -82,7 +82,6 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 			this.buyCell = true;
 			this.tradeForm.controls['type'].setValue(OrderType.Sell);
 		}
-		console.log(this.buyCell);
 	}
 
 	private initSearchForm(): void {
@@ -403,7 +402,6 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		request.baseAsset = form.value['baseAsset'];
 		request.quoteAsset = form.value['quoteAsset'];
 		request.type = form.value['type'];
-		console.log(form.value['type']);
 		request.price = parseFloat(form.value['price']);
 		request.amount = parseFloat(form.value['amount']);
 		form.controls['amount'].reset(new Number(0).toFixed(8));
