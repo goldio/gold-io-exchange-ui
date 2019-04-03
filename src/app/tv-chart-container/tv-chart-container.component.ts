@@ -6,13 +6,16 @@ import {
     LanguageCode,
 } from '../../assets/charting_library/charting_library.min';
 import { UDFCompatibleDatafeed } from '../../assets/datafeeds/udf/src/udf-compatible-datafeed';
+import { ThemeService } from '../common/services/theme.service';
+import { Theme } from '../common/enums';
 
 @Component({
     selector: 'app-tv-chart-container',
     templateUrl: './tv-chart-container.component.html',
-    styleUrls: ['./tv-chart-container.component.css']
+    styleUrls: ['./tv-chart-container.component.scss']
 })
 export class TvChartContainerComponent implements OnInit, OnDestroy {
+    public theme:any;
     //private _symbol: ChartingLibraryWidgetOptions['symbol'] = '';
     private _symbol: ChartingLibraryWidgetOptions['symbol'] = 'AAPL';
     private _interval: ChartingLibraryWidgetOptions['interval'] = 'D';
@@ -107,6 +110,8 @@ export class TvChartContainerComponent implements OnInit, OnDestroy {
             user_id: this._userId,
             fullscreen: this._fullscreen,
             autosize: this._autosize,
+            ///////// theme:'dark' or 'light'
+            theme : this.theme,
         };
 
         const tvWidget = new widget(widgetOptions);
@@ -134,4 +139,23 @@ export class TvChartContainerComponent implements OnInit, OnDestroy {
             this._tvWidget = null;
         }
     }
+
+
+    constructor(
+		private themeService: ThemeService
+	) {
+		this.themeService
+			.currentState
+			.subscribe(theme => {
+				if (theme == Theme.Dark) {
+                    
+                    this.theme = 'Dark';
+				} else {
+                    this.theme = 'Light';
+				}
+			});
+
+		
+	}
+    
 }
