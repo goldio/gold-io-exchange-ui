@@ -266,8 +266,8 @@
                     }">
 					<h2>PRICE CHART</h2>
 					<div class="chart-box" id="price-chart-box" style="width: 100%; max-width: 1280px" *ngIf="currentPairTV">
-						<!-- <app-tv-chart-container #priceChart [symbol]="currentPairTV"></app-tv-chart-container> -->
-						<app-tv-chart-container #priceChart></app-tv-chart-container>
+						<app-tv-chart-container #priceChart [symbol]="currentPairTV" [theme]="theme"></app-tv-chart-container>
+						<!-- <app-tv-chart-container #priceChart></app-tv-chart-container> -->
 					</div>
 
 					<div class="chart-box" id="price-chart-box1" style="display:none"></div>

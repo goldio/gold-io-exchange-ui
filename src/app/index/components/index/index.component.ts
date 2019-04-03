@@ -304,6 +304,9 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 
 		this.initTradeForm();
 		this.connectWebSocket();
+
+		//this.priceChart.destroy();
+		this.priceChart.init();
 	}
 
 	// Load my open orders

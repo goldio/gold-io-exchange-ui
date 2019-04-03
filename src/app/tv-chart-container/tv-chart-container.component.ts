@@ -15,13 +15,13 @@ import { Theme } from '../common/enums';
     styleUrls: ['./tv-chart-container.component.scss']
 })
 export class TvChartContainerComponent implements OnInit, OnDestroy {
-    public theme:any;
-    //private _symbol: ChartingLibraryWidgetOptions['symbol'] = '';
-    private _symbol: ChartingLibraryWidgetOptions['symbol'] = 'AAPL';
+    public _theme: any;
+    private _symbol: ChartingLibraryWidgetOptions['symbol'] = '';
+    //private _symbol: ChartingLibraryWidgetOptions['symbol'] = 'AAPL';
     private _interval: ChartingLibraryWidgetOptions['interval'] = 'D';
     // BEWARE: no trailing slash is expected in feed URL
-    private _datafeedUrl = 'https://demo_feed.tradingview.com';
-    //private _datafeedUrl = 'http://188.42.174.122:5000/api/datafeed';
+    //private _datafeedUrl = 'https://demo_feed.tradingview.com';
+    private _datafeedUrl = 'http://188.42.174.122:5000/api/datafeed';
     private _libraryPath: ChartingLibraryWidgetOptions['library_path'] = '/assets/charting_library/';
     private _chartsStorageUrl: ChartingLibraryWidgetOptions['charts_storage_url'] = 'https://saveload.tradingview.com';
     private _chartsStorageApiVersion: ChartingLibraryWidgetOptions['charts_storage_api_version'] = '1.1';
@@ -35,6 +35,15 @@ export class TvChartContainerComponent implements OnInit, OnDestroy {
     @Input()
     set symbol(symbol: ChartingLibraryWidgetOptions['symbol']) {
         this._symbol = symbol || this._symbol;
+    }
+
+    @Input()
+    set theme(theme: Theme) {
+        if (theme == Theme.Dark) {
+            this._theme = 'Dark';
+        } else {
+            this._theme = 'Light';
+        }
     }
 
     @Input()
@@ -87,7 +96,7 @@ export class TvChartContainerComponent implements OnInit, OnDestroy {
         this._containerId = containerId || this._containerId;
     }
 
-    ngOnInit() {
+    init() {
         function getLanguageFromURL(): LanguageCode | null {
             const regex = new RegExp('[\\?&]lang=([^&#]*)');
             const results = regex.exec(location.search);
@@ -111,7 +120,7 @@ export class TvChartContainerComponent implements OnInit, OnDestroy {
             fullscreen: this._fullscreen,
             autosize: this._autosize,
             ///////// theme:'dark' or 'light'
-            theme : this.theme,
+            theme : this._theme,
         };
 
         const tvWidget = new widget(widgetOptions);
@@ -133,11 +142,19 @@ export class TvChartContainerComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngOnDestroy() {
+    destroy() {
         if (this._tvWidget !== null) {
             this._tvWidget.remove();
             this._tvWidget = null;
         }
+    }
+
+    ngOnInit() {
+        this.init();
+    }
+
+    ngOnDestroy() {
+        this.destroy();
     }
 
 
@@ -148,14 +165,15 @@ export class TvChartContainerComponent implements OnInit, OnDestroy {
 			.currentState
 			.subscribe(theme => {
 				if (theme == Theme.Dark) {
-                    
-                    this.theme = 'Dark';
+                    if (this._tvWidget) {
+                        this._tvWidget.changeTheme('Dark');
+                    }
 				} else {
-                    this.theme = 'Light';
-				}
+                    if (this._tvWidget) {
+                        this._tvWidget.changeTheme('Light');
+                    }
+                }
 			});
-
-		
 	}
     
 }
