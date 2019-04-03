@@ -28,6 +28,8 @@ declare var Swiper: any;
 export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	OrderType = OrderType;
 
+	// public stats: Stats;
+
 	public loader = false;
 	public isLoggedIn: boolean;
 
@@ -266,7 +268,18 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 
 		return response.data;
 	}
+	// public async getStats(): Promise<Stats[]> {
+		// 	const response = await this.tradeService
+		// 		.getStats()
+		// 		.toPromise();
+			
+		// 	if (!response.success) {
+		// 		console.log(response.message);
+		// 		return new Array<Stats>();
+		// 	}
 
+		// 	return response.data;
+		// }
 	// Set current pair
 	public async setPair(pair: Pair) {
 		this.currencyBox = false;
@@ -286,6 +299,8 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		const wallets = await this.getWallets();
 		this.baseWallet = wallets.baseWallet;
 		this.quoteWallet = wallets.quoteWallet;
+
+		// this.stats =  await this.getStats();
 
 		this.initTradeForm();
 		this.connectWebSocket();

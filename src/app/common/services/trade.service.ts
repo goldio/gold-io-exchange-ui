@@ -45,4 +45,10 @@ export class TradeService extends BaseHttpService {
         return this.post(`${this.apiUrl}/trade/orders`, request)
             .map(response => response.json());
     }
+
+    // public getStats(): Observable<DataResponse<Pair[]>> {
+    //     return this.get(`${this.apiUrl}/trade/pairs`)
+    //         .map(response => response.json());
+    // }
+
 }
