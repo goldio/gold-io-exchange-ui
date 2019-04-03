@@ -109,25 +109,25 @@
 
 			</div>
 
-			<div class="top-last-price">
+			<div class="top-last-price" *ngIf="stats"  >
 				<div class="top-last-price-item">
-					<b style="text-transform: uppercase;">LAST PRICE</b> 0.034337
-					<span>$137.81</span>
+					<b style="text-transform: uppercase;">LAST PRICE</b> {{ stats.last.toFixed(8) }}
+					<!-- <span>$137.81</span> -->
 				</div>
 				<div class="top-last-price-item">
-					<b style="text-transform: uppercase;">24h change</b>0.001899
-					<span>+5.85%</span>
+					<b style="text-transform: uppercase;">24h change</b>{{ stats.change.toFixed(8) }}
+					<!-- <span>+5.85%</span> -->
 				</div>
 				<div class="top-last-price-item">
-					<b style="text-transform: uppercase;">24h high</b>0.037672
+					<b style="text-transform: uppercase;">24h high</b>{{ stats.high.toFixed(8) }}
 					<em></em>
 				</div>
 				<div class="top-last-price-item">
-					<b style="text-transform: uppercase;">24h LOW</b> 0.032376
+					<b style="text-transform: uppercase;">24h LOW</b> {{ stats.low.toFixed(8) }}
 					<em></em>
 				</div>
 				<div class="top-last-price-item">
-					<b style="text-transform: uppercase;">24h volume</b> 19992.65 BTC
+					<b style="text-transform: uppercase;">24h volume</b> {{ stats.volume.toFixed(8) }} 
 				</div>
 			</div>
 			<!--
@@ -265,7 +265,12 @@
                     'visible': !chart
                     }">
 					<h2>PRICE CHART</h2>
-					<div class="chart-box" id="price-chart-box" style="width: 100%; max-width: 1280px" *ngIf="currentPairTV">
+					<div class="chart-box" id="price-chart-box" 
+							style="width: 100%;
+								width: -moz-available;        
+								width: -webkit-fill-available;  
+								width: fill-available;"
+							*ngIf="currentPairTV">
 						<app-tv-chart-container #priceChart [symbol]="currentPairTV" [theme]="theme"></app-tv-chart-container>
 						<!-- <app-tv-chart-container #priceChart></app-tv-chart-container> -->
 					</div>

@@ -7,6 +7,7 @@ import { DataResponse, ResponseModel, OpenOrdersResponse, PriceResponse } from '
 import { Order } from '../models';
 import { CreateOrderRequest } from '../models/request';
 import { Pair } from "../../index/models/pair.model";
+import { PairState } from "../../index/models/pairState.model";
 
 @Injectable()
 export class TradeService extends BaseHttpService {
@@ -46,9 +47,9 @@ export class TradeService extends BaseHttpService {
             .map(response => response.json());
     }
 
-    // public getStats(): Observable<DataResponse<Pair[]>> {
-    //     return this.get(`${this.apiUrl}/trade/pairs`)
-    //         .map(response => response.json());
-    // }
+    public getStats(pair: Pair): Observable<DataResponse<PairState>> {
+        return this.get(`${this.apiUrl}/trade/pairs/${pair.symbol.replace("/", ".")}/stats`)
+            .map(response => response.json());
+    }
 
 }

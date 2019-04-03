@@ -17,6 +17,7 @@ import * as Highcharts from 'highcharts';
 import HC_more from 'highcharts/highcharts-more.src';
 HC_more(Highcharts);
 import HC_stock from 'highcharts/modules/stock';
+import { PairState } from '../../models/pairState.model';
 HC_stock(Highcharts);
 // import { runInThisContext } from 'vm';
 
@@ -33,7 +34,7 @@ declare var Swiper: any;
 export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	OrderType = OrderType;
 
-	// public stats: Stats;
+	public stats: PairState;
 
 	public loader = false;
 	public isLoggedIn: boolean;
@@ -281,18 +282,17 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 
 		return response.data;
 	}
-	// public async getStats(): Promise<Stats[]> {
-		// 	const response = await this.tradeService
-		// 		.getStats()
-		// 		.toPromise();
-			
-		// 	if (!response.success) {
-		// 		console.log(response.message);
-		// 		return new Array<Stats>();
-		// 	}
 
-		// 	return response.data;
-		// }
+	public async getStats(): Promise<PairState> {
+			const response = await this.tradeService
+				.getStats(this.currentPair)
+				.toPromise();
+			
+			if (!response.success) {
+				console.log(response.message);
+			}
+			return response.data;
+		}
 	// Set current pair
 	public async setPair(pair: Pair) {
 		this.currencyBox = false;
@@ -313,7 +313,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		this.baseWallet = wallets.baseWallet;
 		this.quoteWallet = wallets.quoteWallet;
 
-		// this.stats =  await this.getStats();
+		this.stats =  await this.getStats();
 
 		this.initTradeForm();
 		this.connectWebSocket();
@@ -393,13 +393,13 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 			return;
 		}
 
-		console.log(this.currentPair);
-		console.log(response.data);
+		// console.log(this.currentPair);
+		// console.log(response.data);
 		const result = {
 			baseWallet: response.data.find(x => x.coin.shortName == this.currentPair.baseAsset.shortName),
 			quoteWallet: response.data.find(x => x.coin.shortName == this.currentPair.quoteAsset.shortName)
 		};
-		console.log(result);
+		// console.log(result);
 
 		return result;
 	}
@@ -417,7 +417,6 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		request.type = form.value['type'];
 		request.price = parseFloat(form.value['price']);
 		request.amount = parseFloat(form.value['amount']);
-
 		form.controls['amount'].reset(new Number(0).toFixed(8));
 		form.controls['total'].reset(new Number(0).toFixed(8));
 
@@ -428,6 +427,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 					alert(res.message);
 					return;
 				}
+				this.changeOrderAct('buy');
 			});
 	}
 

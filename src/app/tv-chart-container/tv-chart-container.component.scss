@@ -1,6 +1,8 @@
 .app-tv-chart-container {
-	width: 100%;
-	height: 100%;
+	// height: calc(100vh - 80px);
+	max-height: 423px;
+    height: 100%;
+	// height: 430px;
 }
 /deep/iframe{
 	// max-width: 1066px;
