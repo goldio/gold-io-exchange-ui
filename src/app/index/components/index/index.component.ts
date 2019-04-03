@@ -82,6 +82,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 			this.buyCell = true;
 			this.tradeForm.controls['type'].setValue(OrderType.Sell);
 		}
+		console.log(this.buyCell);
 	}
 
 	private initSearchForm(): void {
@@ -277,10 +278,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 			
 			if (!response.success) {
 				console.log(response.message);
-
-				// return new Array<PairState>();
 			}
-			console.log(response.data);
 			return response.data;
 		}
 	// Set current pair
@@ -383,13 +381,13 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 			return;
 		}
 
-		console.log(this.currentPair);
-		console.log(response.data);
+		// console.log(this.currentPair);
+		// console.log(response.data);
 		const result = {
 			baseWallet: response.data.find(x => x.coin.shortName == this.currentPair.baseAsset.shortName),
 			quoteWallet: response.data.find(x => x.coin.shortName == this.currentPair.quoteAsset.shortName)
 		};
-		console.log(result);
+		// console.log(result);
 
 		return result;
 	}
@@ -405,9 +403,9 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		request.baseAsset = form.value['baseAsset'];
 		request.quoteAsset = form.value['quoteAsset'];
 		request.type = form.value['type'];
+		console.log(form.value['type']);
 		request.price = parseFloat(form.value['price']);
 		request.amount = parseFloat(form.value['amount']);
-
 		form.controls['amount'].reset(new Number(0).toFixed(8));
 		form.controls['total'].reset(new Number(0).toFixed(8));
 
@@ -418,6 +416,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 					alert(res.message);
 					return;
 				}
+				this.changeOrderAct('buy');
 			});
 	}
 }
