@@ -13,9 +13,14 @@ import { ThemeService } from '../../../common/services/theme.service';
 import { OpenOrdersResponse } from '../../../common/models/response';
 import { CreateOrderRequest } from '../../../common/models/request';
 import { TvChartContainerComponent } from '../../../tv-chart-container/tv-chart-container.component';
-
+import * as Highcharts from 'highcharts';
+import HC_more from 'highcharts/highcharts-more.src';
+HC_more(Highcharts);
+import HC_stock from 'highcharts/modules/stock';
+HC_stock(Highcharts);
 // import { runInThisContext } from 'vm';
 
+declare var TradingView: any;
 declare var Swiper: any;
 
 @Component({
@@ -68,6 +73,14 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 
 	public closedOrders: Order[];
 	public myOpenOrders: Order[];
+
+	public Highcharts = Highcharts;
+	public depthChartOptions: Highcharts.Options;
+	public orderBook: { asks: any[], bids: any[] };
+
+	public depthChartData: any;
+	public dataDepthAsks: any[];
+	public dataDepthBids: any[];
 
 	@ViewChild('priceChart') private priceChart: TvChartContainerComponent;
 
@@ -416,5 +429,252 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 					return;
 				}
 			});
+	}
+
+	private async setDepthChartData(points?: { asks: any[], bids: any[] }) {
+		if (!this.orderBook) {
+			this.orderBook = await this.getOrderBook();
+		}
+
+		if (points) {
+			points.bids.forEach(point => {
+				this.orderBook.bids.unshift(point);
+			});
+
+			points.asks.forEach(point => {
+				this.orderBook.asks.unshift(point);
+			});
+		}
+
+		const bestBid = this.getBestBid(this.orderBook.bids);
+		const bestAsk = this.getBestAsk(this.orderBook.asks);
+		const midPrice = (bestAsk + bestBid) / 2;
+
+		let minAxisExtr = midPrice - 2000;
+		//let curMinAxisExtr = minAxisExtr;
+
+		let maxAxisExtr = midPrice + 2000;
+		//let curMaxAxisExtr = maxAxisExtr;
+
+		//формирование левого графика
+		this.dataDepthBids = [];
+		let summBids = 0;
+		this.orderBook.bids.forEach(el => {
+			if (el[0] > minAxisExtr && el[0] < maxAxisExtr) {
+				summBids += Number(el[1]);
+				this.dataDepthBids[el[0]] = summBids;
+			}
+		});
+		let chartBidsData = this.convertToGraphData(this.dataDepthBids);
+
+		//формирование правого графика
+		this.dataDepthAsks = [];
+		let summAsks = 0;
+		this.orderBook.asks.forEach(el => {
+			if (el[0] > (midPrice - 2000) && el[0] < (midPrice + 2000)) {
+				summAsks += Number(el[1]);
+				this.dataDepthAsks[el[0]] = summAsks;
+			}
+		});
+		let chartAsksData = this.convertToGraphData(this.dataDepthAsks);
+
+
+		this.depthChartData = {
+			asks: chartAsksData,
+			bids: chartBidsData
+		};
+
+		if (this.Highcharts.charts[1]) {
+			this.Highcharts.charts[1].series[0].update({
+				name: 'bids',
+				type: 'area',
+				data: this.depthChartData.bids
+			});
+
+			this.Highcharts.charts[1].series[1].update({
+				name: 'asks',
+				type: 'area',
+				data: this.depthChartData.asks
+			});
+		}
+	}
+
+	private getBestAsk(data: any) {
+		let best = Number(data[0][0]);
+		let val;
+		data.forEach(el => {
+			val = Number(el[0]);
+			if (el[0] < best) {
+				best = el[0];
+			}
+		});
+		return best;
+	}
+
+	private getBestBid(data: any) {
+		let best = Number(data[0][0]);
+		let val;
+		data.forEach(el => {
+			val = Number(el[0]);
+			if (val > best) {
+				best = val;
+			}
+		});
+		return best;
+	}
+
+	private convertToGraphData(data: any) {
+		let convertedData = [];
+		for (let key in data) {
+			let point = {
+				x: Number(key),
+				y: data[key]
+			};
+			convertedData.push(point);
+		}
+		convertedData.sort(function (first, second) {
+			return first.x - second.x;
+		});
+		return convertedData;
+	}
+
+	private updateMainData(updatedElem: any, type: string) {
+		if (!this.depthChartData) return;
+
+		let finded = false;
+		let val = Number.parseFloat(updatedElem[0]);
+		//let series = this.Highcharts.charts[0].series.find(x => x.name == type);
+
+		for (let i = 0; i < this.depthChartData[type].length; i++) {
+			let el = this.depthChartData[type][i];
+			if (Number.parseFloat(el[0]) == val) {
+				this.depthChartData[type][i][1] = updatedElem[1];
+				finded = true;
+				/* series.setData(this.depthChartData[type]);
+				series.update(series.options, true); */
+				return true;
+			}
+		}
+
+		if (type == 'asks') {
+			this.dataDepthAsks.push([Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1])]);
+			// console.log(this.dataDepthAsks);
+		} else if (type == 'bids') {
+			this.dataDepthBids.push([Number.parseFloat(updatedElem[0]), Number.parseFloat(updatedElem[1])]);
+			// console.log(this.dataDepthBids);
+		}
+
+		/* series.setData(this.depthChartData[type]);
+		series.update(series.options, true); */
+		return false;
+		// mainData[type].forEach(function(el, index){
+		//     if(Number(el[0]) == val){
+		//         mainData[type][index] = updatedElem[2];
+		//         finded = true;
+		//     }
+		// });
+	}
+
+	private async initDepthChart() {
+		await this.setDepthChartData();
+
+		this.depthChartOptions = {
+			chart: { type: 'area', zoomType: 'xy', animation: true },
+			rangeSelector: {
+				selected: 1
+			},
+			title: null,
+			credits: { enabled: false },
+			xAxis: {
+				minPadding: 0,
+				maxPadding: 0,
+				plotLines: [{
+					color: '#888',
+					value: 0.1523,
+					width: 1,
+					label: {
+						text: 'Actual price',
+						rotation: 90
+					}
+				}],
+				labels: {
+					style: {
+						fontFamily: 'Helvetica Neue',
+						color: '#ffffff',
+						fontSize: '10px'
+					}
+				},
+				title: {
+					text: 'Price',
+					style: {
+						fontFamily: 'Helvetica Neue',
+						color: '#ffffff',
+						fontSize: '10px'
+					}
+				}
+			},
+			yAxis: [{
+				lineWidth: 1,
+				gridLineWidth: 1,
+				title: null,
+				tickWidth: 1,
+				tickLength: 5,
+				tickPosition: 'inside',
+				labels: {
+					align: 'left',
+					x: 8,
+					style: {
+						fontFamily: 'Helvetica Neue',
+						color: '#ffffff',
+						fontSize: '11px',
+						opacity: 0.4
+					}
+				}
+			}, {
+				opposite: true,
+				linkedTo: 0,
+				lineWidth: 1,
+				gridLineWidth: 0,
+				title: null,
+				tickWidth: 1,
+				tickLength: 5,
+				tickPosition: 'inside',
+				labels: {
+					align: 'right',
+					x: -8,
+					style: {
+						fontFamily: 'Helvetica Neue',
+						color: '#ffffff',
+						fontSize: '11px',
+						opacity: 0.4
+					}
+				}
+			}],
+			legend: { enabled: false },
+			plotOptions: {
+				area: {
+					fillOpacity: 0.2,
+					lineWidth: 1,
+					step: 'center'
+				},
+				series: {
+					turboThreshold: 10000,
+					showInNavigator: true
+				}
+			},
+			tooltip: {
+				headerFormat: '<span style="font-size=10px;">Price: {point.key}</span><br/>',
+				valueDecimals: 2
+			},
+			series: [{
+				name: 'bids',
+				type: 'area',
+				data: this.depthChartData.bids
+			}, {
+				name: 'asks',
+				type: 'area',
+				data: this.depthChartData.asks
+			}]
+		};
 	}
 }
