@@ -1,0 +1,7 @@
+.app-tv-chart-container {
+	height: calc(100vh - 80px);
+}
+/deep/iframe{
+	// max-width: 1066px;
+	max-height: 427px;
+}

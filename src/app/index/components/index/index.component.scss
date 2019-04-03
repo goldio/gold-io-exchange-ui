@@ -1610,7 +1610,7 @@ ul.left-content-tabs li:nth-child(3).current {
 }
 
 #price-chart-box {
-  min-width: 1050px;
+  // min-width: 1050px;
   overflow: auto;
 }
 
@@ -2505,4 +2505,9 @@ Pagination Styles
 .orderError_open{
   opacity: 1;
   transition: 1.5s ease;
+}
+
+#price-chart-box{
+	// max-width: 1066px;
+	max-height: 427px;
 }
