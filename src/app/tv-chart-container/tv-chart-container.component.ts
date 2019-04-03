@@ -17,6 +17,7 @@ export class TvChartContainerComponent implements OnInit, OnDestroy {
     private _interval: ChartingLibraryWidgetOptions['interval'] = 'D';
     // BEWARE: no trailing slash is expected in feed URL
     private _datafeedUrl = 'https://demo_feed.tradingview.com';
+    //private _datafeedUrl = 'http://188.42.174.122:5000/api/datafeed';
     private _libraryPath: ChartingLibraryWidgetOptions['library_path'] = '/assets/charting_library/';
     private _chartsStorageUrl: ChartingLibraryWidgetOptions['charts_storage_url'] = 'https://saveload.tradingview.com';
     private _chartsStorageApiVersion: ChartingLibraryWidgetOptions['charts_storage_api_version'] = '1.1';

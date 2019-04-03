@@ -187,7 +187,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 
 		this.websocketService
 			.channelMessage
-			.subscribe(msg => {
+			.subscribe(async (msg) => {
 				if (!msg) {
 					return;
 				}
@@ -195,49 +195,24 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 				const message = JSON.parse(msg.data) as WebSocketMessage;
 
 				if (message.type == "orderBookUpdate") {
-					const order = Order.create(JSON.parse(message.message));
-
-					if (`${order.baseAsset.shortName}/${order.quoteAsset.shortName}` != this.currentPair.symbol) {
-						return;
+					const openOrders = await this.getOpenOrder();
+					if (openOrders) {
+						this.openOrders.buy = openOrders.buyOrders;
+						this.openOrders.sell = openOrders.sellOrders;
 					}
 
-					if (order.status == OrderStatus.Open) {
-						if (order.type == OrderType.Buy) {
-							this.openOrders.buy.push(order);
-						} else if (order.type == OrderType.Sell) {
-							this.openOrders.sell.push(order);
-						}
+					this.closedOrders = await this.getClosedOrders();
+					this.myOpenOrders = await this.getMyOpenOrders();
 
-						if (order.user.id == this.user.id) {
-							this.myOpenOrders.push(order);
-						}
-					} else if (order.status == OrderStatus.Closed) {
-						if (order.type == OrderType.Buy) {
-							this.openOrders.buy = this.openOrders.buy.filter(x => x.id != order.id);
-						} else if (order.type == OrderType.Sell) {
-							this.openOrders.sell = this.openOrders.sell.filter(x => x.id != order.id);
-						}
-
-						this.closedOrders.push(order);
-
-						if (order.user.id == this.user.id) {
-							this.myOpenOrders = this.myOpenOrders.filter(x => x.id != order.id);
-						}
-					}
-
-					this.openOrders.buy = Array.from(new Set(this.openOrders.buy));
-					this.openOrders.sell = Array.from(new Set(this.openOrders.sell));
-					this.closedOrders = Array.from(new Set(this.closedOrders));
-					this.myOpenOrders = Array.from(new Set(this.myOpenOrders));
+					const wallets = await this.getWallets();
+					this.baseWallet = wallets.baseWallet;
+					this.quoteWallet = wallets.quoteWallet;
 
 					return;
 				}
 
 				if (message.type == "priceUpdate") {
-					const priceMessage = JSON.parse(message.message) as Price;
-					const price = new Price(priceMessage.price, priceMessage.isHigher);
-
-					this.currentPrice = price;
+					this.currentPrice = await this.getCurrentPrice();
 
 					return;
 				}
@@ -257,6 +232,10 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	}
 
 	public async getUser(): Promise<User> {
+		if (!this.isLoggedIn) {
+			return;
+		}
+		
 		const response = await this.authService
 			.getUser()
 			.toPromise();
