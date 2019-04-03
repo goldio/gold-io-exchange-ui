@@ -431,6 +431,25 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 			});
 	}
 
+	private async getOrderBook() {
+		const symbol = this.currentPair.symbol;
+		const data = await this.binanceService
+			.getOrderBook(symbol)
+			.toPromise();
+
+		const asks = [];
+		data.data.asks.forEach(ask => {
+			asks.push([parseFloat(ask[0]), parseFloat(ask[1])]);
+		});
+
+		const bids = [];
+		data.data.bids.forEach(bid => {
+			bids.push([parseFloat(bid[0]), parseFloat(bid[1])]);
+		});
+
+		return { asks: asks, bids: bids };
+	}
+
 	private async setDepthChartData(points?: { asks: any[], bids: any[] }) {
 		if (!this.orderBook) {
 			this.orderBook = await this.getOrderBook();
