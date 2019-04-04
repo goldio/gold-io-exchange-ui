@@ -205,14 +205,17 @@
 			<span>Amount({{ currentPair.baseAsset.shortName }})</span>
 			<span>Total({{ currentPair.quoteAsset.shortName }})</span>
 
-			<div class="content-left-info" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
-				<div class="content-left-red">
+			<div class="content-left-info" >
+				<div class="content-left-red" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
 					<div class="content-left-red-item left-red" *ngFor="let order of openOrders.sell">
 						<span>{{ order.price.toFixed(8) }}</span>
 						<span>{{ order.amount.toFixed(8) }}</span>
 						<span>{{ (order.price * order.amount).toFixed(8) }}</span>
 						<!-- <em style="width: 2px;"></em> -->
 					</div>
+
+
+
 				</div>
 
 				<div class="content-left-sticky" *ngIf="currentPrice" style="display: flex; justify-content: center; align-items: center; padding: 0;">
@@ -220,13 +223,14 @@
 					<!-- <span class="content-left-sticky-text">$137.81</span> -->
 				</div>
 
-				<div class="content-left-red">
+				<div class="content-left-red" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
 					<div class="content-left-red-item left-green" *ngFor="let order of openOrders.buy">
 						<span>{{ order.price.toFixed(8) }}</span>
 						<span>{{ order.amount.toFixed(8) }}</span>
 						<span>{{ (order.price * order.amount).toFixed(8) }}</span>
 						<!-- <em style="width: 2px;"></em> -->
 					</div>
+					
 				</div>
 			</div>
 		</div>

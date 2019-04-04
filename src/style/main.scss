@@ -4455,6 +4455,14 @@ ul.left-top-menu {
   height: 100%;
   overflow: auto;
 }
+.content-left-red:nth-child(1){
+  margin-bottom: 46px;
+}
+.content-left-sticky{
+  margin-top: calc((100vh - 225px)/2);
+  position: absolute!important;
+  width: 100%;
+}
 
 @media screen and (max-width: 1280px) {
   .content-left-red {
