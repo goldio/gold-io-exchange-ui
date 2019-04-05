@@ -75,7 +75,7 @@
 		</form>
 	</div>
 	<div id="content">
-		<div id="top">
+		<div id="top" [ngClass]="{ 'zi999': currencyBox }">
 			<div class="top-currency" *ngIf="currentPair">
 				<span class="top-currency-btn" (click)="currencyBox = !currencyBox">
 					<img src="../../../../assets/images/eth.svg" alt="">
@@ -96,7 +96,7 @@
 						<span>Quote</span>
 					</div>
 
-					<div class="top-currency-items-wrapper" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+					<div class="top-currency-items-wrapper" malihu-scrollbar [scrollbarOptions]="scrollbarOptionsY">
 						<div class="top-currency-dropdown-item" *ngFor="let pair of pairs" (click)="setPair(pair)">
 							<span><b>{{ pair.symbol }}</b></span>
 							<span>{{ pair.baseAsset.shortName }}</span>

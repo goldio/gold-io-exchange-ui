@@ -74,10 +74,13 @@ export class HeaderComponent implements OnInit {
 	public menuOpen(){
 		if(document.getElementById('popup').classList.contains('left-top-menu-open')){
 			document.getElementById('popup').classList.remove('left-top-menu-open');
+			document.getElementById('header').classList.remove('zi999');
+
 			return;
 		}
 		if(!document.getElementById('popup').classList.contains('left-top-menu-open')){
 			document.getElementById('popup').classList.add('left-top-menu-open');
+			document.getElementById('header').classList.add('zi999');
 		}
 	}
 	public changeMenu(){

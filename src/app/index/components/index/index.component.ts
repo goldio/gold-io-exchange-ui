@@ -40,6 +40,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	public isLoggedIn: boolean;
 
 	public scrollbarOptions = { axis: 'yx', theme: 'minimal' };
+	public scrollbarOptionsY = { axis: 'y', theme: 'minimal' };
 
 	public tradeForm: FormGroup;
 	public searchForm: FormGroup;

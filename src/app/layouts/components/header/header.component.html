@@ -1,4 +1,4 @@
-<div class="exchanger-header"  id="header">
+<div class="exchanger-header"  id="header" >
     <a routerLink="/authorization" class="logo"></a>
     <div class="left-top-button" (click)="menuOpen()" ></div>
 
@@ -6,7 +6,7 @@
     <ul class="reset left-top-menu" id="popup" >
         <div class="exchanger-header-profile exchanger-header-profile-nav">
             <!-- <img (click)="userOpen = !userOpen" class="user-photo" src="../../../../assets/images/persone-photo.svg" alt=""> -->
-            <span (click)="userOpen = !userOpen" *ngIf="user">{{ user.login }}</span>
+            <span id='user' (click)="userOpen = !userOpen" *ngIf="user">{{ user.login }}</span>
             <ul class="reset header-profile-drop2 profile2" [ngClass]="{
             'header-profile-drop2-open': userOpen
         }">
@@ -36,7 +36,7 @@
 
     <div class="exchanger-header-profile exchanger-header-profile-top" *ngIf="isLoggedIn">
         <!-- <img (click)="userOpen = !userOpen" class="user-photo" src="../../../../assets/images/persone-photo.svg" alt=""> -->
-        <span (click)="userOpen = !userOpen" *ngIf="user">{{ user.login }}</span>
+        <span id='user' (click)="userOpen = !userOpen" *ngIf="user">{{ user.login }}</span>
         <ul class="reset header-profile-drop2" [ngClass]="{
         'header-profile-drop2-open': userOpen
     }">

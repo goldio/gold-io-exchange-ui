@@ -17,6 +17,10 @@
     .swiper-slide{
         width: calc(100vw - 26px);
     }
+    #user{
+      padding-left: 60px;
+    }
+
 }
 @media screen and (max-width: 600px) {
     .exchanger-header-nav li a{
@@ -27,3 +31,6 @@
 .profile2{
     left: 7px;
 }
+.zi999{
+    z-index: 99999!important;
+  }
