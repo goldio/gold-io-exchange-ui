@@ -96,7 +96,7 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
 				}
 
 				this.wallet = res.data.find(x => x.id == this.withdrawalID);
-				this.viewBalance = this.wallet.balance.toFixed(8);
+				this.viewBalance = this.wallet.availableBalance.toFixed(8);
 				// console.log(this.wallet);
 			});
 	}
@@ -154,14 +154,14 @@ export class BalanceWithdrawalComponent extends BaseLayoutComponent implements O
 		} else {
 			this.amountError = false;
 		}
-		if (this.withdrawalForm.controls['amount'].value > this.wallet.balance) {
+		if (this.withdrawalForm.controls['amount'].value > this.wallet.availableBalance) {
 			this.fewAmountError = true;
 		} else {
 			this.fewAmountError = false;
 		}
 		
 
-		if((this.wallet.coin.shortName == "BTC" || this.wallet.coin.shortName == "ETH")&&(this.withdrawalForm.controls['amount'].value <= this.wallet.balance)&&(this.withdrawalForm.controls['amount'].value > 0.0001)){
+		if((this.wallet.coin.shortName == "BTC" || this.wallet.coin.shortName == "ETH")&&(this.withdrawalForm.controls['amount'].value <= this.wallet.availableBalance)&&(this.withdrawalForm.controls['amount'].value > 0.0001)){
 			let req:GetTransactionFeeRequest = {
 				coin : this.wallet.coin.shortName,
 				amount: this.withdrawalForm.controls['amount'].value

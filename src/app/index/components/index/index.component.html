@@ -7,11 +7,11 @@
 					<h4>Balance</h4>
 
 					<div class="left-content-balance-item" *ngIf="quoteWallet">
-						<b>{{ currentPair.quoteAsset.shortName }}</b>{{ quoteWallet.balance.toFixed(8) }}
+						<b>{{ currentPair.quoteAsset.shortName }}</b>{{ quoteWallet.availableBalance.toFixed(8) }}
 					</div>
 
 					<div class="left-content-balance-item" *ngIf="baseWallet">
-						<b>{{ currentPair.baseAsset.shortName }}</b>{{ baseWallet.balance.toFixed(8) }}
+						<b>{{ currentPair.baseAsset.shortName }}</b>{{ baseWallet.availableBalance.toFixed(8) }}
 					</div>
 				</div>
 
@@ -37,10 +37,10 @@
 							</div>
 
 							<div class="left-content-sell-input percents">
-								<div class="percent"><span>25%</span></div>
-								<div class="percent"><span>50%</span></div>
-								<div class="percent"><span>75%</span></div>
-								<div class="percent"><span>100%</span></div>
+								<div class="percent" (click)="calcPercent(0.25)"><span>25%</span></div>
+								<div class="percent" (click)="calcPercent(0.5)"><span>50%</span></div>
+								<div class="percent" (click)="calcPercent(0.75)"><span>75%</span></div>
+								<div class="percent" (click)="calcPercent(1)"><span>100%</span></div>
 							</div>
 
 							<div class="left-content-sell-input">
@@ -60,8 +60,7 @@
 									</div>
 								</div>
 							</button>
-							<div class="orderError" [ngClass]="{'orderError_open':orderError}"><span>Insufficient
-									funds!</span></div>
+							<div class="orderError" [ngClass]="{'orderError_open': orderError}"><span>{{ orderErrorText }}</span></div>
 
 						</div>
 					</div>

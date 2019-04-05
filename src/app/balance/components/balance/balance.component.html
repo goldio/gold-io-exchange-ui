@@ -28,10 +28,10 @@
             </span>
 
             <span before="Name">{{ wallet.coin.name  }}</span>
-            <span before="Total balance">{{ wallet.balance.toFixed(8)  }}</span>
-            <span before="Avaiable balance">???????????????</span>
-            <span before="In orders">{{wallet.onOrders.toFixed(8)  }}</span>
-            <span before="Cost (BTC)">???????????????</span>
+            <span before="Total balance">{{ wallet.totalBalance.toFixed(8)  }}</span>
+            <span before="Avaiable balance">{{  wallet.availableBalance.toFixed(8) }}</span>
+            <span before="In orders">{{wallet.inOrders.toFixed(8)  }}</span>
+            <span before="Cost (BTC)">{{  wallet.cost.toFixed(8) }}</span>
             <span>
                 <div class="coin-btns">
                     <div class="coin-btn first-coin-btn" (click)="routeToDeposit(wallet)">Deposit</div>

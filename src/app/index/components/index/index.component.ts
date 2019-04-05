@@ -48,6 +48,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	public mask = [/\d{1,}/, '.', /\d?/, /\d?/];
 
 	public orderError = false;
+	public orderErrorText = '';
 
 	public chart: boolean = false;
 	public currencyBox: boolean = false;
@@ -424,8 +425,16 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		this.tradeService
 			.createOrder(request)
 			.subscribe(res => {
+					// ответ при submit
+					this.orderError = true;
+					this.orderErrorText = res.message;
+					setTimeout(() => {
+						this.orderError = false;
+						this.orderErrorText = "";
+						}, 3000);
 				if (!res.success) {
 					alert(res.message);
+					
 					return;
 				}
 				this.changeOrderAct('buy');
@@ -697,4 +706,15 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 			}]
 		};
 	}
+
+	public calcPercent(percent: number){
+		if(!this.buyCell){
+			let per = ((this.quoteWallet.availableBalance * percent)/this.tradeForm.controls['price'].value).toFixed(8);
+			this.tradeForm.controls['amount'].setValue(per);
+		}else{
+			let per = (this.baseWallet.availableBalance * percent).toFixed(8);
+			this.tradeForm.controls['amount'].setValue(per);
+		}
+	}
+
 }
