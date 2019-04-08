@@ -239,51 +239,6 @@ img {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .left-top-menu em {
   font-style: normal;
   display: block;
@@ -3396,6 +3351,10 @@ ul.left-top-menu {
     .content-left-sticky-red {
       color: #A42A2A;
     }
+    .content-left-sticky-common{
+      color: white;
+    }
+
 
     .content-left-sticky-red::after {
       background: url(../assets/images/red-arr.svg)no-repeat center;

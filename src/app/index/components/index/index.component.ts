@@ -64,6 +64,8 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	public currentPair: Pair;
 	public currentPrice: Price;
 
+	public priceForStick = 0;
+
 	public currentPairTV: string;
 
 	public baseWallet: UserWallet;
@@ -308,6 +310,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		}
 
 		this.closedOrders = await this.getClosedOrders();
+		
 		this.myOpenOrders = await this.getMyOpenOrders();
 		this.currentPrice = await this.getCurrentPrice();
 
@@ -361,15 +364,30 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		const response = await this.tradeService
 			.getClosedOrders(this.currentPair)
 			.toPromise();
-
+			
 		if (!response.success) {
 			console.log(response.message);
 			return new Array<Order>();
 		}
-		
+		this.getColorForStick(response.data);
 		return response.data;
 	}
 
+	public getColorForStick(data: Order[]){
+		if(data[data.length - 1].price > data[data.length - 2 ].price){
+			this.priceForStick = 2;
+			alert('2');
+		}
+		if(data[data.length - 1].price < data[data.length - 2 ].price){
+			this.priceForStick = 1;
+			alert('1');
+		}
+		if(data[data.length - 1].price == data[data.length - 2 ].price){
+			this.priceForStick == 0;
+			alert('0');
+		}
+		return;
+	}
 	// Load current price
 	public async getCurrentPrice(): Promise<Price> {
 		const response = await this.tradeService

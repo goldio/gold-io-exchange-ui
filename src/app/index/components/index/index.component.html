@@ -218,7 +218,7 @@
 				</div>
 
 				<div class="content-left-sticky" *ngIf="currentPrice" style="display: flex; justify-content: center; align-items: center; padding: 0;">
-					<span class="price-indicator" [ngClass]="{'content-left-sticky-green': currentPrice.isHigher, 'content-left-sticky-red': !currentPrice.isHigher}" style="margin: 0">{{ currentPrice.price.toFixed(6) }}</span>
+					<span class="price-indicator" [ngClass]="{'content-left-sticky-green': priceForStick == 2, 'content-left-sticky-red': priceForStick == 1 , 'content-left-sticky-common': priceForStick == 0}" style="margin: 0">{{ currentPrice.price.toFixed(6) }}</span>
 					<!-- <span class="content-left-sticky-text">$137.81</span> -->
 				</div>
 
