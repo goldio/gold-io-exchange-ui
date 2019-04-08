@@ -156,7 +156,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 			amount: new FormControl(new Number(0).toFixed(8), [Validators.required]),
 			total: new FormControl(new Number(0).toFixed(8), [Validators.required]),
 		});
-
+		
 		this.tradeForm
 			.controls['price']
 			.valueChanges
@@ -165,9 +165,9 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 				if (!value) {
 					return;
 				}
-
-				let amount = this.tradeForm.value['amount'] || 0;
 				
+				this.tradeForm.controls['price'].setValue( Number(this.tradeForm.value['price'].toFixed(6)));
+				let amount = this.tradeForm.value['amount'] || 0;
 				this.tradeForm.
 					controls['total']
 					.setValue((value * amount).toFixed(8));
@@ -181,7 +181,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 				if (!value) {
 					return;
 				}
-
+				this.tradeForm.controls['amount'].setValue( Number(this.tradeForm.value['amount'].toFixed(3)) );
 				let price = this.tradeForm.value['price'] || 0;
 				
 				this.tradeForm.
@@ -190,6 +190,11 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 			});
 	}
 
+	public changeQuantity(){
+		
+		this.tradeForm.controls['price'].setValue( Number(this.tradeForm.value['price'].toFixed(6)));
+		this.tradeForm.controls['amount'].setValue( Number(this.tradeForm.value['amount'].toFixed(3)) );
+	}
 	// Connect theme service
 	private connectThemeService(): void {
 		this.themeService
