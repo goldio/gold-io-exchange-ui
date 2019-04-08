@@ -376,15 +376,12 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	public getColorForStick(data: Order[]){
 		if(data[data.length - 1].price > data[data.length - 2 ].price){
 			this.priceForStick = 2;
-			alert('2');
 		}
 		if(data[data.length - 1].price < data[data.length - 2 ].price){
 			this.priceForStick = 1;
-			alert('1');
 		}
 		if(data[data.length - 1].price == data[data.length - 2 ].price){
 			this.priceForStick == 0;
-			alert('0');
 		}
 		return;
 	}
