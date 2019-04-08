@@ -374,16 +374,23 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	}
 
 	public getColorForStick(data: Order[]){
-		if(data[data.length - 1].price > data[data.length - 2 ].price){
-			this.priceForStick = 2;
+		
+		if(data.length < 1) {
+			this.priceForStick = 0;
+			return;
 		}
-		if(data[data.length - 1].price < data[data.length - 2 ].price){
+
+		if(data[data.length - 1].price.toFixed(8) == data[data.length - 2 ].price.toFixed(8)){
+			this.priceForStick = 0;
+		}
+		
+		if(data[data.length - 1].price.toFixed(8) < data[data.length - 2 ].price.toFixed(8)){
 			this.priceForStick = 1;
 		}
-		if(data[data.length - 1].price == data[data.length - 2 ].price){
-			this.priceForStick == 0;
+		if(data[data.length - 1].price.toFixed(8) > data[data.length - 2 ].price.toFixed(8)){
+			this.priceForStick = 2;
 		}
-		return;
+		
 	}
 	// Load current price
 	public async getCurrentPrice(): Promise<Price> {
