@@ -397,7 +397,6 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		}
 
 		let lastPrice = data[0].price;
-		let prevPrice = 0;
 
 		if (!data[1]) {
 			this.priceForStick = 2;
