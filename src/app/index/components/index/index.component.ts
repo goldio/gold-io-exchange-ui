@@ -238,6 +238,8 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 					this.baseWallet = wallets.baseWallet;
 					this.quoteWallet = wallets.quoteWallet;
 
+					this.stats = await this.getStats();
+
 					return;
 				}
 
@@ -323,13 +325,14 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		this.baseWallet = wallets.baseWallet;
 		this.quoteWallet = wallets.quoteWallet;
 
-		this.stats =  await this.getStats();
+		this.stats = await this.getStats();
 
 		this.initTradeForm();
 		this.connectWebSocket();
 
 		//this.priceChart.destroy();
 		this.priceChart.init();
+		this.initDepthChart();
 	}
 
 	// Load my open orders
