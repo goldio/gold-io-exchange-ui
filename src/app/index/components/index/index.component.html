@@ -208,8 +208,8 @@
 				<div class="content-left-red" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
 					<div class="content-left-red-item left-red" *ngFor="let order of openOrders.sell">
 						<span>{{ order.price.toFixed(8) }}</span>
-						<span>{{ order.amount.toFixed(8) }}</span>
-						<span>{{ (order.price * order.amount).toFixed(8) }}</span>
+						<span>{{ order.balance.toFixed(8) }}</span>
+						<span>{{ (order.price * order.balance).toFixed(8) }}</span>
 						<!-- <em style="width: 2px;"></em> -->
 					</div>
 
@@ -225,8 +225,8 @@
 				<div class="content-left-red" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
 					<div class="content-left-red-item left-green" *ngFor="let order of openOrders.buy">
 						<span>{{ order.price.toFixed(8) }}</span>
-						<span>{{ order.amount.toFixed(8) }}</span>
-						<span>{{ (order.price * order.amount).toFixed(8) }}</span>
+						<span>{{ order.balance.toFixed(8) }}</span>
+						<span>{{ (order.price * order.balance).toFixed(8) }}</span>
 						<!-- <em style="width: 2px;"></em> -->
 					</div>
 					
