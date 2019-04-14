@@ -110,23 +110,23 @@
 
 			<div class="top-last-price" *ngIf="stats"  >
 				<div class="top-last-price-item">
-					<b style="text-transform: uppercase;">LAST PRICE</b> {{ stats.last.toFixed(8) }}
+					<b style="text-transform: uppercase;">LAST PRICE</b><span style="margin: 0;" [ngClass]="{'green': priceForStick == 2, 'red': priceForStick == 1}">{{ stats.last.toFixed(6) }}</span>
 					<!-- <span>$137.81</span> -->
 				</div>
 				<div class="top-last-price-item">
-					<b style="text-transform: uppercase;">24h change</b>{{ stats.change.toFixed(8) }}
+					<b style="text-transform: uppercase;">24h change</b><span style="margin: 0;" [ngClass]="{'green': getColorForChange(stats.change), 'red': !getColorForChange(stats.change)}">{{ stats.change.toFixed(6) }}</span>
 					<!-- <span>+5.85%</span> -->
 				</div>
 				<div class="top-last-price-item">
-					<b style="text-transform: uppercase;">24h high</b>{{ stats.high.toFixed(8) }}
+					<b style="text-transform: uppercase;">24h high</b> {{ stats.high.toFixed(6) }}
 					<em></em>
 				</div>
 				<div class="top-last-price-item">
-					<b style="text-transform: uppercase;">24h LOW</b> {{ stats.low.toFixed(8) }}
+					<b style="text-transform: uppercase;">24h LOW</b> {{ stats.low.toFixed(6) }}
 					<em></em>
 				</div>
 				<div class="top-last-price-item">
-					<b style="text-transform: uppercase;">24h volume</b> {{ stats.volume.toFixed(8) }} 
+					<b style="text-transform: uppercase;">24h volume</b> {{ stats.volume.toFixed(6) }} 
 				</div>
 			</div>
 			<!--

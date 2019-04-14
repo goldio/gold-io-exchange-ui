@@ -381,7 +381,15 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		return response.data;
 	}
 
-	public getColorForStick(data: Order[]){
+	public getColorForChange(value: number): boolean {
+		if (value < 0)
+			return false;
+		
+		if (value > 0)
+			return true;
+	}
+
+	public getColorForStick(data: Order[]) {
 		
 		if(data.length < 1) {
 			this.priceForStick = 0;
