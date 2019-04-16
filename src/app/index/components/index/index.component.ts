@@ -225,6 +225,9 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 				const message = JSON.parse(msg.data) as WebSocketMessage;
 
 				if (message.type == "orderBookUpdate") {
+					const orderBook = await this.getOrderBook();
+					this.setDepthChartData(orderBook);
+
 					const openOrders = await this.getOpenOrder();
 					if (openOrders) {
 						this.openOrders.buy = openOrders.buyOrders;
@@ -416,7 +419,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		this.priceForStick = 2;
 		return;
 	}
-	
+
 	// Load current price
 	public async getCurrentPrice(): Promise<Price> {
 		const response = await this.tradeService
@@ -514,11 +517,11 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 
 		if (points) {
 			points.bids.forEach(point => {
-				this.orderBook.bids.unshift(point);
+				this.orderBook.bids.push(point);
 			});
 
 			points.asks.forEach(point => {
-				this.orderBook.asks.unshift(point);
+				this.orderBook.asks.push(point);
 			});
 		}
 
@@ -560,14 +563,14 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 			bids: chartBidsData
 		};
 
-		if (this.Highcharts.charts[1]) {
-			this.Highcharts.charts[1].series[0].update({
+		if (this.Highcharts.charts[0]) {
+			this.Highcharts.charts[0].series[0].update({
 				name: 'bids',
 				type: 'area',
 				data: this.depthChartData.bids
 			});
 
-			this.Highcharts.charts[1].series[1].update({
+			this.Highcharts.charts[0].series[1].update({
 				name: 'asks',
 				type: 'area',
 				data: this.depthChartData.asks
