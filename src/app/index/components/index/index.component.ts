@@ -416,6 +416,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		this.priceForStick = 2;
 		return;
 	}
+	
 	// Load current price
 	public async getCurrentPrice(): Promise<Price> {
 		const response = await this.tradeService
