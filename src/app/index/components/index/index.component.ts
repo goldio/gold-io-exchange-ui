@@ -511,8 +511,20 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	}
 
 	private async setDepthChartData(points?: { asks: any[], bids: any[] }) {
-		if (!this.orderBook) {
-			this.orderBook = await this.getOrderBook();
+		this.orderBook = await this.getOrderBook();
+
+		if (!this.orderBook.asks.length || !this.orderBook.bids.length) {
+			this.Highcharts.charts[0].series[0].update({
+				name: 'bids',
+				type: 'area',
+				data: []
+			});
+
+			this.Highcharts.charts[0].series[1].update({
+				name: 'asks',
+				type: 'area',
+				data: []
+			});
 		}
 
 		if (points) {
@@ -560,7 +572,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 
 		this.depthChartData = {
 			asks: chartAsksData,
-			bids: chartBidsData
+			bids: chartBidsData.reverse()
 		};
 
 		if (this.Highcharts.charts[0]) {
@@ -576,6 +588,8 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 				data: this.depthChartData.asks
 			});
 		}
+
+		console.log(this.depthChartData);
 	}
 
 	private getBestAsk(data: any) {
@@ -755,6 +769,11 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 				data: this.depthChartData.asks
 			}]
 		};
+
+		/* let chart = this.Highcharts.charts[0];
+		if (chart) {
+			chart.update(this.depthChartOptions, true);
+		} */
 	}
 
 	public calcPercent(percent: number){
