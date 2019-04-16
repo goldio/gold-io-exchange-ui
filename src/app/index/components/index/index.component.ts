@@ -18,6 +18,7 @@ import HC_more from 'highcharts/highcharts-more.src';
 HC_more(Highcharts);
 import HC_stock from 'highcharts/modules/stock';
 import { PairState } from '../../models/pairState.model';
+import { LocalStorageHelper } from '../../../common/helpers';
 HC_stock(Highcharts);
 // import { runInThisContext } from 'vm';
 
@@ -143,7 +144,17 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		this.user = await this.getUser();
 		this.pairs = await this.getPairs();
 
-		await this.setPair(this.pairs[0]);
+		let savedPair = LocalStorageHelper.getSymbol();
+		if (!savedPair) {
+			await this.setPair(this.pairs[0]);
+		} else {
+			let pairToSet = this.pairs.find(x => x.symbol == savedPair);
+			if (!pairToSet) {
+				await this.setPair(this.pairs[0]);
+			} else {
+				await this.setPair(pairToSet);
+			}
+		}
 	}
 
 	// Init trade form
@@ -309,6 +320,8 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		}
 	// Set current pair
 	public async setPair(pair: Pair) {
+		LocalStorageHelper.saveSymbol(pair.symbol);
+		
 		this.currencyBox = false;
 		this.currentPair = pair;
 		this.currentPairTV = `${pair.baseAsset.shortName}.${pair.quoteAsset.shortName}`;
