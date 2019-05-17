@@ -22,8 +22,18 @@ export class TradeService extends BaseHttpService {
             .map(response => response.json());
     }
 
+    public cancelOrder(orderID: number): Observable<ResponseModel> {
+        return this.post(`${this.apiUrl}/trade/orders/${orderID}/cancel`, {})
+            .map(response => response.json());
+    }
+
     public getMyOpenOrders(pair: Pair): Observable<DataResponse<Order[]>> {
         return this.get(`${this.apiUrl}/trade/pairs/${pair.symbol.replace("/", ".")}/orders/my/open`)
+            .map(response => response.json());
+    }
+
+    public getMyClosedOrders(pair: Pair): Observable<DataResponse<Order[]>> {
+        return this.get(`${this.apiUrl}/trade/pairs/${pair.symbol.replace("/", ".")}/orders/my/closed`)
             .map(response => response.json());
     }
 

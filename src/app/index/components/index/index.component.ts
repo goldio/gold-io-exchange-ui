@@ -79,6 +79,9 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 
 	public closedOrders: Order[];
 	public myOpenOrders: Order[];
+	public myOrderHistory: Order[];
+
+	public isMyOrderHistory: boolean = false;
 
 	public Highcharts = Highcharts;
 	public depthChartOptions: Highcharts.Options;
@@ -137,6 +140,10 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		this.connectThemeService();
 		this.initSearchForm();
 		this.init();
+	}
+
+	public toggleOpenOrdersTab(isOrderHistory: boolean): void {
+		this.isMyOrderHistory = isOrderHistory;
 	}
 
 	// Initialization
@@ -247,6 +254,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 
 					this.closedOrders = await this.getClosedOrders();
 					this.myOpenOrders = await this.getMyOpenOrders();
+					this.myOrderHistory = await this.getMyClosedOrders();
 
 					const wallets = await this.getWallets();
 					this.baseWallet = wallets.baseWallet;
@@ -335,6 +343,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		this.closedOrders = await this.getClosedOrders();
 		
 		this.myOpenOrders = await this.getMyOpenOrders();
+		this.myOrderHistory = await this.getMyClosedOrders();
 		this.currentPrice = await this.getCurrentPrice();
 
 		const wallets = await this.getWallets();
@@ -359,6 +368,41 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 
 		const response = await this.tradeService
 			.getMyOpenOrders(this.currentPair)
+			.toPromise();
+
+		if (!response.success) {
+			console.log(response.message);
+			return new Array<Order>();
+		}
+
+		return response.data;
+	}
+
+	// Cancel order
+	public async cancelOrder(orderID: number) {
+		if (!this.isLoggedIn) {
+			return;
+		}
+
+		const response = await this.tradeService
+			.cancelOrder(orderID)
+			.toPromise();
+
+		if (!response.success) {
+			console.log(response.message);
+		}
+
+		return;
+	}
+
+	// Load my closed orders
+	public async getMyClosedOrders(): Promise<Order[]> {
+		if (!this.isLoggedIn) {
+			return new Array<Order>();
+		}
+
+		const response = await this.tradeService
+			.getMyClosedOrders(this.currentPair)
 			.toPromise();
 
 		if (!response.success) {
