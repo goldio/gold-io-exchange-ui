@@ -242,7 +242,7 @@
 
 			<div class="content-right-info" *ngIf="closedOrders" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
 				<div class="content-right-item" *ngFor="let order of closedOrders">
-					<span [ngClass]="{'history-green': order.type == OrderType.Buy, 'history-red': order.type == OrderType.Sell }">{{ order.price.toFixed(8) }}</span>
+					<span [ngClass]="{'history-green': order.side == OrderSide.Buy, 'history-red': order.side == OrderSide.Sell }">{{ order.price.toFixed(8) }}</span>
 					<span>{{ order.amount.toFixed(8) }}</span>
 					<span>{{ order.time | date: 'HH:mm:ss' }}</span>
 				</div>

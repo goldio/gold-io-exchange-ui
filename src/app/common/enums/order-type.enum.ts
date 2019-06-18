@@ -1,4 +1,5 @@
 export enum OrderType {
-    Buy = 0,
-    Sell = 1
+    Limit = 1,
+    Market = 2,
+    Stoploss = 3
 }

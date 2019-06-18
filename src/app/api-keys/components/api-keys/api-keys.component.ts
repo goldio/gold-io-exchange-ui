@@ -5,6 +5,7 @@ import { ApiKey } from '../../models/apiKey.model';
 import { CreateUpdateKeyRequest } from '../../models/create-update-keyRequest.model';
 import { BaseLayoutComponent } from '../../../common/components/base-layout.component';
 import { AuthService } from '../../../common/services/auth.service';
+import { ApiKeyRole } from '../../../common/enums';
 
 @Component({
   selector: 'app-api-keys',
@@ -62,14 +63,13 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
 
 
   public generateNewKey(){
-    let CreateUpdateKeyRequest : CreateUpdateKeyRequest = {
-      accountPermissions: false,
-      ordersPermissions: false,
-      fundsPermissions: false
+    let request: CreateUpdateKeyRequest = {
+      role: ApiKeyRole.NoActions
     };
+
     this.loader = true;
     this.apiService
-    .generateNewKey(CreateUpdateKeyRequest)
+    .generateNewKey(request)
       .subscribe(res => {
         if(!res.success){
           this.updateResText = res.message;
@@ -130,30 +130,70 @@ export class ApiKeysComponent extends BaseLayoutComponent implements OnInit {
             alert('error');
           }
           this.apiKeys = res.data;
-          // console.log( this.apiKeys );
         })
        
   }
 
+  getApiKeyRoleActive(type: string, role: ApiKeyRole): boolean {
+    console.log(type, role);
+    if (type == 'account') {
+      if (role == ApiKeyRole.OnlyAccount || role == ApiKeyRole.AllActions) {
+        return true;
+      } else {
+        return false;
+      }
+    } else if (type == 'orders') {
+      if (role == ApiKeyRole.OnlyOrders || role == ApiKeyRole.AllActions) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
   public changeAccountValues(id : any){
-    this.apiKeys.find(x=>x.id == id).accountPermissions = !this.apiKeys.find(x=>x.id == id).accountPermissions;
+    let key = this.apiKeys.find(x=>x.id == id);
+
+    switch (key.role) {
+      case ApiKeyRole.NoActions:
+        key.role = ApiKeyRole.OnlyAccount;
+        break;
+      case ApiKeyRole.OnlyAccount:
+        key.role = ApiKeyRole.NoActions;
+        break;
+      case ApiKeyRole.OnlyOrders:
+        key.role = ApiKeyRole.AllActions;
+        break;
+      case ApiKeyRole.AllActions:
+        key.role = ApiKeyRole.OnlyOrders;
+        break;
+    }
   }
 
   public changeOrdersValues(id : any){
-    this.apiKeys.find(x=>x.id == id).ordersPermissions = !this.apiKeys.find(x=>x.id == id).ordersPermissions;
-  }
+    let key = this.apiKeys.find(x=>x.id == id);
 
-  public changeFundsValues(id : any){
-    this.apiKeys.find(x=>x.id == id).fundsPermissions = !this.apiKeys.find(x=>x.id == id).fundsPermissions;
+    switch (key.role) {
+      case ApiKeyRole.NoActions:
+        key.role = ApiKeyRole.OnlyOrders;
+        break;
+      case ApiKeyRole.OnlyAccount:
+        key.role = ApiKeyRole.AllActions;
+        break;
+      case ApiKeyRole.OnlyOrders:
+        key.role = ApiKeyRole.NoActions;
+        break;
+      case ApiKeyRole.AllActions:
+        key.role = ApiKeyRole.OnlyAccount;
+        break;
+    }
   }
 
   public saveChanges(id : any){
     // alert(id);
     let updateKey:CreateUpdateKeyRequest={
-      accountPermissions: this.apiKeys.find(x=>x.id == id).accountPermissions,
-      ordersPermissions: this.apiKeys.find(x=>x.id == id).ordersPermissions,
-      fundsPermissions: this.apiKeys.find(x=>x.id == id).fundsPermissions
-    }
+      role: this.apiKeys.find(x => x.id == id).role
+    };
     this.loader = true;
     // console.log(updateKey);
     this.apiService.updateApi(updateKey,id).subscribe(res => {

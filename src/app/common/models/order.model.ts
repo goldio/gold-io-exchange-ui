@@ -1,6 +1,6 @@
 import { BaseModel } from './base.model';
 import { Coin } from './coin.model';
-import { OrderType, OrderStatus } from '../enums';
+import { OrderType, OrderSide, OrderStatus } from '../enums';
 import { User } from './user.model';
 
 export class Order extends BaseModel {
@@ -11,6 +11,7 @@ export class Order extends BaseModel {
     public balance: number;
     public price: number;
     public type: OrderType;
+    public side: OrderSide;
     public status: OrderStatus;
     public time: Date;
 
@@ -21,6 +22,7 @@ export class Order extends BaseModel {
         order.balance = o.Balance;
         order.price = o.Price;
         order.type = o.Type;
+        order.side = o.Side;
         order.status = o.Status;
         order.time = o.Time;
 
@@ -48,6 +50,7 @@ class WebSocketOrder {
     public Balance: number;
     public Price: number;
     public Type: OrderType;
+    public Side: OrderSide;
     public Status: OrderStatus;
     public Time: Date; 
     public BaseAsset: WebSocketCoin;

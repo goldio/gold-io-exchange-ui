@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Pair } from '../../models/pair.model';
 import { BaseLayoutComponent } from '../../../common/components/base-layout.component';
-import { OrderType, Theme, OrderStatus } from '../../../common/enums';
+import { OrderSide, Theme, OrderStatus } from '../../../common/enums';
 import { User, Price, UserWallet, Order, WebSocketMessage } from '../../../common/models';
 import { AuthService } from '../../../common/services/auth.service';
 import { WebsocketService } from '../../../common/services/websocket.service';
@@ -33,7 +33,7 @@ declare var Swiper: any;
 
 
 export class IndexComponent extends BaseLayoutComponent implements OnInit {
-	OrderType = OrderType;
+	OrderSide = OrderSide;
 
 	public stats: PairState;
 
@@ -97,11 +97,11 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		if (act == "buy") {
 			this.buyCellBtn = "PLACE BUY ORDER"
 			this.buyCell = false;
-			this.tradeForm.controls['type'].setValue(OrderType.Buy);
+			this.tradeForm.controls['type'].setValue(OrderSide.Buy);
 		} else if (act == "sell") {
 			this.buyCellBtn = "PLACE SELL ORDER"
 			this.buyCell = true;
-			this.tradeForm.controls['type'].setValue(OrderType.Sell);
+			this.tradeForm.controls['type'].setValue(OrderSide.Sell);
 		}
 	}
 
@@ -169,7 +169,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		this.tradeForm = new FormGroup({
 			baseAsset: new FormControl(this.currentPair.baseAsset.shortName, [Validators.required]),
 			quoteAsset: new FormControl(this.currentPair.quoteAsset.shortName, [Validators.required]),
-			type: new FormControl(OrderType.Buy, [Validators.required]),
+			side: new FormControl(OrderSide.Buy, [Validators.required]),
 			price: new FormControl(this.currentPrice.price.toFixed(8), [Validators.required]),
 			amount: new FormControl(new Number(0).toFixed(8), [Validators.required]),
 			total: new FormControl(new Number(0).toFixed(8), [Validators.required]),

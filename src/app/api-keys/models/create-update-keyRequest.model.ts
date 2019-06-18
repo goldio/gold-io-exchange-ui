@@ -1,5 +1,5 @@
+import { ApiKeyRole } from "../../common/enums";
+
 export class CreateUpdateKeyRequest{
-    public accountPermissions: boolean;
-    public ordersPermissions: boolean;
-    public fundsPermissions: boolean;
+    public role: ApiKeyRole;
 }

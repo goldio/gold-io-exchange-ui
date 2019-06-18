@@ -1,4 +1,5 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 // @import "/calendar.scss";
 
 * {
@@ -12,7 +13,7 @@
   margin: 0;
   // width: 100vw;
   height: 100vh;
-  font-family: 'Helvetica Neue';
+  font-family: 'Roboto';
   font-weight: 400;
   overflow: auto;
 }
@@ -57,13 +58,13 @@ input::-webkit-inner-spin-button {
 
 input,
 textarea {
-  font-family: 'Helvetica Neue';
+  font-family: 'Roboto';
 }
 
 button {
   border: 0;
   cursor: pointer;
-  font-family: 'Helvetica Neue';
+  font-family: 'Roboto';
 }
 
 
