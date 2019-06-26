@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Pair } from '../../models/pair.model';
 import { BaseLayoutComponent } from '../../../common/components/base-layout.component';
-import { OrderSide, Theme, OrderStatus } from '../../../common/enums';
+import { OrderSide, Theme, OrderStatus, OrderType } from '../../../common/enums';
 import { User, Price, UserWallet, Order, WebSocketMessage } from '../../../common/models';
 import { AuthService } from '../../../common/services/auth.service';
 import { WebsocketService } from '../../../common/services/websocket.service';
@@ -34,6 +34,7 @@ declare var Swiper: any;
 
 export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	OrderSide = OrderSide;
+	OrderTypeEnum = OrderType;
 
 	public stats: PairState;
 
@@ -91,17 +92,19 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	public dataDepthAsks: any[];
 	public dataDepthBids: any[];
 
+	public orderType: OrderType;
+
 	@ViewChild('priceChart') private priceChart: TvChartContainerComponent;
 
 	public changeOrderAct(act: string) {
 		if (act == "buy") {
 			this.buyCellBtn = "PLACE BUY ORDER"
 			this.buyCell = false;
-			this.tradeForm.controls['type'].setValue(OrderSide.Buy);
+			this.tradeForm.controls['side'].setValue(OrderSide.Buy);
 		} else if (act == "sell") {
 			this.buyCellBtn = "PLACE SELL ORDER"
 			this.buyCell = true;
-			this.tradeForm.controls['type'].setValue(OrderSide.Sell);
+			this.tradeForm.controls['side'].setValue(OrderSide.Sell);
 		}
 	}
 
@@ -164,16 +167,41 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		}
 	}
 
+	public fillTradeForm(order: Order) {
+		this.tradeForm.setValue({
+			baseAsset: this.currentPair.baseAsset.shortName,
+			quoteAsset: this.currentPair.quoteAsset.shortName,
+			type: order.type,
+			side: order.side,
+			price: order.price.toFixed(8),
+			limit: order.limit.toFixed(8),
+			amount: order.amount.toFixed(8),
+			total: (order.amount * order.price).toFixed(8)
+		});
+	}
+
 	// Init trade form
 	private initTradeForm(): void {
 		this.tradeForm = new FormGroup({
 			baseAsset: new FormControl(this.currentPair.baseAsset.shortName, [Validators.required]),
 			quoteAsset: new FormControl(this.currentPair.quoteAsset.shortName, [Validators.required]),
+			type: new FormControl(OrderType.Limit, [Validators.required]),
 			side: new FormControl(OrderSide.Buy, [Validators.required]),
 			price: new FormControl(this.currentPrice.price.toFixed(8), [Validators.required]),
+			limit: new FormControl(new Number(0).toFixed(8)),
 			amount: new FormControl(new Number(0).toFixed(8), [Validators.required]),
 			total: new FormControl(new Number(0).toFixed(8), [Validators.required]),
 		});
+
+		this.tradeForm
+			.controls['type']
+			.valueChanges
+			.subscribe((value) => {
+				this.orderType = parseInt(value);
+				console.log(this.orderType);
+			});
+
+		this.orderType = this.tradeForm.controls['type'].value;
 		
 		this.tradeForm
 			.controls['price']
@@ -184,7 +212,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 					return;
 				}
 				
-				this.tradeForm.controls['price'].setValue( Number(this.tradeForm.value['price'].toFixed(6)));
+				this.tradeForm.controls['price'].setValue(Number(this.tradeForm.value['price']).toFixed(8));
 				let amount = this.tradeForm.value['amount'] || 0;
 				this.tradeForm.
 					controls['total']
@@ -199,7 +227,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 				if (!value) {
 					return;
 				}
-				this.tradeForm.controls['amount'].setValue( Number(this.tradeForm.value['amount'].toFixed(3)) );
+				this.tradeForm.controls['amount'].setValue(Number(this.tradeForm.value['amount']).toFixed(8));
 				let price = this.tradeForm.value['price'] || 0;
 				
 				this.tradeForm.
@@ -210,8 +238,8 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 
 	public changeQuantity(){
 		
-		this.tradeForm.controls['price'].setValue( Number(this.tradeForm.value['price'].toFixed(6)));
-		this.tradeForm.controls['amount'].setValue( Number(this.tradeForm.value['amount'].toFixed(3)) );
+		this.tradeForm.controls['price'].setValue(Number(this.tradeForm.value['price']).toFixed(6));
+		this.tradeForm.controls['amount'].setValue(Number(this.tradeForm.value['amount']).toFixed(3));
 	}
 	// Connect theme service
 	private connectThemeService(): void {
@@ -523,8 +551,10 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		const request = new CreateOrderRequest();
 		request.baseAsset = form.value['baseAsset'];
 		request.quoteAsset = form.value['quoteAsset'];
-		request.type = form.value['type'];
+		request.type = parseInt(form.value['type']);
+		request.side = form.value['side'];
 		request.price = parseFloat(form.value['price']);
+		request.limit = parseFloat(form.value['limit']);
 		request.amount = parseFloat(form.value['amount']);
 		form.controls['amount'].reset(new Number(0).toFixed(8));
 		form.controls['total'].reset(new Number(0).toFixed(8));
@@ -650,6 +680,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	}
 
 	private getBestAsk(data: any) {
+		if (!data) return;
 		let best = Number(data[0][0]);
 		let val;
 		data.forEach(el => {
@@ -662,6 +693,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	}
 
 	private getBestBid(data: any) {
+		if (!data) return;
 		let best = Number(data[0][0]);
 		let val;
 		data.forEach(el => {

@@ -25,12 +25,6 @@
 							</div>
 
 							<div class="left-content-sell-input">
-								Price
-								<input placeholder="1.00000000" type="number" formControlName="price" required>
-								<b class="input-decor">{{ currentPair.quoteAsset.shortName }}</b>
-							</div>
-
-							<div class="left-content-sell-input">
 								Amount
 								<input placeholder="1.00000000" type="number" formControlName="amount" required>
 								<b>{{ currentPair.baseAsset.shortName }}</b>
@@ -41,6 +35,33 @@
 								<div class="percent" (click)="calcPercent(0.5)"><span>50%</span></div>
 								<div class="percent" (click)="calcPercent(0.75)"><span>75%</span></div>
 								<div class="percent" (click)="calcPercent(1)"><span>100%</span></div>
+							</div>
+
+							<div class="radio-btns">
+								<div class="radio-btn">
+									<input type="radio" name="type" formControlName="type" id="type2" value="2" [ngModel]="orderType" [checked]="orderType == OrderTypeEnum.Market">
+									<label for="type2">Market</label>
+								</div>
+								<div class="radio-btn">
+									<input type="radio" name="type" formControlName="type" id="type1" value="1" [ngModel]="orderType" [checked]="orderType == OrderTypeEnum.Limit">
+									<label for="type1">Limit</label>
+								</div>
+								<div class="radio-btn">
+									<input type="radio" name="type" formControlName="type" id="type3" value="3" [ngModel]="orderType" [checked]="orderType == OrderTypeEnum.Stoploss">
+									<label for="type3">Stop-loss</label>
+								</div>
+							</div>
+
+							<div class="left-content-sell-input" *ngIf="orderType != OrderTypeEnum.Market">
+								Price
+								<input placeholder="1.00000000" type="number" formControlName="price" required>
+								<b class="input-decor">{{ currentPair.quoteAsset.shortName }}</b>
+							</div>
+
+							<div class="left-content-sell-input" *ngIf="orderType == OrderTypeEnum.Stoploss">
+								Limit
+								<input placeholder="1.00000000" type="number" formControlName="limit" required>
+								<b class="input-decor">{{ currentPair.quoteAsset.shortName }}</b>
 							</div>
 
 							<div class="left-content-sell-input">
@@ -206,7 +227,7 @@
 
 			<div class="content-left-info" >
 				<div class="content-left-red" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
-					<div class="content-left-red-item left-red" *ngFor="let order of openOrders.sell">
+					<div class="content-left-red-item left-red" style="cursor: pointer;" (click)="fillTradeForm(order)" *ngFor="let order of openOrders.sell">
 						<span>{{ order.price.toFixed(8) }}</span>
 						<span>{{ order.balance.toFixed(8) }}</span>
 						<span>{{ (order.price * order.balance).toFixed(8) }}</span>
@@ -223,7 +244,7 @@
 				</div>
 
 				<div class="content-left-red" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
-					<div class="content-left-red-item left-green" *ngFor="let order of openOrders.buy">
+					<div class="content-left-red-item left-green" (click)="fillTradeForm(order)" *ngFor="let order of openOrders.buy">
 						<span>{{ order.price.toFixed(8) }}</span>
 						<span>{{ order.balance.toFixed(8) }}</span>
 						<span>{{ (order.price * order.balance).toFixed(8) }}</span>
@@ -241,7 +262,7 @@
 			<span>UTC Time</span>
 
 			<div class="content-right-info" *ngIf="closedOrders" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
-				<div class="content-right-item" *ngFor="let order of closedOrders">
+				<div class="content-right-item" style="cursor: pointer;" (click)="fillTradeForm(order)" *ngFor="let order of closedOrders">
 					<span [ngClass]="{'history-green': order.side == OrderSide.Buy, 'history-red': order.side == OrderSide.Sell }">{{ order.price.toFixed(8) }}</span>
 					<span>{{ order.amount.toFixed(8) }}</span>
 					<span>{{ order.time | date: 'HH:mm:ss' }}</span>
@@ -324,7 +345,7 @@
 							<span>Status</span>
 						</div>
 
-						<div class="content-orders-item" *ngFor="let order of myOpenOrders">
+						<div class="content-orders-item" style="cursor: pointer;" (click)="fillTradeForm(order)" *ngFor="let order of myOpenOrders">
 							<span>{{ (order.amount * order.price).toFixed(8) }}</span>
 							<span>{{ (order.amount - order.balance).toFixed(8) }}</span>
 							<span>{{ order.price }}</span>

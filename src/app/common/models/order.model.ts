@@ -10,6 +10,7 @@ export class Order extends BaseModel {
     public amount: number;
     public balance: number;
     public price: number;
+    public limit: number;
     public type: OrderType;
     public side: OrderSide;
     public status: OrderStatus;
@@ -21,6 +22,7 @@ export class Order extends BaseModel {
         order.amount = o.Amount;
         order.balance = o.Balance;
         order.price = o.Price;
+        order.limit = o.Limit;
         order.type = o.Type;
         order.side = o.Side;
         order.status = o.Status;
@@ -49,6 +51,7 @@ class WebSocketOrder {
     public Amount: number;
     public Balance: number;
     public Price: number;
+    public Limit: number;
     public Type: OrderType;
     public Side: OrderSide;
     public Status: OrderStatus;
