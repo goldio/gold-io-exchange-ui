@@ -1,0 +1,8 @@
+<div class="container" routerLink="">
+  <div class="inner-container">
+    <h1>COMPETITIONS <a href="">VIEW ALL</a></h1>
+    <div class="competitions-container">
+      <app-competition class="competition" *ngFor="let competition of competitions" [competition]="competition"></app-competition>
+    </div>
+  </div>
+</div>

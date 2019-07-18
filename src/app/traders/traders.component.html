@@ -1,0 +1,8 @@
+<div class="container" routerLink="">
+  <div class="inner-container">
+    <h1>TRADERS <a href="">VIEW ALL</a></h1>
+    <div class="traders-container">
+      <app-trader class="trader" *ngFor="let trader of traders" [trader]="trader"></app-trader>
+    </div>
+  </div>
+</div>

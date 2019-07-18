@@ -1,0 +1,8 @@
+<div class="container">
+  <div class="card-container" *ngFor="let event of events" [ngStyle]="{'background-image': 'url(' + event.bg + ')'}">
+    <div class="inner-container">
+      <h1>{{ event.heading }}<img [src]="event.iconPath" alt="icon" class="card-icon"></h1>
+      <p>{{ event.description }}</p>
+    </div>
+  </div>
+</div>

@@ -297,6 +297,11 @@ ul.content-orders-tabs li,
 
 .exchanger-header {
   position: fixed;
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   z-index: 2;
   left: 0;
   right: 0;
