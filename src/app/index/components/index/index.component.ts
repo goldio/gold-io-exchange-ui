@@ -92,7 +92,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 	public dataDepthAsks: any[];
 	public dataDepthBids: any[];
 
-	public orderType: OrderType;
+	public orderType = OrderType.Limit;
 
 	@ViewChild('priceChart') private priceChart: TvChartContainerComponent;
 
@@ -185,7 +185,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 		this.tradeForm = new FormGroup({
 			baseAsset: new FormControl(this.currentPair.baseAsset.shortName, [Validators.required]),
 			quoteAsset: new FormControl(this.currentPair.quoteAsset.shortName, [Validators.required]),
-			type: new FormControl(OrderType.Limit, [Validators.required]),
+			type: new FormControl(this.orderType, [Validators.required]),
 			side: new FormControl(OrderSide.Buy, [Validators.required]),
 			price: new FormControl(this.currentPrice.price.toFixed(8), [Validators.required]),
 			limit: new FormControl(new Number(0).toFixed(8)),
@@ -198,10 +198,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 			.valueChanges
 			.subscribe((value) => {
 				this.orderType = parseInt(value);
-				console.log(this.orderType);
 			});
-
-		this.orderType = this.tradeForm.controls['type'].value;
 		
 		this.tradeForm
 			.controls['price']
@@ -211,12 +208,14 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 				if (!value) {
 					return;
 				}
+
+				const price = this.tradeForm.controls['price'];
+				const amount = this.tradeForm.value['amount'] || 0;
 				
-				this.tradeForm.controls['price'].setValue(Number(this.tradeForm.value['price']).toFixed(8));
-				let amount = this.tradeForm.value['amount'] || 0;
+				price.setValue(Number(value).toFixed(8)); 
 				this.tradeForm.
 					controls['total']
-					.setValue((value * amount).toFixed(8));
+					.setValue((price.value * amount).toFixed(8));
 			});
 
 		this.tradeForm
@@ -227,12 +226,15 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 				if (!value) {
 					return;
 				}
-				this.tradeForm.controls['amount'].setValue(Number(this.tradeForm.value['amount']).toFixed(8));
-				let price = this.tradeForm.value['price'] || 0;
+
+				const price = this.tradeForm.value['price'] || 0;
+				const amount = this.tradeForm.controls['amount'];
+
+				amount.setValue(Number(value).toFixed(8));
 				
 				this.tradeForm.
 					controls['total']
-					.setValue((value * price).toFixed(8));
+					.setValue((amount.value * price).toFixed(8));
 			});
 	}
 
