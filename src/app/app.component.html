@@ -5,5 +5,7 @@
   'auth-wight': (router.url == '/authorization') || (router.url == '/registration')
   }">
   <app-header *ngIf='!noHeader'></app-header>
-  <router-outlet></router-outlet>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
 </section>

@@ -1,0 +1,13 @@
+<div class="container">
+  <img [src]="trader.avatar" alt="">
+  <div class="info-container">
+    <h1>{{ trader.nickname }}</h1>
+    <div class="data-row">
+      <p>Tx: <span>{{ trader.tx }}</span></p>
+      <p>Vol: <span>{{ trader.vol }}</span></p>
+    </div>
+  </div>
+  <svg class="arrow" width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path class="arrow-path" d="M5.64519 4.89717L1.34534 8.98541C1.07182 9.24561 0.628351 9.24561 0.354961 8.98541C0.0815494 8.72545 0.0815494 8.30381 0.354961 8.04387L4.15966 4.42639L0.355072 0.809046C0.08166 0.548976 0.08166 0.12738 0.355072 -0.132584C0.628483 -0.392654 1.07193 -0.392654 1.34545 -0.132584L5.6453 3.95573C5.78201 4.08577 5.85028 4.25603 5.85028 4.42637C5.85028 4.5968 5.78188 4.76718 5.64519 4.89717Z"/>
+  </svg>
+</div>

@@ -44,7 +44,18 @@
         </ul>
     </div>
 
-    <ul class="reset exchanger-header-nav" *ngIf="(router.url != '/index')">
+    <div class="lang-switch-container">
+        <label><img [src]="lang" alt="">
+            <form #form="ngForm">
+                <select name="" id="">
+                    <option value="en" (click)="selectFlag('en')">English</option>
+                    <option value="ru" (click)="selectFlag('ru')">Русский</option>
+                    <option value="ch" (click)="selectFlag('ch')">Chinese</option>
+                </select>
+            </form>
+        </label>
+    </div>
+    <!-- <ul class="reset exchanger-header-nav" *ngIf="(router.url != '/index')">
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
@@ -61,5 +72,5 @@
                 </div>
             </div>
         </div>
-    </ul>
+    </ul> -->
 </div>

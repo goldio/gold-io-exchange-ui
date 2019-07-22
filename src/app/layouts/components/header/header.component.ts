@@ -4,6 +4,7 @@ import { User } from '../../../common/models';
 import { AuthService } from '../../../common/services/auth.service';
 import { UsersService } from '../../../common/services/users.service';
 import { ThemeService } from '../../../common/services/theme.service';
+import { NgForm } from '@angular/forms';
 
 declare var jquery: any;
 declare var $: any;
@@ -85,6 +86,19 @@ export class HeaderComponent implements OnInit {
 	}
 	public changeMenu(){
 		this.menu = false;
+	}
+
+	public lang:string = "../assets/images/en.svg";
+	public selectFlag(option:string) {
+		if (option == 'en') {
+			this.lang = "/src/assets/images/en.svg";
+		}
+		else if(option == 'ru') {
+			this.lang = "/src/assets/images/en.svg";
+		}
+		else {
+			this.lang = "/src/assets/images/en.svg";
+		}
 	}
 		
 }

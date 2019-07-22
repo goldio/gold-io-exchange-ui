@@ -1,0 +1,54 @@
+<div class="container">
+    <header class="main-header">
+        <div class="heading-container">
+            <h1>Exchange, traders,<br>
+                    trade-bots and competitions.</h1>
+            <h4>Sign up as a portfolio holder, trader or developer.</h4>
+        </div>
+        <div class="main-header_buttons-container">
+            <div class="currency-info-container">
+                <p class="bitcoin">1฿ = <span>$3640,34</span></p>
+                <p class="currencies">Сryptocurrencies = <span>712</span></p>
+            </div>
+            <div class="auth-container">
+                <button routerLink="/registration"><img src="../assets/images/user-icon.svg" alt="user icon">Sign Up</button>
+                <a routerLink="/security">Already have an account</a>
+            </div>
+            <div class="share-container">
+                <a href=""><img src="../assets/images/share-icons/telegram.svg" alt="" class="share-icon bottom"></a>
+                <a href=""><img src="../assets/images/share-icons/facebook.svg" alt="" class="share-icon bottom"></a>
+                <a href=""><img src="../assets/images/share-icons/twitter.svg" alt="" class="share-icon"></a>
+                <a href=""><img src="../assets/images/share-icons/reddit.svg" alt="" class="share-icon"></a>
+                <a href=""><img src="../assets/images/share-icons/medium.svg" alt="" class="share-icon"></a>
+            </div>
+        </div>
+        <div class="events-container">
+            <app-events></app-events>
+        </div>
+    </header>
+    <div class="main-content-container">
+        <div class="content-container">
+            <app-competitions class="competitions-component"></app-competitions><img src="../assets/images/components-border.svg" alt="">
+            <div class="bots-component"><app-bots></app-bots></div><img src="../assets/images/components-border.svg" alt="">
+            <div class="traders-component"><app-traders></app-traders></div><img src="../assets/images/components-border.svg" alt="">
+            <div class="tv-chart"><app-tv-chart-container></app-tv-chart-container></div>
+        </div>
+        <footer class="main-footer">
+            <div class="inner-container">
+                <div class="currency-info">
+                    <p>24h <span>Volume</span></p><img src="../assets/images/border.svg" alt="">
+                    <p>145 987.27 <span>BTC</span></p><img src="../assets/images/border.svg" alt="">
+                    <p>230 376 <span>ETH</span></p><img src="../assets/images/border.svg" alt="">
+                    <p>295 556 906.98 <span>USD</span></p><img src="../assets/images/border.svg" alt="">
+                    <p>1 151 761.19 <span>XRP</span></p><img src="../assets/images/border.svg" alt="">
+                </div>
+                <div class="footer-links">
+                    <a routerLink="">Apply to list</a><img src="../assets/images/border.svg" alt="">
+                    <a routerLink="">Support</a><img src="../assets/images/border.svg" alt="">
+                    <a routerLink="">Contacts</a><img src="../assets/images/border.svg" alt="">
+                    <p class="copyright">© 2019</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

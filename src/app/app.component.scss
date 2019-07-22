@@ -5,3 +5,8 @@ body::-webkit-scrollbar-track-piece { background-color: #ffffff;}
 body::-webkit-scrollbar-thumb { height: 50px; background-color: #666; border-radius: 3px;}
 body::-webkit-scrollbar-corner { background-color: #999;}
 body::-webkit-resizer { background-color: #666;}
+
+.content {
+    width: 100%;
+    margin-top: 60px;
+}

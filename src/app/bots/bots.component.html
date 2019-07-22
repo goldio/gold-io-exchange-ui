@@ -1,0 +1,8 @@
+<div class="container" routerLink="">
+    <div class="inner-container">
+        <h1>TRADE-BOTS <a href="">VIEW ALL</a></h1>
+        <div class="bots-container">
+        <app-bot class="bot" *ngFor="let bot of bots" [bot]="bot"></app-bot>
+        </div>
+    </div>
+</div>

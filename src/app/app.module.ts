@@ -52,6 +52,15 @@ import { BalanceService } from './balance/services/balance.service';
 import { BalaceHistoryComponent } from './balance/components/balace-history/balace-history.component';
 import { SucessfullSentEmailPasswordComponent } from './auth/components/sucessfull-sent-email-password/sucessfull-sent-email-password.component';
 import { TvChartContainerComponent } from './tv-chart-container/tv-chart-container.component';
+import { MainComponent } from './main/main.component';
+import { EventsComponent } from './events/events.component';
+import { EventsService } from './events/model/events.service';
+import { CompetitionsComponent } from './competitions/competitions.component';
+import { BotsComponent } from './bots/bots.component';
+import { TradersComponent } from './traders/traders.component';
+import { CompetitionComponent } from './competitions/competition/competition.component';
+import { BotComponent } from './bots/bot/bot.component';
+import { TraderComponent } from './traders/trader/trader.component';
 
 
 
@@ -77,7 +86,15 @@ import { TvChartContainerComponent } from './tv-chart-container/tv-chart-contain
 		BalanceWithdrawalComponent,
 		BalaceHistoryComponent,
 		SucessfullSentEmailPasswordComponent,
-		TvChartContainerComponent
+		TvChartContainerComponent,
+		MainComponent,
+		EventsComponent,
+		CompetitionsComponent,
+		BotsComponent,
+		TradersComponent,
+		CompetitionComponent,
+		BotComponent,
+		TraderComponent
 	],
 	imports: [
 		BrowserModule,
@@ -99,7 +116,7 @@ import { TvChartContainerComponent } from './tv-chart-container/tv-chart-contain
 		MalihuScrollbarModule.forRoot(),
 		RouterModule.forRoot(
 			[
-				{ path: '', redirectTo: 'index', pathMatch: 'full' },
+				{ path: '', redirectTo: 'main', pathMatch: 'full' },
 				{
 					path: 'authorization', component: AuthorizationComponent,
 					data: {
@@ -121,6 +138,7 @@ import { TvChartContainerComponent } from './tv-chart-container/tv-chart-contain
 				{ path: 'apiKeys', component: ApiKeysComponent },
 				{ path: 'security', component: SecurityComponent },
 				{ path: 'index', component: IndexComponent },
+				{ path: 'main', component: MainComponent },
 				{ path: 'activation', component: ActivationComponent },
 				{ path: 'balanceDeposit', component: BalanceDepositComponent },
 				{ path: 'balanceWithdrawal', component: BalanceWithdrawalComponent },
@@ -171,7 +189,8 @@ import { TvChartContainerComponent } from './tv-chart-container/tv-chart-contain
 		ActivityService,
 		StorageService,
 		BalanceService,
-		{ provide: LocationStrategy, useClass: HashLocationStrategy }
+		{ provide: LocationStrategy, useClass: HashLocationStrategy },
+		EventsService
 	],
 	bootstrap: [AppComponent]
 })

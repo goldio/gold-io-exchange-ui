@@ -226,7 +226,7 @@ export class IndexComponent extends BaseLayoutComponent implements OnInit {
 				if (!value) {
 					return;
 				}
-
+				
 				const price = this.tradeForm.value['price'] || 0;
 				const amount = this.tradeForm.controls['amount'];
 
