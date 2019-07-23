@@ -54,7 +54,9 @@
     #user{
       padding-left: 60px;
     }
-
+    .lang-switch-container {
+        display: none;
+    }
 }
 @media screen and (max-width: 600px) {
     .exchanger-header-nav li a{

@@ -53,3 +53,10 @@ a {
         width: 100%;
     }
 }
+
+@media screen and (max-width: 600px) {
+    .traders-container {
+        height: 88%;
+        margin-bottom: 0;
+    }
+}
