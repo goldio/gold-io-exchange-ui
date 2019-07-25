@@ -88,7 +88,7 @@ export class HeaderComponent implements OnInit {
 		this.menu = false;
 	}
 
-	public lang:string = "../assets/images/en.svg";
+	public lang:string = "/assets/images/en.svg";
 	public selectFlag(option:string) {
 		if (option == 'en') {
 			this.lang = "/src/assets/images/en.svg";

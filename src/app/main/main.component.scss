@@ -25,8 +25,8 @@ $goldColor: #D1C275;
 .main-header {
     width: 100%;
     height: 338px;
+    background: linear-gradient(#0f1e2f 0%, #101e2c 100%);
     @extend %display-flex-column;
-    // position: absolute;
 }
 
 .heading-container {
@@ -122,12 +122,13 @@ $goldColor: #D1C275;
     position: relative;
 }
 
+// #192534 #202231
 .main-content-container {
     width: 100%;
     height: 600px;
     @extend %display-flex-column;
     position: relative;
-    background-color: #171624;
+    background: linear-gradient(45deg, #1a1f2c, #182634);
     color: #FFFFFF;
     .content-container {
         width: 100%;
@@ -158,9 +159,9 @@ $goldColor: #D1C275;
 
 .main-footer {
     width: 100%;
-    height: 7%;
-    padding-bottom: 40px;
+    height: 10%;
     @extend %display-flex-row;
+    align-items: flex-start;
     justify-content: space-around;
     font-size: 12px;
     line-height: 14px;
@@ -189,6 +190,29 @@ $goldColor: #D1C275;
     }
     .copyright {
         color: #4D5364;
+    }
+}
+
+// 
+// 2K>
+// 
+
+@media screen and (min-width: 2200px) {
+    .events-container {
+        min-width: 72%;
+        width: 72%;
+    }
+    .main-content-container {
+        .content-container {
+            width: 75%;
+            // background: #171624;
+        }
+    }
+    .main-header_buttons-container {
+        width: 65%;
+    }
+    .main-footer {
+        width: 75%;
     }
 }
 

@@ -1,12 +1,16 @@
 .exchanger-header {
-    background: transparent;
+    background: #0f1d2f;
 }
 
 .lang-switch-container {
     position: absolute;
     right: 30px;
     bottom: 15px;
+    form {
+        width: 100px;
+    }
     label {
+        width: 100%;
         position: relative;
         img {
             position: absolute;
@@ -15,6 +19,7 @@
         }
     }
     select {
+        width: 100%;
         padding: 5px;
         padding-left: 25px;
         background: transparent;
@@ -25,10 +30,6 @@
         option {
             background-color: rgba(0, 0, 0, 0.2);
             cursor: pointer;
-        }
-        option[value="en"] {
-            background: url('/src/assets/images/en.svg');
-            background-size: cover;
         }
     }
 }

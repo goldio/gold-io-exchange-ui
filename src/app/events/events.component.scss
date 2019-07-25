@@ -72,6 +72,39 @@
     }
 }
 
+@media screen and (min-width: 1600px) and (max-width: 1730px) {
+    .container {
+        left: -50px;
+    }
+    @keyframes slider {
+        from {}
+        25% { transform: translateX(50px) }
+        50% {}
+        75% { transform: translateX(-50px) } 
+        to {}
+    }
+}
+
+@media screen and (min-width: 1730px) and (max-width: 1800px) {
+    .container {
+        left: -5px;
+        animation: none;
+    }
+}
+
+// 
+// 2K>
+// 
+
+@media screen and (min-width: 2200px) {
+    .container {
+        position: initial;
+        left: 0;
+        min-width: 100%;
+        width: 100%;
+    }
+}
+
 // 
 // Mobile styles
 // 
