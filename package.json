@@ -30,7 +30,7 @@
     "highcharts": "^7.0.2",
     "highcharts-angular": "^2.4.0",
     "highcharts-more": "^0.1.7",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "jqwidgets-scripts": "^6.1.0",
     "moment": "^2.22.2",
     "ngx-malihu-scrollbar": "^7.0.0",
