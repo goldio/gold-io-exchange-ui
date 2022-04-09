@@ -32,7 +32,7 @@
     "highcharts-more": "^0.1.7",
     "jquery": "^3.3.1",
     "jqwidgets-scripts": "^6.1.0",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "ngx-malihu-scrollbar": "^7.0.0",
     "ngx-qrcode2": "0.0.9",
     "rxjs": "~6.3.3",
